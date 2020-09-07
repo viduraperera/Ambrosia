@@ -82,7 +82,22 @@ def teashopHomepage (request):
 @login_required(login_url='login')
 def EmployeeHome (request):
 
-    return render(request, 'EmployeeManagement.html')
+    return render(request, 'attendance_management.html')
+
+@login_required(login_url='login')
+def staff_management (request):
+
+    return render(request, 'staff_management.html')
+
+@login_required(login_url='login')
+def factoryworkers_management(request):
+
+    return render(request, 'factoryworkers_management.html')
+
+@login_required(login_url='login')
+def markAttendance(request):
+
+    return render(request, 'mark_attendance.html')
 
 @login_required(login_url='login')
 def ShowUser(request):
@@ -142,3 +157,5 @@ def DeleteUser(request):
 
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
+
+

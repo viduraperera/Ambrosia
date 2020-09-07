@@ -14,7 +14,10 @@ urlpatterns = [
     path('Factory', views.factoryHomepage, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome")
+    path('Factory/EmployeeHome', views.EmployeeHome, name="attendance_management"),
+    path('Factory/EmployeeHome/markAttendance', views.markAttendance, name="mark_attendance"),
+    path('Factory/EmployeeHome/staff_management', views.staff_management, name="staff_management"),
+    path('Factory/EmployeeHome/factoryworkers_management', views.factoryworkers_management, name="factoryworkers_management"),
 
 
 ]
