@@ -1,7 +1,10 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 # Create your models here.
+
+
 class Broker(models.Model):
     name = models.CharField(max_length=50)
     address = models.TextField(null=True)
@@ -11,6 +14,26 @@ class Broker(models.Model):
 class Buyer(models.Model):
     vat_regno = models.CharField(max_length=30)
     name = models.CharField(max_length=50)
+
+
+class Funds(models.Model):
+    date = models.DateField(default=datetime.now)
+    emp_etf = models.FloatField()
+    epf_employee = models.FloatField()
+    epf_employer = models.FloatField()
+
+    class Meta:
+        db_table = "funds"
+
+
+class Allowance(models.Model):
+    allowance_by_price = models.FloatField()
+    incentive_1 = models.FloatField()
+    incentive_2 = models.FloatField()
+
+    class Meta:
+        db_table = "allowance"
+
 
 
 class Supplier(models.Model):
