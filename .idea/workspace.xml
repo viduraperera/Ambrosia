@@ -18,7 +18,21 @@
     </expand>
     <select />
   </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
   <component name="ChangeListManager">
+    <list default="true" id="8b1437c5-123e-47ac-adb1-b44b41718d72" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/employee_salary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/add_allowance.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_allowance.html" afterDir="false" />
+    </list>
     <list default="true" id="8b1437c5-123e-47ac-adb1-b44b41718d72" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0001_initial.py" beforeDir="false" />
@@ -54,6 +68,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1hBiBiPE44UHwZ2DycbGqQfIze6" />
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
@@ -69,10 +97,14 @@
   <component name="ProjectId" id="1hAX5qe38eCz0iEHWyjEmoEm4Wh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images" />
@@ -85,10 +117,19 @@
       <recent name="C:\Users\M\Desktop\ITProject\ITProject\templates" />
       <recent name="C:\Users\M\Desktop\ITProject\ITProject\Ambrosia_Project" />
     </key>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../testDBconnection" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RunManager">
-    <configuration name="ITProject" type="Python.DjangoServer" factoryName="Django server">
-      <module name="ITProject" />
+    <configuration name="Ambrosia" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Ambrosia" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -112,11 +153,13 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="" />
-      <created>1599454689959</created>
+      <changelist id="8b1437c5-123e-47ac-adb1-b44b41718d72" name="Default Changelist" comment="" />
+      <created>1599476587367</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599476587367</updated>
@@ -148,11 +191,68 @@
       <workItem from="1599454691978" duration="20000" />
       <workItem from="1599454728701" duration="1762000" />
       <workItem from="1599459519399" duration="24817000" />
+      <updated>1599476587367</updated>
+      <workItem from="1599476594258" duration="6000" />
+      <workItem from="1599490755568" duration="8373000" />
     </task>
+    <task id="LOCAL-00001" summary="vup renter migrations">
+      <created>1599478794180</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599478794180</updated>
+    </task>
+    <task id="LOCAL-00002" summary="vup renter migrations">
+      <created>1599479926091</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599479926091</updated>
+    </task>
+    <task id="LOCAL-00003" summary="adding allowance class and migrating">
+      <created>1599494216175</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1599494216175</updated>
+    </task>
+    <task id="LOCAL-00004" summary="vup add allowance table and the path">
+      <created>1599496209838</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1599496209838</updated>
+    </task>
+    <task id="LOCAL-00005" summary="vup add add_allowance.html and set path">
+      <created>1599497399054</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1599497399054</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="vup renter migrations" />
+    <MESSAGE value="adding allowance class and migrating" />
+    <MESSAGE value="vup add allowance table and the path" />
+    <MESSAGE value="vup add add_allowance.html and set path" />
+    <option name="LAST_COMMIT_MESSAGE" value="vup add add_allowance.html and set path" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -187,9 +287,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="vup add add_allowance.html and set path" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1599456092315">
+    <state x="393" y="5" key="CommitChangelistDialog2" timestamp="1599497397872">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="393" y="5" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1599497397872" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1599495304839">
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599456092315" />
     <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1599478618110">
       <screen x="0" y="0" width="1536" height="824" />
@@ -198,14 +300,20 @@
     <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1599478618110">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599495304839" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1599481640670">
     <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599478618110" />
     <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1599478618110">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599481640670" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1599481640670">
     <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599478618110" />
     <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1599478618110">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599481640670" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1599481640670">
     <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599481640670" />
     <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1599481640670">
       <screen x="0" y="0" width="1536" height="824" />
@@ -221,5 +329,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599514684705" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599481640670" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1599481640670">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599481640670" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1599490766903">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1599490766903" />
   </component>
 </project>

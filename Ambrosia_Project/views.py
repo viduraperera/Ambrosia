@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
+from Ambrosia_Project.models import *
+from Ambrosia_Project.forms import *
 # Create your views here.
 
 
@@ -132,7 +133,7 @@ def DeleteUser(request):
 
     if request.method == 'POST' and uname != None:
         user = User.objects.get(username=uname)
-        user.delete();
+        user.delete()
         messages.success(request, "User Deleted Successfully")
         return redirect('view_all_users')
 
@@ -157,6 +158,110 @@ def addteapackets (request):
 def preorderlevel (request):
 
     return render(request, 'preorderlevel.html')
+    # messages.error(request, "Error.Can't Delete User.")
+    # return redirect('view_all_users')
+
+
+def emp_fund_view(request):
+    funds = Funds.objects.all()
+    return render(request, "funds_table.html", {'funds': funds})
+
+
+def emp_funds_add(request):
+    form = FundFrom()
+
+    if request.method == 'POST':
+        form = FundFrom(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/emp_fund_view')
+            except:
+                pass
+    var = {'forms': form}
+    return render(request, 'add_funds.html', var)
+
+
+def emp_funds_delete(request, id):
+    funds = Funds.objects.get(pk=id)
+    funds.delete()
+    return redirect('/emp_fund_view')
+
+
+def emp_allowance(request):
+    allowance = Allowance.objects.all()
+    return render(request, "allowance.html", {'allowance': allowance})
+
+
+def emp_allowance_add(request):
+    allowance = AllowanceForm()
+    if request.method == 'POST':
+        allowance = AllowanceForm(request.POST)
+        if allowance.is_valid():
+            try:
+                allowance.save()
+                return redirect('/emp_allowance')
+            except:
+                pass
+    var = {'allowance': allowance}
+    return render(request, 'add_allowance.html', var)
+
+
+#Navigate from Admin home to Registered Suppliers List
+@login_required(login_url='login')
+def to_reg_suppliers(request):
+
+    return render(request, 'AllRegisteredSuppliers.html')
+
+
+#Navigate from Registered Suppliers List to Registration Form
+@login_required(login_url='login')
+def to_sup_registration(request):
+
+    return render(request, 'SupRegistration.html')
+
+
+#Navigate from Registered Suppliers List to View Supplier Profile
+@login_required(login_url='login')
+def to_sup_profile(request):
+
+    return render(request, 'ViewSupplierProfile.html')
+
+
+#Navigate from Supplier Profile to Edit Supplier
+@login_required(login_url='login')
+def to_edit_profile(request):
+
+    return render(request, 'EditSupplier.html')
+
+
+#Navigate from Registered Suppliers List to Stock Details
+@login_required(login_url='login')
+def to_stock_details(request):
+
+    return render(request, 'StockDetails.html')
+
+
+#Navigate from Stock Details to Add Leaf Stock
+@login_required(login_url='login')
+def to_leaf_stock(request):
+
+    return render(request, 'LeafStock.html')
+
+
+#Navigate from Stock Details to View Stock Details
+@login_required(login_url='login')
+def to_view_stock_details(request):
+    # var = LeafStock.objects.select_related('supplier_id').get(pk=1)
+    return render(request, 'ViewLeafStock.html')
+
+
+#Navigate from Registered Suppliers List to Payments
+@login_required(login_url='login')
+def to_payments(request):
+
+    return render(request, 'SupPayments.html')
+
 
 @login_required(login_url='login')
 def inventoryreports (request):
