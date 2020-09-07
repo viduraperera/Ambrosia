@@ -121,8 +121,8 @@ def UpdateUser(request):
         messages.error(request, "Can't Update Details.")
         return redirect('view_all_users')
 
-    messages.error(request, "Error.Can't Update Details.")
-    return redirect('view_all_users')
+    # messages.error(request, "Error.Can't Update Details.")
+    # return redirect('view_all_users')
 
 
 @login_required(login_url='login')
@@ -140,5 +140,40 @@ def DeleteUser(request):
         messages.error(request, "Can't Delete User.")
         return redirect('view_all_users')
 
-    messages.error(request, "Error.Can't Delete User.")
-    return redirect('view_all_users')
+    # messages.error(request, "Error.Can't Delete User.")
+    # return redirect('view_all_users')
+
+@login_required(login_url='login')
+def inventoryhome (request):
+
+    return render(request, 'inventoryhome.html')
+
+@login_required(login_url='login')
+def addteapackets (request):
+
+    return render(request, 'addteapackets.html')
+
+@login_required(login_url='login')
+def preorderlevel (request):
+
+    return render(request, 'preorderlevel.html')
+
+@login_required(login_url='login')
+def inventoryreports (request):
+    return render(request, 'inventoryreports.html')
+
+@login_required(login_url='login')
+def iweekly (request):
+    return render(request, 'iweekly.html')
+
+@login_required(login_url='login')
+def inventorymonthlyreport (request):
+    return render(request, 'inventorymonthlyreport.html')
+
+@login_required(login_url='login')
+def inventoryannualreport (request):
+    return render(request, 'inventoryannualreport.html')
+
+@login_required(login_url='login')
+def editpackets (request):
+    return render(request, 'editpackets.html')

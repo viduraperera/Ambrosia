@@ -14,8 +14,16 @@ urlpatterns = [
     path('Factory', views.factoryHomepage, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome")
+    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
+    path('Shop/InventoryHome', views.inventoryhome, name="inventoryhome"),
+    path('Shop/InventoryHome/addteapackets', views.addteapackets, name="addteapackets"),
+    path('Shop/InventoryHome/preorderlevel', views.preorderlevel, name="preorderlevel"),
+    path('Shop/InventoryHome/inventoryreports', views.inventoryreports, name="inventoryreports"),
+    path('Shop/InventoryHome/inventoryreports/weeklyreport', views.iweekly, name="iweekly"),
+    path('Shop/InventoryHome/inventoryreports/inventorymonthlyreport', views.inventorymonthlyreport, name="monthlyreport"),
+    path('Shop/InventoryHome/inventoryreports/inventoryannualreport', views.inventoryannualreport, name="annualreport"),
+    path('Shop/InventoryHome/addteapackets/editpackets', views.editpackets, name="editpackets"),
 
 ]
 
