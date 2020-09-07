@@ -50,7 +50,7 @@ body {font-size:16px;}
     <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
   </div>
     <div>
-    <form method="POST" class="post-form" action="{% url 'emp_funds_add' %}">
+    <form method="POST" class="post-form" action="{% url 'emp_allowance_add' %}">
             {% csrf_token %}
         <div class="container">
 <br>
@@ -64,49 +64,37 @@ body {font-size:16px;}
                 <tr>
                     <td>
                         <div class="form-group row">
-                        <label class="col-sm-l col-form-label">Date:</label>
+                        <label class="col-sm-l col-form-label">Allowance By Price:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ forms.date }}
+                        {{ allowance.allowance_by_price}}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="form-group row">
-                            <label class="col-sm-l col-form-label">ETF:</label>
+                            <label class="col-sm-l col-form-label">Incentive 1:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ forms.emp_etf }}
+                        {{ allowance.incentive_1 }}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="form-group row">
-                        <label class="col-sm-l col-form-label">EPF Employee:</label>
+                        <label class="col-sm-l col-form-label">incentive 2:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ forms.epf_employee }}
+                        {{ allowance.incentive_2 }}
                 </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group row">
-                        <label class="col-sm-l col-form-label">EPF Employer:</label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-sm-4">
-                         {{ forms.epf_employer }}
-                        </div>
                     </td>
                 </tr>
             </table>

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from Ambrosia_Project.models import Funds
+from Ambrosia_Project.models import *
 
 
 class CreateUserForm(UserCreationForm):
@@ -18,5 +18,5 @@ class FundFrom(forms.ModelForm):
 
 class AllowanceForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = Allowance
         fields = '__all__'
