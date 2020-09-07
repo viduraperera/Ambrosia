@@ -175,3 +175,16 @@ def emp_allowance(request):
     allowance = Allowance.objects.all()
     return render(request, "allowance.html", {'allowance': allowance})
 
+
+def emp_allowance_add(request):
+    allowance = AllowanceForm()
+    if request.method == 'POST':
+        allowance = AllowanceForm(request.POST)
+        if allowance.is_valid():
+            try:
+                allowance.save()
+                return redirect('/emp_allowance')
+            except:
+                pass
+    var = {'allowance': allowance}
+    return render(request, 'add_allowance.html', var)
