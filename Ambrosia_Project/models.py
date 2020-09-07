@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 # Create your models here.
@@ -16,5 +17,11 @@ class Buyer(models.Model):
 
 
 class Funds(models.Model):
-    date = models.DateField(input_formats=['%d/%m/%Y'])
-    emp_
+    date = models.DateField(default=datetime.now)
+    emp_epf = models.FloatField()
+    etf_employee = models.FloatField()
+    etf_employer = models.FloatField()
+
+
+class Meta:
+    db_table = "funds"
