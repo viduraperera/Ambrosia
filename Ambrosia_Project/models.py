@@ -24,3 +24,4 @@ class Funds(models.Model):
 
     class Meta:
         db_table = "funds"
+

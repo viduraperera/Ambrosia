@@ -9,22 +9,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b1437c5-123e-47ac-adb1-b44b41718d72" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Ambrosia.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ITProject.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="8b1437c5-123e-47ac-adb1-b44b41718d72" name="Default Changelist" comment="vup renter migrations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0002_funds.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0003_auto_20200907_1531.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ITProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ITProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/EmployeeManagement.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/EmployeeManagement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/add_funds.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/add_funds.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/funds_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/funds_table.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,12 +80,28 @@
       <updated>1599476587367</updated>
       <workItem from="1599476594258" duration="6000" />
     </task>
+    <task id="LOCAL-00001" summary="vup renter migrations">
+      <created>1599478794180</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599478794180</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="vup renter migrations" />
+    <option name="LAST_COMMIT_MESSAGE" value="vup renter migrations" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="393" y="5" key="CommitChangelistDialog2" timestamp="1599478792939">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="393" y="5" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1599478792939" />
     <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1599478410050">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
