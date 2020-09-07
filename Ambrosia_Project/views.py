@@ -142,3 +142,5 @@ def DeleteUser(request):
 
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
+
+
