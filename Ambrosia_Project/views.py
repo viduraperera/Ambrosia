@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from Ambrosia_Project.models import Funds
-from Ambrosia_Project.forms import FundFrom
+from Ambrosia_Project.models import *
+from Ambrosia_Project.forms import *
 # Create your views here.
 
 
@@ -169,3 +169,9 @@ def emp_funds_delete(request, id):
     funds = Funds.objects.get(pk=id)
     funds.delete()
     return redirect('/emp_fund_view')
+
+
+def emp_allowance(request):
+    allowance = Allowance.objects.all()
+    return render(request, "allowance.html", {'allowance': allowance})
+

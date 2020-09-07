@@ -14,4 +14,9 @@ class FundFrom(forms.ModelForm):
     class Meta:
         model = Funds
         fields = '__all__'
-        # field_classes = {'emp_epf': forms.CharField}
+
+
+class AllowanceForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'

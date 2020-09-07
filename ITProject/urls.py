@@ -30,6 +30,7 @@ urlpatterns = [
     path('emp_fund_view/', views.emp_fund_view, name="emp_fund_view"),
     path('emp_funds_add/', views.emp_funds_add, name="emp_funds_add"),
     path('emp_funds_delete<int:id>/', views.emp_funds_delete),
+    path('emp_allowance/', views.emp_allowance, name="emp_allowance")
 
 
 ]
