@@ -25,3 +25,11 @@ class Funds(models.Model):
     class Meta:
         db_table = "funds"
 
+
+class Allowance(models.Model):
+    allowance_by_price = models.FloatField()
+    incentive_1 = models.FloatField()
+    incentive_2 = models.FloatField()
+
+    class Meta:
+        db_table = "allowance"
