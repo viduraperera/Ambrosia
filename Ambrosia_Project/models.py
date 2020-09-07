@@ -18,9 +18,9 @@ class Buyer(models.Model):
 
 class Funds(models.Model):
     date = models.DateField(default=datetime.now)
-    emp_epf = models.FloatField()
-    etf_employee = models.FloatField()
-    etf_employer = models.FloatField()
+    emp_etf = models.FloatField()
+    epf_employee = models.FloatField()
+    epf_employer = models.FloatField()
 
     class Meta:
         db_table = "funds"

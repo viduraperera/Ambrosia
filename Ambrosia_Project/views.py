@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
+from Ambrosia_Project.models import Funds
+from Ambrosia_Project.forms import FundFrom
 # Create your views here.
 
 
@@ -132,7 +133,7 @@ def DeleteUser(request):
 
     if request.method == 'POST' and uname != None:
         user = User.objects.get(username=uname)
-        user.delete();
+        user.delete()
         messages.success(request, "User Deleted Successfully")
         return redirect('view_all_users')
 
@@ -140,7 +141,31 @@ def DeleteUser(request):
         messages.error(request, "Can't Delete User.")
         return redirect('view_all_users')
 
-    messages.error(request, "Error.Can't Delete User.")
-    return redirect('view_all_users')
+    # messages.error(request, "Error.Can't Delete User.")
+    # return redirect('view_all_users')
 
 
+def emp_fund_view(request):
+    funds = Funds.objects.all()
+    return render(request, "funds_table.html", {'funds': funds})
+
+
+def emp_funds_add(request):
+    form = FundFrom()
+
+    if request.method == 'POST':
+        form = FundFrom(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/emp_fund_view')
+            except:
+                pass
+    var = {'forms': form}
+    return render(request, 'add_funds.html', var)
+
+
+def emp_funds_delete(request, id):
+    funds = Funds.objects.get(pk=id)
+    funds.delete()
+    return redirect('/emp_fund_view')

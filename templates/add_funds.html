@@ -1,7 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
-    {% load static %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
@@ -62,26 +62,28 @@ body {font-size:16px;}
             </div>
             <div class="form-group row">
                 <label class="col-sm-l col-form-label">Date:</label>
+
                 <div class="col-sm-4">
-                    {{ form.fund_date }}
+                    {{ forms.date }}
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-l col-form-label">ETF:</label>
                 <div class="col-sm-4">
-                    {{ form.fund_etf }}
+                    {{ forms.emp_etf }}
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-l col-form-label">EPF Employee:</label>
                 <div class="col-sm-4">
-                    {{ form.epf_employee }}
+                    {{ forms.epf_employee }}
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-l col-form-label">EPF Employer:</label>
+                {{ forms.epf_employer }}
                 <div class="col-sm-4">
-                    {{ form.epf_employer }}
+
                 </div>
             </div>
             <div class="form-group row">
