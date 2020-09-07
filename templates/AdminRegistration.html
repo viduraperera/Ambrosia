@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Admin Registration</title>
+    <link rel="stylesheet" href="{% static 'css/nicepage.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'css/AdminRegistration.css' %}" media="screen">
+{#    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>#}
+{#    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>#}
+    
+    
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <script type="application/ld+json">{
+		"@context": "",
+		"@type": "Organization",
+		"name": "",
+		"url": "{% url 'home' %}",
+		"logo": "{% static 'images/logo.png'%}"
+}</script>
+    <meta property="og:title" content="Admin Registration">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#478ac9">
+    <link rel="canonical" href="index.html">
+    <meta property="og:url" content="index.html">
+
+      <style>
+          .u-section-1 {background-image: linear-gradient(0deg, rgba(26,26,26,0.5), rgba(26,26,26,0.5)),
+          url("{%  static 'images/adminregister.jpg' %}"); background-position: 50% 50%}
+      </style>
+
+  </head>
+  <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-edb0"><div class="u-clearfix u-sheet u-sheet-1">
+        <a href="{% url 'home' %}" class="u-image u-logo u-image-1">
+          <img src="{% static 'images/logo.png'%}" class="u-logo-image u-logo-image-1">
+        </a>
+      </div></header>
+    <section class="u-clearfix u-hidden-lg u-image u-shading u-section-1" id="carousel_19e9" data-image-width="4280" data-image-height="2835">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <div class="u-border-no-bottom u-border-no-left u-border-no-right u-border-no-top u-container-style u-expanded-width u-group u-group-1">
+          <div class="u-container-layout u-container-layout-1">
+            <h3 class="u-align-center u-text u-text-1">Admin<br>Registration
+            </h3>
+            <div class="u-form u-form-1">
+
+                <form method="POST" action="{% url 'register' %}" class="u-block-eb77-7 u-clearfix u-form-spacing-15 u-form-vertical u-inner-form">
+                    {% csrf_token %}
+
+                <div class="u-form-group u-form-name u-form-group-1">
+                  <label for="name-689c" class="u-form-control-hidden u-label">{{ form.username.label }}</label>
+
+                  <input type="text" placeholder="Username" id="name-689c" name="username" class="u-border-2 u-border-radius-13 u-border-white u-input u-input-round u-text-body-alt-color" required="">
+                </div>
+
+                <div class="u-form-email u-form-group u-form-group-2">
+                  <label for="email-689c" class="u-form-control-hidden u-label">{{ form.password1.label }}</label>
+                  <input type="password" placeholder="password" id="email-689c" name="password" class="u-border-2 u-border-radius-13 u-border-white u-input u-input-round u-text-body-alt-color" required>
+                </div>
+
+                 <div class="u-form-email u-form-group u-form-group-2">
+                  <label for="email-689c" class="u-form-control-hidden u-label">{{ form.password2.label }}</label>
+                  <input type="password" placeholder="password" id="email-689c" name="password" class="u-border-2 u-border-radius-13 u-border-white u-input u-input-round u-text-body-alt-color" required>
+                </div>
+
+{#                <div class="u-form-group u-form-select u-form-group-3">#}
+{#                  <label for="select-a709" class="u-form-control-hidden u-label">Select</label>#}
+{#                  <div class="u-form-select-wrapper">#}
+{#                    <select id="select-a709" name="select" class="u-border-2 u-border-radius-13 u-border-white u-input u-input-round u-text-body-alt-color">#}
+{#                      <option value="Main admin">Main admin</option>#}
+{#                      <option value="Tea shop admin">Tea shop admin</option>#}
+{#                    </select>#}
+{#                  </div>#}
+{#                </div>#}
+                <div class="u-align-center u-form-group u-form-submit u-form-group-4">
+                  <input type="submit" value="Add User" class="u-btn u-btn-submit u-button-style u-custom-color-3 u-text-grey-90 u-btn-1">
+                </div>
+
+              </form>
+                    {% if form.errors %}
+                    <div class="errorDisplay" style="background-color: #f1f1f1">
+                      <h4 style="color: red; padding: 10px;">{{ form.errors }}</h4>
+                    </div>
+                    {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  </body>
+</html>
