@@ -22,6 +22,5 @@ class Funds(models.Model):
     etf_employee = models.FloatField()
     etf_employer = models.FloatField()
 
-
-class Meta:
-    db_table = "funds"
+    class Meta:
+        db_table = "funds"
