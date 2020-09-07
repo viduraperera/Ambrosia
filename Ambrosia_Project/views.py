@@ -170,6 +170,62 @@ def emp_fund_view(request):
 def emp_funds_add(request):
     form = FundFrom()
 
+
+
+@login_required(login_url='login')
+def SalesHomeIncome(request):
+
+    return render(request, 'SalesHomeIncome.html')
+
+@login_required(login_url='login')
+def SalesHomeMonthlyIncome(request):
+
+    return render(request, 'SalesHomeMonthlyIncome.html')
+
+@login_required(login_url='login')
+def SalesHomeAnnuallyIncome(request):
+
+    return render(request, 'SalesHomeAnnuallyIncome.html')
+
+@login_required(login_url='login')
+def SalesCreateInvoice(request):
+
+    return render(request, 'SalesCreateInvoice.html')
+@login_required(login_url='login')
+def SalesTransaction(request):
+
+    return render(request, 'SalesTransaction.html')
+
+@login_required(login_url='login')
+def SalesViewBill(request):
+
+    return render(request, 'SalesViewBill.html')
+
+
+@login_required(login_url='login')
+def SalesPriceTable(request):
+
+    return render(request, 'SalesPriceTable.html')
+
+@login_required(login_url='login')
+def SalesPriceTableDUST1(request):
+
+    return render(request, 'SalesPriceTableDUST1.html')
+
+
+@login_required(login_url='login')
+def SalesPriceTableDUST2(request):
+
+    return render(request, 'SalesPriceTableDUST2.html')
+@login_required(login_url='login')
+
+def SalesPriceTableDUST3(request):
+
+    return render(request, 'SalesPriceTableDUST3.html')
+
+def SalesPriceTableFGS(request):
+
+    return render(request, 'SalesPriceTableFGS.html')
     if request.method == 'POST':
         form = FundFrom(request.POST)
         if form.is_valid():

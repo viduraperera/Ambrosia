@@ -15,6 +15,8 @@ class Buyer(models.Model):
     vat_regno = models.CharField(max_length=30)
     name = models.CharField(max_length=50)
 
+
+
 class packetType(models.Model):
     packet_weight_id = models.CharField(max_length=10)
     weight = models.CharField(max_length=10)

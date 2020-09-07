@@ -90,6 +90,14 @@
 <!-- Card Group end-->
 
     <script>
+        {#function navigatepage1()#}
+        {#{#}
+        {#    window.location.href = "{% url 'factory_home' %}"#}
+{#        }#}
+        function navigatepage2()
+        {
+            window.location.href = "{% url 'SalesHomeIncome' %}"
+        }
         function navigatepage1()
         {
             window.location.href = "{% url 'inventoryhome' %}"

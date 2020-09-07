@@ -15,6 +15,11 @@ urlpatterns = [
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+
+    path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
+    path('Shop/SalesHomeIncome/SalesHomeMonthlyIncome', views.SalesHomeMonthlyIncome, name="SalesHomeMonthlyIncome"),
+    path('Shop/SalesHomeIncome/SalesHomeAnnuallyIncome', views.SalesHomeAnnuallyIncome, name="SalesHomeAnnuallyIncome"),
+    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
     path('Factory/S_AllRegisteredSuppliers', views.to_reg_suppliers, name="S_AllRegisteredSuppliers"),
@@ -35,6 +40,19 @@ urlpatterns = [
     path('Shop/InventoryHome/inventoryreports/inventorymonthlyreport', views.inventorymonthlyreport, name="monthlyreport"),
     path('Shop/InventoryHome/inventoryreports/inventoryannualreport', views.inventoryannualreport, name="annualreport"),
     path('Shop/InventoryHome/addteapackets/editpackets', views.editpackets, name="editpackets"),
+
+    path('Shop/SalesHomeIncome/SalesCreateInvoice', views.SalesCreateInvoice, name="SalesCreateInvoice"),
+    path('Shop/SalesHomeIncome/SalesCreateInvoice/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
+
+
+    path('Shop/SalesHomeIncome/SalesTransaction', views.SalesTransaction, name="SalesTransaction"),
+    path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
+
+    path('Shop/SalesHomeIncome/SalesPriceTable', views.SalesPriceTable, name="SalesPriceTable"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1', views.SalesPriceTableDUST1, name="SalesPriceTableDUST1"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST2', views.SalesPriceTableDUST2, name="SalesPriceTableDUST2"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST3', views.SalesPriceTableDUST3, name="SalesPriceTableDUST3"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS', views.SalesPriceTableFGS, name="SalesPriceTableFGS"),
 
 ]
 
