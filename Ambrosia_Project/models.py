@@ -10,3 +10,4 @@ class Broker(models.Model):
 class Buyer(models.Model):
     vat_regno = models.CharField(max_length=30)
     name = models.CharField(max_length=50)
+
