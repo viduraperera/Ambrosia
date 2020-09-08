@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
-
-<title>W3.CSS Template</title>
+<title>test templete</title>
+    {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -21,20 +20,20 @@ body {font-size:16px;}
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
-    <h3 class="w3-padding-64"><b>Ambroisa<br></b></h3>
+    <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
   </div>
   <div class="w3-bar-block">
     <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
     <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
     <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
   </div>
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+<header class="w3-container w3-top w3-hide-large w3-green w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-green w3-margin-right" onclick="w3_open()">☰</a>
   <span>Company Name</span>
 </header>
 
@@ -46,11 +45,38 @@ body {font-size:16px;}
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Amborisa</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Employee Salary.</b></h1>
+    <h1 class="w3-jumbo"><b>Ambrosia</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>Allowance</b></h1>
     <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
   </div>
 
+ <div>
+     <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+         <tr>
+             <th>Allowance_ID</th>
+             <th>Allowance By Price</th>
+             <th>Incentive 1</th>
+             <th>Incentive 2</th>
+         </tr>
+        </thead>
+        {% for allowance in allowance%}
+        <tr>
+            <td>{{ allowance.id }}</td>
+            <td>{{ allowance.allowance_by_price }}</td>
+            <td>{{ allowance.incentive_1 }}</td>
+            <td>{{ allowance.incentive_2}}</td>
+            <td>
+                <a href="/emp_funds_edit{{ allowance.id }}" class="btn btn-success">Edit</a>
+                <a href="/emp_funds_delete{{ allowance.id }}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+ </div>
+    <div>
+         <a href="{% url 'emp_allowance_add' %}" class="btn btn-primary btn-lg">Add New Allowance</a>
+    </div>
 <!-- End page content -->
 </div>
 

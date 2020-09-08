@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
-
 <title>W3.CSS Template</title>
+<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <style>
@@ -14,21 +12,73 @@ body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 </style>
+<head>
+<script type="text/javascript">
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light1", // "light2", "dark1", "dark2"
+	animationEnabled: false, // change to true		
+	title:{
+		text: "Monthly Column Chart"
+	},
+	data: [
+	{
+		// Change type to "bar", "area", "spline", "pie",etc.
+		type: "column",
+		dataPoints: [
+			{ label: "BOPF-1Kg",  y: 10  },
+			{ label: "BOPF-500g",  y: 12  },
+			{ label: "BOPF-400g",  y: 20  },
+			{ label: "BOPF-250g",  y: 15  },
+			{ label: "DUST 1- 1Kg", y: 35  },
+			{ label: "DUST 1- 500g", y: 15  },
+			{ label: "DUST 1- 400g", y: 30  },
+			{ label: "DUST 1- 200g", y: 40  },
+			{ label: "DUST 2 - 1Kg", y: 18  },
+			{ label: "DUST 2 - 250g", y: 25  },
+			{ label: "FGS - 1Kg",  y: 30  },
+			{ label: "FGS - 500g",  y: 28  }
+		]
+	}
+	]
+});
+chart.render();
+
+}
+</script>
+</head>
 <body>
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
-    <h3 class="w3-padding-64"><b>Ambroisa<br></b></h3>
+      <img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
+    <h3 class="w3-padding-64"><b>Amborisa<br></b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+    <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="{% url 'addteapackets' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Add tea packets</a>
+    <a href="{% url 'preorderlevel' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pre-order Level</a>
+    <a href="{% url 'inventoryreports' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Reports</a>
   </div>
 </nav>
 
@@ -47,12 +97,39 @@ body {font-size:16px;}
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-jumbo"><b>Amborisa</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Employee Salary.</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>Factory Outlet</b></h1>
+	<h3><b>Monthly Report</b></h3>
     <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
   </div>
+ <!-- table -->
+<table>
+	<tr>
+		<th>Category</th>
+		<th>Weight</th>
+		<th>Number of packets</th>
+	</tr>
+	<tr>
+		<td>BOPF</td>
+		<td>200g</td>
+		<td>30</td>
+	</tr>
+	
+</table>
+<br><br>
+<!-- print button -->
+<div class="form-group">
+		<center>
+			<button type="button" class="btn btn-success">Print</button>
+		</center>
+	</div>
+	<br><br>
+	<!-- bar chart -->
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
 
 <!-- End page content -->
 </div>
+
 
 <!-- W3.CSS Container -->
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
@@ -63,7 +140,7 @@ function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
 }
-
+ 
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";

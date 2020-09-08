@@ -1,11 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
-
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
+<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -21,14 +18,13 @@ body {font-size:16px;}
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
-    <h3 class="w3-padding-64"><b>Ambroisa<br></b></h3>
+      <img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
+    <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">New Inventory</a>
+    <a href="{% url 'NavigateToPreInv' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Previous Inventories</a>
+
   </div>
 </nav>
 
@@ -47,8 +43,33 @@ body {font-size:16px;}
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-jumbo"><b>Amborisa</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Employee Salary.</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>Add Inventory.</b></h1>
     <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
+  </div>
+  <div>
+
+    <form>
+{#      <label for="Inventory_Id">Inventory Id:</label><br>#}
+{#      <input type="text" id="InventoryID" name="InventoryID" width="30%"><br><br>#}
+
+      <label for="Date"> In Date:</label><br>
+      <input type="date" id="Inv_date" name="Inv_date" width="30%"><br><br>
+      <label for="inTime">In time:</label><br>
+      <input type="Time" id="In_time" name="In_time" width="30%"><br><br>
+      <label for="Tray_ID">Tray Id:</label><br>
+      <input type="text" id="humidity" name="humidity" width="30%"><br><br>
+      <label for="Temparature">Temparature:</label><br>
+      <input type="text" id="temparature" name="temparature" width="30%"><br><br>
+      <label for="Stock_Weight">Stock weight (in kg):</label><br>
+      <input type="text" id="Stock_weight" name="Stock_weight" width="30%"><br><br>
+      <label for="Out_date">Out Date:</label><br>
+      <input type="date" id="out_date" name="out_date" width="30%"><br><br>
+      <label for="outTime">Out time:</label><br>
+      <input type="Time" id="Out_time" name="Out_time" width="30%"><br><br>
+      <br><br>
+      <button type="submit">Done</button>
+    </form>
+  
   </div>
 
 <!-- End page content -->
@@ -63,7 +84,7 @@ function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
 }
-
+ 
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
