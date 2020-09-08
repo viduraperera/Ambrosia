@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
+  <component name="BranchesTreeState">
     <expand>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
@@ -76,6 +80,21 @@
       <change beforePath="$PROJECT_DIR$/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/teashophome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teashophome.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/updateUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/updateUser.html" afterDir="false" />
+    </list>
+    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="attempt 1 done" />
+    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="add html files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/attendance_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/attendance_management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_employee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/employee_registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/employee_registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/factoryworkers_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/factoryworkers_management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mark_attendance.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mark_attendance.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/staff_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/staff_management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/view_employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/view_employee.html" afterDir="false" />
     </list>
     <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="Html created" />
     <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="">
@@ -171,6 +190,24 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="f3ab7658-f5f9-4b24-89bd-dc1de297dcbf" />
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="JupyterTrust" id="cea30b92-44d4-4d28-a80a-2180b07b7647" />
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
@@ -231,6 +268,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -238,6 +276,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Django/itp" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Confirmation" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -262,6 +308,8 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\M\Desktop\ITProject\ITProject\static\images" />
       <recent name="C:\Users\M\Desktop\ITProject\ITProject\templates" />
+      <recent name="C:\Users\ASUS\PycharmProjects\Ambrosia\static\images" />
+      <recent name="C:\Users\ASUS\PycharmProjects\Ambrosia\templates" />
       <recent name="C:\Users\ASUS\PycharmProjects\Ambrosia\static\images" />
       <recent name="C:\Users\ASUS\PycharmProjects\Ambrosia\templates" />
       <recent name="D:\SLIIT\2nd year\ITP\New folder (2)\Ambrosia\static\css" />
@@ -295,6 +343,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="ITProject.settings" />
       </envs>
+      <option name="SDK_HOME" value="C:\Users\ASUS\AppData\Local\Programs\Python\Python38-32\python.exe" />
       <option name="SDK_HOME" value="C:\Users\Ravija\AppData\Local\Programs\Python\Python38-32\python.exe" />
       <option name="SDK_HOME" value="C:\Users\ASUS\AppData\Local\Programs\Python\Python38-32\python.exe" />
       <option name="SDK_HOME" value="C:\Users\ASUS\PycharmProjects\djangoProject1\venv\Scripts\python.exe" />
@@ -367,6 +416,15 @@
       <option name="project" value="LOCAL" />
       <updated>1599456661414</updated>
       <workItem from="1599454728701" duration="1762000" />
+      <workItem from="1599464814050" duration="32126000" />
+      <workItem from="1599535168298" duration="7626000" />
+    </task>
+    <task id="LOCAL-00001" summary="add html files">
+      <created>1599481405223</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599481405223</updated>
       <workItem from="1599458759695" duration="10166000" />
       <workItem from="1599491107333" duration="10383000" />
       <workItem from="1599534871243" duration="4186000" />
@@ -423,6 +481,14 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00002" summary="attempt 1 done">
+      <created>1599545558817</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599545558817</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,6 +497,30 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add html files" />
+    <MESSAGE value="attempt 1 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="attempt 1 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="add html files" />
     <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -526,6 +616,11 @@
     <state x="393" y="5" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1599497397872" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1599495304839">
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599456092315" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1599521489457">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599521489457" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1599521489452">
     <state width="1493" height="132" key="GridCell.Tab.0.bottom" timestamp="1599539470535">
     <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1599478618110">
       <screen x="0" y="0" width="1536" height="824" />
@@ -608,10 +703,14 @@
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599537816824" />
     <state width="1493" height="146" key="GridCell.Tab.0.bottom" timestamp="1599538121684">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599521489452" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1599521489452">
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1599490766903" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599514684705">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599521489452" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1599521489456">
     <state width="1493" height="146" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599538121684" />
     <state width="1493" height="146" key="GridCell.Tab.0.center" timestamp="1599538121684">
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599514684705" />
@@ -621,6 +720,8 @@
     </state>
     <state width="1493" height="146" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599538121684" />
     <state width="1493" height="146" key="GridCell.Tab.0.left" timestamp="1599538121684">
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599521489456" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1599514204465">
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599481640670" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1599490766903">
       <screen x="0" y="0" width="1536" height="824" />
@@ -642,6 +743,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1599538117791" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1599514204465" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1599490766903" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1599545594223">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599545594223" />
   </component>
 </project>
