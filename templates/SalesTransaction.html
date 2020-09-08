@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <title>W3.CSS Template</title>
@@ -6,26 +6,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 </style>
+<head>
+    <link rel="stylesheet" href="{% static 'css/Sales.css' %}" media ="screen">
+</head>
+
 <body>
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
-    <h3 class="w3-padding-64"><b>Ambroisa<br></b></h3>
+    <h3 class="w3-padding-64"><b>Amborisa<br></b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+     <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="{% url 'SalesCreateInvoice' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create Invoice</a>
+    <a href="{% url 'SalesTransaction' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Transactions</a>
+    <a href="{% url 'SalesHomeIncome' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Income</a>
+    <a href="{% url 'SalesPriceTable' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Price Table</a>
+
   </div>
 </nav>
 
@@ -43,10 +49,32 @@ body {font-size:16px;}
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Amborisa</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Employee Salary.</b></h1>
+    <h1 class="w3-jumbo"><b>Ambrosia Salary Management</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>Create Invoice</b></h1>
+
     <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
   </div>
+<form action="{% url 'SalesViewBill' %}">
+  <div>
+    <table>
+
+
+              <tr style="height: 20px;">
+                <th > Transaction ID</th>
+                <th > Date and Time</th>
+                <th >  </th>
+
+              </tr>
+              <tr style="height: 15px;">
+                <td ></td>
+                <td ></td>
+                <td ><input type="submit" class = "btn" value="View"></td>
+
+              </tr>
+
+          </table>
+  </div>
+    </form>
 
 <!-- End page content -->
 </div>
