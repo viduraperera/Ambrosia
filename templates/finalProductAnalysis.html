@@ -1,9 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
 
-<title>All Users</title>
+<title>Final Production Home</title>
 
 <meta charset="UTF-8">
 
@@ -11,6 +10,34 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+<script type="text/javascript">
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light1", // "light2", "dark1", "dark2"
+	animationEnabled: false, // change to true
+	title:{
+		text: "Auction Stock Analysis"
+	},
+	data: [
+	{
+		// Change type to "bar", "area", "spline", "pie",etc.
+		type: "column",
+		dataPoints: [
+			{ label: "OPA",  y: 10  },
+			{ label: "OP", y: 15  },
+			{ label: "BOP", y: 25  },
+			{ label: "FF",  y: 30  },
+			{ label: "BOPF",  y: 28  }
+		]
+	}
+	]
+});
+chart.render();
+
+}
+</script>
 
 <style>
 body,h1,h2,h3,h4,h5
@@ -93,7 +120,7 @@ tr:nth-child(even) {
 }
 
 </style>
-<body>
+<div>
 
 
 {#Display Message#}
@@ -108,18 +135,19 @@ tr:nth-child(even) {
 
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
 
-  <div class="w3-container" >
-    <h3 class="w3-padding-64"><b>Main Menu</b></h3>
+    <div class="w3-container" >
+      <img src="{% static 'images/logo.png' %}">
+    <h3 class="w3-padding-64"><b>Ambrosia</b></h3>
   </div>
 
   <div class="w3-bar-block">
 
-    <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tea Factory</a>
-    <a href="{% url 'teashop_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tea Shop</a>
-    <a href="{% url 'register' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Add New User</a>
-    <a href="{% url 'view_all_users' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">View All Users</a>
-    <a href="{% url 'logout' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Daily Production</a>
+    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Auction Stock</a>
+    <a href="{% url 'stock_sales' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sales</a>
+    <a href="{% url 'production_analysis' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Analysis</a>
+    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
+
 
   </div>
 
@@ -139,60 +167,17 @@ tr:nth-child(even) {
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Administration Panel</b></h1>
+    <h1 class="w3-jumbo"><b>Final Production Management</b></h1>
       <hr style="border:5px solid black" class="w3-round">
-    <h1 class="w3-xxxlarge w3-text-red"><b>All Users</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Production Analysis</b></h1>
   </div>
 
-    <!--------------------->
-    {# check array is empty#}
-{% if Users %}
-    <table border="1 px solid black">
-
-    <th>Username</th>
-    <th>Password</th>
-    <th>Update</th>
-
-    {% for user in Users %}
-    <tr>
-        <td>
-            {{ user.username }}
-        </td>
-
-        <td>
-            {{ user.password }}
-        </td>
-
-
-
-        <td>
-            {% if user.username != 'admin' %}
-                <form method="post" action="{% url 'update_user' %}">
-                {% csrf_token %}
-                    <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Edit" class="buttonEdit">
-                </form>
-
-                <form method="post" action=" {% url 'delete_user' %}">
-                {% csrf_token %}
-                    <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Delete" class="buttonDelete">
-                </form>
-            {% endif %}
-        </td>
-    </tr>
-
-    {% endfor %}
-
-</table>
-
-{% else %}
-
-    <h3 style="color: darkred;">No Data Foud</h3>
-
-{% endif %}
+    <div id="chartContainer" style="height: 370px; width: 50%;"></div>
 
 </div>
+
+</div>
+<!-------------------------------------------------------------------------------------------------------------->
 
 
 <script>

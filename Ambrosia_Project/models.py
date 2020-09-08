@@ -7,6 +7,9 @@ class Broker(models.Model):
     address = models.TextField(null=True)
     phone = models.CharField(max_length=10, null=True)
 
-class Buyer(models.Model):
-    vat_regno = models.CharField(max_length=30)
-    name = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'Broker'
+
+# class Buyer(models.Model):
+#     vat_regno = models.CharField(max_length=30)
+#     name = models.CharField(max_length=50)

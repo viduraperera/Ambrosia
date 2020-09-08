@@ -23,7 +23,7 @@ def registration(request):
             return redirect('view_all_users')
 
     context = {'form': form}
-    return render(request, 'AdminRegistration.html', context)
+    return render(request, 'registration.html', context)
 
 
 def login_user(request):
@@ -142,3 +142,80 @@ def DeleteUser(request):
 
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
+
+@login_required(login_url='login')
+def FinalProduction(request):
+
+    return render(request, 'finalproductionhome.html')
+
+@login_required(login_url='login')
+def factoryhome(request):
+    return render(request, 'factoryhome.html')
+
+
+@login_required(login_url='login')
+def finalProductionHome(request):
+    return render(request, 'finalproductionhome.html')
+
+
+@login_required(login_url='login')
+def AuctionStockHome(request):
+    return render(request, 'addAuction_stock.html')
+
+
+@login_required(login_url='login')
+def ShowAuctionStock(request):
+    return render(request, 'catelogDetails.html')
+
+
+@login_required(login_url='login')
+def StockSalesHome(request):
+    return render(request, 'auctionStock_current.html')
+
+
+@login_required(login_url='login')
+def UpdateAuctionStock(request):
+    return render(request, 'updateCatelog.html')
+
+
+@login_required(login_url='login')
+def ShowBrokerDetails(request):
+    return render(request, 'AllBrokers.html')
+
+
+@login_required(login_url='login')
+def ShowBuyerDetails(request):
+    return render(request, 'AllBuyer.html')
+
+
+@login_required(login_url='login')
+def AddNewBroker(request):
+    return render(request, 'addBroker.html')
+
+
+@login_required(login_url='login')
+def AddNewBuyer(request):
+    return render(request, 'addBuyer.html')
+
+
+@login_required(login_url='login')
+def UpdateBroker(request):
+    return render(request, 'updateBroker.html')
+
+
+@login_required(login_url='login')
+def UpdateBuyer(request):
+    return render(request, 'updateBuyer.html')
+
+
+@login_required(login_url='login')
+def ProductionAnalysisHome(request):
+    return render(request, 'finalProductAnalysis.html')
+
+
+def NotSoldStock(request):
+    return render(request, 'auction_notSold.html')
+
+
+def SoldStock(request):
+    return render(request, 'auction_soldStock.html')
