@@ -273,10 +273,28 @@ def SalesPriceTableDUST3(request):
 
     return render(request, 'SalesPriceTableDUST3.html')
 
+
 @login_required(login_url='login')
 def SalesPriceTableFGS(request):
 
     return render(request, 'SalesPriceTableFGS.html')
+
+def ShopPriceTableBOPFUpdate(request):
+
+    return render(request, 'ShopPriceTableBOPFUpdate.html')
+
+
+def ShopPriceTableFGSUpdate(request):
+
+    return render(request, 'ShopPriceTableFGSUpdate.html')
+
+def ShopPriceTableDUST1Update(request):
+
+    return render(request, 'ShopPriceTableDUST1Update.html')
+
+def ShopPriceTableDUST2Update(request):
+
+    return render(request, 'ShopPriceTableDUST2Update.html')
     if request.method == 'POST':
         form = FundFrom(request.POST)
         if form.is_valid():
