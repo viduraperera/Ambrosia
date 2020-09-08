@@ -1,0 +1,232 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="fuel%20log.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+
+<head> <link rel="stylesheet" href="{% static 'css/fuel log.css' %}" media="screen"></head>
+
+
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
+  </div>
+  <div class="w3-bar-block">
+<a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+   <a href="{% url 'Transport' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Vehicle Driving Records</a>
+  <a href="{% url 'VehicleRepairs' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Maintenance</a>
+    <a href="{% url 'FuelLog' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Fuel Log</a>
+
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>Ambrosia</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>Fuel Log</b></h1>
+    <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
+  </div>
+
+   <form action="{% url 'FuelLog' %}" method="post">
+
+<div class="w3-section">
+      <label>Vehicle No:</label>
+      <input name=""   type="text" placeholder="vehicle no" class="w3-input w3-border">
+    </div>
+
+    <div class="w3-section">
+      <label>Type:</label>
+      <select id="type" class="form-control" name="type" placeholder="type" required="required">
+          <option value="Diesel">Diesel</option>
+          <option value="Oil">Oil</option>
+      </select>
+    </div>
+
+
+    <div class="w3-section">
+      <label>Consumed Amount:</label>
+      <input name=""   type="text" placeholder="consumed amount" class="w3-input w3-border">
+    </div>
+
+    <div class="w3-section">
+      <label>Price:</label>
+      <input name=""   type="text" placeholder="price" class="w3-input w3-border">
+
+    </div>
+
+    <br><br>
+
+    <button type="submit" class="w3-button w3-block w3-padding-large w3-green w3-margin-bottom">Enter</button>
+
+
+  </form>
+
+ <div class="container">
+  <h2></h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Containers</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Containers</h4>
+
+            <div class="w3-section">
+      <label>Date:</label>
+     <input name=""   type="date" placeholder="date" class="w3-input w3-border">
+    </div>
+            <div class="w3-section">
+      <label>Amount:</label>
+     <input name=""   type="amount" placeholder="Amount" class="w3-input w3-border">
+    </div>
+
+
+        </div>
+        <div class="modal-body">
+          <p></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+   <br><br>
+    <table>
+
+
+              <tr >
+                <th > Oil ID </th>
+                <th > Vehicle No </th>
+                <th > Container No </th>
+                <th > Type </th>
+                  <th > Date </th>
+                <th > Consumed Amount </th>
+                  <th > Price </th>
+                  <th > Amount </th>
+
+
+
+
+              </tr>
+       <tr>
+
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+
+
+        </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+
+
+      </tr>
+
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+
+
+      </tr>
+
+
+    </table>
+  </div>
+
+
+
+
+
+
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>

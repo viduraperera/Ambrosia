@@ -14,7 +14,20 @@ urlpatterns = [
     path('Factory', views.factoryHomepage, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome")
+    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+
+    path('Factory/Transport', views.VehicleRecords, name="Transport"),
+    path('Factory/Transport/RetrieveVehicleTable', views.RetrieveVehicleTable, name="RetrieveVehicleTable"),
+    path('Factory/Transport/RetrieveVehicleTable/EditVehicleRecords', views.EditVehicleRecords, name="EditVehicleRecords"),
+    path('Factory/Transport/VehicleRecords/VehicleRepairs', views.VehicleRepairs, name="VehicleRepairs"),
+    path('Factory/Transport/VehicleRepairs/FuelLog', views.FuelLog, name="FuelLog"),
+
+
+
+
+
+
+
 
 
 ]

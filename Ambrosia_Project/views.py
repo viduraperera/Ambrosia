@@ -142,3 +142,31 @@ def DeleteUser(request):
 
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
+
+@login_required(login_url='login')
+def VehicleRecords(request):
+
+    return render(request, 'VehicleRecords.html')
+
+@login_required(login_url='login')
+def RetrieveVehicleTable(request):
+
+    return render(request, 'RetrieveVehicleTable.html')
+
+@login_required(login_url='login')
+def EditVehicleRecords(request):
+
+    return render(request, 'EditVehicleRecords.html')
+
+@login_required(login_url='login')
+def VehicleRepairs(request):
+
+    return render(request, 'VehicleRepairs.html')
+
+@login_required(login_url='login')
+def FuelLog(request):
+
+    return render(request, 'FuelLog.html')
+
+
+

@@ -10,3 +10,12 @@ class Broker(models.Model):
 class Buyer(models.Model):
     vat_regno = models.CharField(max_length=30)
     name = models.CharField(max_length=50)
+
+class Oil_Stock(models.Model):
+    Amount = models.FloatField()
+    Date = models.DateField()
+
+    class Meta:
+        db_table = 'Oil_Stock'
+
+
