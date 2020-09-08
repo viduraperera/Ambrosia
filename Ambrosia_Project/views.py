@@ -161,14 +161,26 @@ def preorderlevel (request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-
+@login_required(login_url='login')
 def emp_fund_view(request):
     funds = Funds.objects.all()
     return render(request, "funds_table.html", {'funds': funds})
 
-
+@login_required(login_url='login')
 def emp_funds_add(request):
+
     form = FundFrom()
+
+    if request.method == 'POST':
+        form = FundFrom(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('emp_fund_view')
+            except:
+                pass
+    var = {'forms': form}
+    return render(request, 'add_funds.html', var)
 
 
 
@@ -217,12 +229,14 @@ def SalesPriceTableDUST1(request):
 def SalesPriceTableDUST2(request):
 
     return render(request, 'SalesPriceTableDUST2.html')
-@login_required(login_url='login')
 
+
+@login_required(login_url='login')
 def SalesPriceTableDUST3(request):
 
     return render(request, 'SalesPriceTableDUST3.html')
 
+@login_required(login_url='login')
 def SalesPriceTableFGS(request):
 
     return render(request, 'SalesPriceTableFGS.html')
@@ -231,24 +245,24 @@ def SalesPriceTableFGS(request):
         if form.is_valid():
             try:
                 form.save()
-                return redirect('/emp_fund_view')
+                return redirect('emp_fund_view')
             except:
                 pass
     var = {'forms': form}
     return render(request, 'add_funds.html', var)
 
-
+@login_required(login_url='login')
 def emp_funds_delete(request, id):
     funds = Funds.objects.get(pk=id)
     funds.delete()
-    return redirect('/emp_fund_view')
+    return redirect('emp_fund_view')
 
-
+@login_required(login_url='login')
 def emp_allowance(request):
     allowance = Allowance.objects.all()
     return render(request, "allowance.html", {'allowance': allowance})
 
-
+@login_required(login_url='login')
 def emp_allowance_add(request):
     allowance = AllowanceForm()
     if request.method == 'POST':
@@ -256,7 +270,7 @@ def emp_allowance_add(request):
         if allowance.is_valid():
             try:
                 allowance.save()
-                return redirect('/emp_allowance')
+                return redirect('emp_allowance')
             except:
                 pass
     var = {'allowance': allowance}
@@ -340,11 +354,6 @@ def editpackets (request):
     return render(request, 'editpackets.html')
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
-
-@login_required(login_url='login')
-def FinalProduction(request):
-
-    return render(request, 'finalproductionhome.html')
 
 @login_required(login_url='login')
 def factoryhome(request):

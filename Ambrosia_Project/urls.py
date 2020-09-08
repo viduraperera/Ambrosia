@@ -16,29 +16,10 @@ urlpatterns = [
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
-    path('Factory/FinalProduction', views.FinalProduction, name="final_production_home"),
-    path('Factory/FinalProduction/AuctionStock/', views.AuctionStockHome, name="auction_stock"),
-    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.ShowAuctionStock, name="all_catelog"),
-    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.UpdateAuctionStock, name="update_catelog"),
-
-    path('Factory/FinalProduction/AuctionStock/Brokers', views.ShowBrokerDetails, name="all_brokers"),
-    path('Factory/FinalProduction/AuctionStock/AddBroker', views.AddNewBroker, name="add_broker"),
-    path('Factory/FinalProduction/AuctionStock/UpdateBroker', views.UpdateBroker, name="update_broker"),
-
-    path('Factory/FinalProduction/AuctionStock/Buyers', views.ShowBuyerDetails, name="all_buyers"),
-    path('Factory/FinalProduction/AuctionStock/AddBuyer', views.AddNewBuyer, name="add_buyer"),
-    path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.UpdateBuyer, name="update_buyer"),
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
     path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
     path('Factory/LeafInventory/PreviousInventories', views.NavigateToPrevInv, name="NavigateToPreInv"),
     path('Factory/LeafInventory/PreviousInventories/UpdateInvenories', views.NavigateToUpdateInv, name="NavigateToUpdateInv"),
-
-    path('Factory/FinalProduction/DailyProduction/AddProduction', views.NavigateToProduction, name="NavigateToProduction"),
-    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd, name="NavigateToCustomDailyProd"),
-    path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct, name="NavigateToCurrentProd"),
-    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct, name="NavigateToUpdateProd"),
-
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
     path('Shop/SalesHomeIncome/SalesHomeMonthlyIncome', views.SalesHomeMonthlyIncome, name="SalesHomeMonthlyIncome"),
@@ -77,11 +58,43 @@ urlpatterns = [
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST2', views.SalesPriceTableDUST2, name="SalesPriceTableDUST2"),
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST3', views.SalesPriceTableDUST3, name="SalesPriceTableDUST3"),
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS', views.SalesPriceTableFGS, name="SalesPriceTableFGS"),
+
+
+
+    path('Factory/FinalProduction/ProductionAnalysis/', views.ProductionAnalysisHome, name="production_analysis"),
+
+    path('Factory/FinalProduction/', views.NavigateToProduction,name="final_production_home"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd,name="NavigateToCustomDailyProd"),
+    path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct,name="NavigateToCurrentProd"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
+
     path('Factory/FinalProduction/StockSales', views.StockSalesHome, name="stock_sales"),
     path('Factory/FinalProduction/NotSoldStocks', views.NotSoldStock, name="stock_notsold"),
     path('Factory/FinalProduction/SoldStocks', views.SoldStock, name="stock_sold"),
 
-    path('Factory/FinalProduction/ProductionAnalysis/', views.ProductionAnalysisHome, name="production_analysis"),
+
+    path('Factory/FinalProduction/AuctionStock/', views.AuctionStockHome, name="auction_stock"),
+    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.ShowAuctionStock, name="all_catelog"),
+    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.UpdateAuctionStock,name="update_catelog"),
+
+    path('Factory/FinalProduction/AuctionStock/Brokers', views.ShowBrokerDetails, name="all_brokers"),
+    path('Factory/FinalProduction/AuctionStock/AddBroker', views.AddNewBroker, name="add_broker"),
+    path('Factory/FinalProduction/AuctionStock/UpdateBroker', views.UpdateBroker, name="update_broker"),
+
+    path('Factory/FinalProduction/AuctionStock/Buyers', views.ShowBuyerDetails, name="all_buyers"),
+    path('Factory/FinalProduction/AuctionStock/AddBuyer', views.AddNewBuyer, name="add_buyer"),
+    path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.UpdateBuyer, name="update_buyer"),
+
+    #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+
+
+    path('Factory/EmployeeHome', views.emp_fund_view, name="EmployeeHome"),
+    path('Factory/EmployeeHome/emp_fund_view', views.emp_fund_view, name="emp_fund_view"),
+    path('Factory/EmployeeHome/emp_funds_add/', views.emp_funds_add, name="emp_funds_add"),
+    path('Factory/EmployeeHome/emp_funds_delete<int:id>/', views.emp_funds_delete, name="emp_funds_delete"),
+    path('Factory/EmployeeHome/emp_allowance/', views.emp_allowance, name="emp_allowance"),
+    path('Factory/EmployeeHome/emp_allowance_add/', views.emp_allowance_add, name="emp_allowance_add"),
+
 
 ]
 

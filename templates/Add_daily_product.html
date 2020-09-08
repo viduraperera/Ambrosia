@@ -82,11 +82,12 @@ li a:hover {
     <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Daily Production</a>
-    <a href="funds_table.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Auction Stock</a
-    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sale</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
+    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Daily Production</a>
+    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Auction Stock</a>
+    <a href="{% url 'stock_sales' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sales</a>
+    <a href="{% url 'production_analysis' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a>
+    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
+
   </div>
 </nav>
 
@@ -110,7 +111,7 @@ li a:hover {
   </div>
 
     <ul>
-    <li><a href="#"  class="ClassActive1">Add daily Production</a></li>
+    <li><a href="{% url 'final_production_home' %}"  class="ClassActive1">Add daily Production</a></li>
     <li><a href="{% url 'NavigateToCustomDailyProd' %}" >Custom daily production</a></li>
     <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>
 

@@ -1,10 +1,10 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
 
-<title>W3.CSS Template</title>
+<title>Employee Management</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -21,14 +21,15 @@ body {font-size:16px;}
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
+            <img src="{% static 'images/logo.png' %}">
     <h3 class="w3-padding-64"><b>Ambroisa<br></b></h3>
   </div>
   <div class="w3-bar-block">
     <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
     <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
   </div>
 </nav>
 

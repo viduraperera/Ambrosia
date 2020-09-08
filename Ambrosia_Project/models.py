@@ -22,6 +22,29 @@ class Buyer(models.Model):
     vat_regno = models.CharField(max_length=30)
     name = models.CharField(max_length=50)
 
+    class Meta:
+        db_table = 'Buyer'
+
+class Auction_Stock(models.Model):
+
+    StatusGroup = [
+        ('S', 'Sold'),
+        ('N', 'NotSold'),
+        ('P', 'Pending'),
+    ]
+
+    invoice = models.IntegerField(null=True);
+    net_weight = models.FloatField()
+    total_weight = models.FloatField()
+    no_of_packets = models.IntegerField()
+    status = models.CharField(max_length=10, choices=StatusGroup)
+    sold_count = models.IntegerField()
+    price = models.FloatField()
+
+    class Meta:
+        db_table = 'Auction_Stock'
+
+
 class LeafInventory(models.Model):
     in_Date = models.DateField()
     in_Time = models.TimeField()
@@ -33,6 +56,7 @@ class LeafInventory(models.Model):
 
     class Meta:
         db_table ='inventory'
+
 
 class TeaGrades(models.Model):
     teaGrade = models.CharField(max_length=10)
