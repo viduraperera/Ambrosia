@@ -24,7 +24,7 @@ def registration(request):
             return redirect('view_all_users')
 
     context = {'form': form}
-    return render(request, 'AdminRegistration.html', context)
+    return render(request, 'registration.html', context)
 
 
 def login_user(request):
@@ -83,7 +83,44 @@ def teashopHomepage (request):
 @login_required(login_url='login')
 def EmployeeHome (request):
 
-    return render(request, 'EmployeeManagement.html')
+    return render(request, 'attendance_management.html')
+
+@login_required(login_url='login')
+def staff_management (request):
+
+    return render(request, 'staff_management.html')
+
+@login_required(login_url='login')
+def factoryworkers_management(request):
+
+    return render(request, 'factoryworkers_management.html')
+
+@login_required(login_url='login')
+def markAttendance(request):
+
+    return render(request, 'mark_attendance.html')
+
+@login_required(login_url='login')
+def edit_employee(request):
+
+    return render(request, 'edit_employee.html')
+
+@login_required(login_url='login')
+def view_employee(request):
+
+    return render(request, 'view_employee.html')
+
+@login_required(login_url='login')
+def employee_registration(request):
+
+    return render(request, 'employee_registration.html')
+
+
+#@login_required(login_url='login')
+#def AddUser(request):
+
+
+
 
 @login_required(login_url='login')
 def ShowUser(request):
@@ -161,14 +198,26 @@ def preorderlevel (request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-
+@login_required(login_url='login')
 def emp_fund_view(request):
     funds = Funds.objects.all()
     return render(request, "funds_table.html", {'funds': funds})
 
-
+@login_required(login_url='login')
 def emp_funds_add(request):
+
     form = FundFrom()
+
+    if request.method == 'POST':
+        form = FundFrom(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('emp_fund_view')
+            except:
+                pass
+    var = {'forms': form}
+    return render(request, 'add_funds.html', var)
 
 
 
@@ -217,9 +266,15 @@ def SalesPriceTableDUST1(request):
 def SalesPriceTableDUST2(request):
 
     return render(request, 'SalesPriceTableDUST2.html')
+
+
 @login_required(login_url='login')
+def SalesPriceTableDUST3(request):
+
+    return render(request, 'SalesPriceTableDUST3.html')
 
 
+@login_required(login_url='login')
 def SalesPriceTableFGS(request):
 
     return render(request, 'SalesPriceTableFGS.html')
@@ -245,24 +300,24 @@ def ShopPriceTableDUST2Update(request):
         if form.is_valid():
             try:
                 form.save()
-                return redirect('/emp_fund_view')
+                return redirect('emp_fund_view')
             except:
                 pass
     var = {'forms': form}
     return render(request, 'add_funds.html', var)
 
-
+@login_required(login_url='login')
 def emp_funds_delete(request, id):
     funds = Funds.objects.get(pk=id)
     funds.delete()
-    return redirect('/emp_fund_view')
+    return redirect('emp_fund_view')
 
-
+@login_required(login_url='login')
 def emp_allowance(request):
     allowance = Allowance.objects.all()
     return render(request, "allowance.html", {'allowance': allowance})
 
-
+@login_required(login_url='login')
 def emp_allowance_add(request):
     allowance = AllowanceForm()
     if request.method == 'POST':
@@ -270,7 +325,7 @@ def emp_allowance_add(request):
         if allowance.is_valid():
             try:
                 allowance.save()
-                return redirect('/emp_allowance')
+                return redirect('emp_allowance')
             except:
                 pass
     var = {'allowance': allowance}
@@ -352,3 +407,114 @@ def inventoryannualreport (request):
 @login_required(login_url='login')
 def editpackets (request):
     return render(request, 'editpackets.html')
+    messages.error(request, "Error.Can't Delete User.")
+    return redirect('view_all_users')
+
+@login_required(login_url='login')
+def factoryhome(request):
+    return render(request, 'factoryhome.html')
+
+
+@login_required(login_url='login')
+def finalProductionHome(request):
+    return render(request, 'finalproductionhome.html')
+
+
+@login_required(login_url='login')
+def AuctionStockHome(request):
+    return render(request, 'addAuction_stock.html')
+
+
+@login_required(login_url='login')
+def ShowAuctionStock(request):
+    return render(request, 'catelogDetails.html')
+
+
+@login_required(login_url='login')
+def StockSalesHome(request):
+    return render(request, 'auctionStock_current.html')
+
+
+@login_required(login_url='login')
+def UpdateAuctionStock(request):
+    return render(request, 'updateCatelog.html')
+
+
+@login_required(login_url='login')
+def ShowBrokerDetails(request):
+    return render(request, 'AllBrokers.html')
+
+
+@login_required(login_url='login')
+def ShowBuyerDetails(request):
+    return render(request, 'AllBuyer.html')
+
+
+@login_required(login_url='login')
+def AddNewBroker(request):
+    return render(request, 'addBroker.html')
+
+
+@login_required(login_url='login')
+def AddNewBuyer(request):
+    return render(request, 'addBuyer.html')
+
+
+@login_required(login_url='login')
+def UpdateBroker(request):
+    return render(request, 'updateBroker.html')
+
+
+@login_required(login_url='login')
+def UpdateBuyer(request):
+    return render(request, 'updateBuyer.html')
+
+
+@login_required(login_url='login')
+def ProductionAnalysisHome(request):
+    return render(request, 'finalProductAnalysis.html')
+
+
+def NotSoldStock(request):
+    return render(request, 'auction_notSold.html')
+
+
+def SoldStock(request):
+    return render(request, 'auction_soldStock.html')
+
+
+
+
+@login_required(login_url='login')
+def NavigateToInventory(request):
+    return render(request, 'add_inventory.html')
+
+
+@login_required(login_url='login')
+def NavigateToPrevInv(request):
+    return render(request, 'View_pre_inv.html')
+
+
+@login_required(login_url='login')
+def NavigateToUpdateInv(request):
+    return render(request, 'update_inventory.html')
+
+
+@login_required(login_url='login')
+def NavigateToProduction(request):
+    return render(request, 'Add_daily_product.html')
+
+
+@login_required(login_url='login')
+def NavigateToCustomDailyProd(request):
+    return render(request, 'View_Daily_production.html')
+
+
+@login_required(login_url='login')
+def NavigateToCurrentProduct(request):
+    return render(request, 'Current_product.html')
+
+
+@login_required(login_url='login')
+def NavigateToUpdateProduct(request):
+    return render(request, 'Update_daily_product.html')

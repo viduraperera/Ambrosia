@@ -3,7 +3,7 @@
 <html lang="en">
 <link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
 
-<title>All Users</title>
+<title>Final Production Home</title>
 
 <meta charset="UTF-8">
 
@@ -106,6 +106,8 @@ tr:nth-child(even) {
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
 
+    <img src="{% static 'images/logo.png' %}" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
+
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
 
   <div class="w3-container" >
@@ -114,12 +116,11 @@ tr:nth-child(even) {
 
   <div class="w3-bar-block">
 
-    <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tea Factory</a>
-    <a href="{% url 'teashop_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Tea Shop</a>
-    <a href="{% url 'register' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Add New User</a>
-    <a href="{% url 'view_all_users' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">View All Users</a>
-    <a href="{% url 'logout' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Daily Production</a>
+    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Auction Stock</a>
+    <a href="{% url 'stock_sales' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sales</a>
+    <a href="{% url 'production_analysis' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a>
+    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
 
   </div>
 
@@ -139,61 +140,17 @@ tr:nth-child(even) {
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Administration Panel</b></h1>
+    <h1 class="w3-jumbo"><b>Final Production Management</b></h1>
       <hr style="border:5px solid black" class="w3-round">
-    <h1 class="w3-xxxlarge w3-text-red"><b>All Users</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Daily Production</b></h1>
   </div>
-
-    <!--------------------->
-    {# check array is empty#}
-{% if Users %}
-    <table border="1 px solid black">
-
-    <th>Username</th>
-    <th>Password</th>
-    <th>Update</th>
-
-    {% for user in Users %}
-    <tr>
-        <td>
-            {{ user.username }}
-        </td>
-
-        <td>
-            {{ user.password }}
-        </td>
-
-
-
-        <td>
-            {% if user.username != 'admin' %}
-                <form method="post" action="{% url 'update_user' %}">
-                {% csrf_token %}
-                    <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Edit" class="buttonEdit">
-                </form>
-
-                <form method="post" action=" {% url 'delete_user' %}">
-                {% csrf_token %}
-                    <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Delete" class="buttonDelete">
-                </form>
-            {% endif %}
-        </td>
-    </tr>
-
-    {% endfor %}
-
-</table>
-
-{% else %}
-
-    <h3 style="color: darkred;">No Data Foud</h3>
-
-{% endif %}
-
 </div>
+<!-------------------------------------------------------------------------------------------------------------->
 
+
+
+
+<!--------------------------------------------------------------------------------------------------------------->
 
 <script>
 // Script to open and close sidebar
@@ -215,6 +172,7 @@ function onClick(element) {
   captionText.innerHTML = element.alt;
 }
 </script>
+
 
 </body>
 </html>
