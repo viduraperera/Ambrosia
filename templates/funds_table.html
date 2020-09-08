@@ -24,10 +24,10 @@ body {font-size:16px;}
   </div>
   <div class="w3-bar-block">
     <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
     <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
   </div>
 </nav>
 
@@ -69,7 +69,7 @@ body {font-size:16px;}
             <td>{{ fund.epf_employee}}</td>
             <td>{{ fund.epf_employer}}</td>
             <td>
-                <a href="/emp_funds_delete{{ fund.id }}" class="btn btn-danger">Delete</a>
+                <a href="/Home/Factory/EmployeeHome/emp_funds_delete{{ fund.id }}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     {% endfor %}

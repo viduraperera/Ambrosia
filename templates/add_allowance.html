@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<title>W3.CSS Template</title>
+<title>Add Allowance</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
@@ -20,14 +20,15 @@ body {font-size:16px;}
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
   <div class="w3-container">
+            <img src="{% static 'images/logo.png' %}">
     <h3 class="w3-padding-64"><b>Amborisa<br></b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="funds_table.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
   </div>
 </nav>
 

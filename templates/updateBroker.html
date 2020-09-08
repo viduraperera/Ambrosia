@@ -1,65 +1,63 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<title>W3.CSS Template</title>
+
+<title>Update Broker</title>
+
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
-      .ClassActive {
+body,h1,h2,h3,h4,h5
+{
+    font-family: "Poppins", sans-serif
+}
+body {
+    font-size:16px;
+}
+.w3-half img{
+    margin-bottom:-6px;
+    margin-top:16px;
+    opacity:0.8;cursor:pointer
+}
+.w3-half img:hover{
+    opacity:1
+}
+
+.buttonEdit
+    {
+      background-color: #0b7fd7;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 100%;
+      height: 50px;
+      border-radius: 15px;
+    }
+
+
+.buttonEdit:hover {
+    background: #e9e444;
+    color: #000;
+    }
+
+
+.ClassActive {
     background-color: #8db8e0;
 }
 
 .ClassActive1 {
     background-color: #87dbb9;
 }
-    table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-  * {
-  box-sizing: border-box;
-}
-
-/* Create two equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 50%;
-  padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
-}
-
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
-}
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
+{#menue bar#}
 
 ul {
   list-style-type: none;
@@ -86,29 +84,44 @@ li a {
 li a:hover {
   background-color: #e9d394;
 }
+
+.sectionform{
+    width: 80%;
+}
+
+/*End of Admin Add Item Page*/
+
 </style>
 <body>
 
+
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-      <img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
-    <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
+
+    <div class="w3-container" >
+      <img src="{% static 'images/logo.png' %}">
+    <h3 class="w3-padding-64"><b>Ambrosia</b></h3>
   </div>
+
   <div class="w3-bar-block">
-    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Daily Production</a>
-    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Auction Stock</a>
+
+    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Daily Production</a>
+    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Auction Stock</a>
     <a href="{% url 'stock_sales' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sales</a>
     <a href="{% url 'production_analysis' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a>
     <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
+
+
   </div>
+
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+<header class="w3-container w3-top w3-hide-large w3-green w3-xlarge w3-padding">
   <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Company Name</span>
+  <span>Main Menu</span>
 </header>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -119,38 +132,49 @@ li a:hover {
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Ambroisa</b></h1>
-    <h3 class="w3-xxxlarge w3-text-green"><b>Custom Daily Production Details.</b></h3>
-
+    <h1 class="w3-jumbo"><b>Final Production Management</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Auction Stock | Brokers</b></h1>
   </div>
-     <ul>
-    <li><a href="{% url 'final_production_home' %}"  >Add daily Production</a></li>
-    <li><a href="{% url 'NavigateToCustomDailyProd' %}" class="ClassActive1">Custom daily production</a></li>
-    <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>
 
+      <!-- Menu Bar -->
+<ul>
+    <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
+    <li><a href="{% url 'all_catelog' %}">Catelog Details</a></li>
+    <li><a href="{% url 'all_brokers' %}" class="ClassActive1" >Brokers</a></li>
+    <li><a href="{% url 'all_buyers' %}">Buyers</a></li>
 </ul>
-  <div>
-<table>
-  <tr>
-    <th>Daily prod. ID</th>
-    <th>Date</th>
-    <th>Total Weight</th>
-    <th>Action</th>
-  </tr>
 
-    <tr>
-    <th>001</th>
-    <th>12/12/2019</th>
-    <th>1996 kg</th>
-      <th><a href="{% url 'NavigateToUpdateProd' %}" background="green">edit</a> <br><button>Delete</button> </th>
-  </tr>
-</table>
-  </div>
+<br><br>
 
-<!-- End page content -->
-</div>
+    <!-- Form -->
+<h1>Update Broker</h1>
+   <form method="post" action="">
 
-<!-- W3.CSS Container -->
+    {% csrf_token %}
+
+       <div class="sectionform">
+
+       <table>
+           <tr>
+               <td><label><b>Broker Company Name</b></label></td>
+               <td><input type="text" value="" name="brokerName"class="w3-input w3-border" required></td>
+           </tr>
+
+           <tr>
+               <td><label><b>Vat Reg.No</b></label></td>
+               <td><input type="text" value="" name="vatRegNo" class="w3-input w3-border" required></td>
+           </tr>
+
+           <br>
+           <tr>
+               <td></td>
+               <td><button type="submit" class="buttonEdit">Update Broker</button></td></tr>
+
+       </table>
+
+     </div>
+
+    </form>
 
 <script>
 // Script to open and close sidebar
@@ -158,7 +182,7 @@ function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
 }
- 
+
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";
@@ -173,5 +197,6 @@ function onClick(element) {
 }
 </script>
 
+</div>
 </body>
-</html>
+</html>a
