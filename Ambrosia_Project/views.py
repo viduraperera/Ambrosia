@@ -277,16 +277,6 @@ def SalesPriceTableDUST3(request):
 def SalesPriceTableFGS(request):
 
     return render(request, 'SalesPriceTableFGS.html')
-    if request.method == 'POST':
-        form = FundFrom(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('emp_fund_view')
-            except:
-                pass
-    var = {'forms': form}
-    return render(request, 'add_funds.html', var)
 
 @login_required(login_url='login')
 def emp_funds_delete(request, id):
@@ -434,7 +424,20 @@ def ShowBuyerDetails(request):
 
 @login_required(login_url='login')
 def AddNewBroker(request):
-    return render(request, 'addBroker.html')
+
+    form = AddBrokerForm()
+
+    if request.method == 'POST':
+        form = AddBrokerForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('all_brokers')
+            except:
+                pass
+
+    var = {'form': form}
+    return render(request, 'addBroker.html', var)
 
 
 @login_required(login_url='login')

@@ -20,3 +20,9 @@ class AllowanceForm(forms.ModelForm):
     class Meta:
         model = Allowance
         fields = '__all__'
+
+class AddBrokerForm(forms.ModelForm):
+    class Meta:
+        model = Broker
+        fields = '__all__'
+

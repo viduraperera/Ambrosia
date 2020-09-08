@@ -179,13 +179,6 @@ class Tea_add_prod(models.Model):
         db_table = 'add_product'
 
 
-
-
-
-
-
-
-
 class packetType(models.Model):
     packet_weight_id = models.CharField(max_length=10)
     weight = models.CharField(max_length=10)

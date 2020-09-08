@@ -149,27 +149,29 @@ li a:hover {
 
     <!-- Form -->
 <h1>Add New Broker</h1>
-   <form method="post" action="">
+   <form method="post" action="{% url 'add_broker' %}">
 
     {% csrf_token %}
 
        <div class="sectionform">
 
-       <table>
+           <table>
            <tr>
-               <td><label><b>Broker Company Name</b></label></td>
-               <td><input type="text" value="" name="brokerName"class="w3-input w3-border" required></td>
+               <td><label><b>BuyerName</b></label></td>
+               <td>{{ form.name }}</td>
            </tr>
 
            <tr>
-               <td><label><b>Vat Reg.No</b></label></td>
-               <td><input type="text" value="" name="vatRegNo" class="w3-input w3-border" required></td>
+               <td><label><b>Address</b></label></td>
+               <td>{{ form.address }}</td>
            </tr>
 
-           <br>
            <tr>
-               <td></td>
-               <td><button type="submit" class="buttonEdit">Add Broker</button></td></tr>
+               <td><label><b>Phone Number</b></label></td>
+               <td>{{ form.phone }}</td>
+           </tr>
+
+               <td><button type="submit" class="buttonEdit">Add Buyer</button></td></tr>
 
        </table>
 
