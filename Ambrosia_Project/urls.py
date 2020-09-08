@@ -19,6 +19,12 @@ urlpatterns = [
     path('Factory/EmployeeHome/staff_management', views.staff_management, name="staff_management"),
     path('Factory/EmployeeHome/factoryworkers_management', views.factoryworkers_management, name="factoryworkers_management"),
 
+    path('view_employee/EditProfile', views.edit_employee, name="edit_employee"),
+    path('edit_employee/Save', views.view_employee, name="view_employee"),
+
+    path('staff_management/AddEmployee', views.employee_registration, name="employee_registration"),
+    path('factoryworkers_management/AddEmployee', views.employee_registration, name="employee_registration"),
+
 
 ]
 

@@ -100,6 +100,28 @@ def markAttendance(request):
     return render(request, 'mark_attendance.html')
 
 @login_required(login_url='login')
+def edit_employee(request):
+
+    return render(request, 'edit_employee.html')
+
+@login_required(login_url='login')
+def view_employee(request):
+
+    return render(request, 'view_employee.html')
+
+@login_required(login_url='login')
+def employee_registration(request):
+
+    return render(request, 'employee_registration.html')
+
+
+#@login_required(login_url='login')
+#def AddUser(request):
+
+
+
+
+@login_required(login_url='login')
 def ShowUser(request):
 
     uname = request.POST.get("uname")
@@ -157,5 +179,6 @@ def DeleteUser(request):
 
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
+
 
 
