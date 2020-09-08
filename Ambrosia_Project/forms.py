@@ -7,3 +7,4 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
+

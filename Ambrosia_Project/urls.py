@@ -29,10 +29,17 @@ urlpatterns = [
     path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
 
     path('Shop/SalesHomeIncome/SalesPriceTable', views.SalesPriceTable, name="SalesPriceTable"),
+path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableBOPFUpdate', views.ShopPriceTableBOPFUpdate, name="ShopPriceTableBOPFUpdate"),
+
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1', views.SalesPriceTableDUST1, name="SalesPriceTableDUST1"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1/ShopPriceTableDUST1Update', views.ShopPriceTableDUST1Update, name="ShopPriceTableDUST1Update"),
+
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST2', views.SalesPriceTableDUST2, name="SalesPriceTableDUST2"),
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST3', views.SalesPriceTableDUST3, name="SalesPriceTableDUST3"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST2/ShopPriceTableDUST2Update', views.ShopPriceTableDUST2Update, name="ShopPriceTableDUST2Update"),
+
+
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS', views.SalesPriceTableFGS, name="SalesPriceTableFGS"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS/ShopPriceTableFGSUpdate', views.ShopPriceTableFGSUpdate, name="ShopPriceTableFGSUpdate"),
     
 ]
 

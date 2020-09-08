@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<title>Shop Weekly Income</title>
+<title>Shop CreateInvoice</title>
 <link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,112 +16,6 @@ body {font-size:16px;}
 </style>
 <head>
     <link rel="stylesheet" href="{% static 'css/Sales.css' %}" media ="screen">
-
-<script>
-window.onload = function() {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	title: {
-		text: "week"
-	},
-	axisX:{
-		minimum: 0,
-		maximum: 10000
-	},
-	data: [{
-		type: "column",
-		dataPoints: [
-			{ x: 1000, y: 71 },
-			{ x: 2000, y: 55 },
-			{ x: 3000, y: 50 },
-			{ x: 4000, y: 65 },
-			{ x: 5000, y: 95 },
-			{ x: 6000, y: 68 },
-			{ x: 7000, y: 28 },
-			{ x: 8000, y: 34 },
-			{ x: 9000, y: 14 }
-		]
-	}]
-});
-chart.render();
-
-var xSnapDistance = chart.axisX[0].convertPixelToValue(chart.get("dataPointWidth")) / 2;
-var ySnapDistance = 3;
-
-var xValue, yValue;
-
-var mouseDown = false;
-var selected = null;
-var changeCursor = false;
-
-var timerId = null;
-
-function getPosition(e) {
-	var parentOffset = $("#chartContainer > .canvasjs-chart-container").offset();
-	var relX = e.pageX - parentOffset.left;
-	var relY = e.pageY - parentOffset.top;
-	xValue = Math.round(chart.axisX[0].convertPixelToValue(relX));
-	yValue = Math.round(chart.axisY[0].convertPixelToValue(relY));
-}
-
-function searchDataPoint() {
-	var dps = chart.data[0].dataPoints;
-	for(var i = 0; i < dps.length; i++ ) {
-		if( (xValue >= dps[i].x - xSnapDistance && xValue <= dps[i].x + xSnapDistance) && (yValue >= dps[i].y - ySnapDistance && yValue <= dps[i].y + ySnapDistance) )
-		{
-			if(mouseDown) {
-				selected = i;
-				break;
-			} else {
-				changeCursor = true;
-				break;
-			}
-		} else {
-			selected = null;
-			changeCursor = false;
-		}
-	}
-}
-
-jQuery("#chartContainer > .canvasjs-chart-container").on({
-	mousedown: function(e) {
-		mouseDown = true;
-		getPosition(e);
-		searchDataPoint();
-	},
-	mousemove: function(e) {
-		getPosition(e);
-		if(mouseDown) {
-			clearTimeout(timerId);
-			timerId = setTimeout(function(){
-				if(selected != null) {
-					chart.data[0].dataPoints[selected].y = yValue;
-					chart.render();
-				}
-			}, 0);
-		}
-		else {
-			searchDataPoint();
-			if(changeCursor) {
-				chart.data[0].set("cursor", "n-resize");
-			} else {
-				chart.data[0].set("cursor", "default");
-			}
-		}
-	},
-	mouseup: function(e) {
-		if(selected != null) {
-			chart.data[0].dataPoints[selected].y = yValue;
-			chart.render();
-			mouseDown = false;
-		}
-	}
-});
-
-}
-</script>
-
 </head>
 <body>
 
@@ -133,7 +27,7 @@ jQuery("#chartContainer > .canvasjs-chart-container").on({
     <h3 class="w3-padding-64"><b>Amborisa<br></b></h3>
   </div>
   <div class="w3-bar-block">
-       <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+      <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="{% url 'SalesCreateInvoice' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create Invoice</a>
     <a href="{% url 'SalesTransaction' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Transactions</a>
     <a href="{% url 'SalesHomeIncome' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Income</a>
@@ -157,24 +51,60 @@ jQuery("#chartContainer > .canvasjs-chart-container").on({
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-jumbo"><b>Ambrosia Salary Management</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Income</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>Price Table Update</b></h1>
 
     <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
   </div>
-  <!------code------->
-      <table>
-        <form action = "{% url 'SalesHomeIncome' %}"><th><input type="submit" class="button button3" value="Weekly Report"> </th></form>
-        <form action = "{% url 'SalesHomeMonthlyIncome' %}"><th><input type="submit" class="button button3" value="Monthly Report"></th></form>
-         <form action = "{% url 'SalesHomeAnnuallyIncome' %}"><th><input type="submit" class="button button3" value="Annually Report"></th></form>
+<div class="container">
+
+
+    <form Action ="{% url 'SalesPriceTable' %}" >
+  <div>
+    <h5>BOPF</h5>
+    <table >
+        <tr>
+            <th>Weight</th>
+            <th>Price</th>
+
+
+        </tr>
+        <tr>
+            <th>1Kg</th>
+            <td><input type="text" ></td>
+
+
+        </tr>
+        <tr>
+            <th>500g</th>
+            <td><input type="text" ></td>
+
+
+        </tr>
+        <tr>
+            <th>400g</th>
+            <<td><input type="text" ></td>
+
+
+        </tr>
+         <tr>
+            <th>250g</th>
+            <<td><input type="text" ></td>
+
+
+        </tr>
+         <tr>
+            <th>200g</th>
+            <<td><input type="text" ></td>
+
+
+        </tr>
+
 
     </table>
-
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <br>
-    <input type="submit"value="Print Report" class="btn">
-
+  </div>
+        <br>
+        <input type="submit" class="btn">
+    </form>
 <!-- End page content -->
 </div>
 
@@ -204,4 +134,3 @@ function onClick(element) {
 
 </body>
 </html>
-
