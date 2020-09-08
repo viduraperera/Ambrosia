@@ -338,3 +338,40 @@ def inventoryannualreport (request):
 @login_required(login_url='login')
 def editpackets (request):
     return render(request, 'editpackets.html')
+    messages.error(request, "Error.Can't Delete User.")
+    return redirect('view_all_users')
+
+
+@login_required(login_url='login')
+def NavigateToInventory(request):
+    return render(request, 'add_inventory.html')
+
+
+@login_required(login_url='login')
+def NavigateToPrevInv(request):
+    return render(request, 'View_pre_inv.html')
+
+
+@login_required(login_url='login')
+def NavigateToUpdateInv(request):
+    return render(request, 'update_inventory.html')
+
+
+@login_required(login_url='login')
+def NavigateToProduction(request):
+    return render(request, 'Add_daily_product.html')
+
+
+@login_required(login_url='login')
+def NavigateToCustomDailyProd(request):
+    return render(request, 'View_Daily_production.html')
+
+
+@login_required(login_url='login')
+def NavigateToCurrentProduct(request):
+    return render(request, 'Current_product.html')
+
+
+@login_required(login_url='login')
+def NavigateToUpdateProduct(request):
+    return render(request, 'Update_daily_product.html')

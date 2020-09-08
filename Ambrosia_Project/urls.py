@@ -15,6 +15,16 @@ urlpatterns = [
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+    path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
+    path('Factory/LeafInventory/PreviousInventories', views.NavigateToPrevInv, name="NavigateToPreInv"),
+    path('Factory/LeafInventory/PreviousInventories/UpdateInvenories', views.NavigateToUpdateInv, name="NavigateToUpdateInv"),
+
+    path('Factory/FinalProduction/DailyProduction/AddProduction', views.NavigateToProduction, name="NavigateToProduction"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd, name="NavigateToCustomDailyProd"),
+    path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct, name="NavigateToCurrentProd"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct, name="NavigateToUpdateProd"),
+
+    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
     path('Shop/SalesHomeIncome/SalesHomeMonthlyIncome', views.SalesHomeMonthlyIncome, name="SalesHomeMonthlyIncome"),
