@@ -26,3 +26,8 @@ class AddBrokerForm(forms.ModelForm):
         model = Broker
         fields = '__all__'
 
+class AddBuyerForm(forms.ModelForm):
+    class Meta:
+        model = Buyer
+        fields = '__all__'
+

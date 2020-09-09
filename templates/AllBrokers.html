@@ -209,13 +209,15 @@ li a:hover {
  <table border="1 px solid black">
 
     <th>Broker Name</th>
-    <th>Vat Reg.No</th>
+    <th>Address</th>
+    <th>Phonenumber</th>
     <th>Update</th>
 
-    <tr>
-        <td>ABC</td>
-        <td>28</td>
-
+     {% for broker in Brokers %}
+         <tr>
+         <td>{{ broker.name }}</td>
+         <td>{{ broker.address }}</td>
+         <td>{{ broker.phone }}</td>
 
         <td>
             <form method="post" action="{% url 'update_broker' %}">
@@ -231,6 +233,7 @@ li a:hover {
             </form>
         </td>
     </tr>
+          {% endfor %}
 
 
 </table>

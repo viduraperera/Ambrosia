@@ -140,7 +140,7 @@ class Auction_Stock(models.Model):
         ('P', 'Pending'),
     ]
 
-    invoice = models.IntegerField(null=True);
+    invoice = models.IntegerField(null=True)
     net_weight = models.FloatField()
     total_weight = models.FloatField()
     no_of_packets = models.IntegerField()

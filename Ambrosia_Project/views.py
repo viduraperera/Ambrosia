@@ -64,8 +64,9 @@ def logout_user(request):
 @login_required(login_url='login')
 def view_AllUsers(request):
 
-    array = User.objects.all();
-    print(array);
+    array = User.objects.all()
+    print(array)
+
     return render(request, 'ViewAllUsers.html', {'Users': array})
 
 
@@ -127,7 +128,7 @@ def ShowUser(request):
 
     uname = request.POST.get("uname")
 
-    users = User.objects.all();
+    users = User.objects.all()
 
     for user in users:
         if user.username == uname:
@@ -147,7 +148,7 @@ def UpdateUser(request):
         if uname != None and pword != None:
             user = User.objects.get(username=uname)
             user.password = pword
-            user.save();
+            user.save()
             messages.success(request, "User Details Updated Successfully")
             return redirect('view_all_users')
 
@@ -414,11 +415,15 @@ def UpdateAuctionStock(request):
 
 @login_required(login_url='login')
 def ShowBrokerDetails(request):
-    return render(request, 'AllBrokers.html')
+
+    arr = Broker.objects.all()
+
+    return render(request, 'AllBrokers.html', {'Brokers': arr})
 
 
 @login_required(login_url='login')
 def ShowBuyerDetails(request):
+
     return render(request, 'AllBuyer.html')
 
 
@@ -442,7 +447,21 @@ def AddNewBroker(request):
 
 @login_required(login_url='login')
 def AddNewBuyer(request):
-    return render(request, 'addBuyer.html')
+
+    form = AddBuyerForm()
+
+    if request.method == 'POST':
+        form = AddBuyerForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('all_buyers')
+            except:
+                pass
+                #return redirect('all_buyers')
+
+    var = {'form': form}
+    return render(request, 'addBuyer.html', var)
 
 
 @login_required(login_url='login')
