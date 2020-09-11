@@ -8,7 +8,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
 <style>
@@ -59,7 +58,7 @@ body {
 
 {#menue bar#}
 
-ul {
+.menuBar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -67,11 +66,11 @@ ul {
   background-color: #333;
 }
 
-li {
+.menuBar li {
   float: left;
 }
 
-li a {
+.menuBar li a {
   display: block;
   color: white;
   text-align: center;
@@ -81,9 +80,10 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
+.menuBar li a:hover {
   background-color: #e9d394;
 }
+
 
 .sectionform{
     width: 80%;
@@ -93,6 +93,13 @@ li a:hover {
 
 </style>
 <body>
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
 
 <!-- Sidebar/menu -->
@@ -137,46 +144,54 @@ li a:hover {
   </div>
 
       <!-- Menu Bar -->
-<ul>
-    <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
-    <li><a href="{% url 'all_catelog' %}">Catelog Details</a></li>
-    <li><a href="{% url 'all_brokers' %}" >Brokers</a></li>
-    <li><a href="{% url 'all_buyers' %}" class="ClassActive1">Buyers</a></li>
-</ul>
+    <div class="menuBar">
+        <ul>
+            <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
+            <li><a href="{% url 'all_catelog' %}">Catelog Details</a></li>
+            <li><a href="{% url 'all_brokers' %}" >Brokers</a></li>
+            <li><a href="{% url 'all_buyers' %}" class="ClassActive1">Buyers</a></li>
+        </ul>
+    </div>
 
-<br><br>
-
+<br>
     <!-- Form -->
 <h1>Update Buyer</h1>
-   <form method="post" action="">
+    <br>
+   <form method="post" action="{% url 'update_buyer' %}">
 
     {% csrf_token %}
+
+      <input type="hidden" value="{{ BId }}" name="bID" class="w3-input w3-border">
 
        <div class="sectionform">
 
        <table>
            <tr>
-               <td><label><b>BuyerName</b></label></td>
-               <td><input type="text" value="" name="invoice"class="w3-input w3-border" required></td>
+               <td><label><b>Buyer Company Name</b></label></td>
+               <td>{{ BuyerForm.name }}</td>
+
            </tr>
 
            <tr>
-               <td><label><b>Address</b></label></td>
-               <td><input type="text" value="" name="catrgory" class="w3-input w3-border" required></td>
+               <td><label><b>Vat Reg.No</b></label></td>
+               <td>{{ BuyerForm.vat_regno }}</td>
            </tr>
 
-           <tr>
-               <td><label><b>Phone Number</b></label></td>
-               <td><input type="text" value="" name="nweight" class="w3-input w3-border" required></td>
-           </tr>
-
-               <td><button type="submit" class="buttonEdit">Update Buyer</button></td></tr>
+           <td><button type="submit" class="buttonEdit">Update Buyer</button></td></tr>
 
        </table>
 
      </div>
-
     </form>
+
+    {% if BuyerForm.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ BuyerForm.errors }}</h3>
+        </div>
+
+    {% endif %}
+
 
 <script>
 // Script to open and close sidebar

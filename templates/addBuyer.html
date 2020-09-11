@@ -8,7 +8,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
 <style>
@@ -59,7 +58,9 @@ body {
 
 {#menue bar#}
 
-ul {
+{#menue bar#}
+
+.menuBar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -67,11 +68,11 @@ ul {
   background-color: #333;
 }
 
-li {
+.menuBar li {
   float: left;
 }
 
-li a {
+.menuBar li a {
   display: block;
   color: white;
   text-align: center;
@@ -81,7 +82,7 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
+.menuBar li a:hover {
   background-color: #e9d394;
 }
 
@@ -94,6 +95,12 @@ li a:hover {
 </style>
 <body>
 
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -138,45 +145,58 @@ li a:hover {
   </div>
 
       <!-- Menu Bar -->
-<ul>
-    <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
-    <li><a href="{% url 'all_catelog' %}">Catelog Details</a></li>
-    <li><a href="{% url 'all_brokers' %}" >Brokers</a></li>
-    <li><a href="{% url 'all_buyers' %}" class="ClassActive1">Buyers</a></li>
-</ul>
+<div class="menuBar">
+    <ul>
+        <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
+        <li><a href="{% url 'all_catelog' %}">Catelog Details</a></li>
+        <li><a href="{% url 'all_brokers' %}" >Brokers</a></li>
+        <li><a href="{% url 'all_buyers' %}" class="ClassActive1">Buyers</a></li>
+    </ul>
+</div>
 
 <br><br>
 
     <!-- Form -->
 <h1>Add New Buyer</h1>
-   <form method="POSt" action="{% url 'add_buyer' %}">
+   <form method="POST" action="{% url 'add_buyer' %}">
 
     {% csrf_token %}
 
        <div class="sectionform">
 
        <table>
+
            <tr>
                <td><label><b>Buyer Company Name</b></label></td>
                <td>{{ form.name }}</td>
            </tr>
+
+           <br>
 
            <tr>
                <td><label><b>Vat Reg.No</b></label></td>
                <td>{{ form.vat_regno }}</td>
            </tr>
 
-           <br>
            <tr>
                <td></td>
-               <td><button type="submit" class="buttonEdit">Add Broker</button></td></tr>
+               <td><input type="submit" class="buttonEdit" value="Add Buyer"></td>
+           </tr>
 
        </table>
-
 
      </div>
 
     </form>
+
+    <br>
+    {% if form.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
 
 <script>
 // Script to open and close sidebar

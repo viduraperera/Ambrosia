@@ -8,7 +8,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
 <style>
@@ -125,7 +124,6 @@ li a:hover {
 
 .addBtn a
 {
-    margin-top: 15px;
     background-color: #244ee9;
     border: none;
     color: white;
@@ -149,6 +147,12 @@ li a:hover {
 </style>
 <body>
 
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
@@ -199,9 +203,8 @@ li a:hover {
     <li><a href="{% url 'all_buyers' %}" class="ClassActive1">Buyers</a></li>
 </ul>
 
-    <!-- Table -->
-    <h1>Buyer Details</h1>
-
+<!-- Table -->
+<h1>Buyer Details</h1>
 
     <div class="addBtn">
         <a href="{% url 'add_buyer' %}">Add New Buyer</a>
@@ -211,28 +214,31 @@ li a:hover {
 
     <th>Buyer Name</th>
     <th>Vat Reg No</th>
-    <th></th>Update</th>
+    <th>Update</th>
+
+     {% for buyer in Buyers  %}
+
 
     <tr>
-        <td>1</td>
-        <td>113</td>
-
+        <td>{{ buyer.name }}</td>
+        <td>{{ buyer.vat_regno }}</td>
 
         <td>
-            <form method="post" action="{% url 'update_buyer' %}">
+            <form method="post" action="{% url 'show_buyer' %}">
                 {% csrf_token %}
-                <input type="hidden" name="uname" value="{{ user.username }}"/>
+                <input type="hidden" name="buyerID" value="{{ buyer.id }}"/>
                 <input type="submit" value="Edit" class="buttonEdit">
             </form>
 
-            <form method="post" action=" ">
+            <form method="post" action="{% url 'delete_buyer' %} ">
                 {% csrf_token %}
-                <input type="hidden" name="uname" value=""/>
-                <input type="submit" value="Delete" class="buttonDelete">
+                <input type="hidden" name="buyerID" value="{{ buyer.id }}"/>
+                <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
             </form>
         </td>
     </tr>
 
+     {% endfor %}
 
 </table>
 
@@ -257,6 +263,7 @@ function onClick(element) {
   var captionText = document.getElementById("caption");
   captionText.innerHTML = element.alt;
 }
+
 </script>
 
 

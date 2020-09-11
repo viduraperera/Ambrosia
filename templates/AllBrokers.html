@@ -125,7 +125,6 @@ li a:hover {
 
 .addBtn a
 {
-    margin-top: 15px;
     background-color: #244ee9;
     border: none;
     color: white;
@@ -220,25 +219,22 @@ li a:hover {
          <td>{{ broker.phone }}</td>
 
         <td>
-            <form method="post" action="{% url 'update_broker' %}">
+            <form method="post" action="{% url 'show_broker' %}">
+
                 {% csrf_token %}
-                <input type="hidden" name="uname" value="{{ user.username }}"/>
+                <input type="hidden" name="bID" value="{{ broker.id }}" >
                 <input type="submit" value="Edit" class="buttonEdit">
             </form>
 
-            <form method="post" action=" ">
+            <form method="post" action="{% url 'delete_broker' %}">
                 {% csrf_token %}
-                <input type="hidden" name="uname" value=""/>
-                <input type="submit" value="Delete" class="buttonDelete">
+                <input type="hidden" name="brokerid" value="{{ broker.id }}" >
+                <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
             </form>
         </td>
     </tr>
           {% endfor %}
 
-
-</table>
-
-</div>
 
 <script>
 // Script to open and close sidebar

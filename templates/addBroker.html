@@ -59,7 +59,7 @@ body {
 
 {#menue bar#}
 
-ul {
+.menuBar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -67,11 +67,11 @@ ul {
   background-color: #333;
 }
 
-li {
+.menuBar li {
   float: left;
 }
 
-li a {
+.menuBar li a {
   display: block;
   color: white;
   text-align: center;
@@ -81,7 +81,7 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
+.menuBar li a:hover {
   background-color: #e9d394;
 }
 
@@ -137,19 +137,21 @@ li a:hover {
     <h1 class="w3-xxxlarge w3-text-red"><b>Auction Stock | Brokers</b></h1>
   </div>
 
-      <!-- Menu Bar -->
-<ul>
+<!-- Menu Bar -->
+<div class="menuBar">
+    <ul>
     <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
     <li><a href="{% url 'all_catelog' %}">Catelog Details</a></li>
     <li><a href="{% url 'all_brokers' %}" class="ClassActive1" >Brokers</a></li>
     <li><a href="{% url 'all_buyers' %}">Buyers</a></li>
-</ul>
+    </ul>
+</div>
 
 <br><br>
 
     <!-- Form -->
 <h1>Add New Broker</h1>
-   <form method="post" action="{% url 'add_broker' %}">
+   <form method="POST" action="{% url 'add_broker' %}">
 
     {% csrf_token %}
 
@@ -171,13 +173,22 @@ li a:hover {
                <td>{{ form.phone }}</td>
            </tr>
 
-               <td><button type="submit" class="buttonEdit">Add Buyer</button></td></tr>
+               <td><button type="submit" class="buttonEdit">Add Broker</button></td></tr>
 
        </table>
-
      </div>
 
     </form>
+<br>
+    {% if form.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
+
+<br><br><br><br>
 
 <script>
 // Script to open and close sidebar

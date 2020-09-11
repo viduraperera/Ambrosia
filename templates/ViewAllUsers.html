@@ -176,7 +176,7 @@ tr:nth-child(even) {
                 <form method="post" action=" {% url 'delete_user' %}">
                 {% csrf_token %}
                     <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Delete" class="buttonDelete">
+                    <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
                 </form>
             {% endif %}
         </td>
