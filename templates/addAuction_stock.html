@@ -147,7 +147,7 @@ li a:hover {
 
     <!-- Form -->
 <h1>Add New Catalog</h1>
-   <form method="post" action="">
+   <form method="post" action="{% url 'auction_stock' %}">
 
     {% csrf_token %}
 
@@ -156,32 +156,32 @@ li a:hover {
        <table>
            <tr>
                <td><label><b>Invoice No</b></label></td>
-               <td><input type="text" value="" name="invoice"class="w3-input w3-border" required></td>
+               <td>{{ form.invoice }}</td>
            </tr>
 
            <tr>
                <td><label><b>Tea Category</b></label></td>
-               <td><input type="text" value="" name="catrgory" class="w3-input w3-border" required></td>
+               <td></td>
            </tr>
 
            <tr>
                <td><label><b>Net Weight(kg)</b></label></td>
-               <td><input type="text" value="" name="nweight" class="w3-input w3-border" required></td>
+               <td>{{ form.net_weight }}</td>
            </tr>
 
            <tr>
                <td><label><b>Total Weight(kg)</b></label></td>
-               <td><input type="text" value="" name="tweight" class="w3-input w3-border" required></td>
+               <td>{{ form.total_weight }}</td>
            </tr>
 
            <tr>
                <td><label><b>No of Packeges</b></label></td>
-               <td><input type="text" value="" name="packets" class="w3-input w3-border" required></td>
+               <td>{{ form.no_of_packets }}</td>
            </tr>
 
            <tr>
                <td><label><b>Date</b></label></td>
-               <td><input type="text" value="" name="date" class="w3-input w3-border" required></td>
+               <td>{{ form.Date }}</td>
            </tr>
 
            <br>

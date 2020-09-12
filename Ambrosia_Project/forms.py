@@ -33,4 +33,9 @@ class AddBuyerForm(forms.ModelForm):
         model = Buyer
         fields = '__all__'
 
+class AddAuctionStockForm(forms.ModelForm):
+    class Meta:
+        model = Auction_Stock
+        fields = '__all__'
+
 

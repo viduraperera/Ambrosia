@@ -470,8 +470,11 @@ def finalProductionHome(request):
 #auction stock--------------------------------------------------------------------------------------------
 
 @login_required(login_url='login')
-def AuctionStockHome(request):
-    return render(request, 'addAuction_stock.html')
+def AddAuctionStock(request):
+
+    form_auction = AddAuctionStockForm()
+
+    return render(request, 'addAuction_stock.html', {'form': form_auction} )
 
 
 @login_required(login_url='login')
@@ -645,19 +648,19 @@ def AddNewBuyer(request):
                 #vatNo = form.cleaned_data.get('vat_regno')
                 #print("VAT REG NO:",vatNo)
                 form.save()
+                messages.success(request, 'Sucessfully Added Buyer Details')
                 return redirect('all_buyers')
 
             except Exception as e:
                 # pass
                 print(e)
+                messages.success(request, 'Exception:'+e)
                 return redirect('add_buyer')
         else:
             #form method is not valid
             print(form.errors)
+            messages.success(request, 'Invalid Details')
             pass
-    else:
-        #form method is not POST
-        pass
 
     #poss form to add buyer
     var = {'form': form}
@@ -701,34 +704,33 @@ def UpdateBuyer(request):
 
     if request.method == "POST":
 
-        buyerform = AddBuyerForm(request.POST)
-        buyerid = request.POST.get('bID')
+        try:
+            buyerform = AddBuyerForm(request.POST)
+            buyerid = request.POST.get('bID')
 
-        if buyerform.is_valid():
+            if buyerform.is_valid():
 
-            try:
-                buyer = Buyer.objects.get(pk=buyerid)
+                    buyer = Buyer.objects.get(pk=buyerid)
 
-                if buyer is not None:
-                    buyer_form = AddBuyerForm(request.POST, instance=buyer)
-                    buyer_form.save()
-                    messages.success(request, 'Sucessfully updated Buyer Details')
-                    return redirect('all_buyers')
+                    if buyer is not None:
+                        buyer_form = AddBuyerForm(request.POST, instance=buyer)
+                        buyer_form.save()
+                        messages.success(request, 'Sucessfully updated Buyer Details')
+                        return redirect('all_buyers')
 
-                else:
-                    #if buyer not found in db
-                    messages.success(request, 'Buyer details not found in database')
+                    else:
+                        #if buyer not found in db
+                        messages.success(request, 'Buyer details not found in database')
 
-            except Exception as e:
-                print(e)
-                messages.success(request, 'Exception :'+e)
+            #form is not valid
+            else:
+                print(buyerform.errors)
+                messages.success(request, 'Invalid Details')
+                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
 
-        #form is not valid
-        else:
-            print(buyerform.errors)
-            messages.success(request, 'Invalid Details')
-            return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
-
+        except Exception as e:
+            print(e)
+            messages.success(request, 'Exception :' + e)
 
     else:
         #form method is not

@@ -77,14 +77,14 @@ urlpatterns = [
     path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct,name="NavigateToCurrentProd"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
 
+    path('Factory/FinalProduction/AddAuctionStock/', views.AddAuctionStock, name="auction_stock"),
+    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.ShowAuctionStock, name="all_catelog"),
+    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.UpdateAuctionStock,name="update_catelog"),
+
     path('Factory/FinalProduction/StockSales', views.StockSalesHome, name="stock_sales"),
     path('Factory/FinalProduction/NotSoldStocks', views.NotSoldStock, name="stock_notsold"),
     path('Factory/FinalProduction/SoldStocks', views.SoldStock, name="stock_sold"),
 
-
-    path('Factory/FinalProduction/AuctionStock/', views.AuctionStockHome, name="auction_stock"),
-    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.ShowAuctionStock, name="all_catelog"),
-    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.UpdateAuctionStock,name="update_catelog"),
 
     path('Factory/FinalProduction/AuctionStock/Brokers', views.ShowBrokerDetails, name="all_brokers"),
     path('Factory/FinalProduction/AuctionStock/AddBroker', views.AddNewBroker, name="add_broker"),
