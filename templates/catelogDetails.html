@@ -1,59 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'FinalPrductionBase.html' %}
 
-<title>All Catelog Details</title>
+<!------------------------------------Title-------------------------------------->
+{% block title %}Auction Stock Details{% endblock title %}
 
-<meta charset="UTF-8">
+<!------------------------------------Styles-------------------------------------->
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+{% block moreStyles %}
 
-<style>
-body,h1,h2,h3,h4,h5
-{
-    font-family: "Poppins", sans-serif
-}
-body {
-    font-size:16px;
-}
-.w3-half img{
-    margin-bottom:-6px;
-    margin-top:16px;
-    opacity:0.8;cursor:pointer
-}
-.w3-half img:hover{
-    opacity:1
-}
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    }
-
-th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    font-size: 20px;
-    padding: 18px;
-    background: #fff9d2;
-    }
-
-td {
-    border: 1px solid #e7e5e5;
-    text-align: left;
-    font-size: 20px;
-    padding: 15px;
-    }
-
-tr:nth-child(even) {
-    background-color: #f8f5f5;
-    }
-
-    .buttonEdit
+.buttonEdit
     {
       background-color: #2f960a;
       border: none;
@@ -87,97 +41,73 @@ tr:nth-child(even) {
     background: red;
     }
 
-.ClassActive {
-    background-color: #8db8e0;
-}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
 
-.ClassActive1 {
-    background-color: #87dbb9;
-}
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 20px;
+    padding: 18px;
+    background: #fff9d2;
+    }
 
-{#menue bar#}
+td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 20px;
+    padding: 15px;
+    }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
+tr:nth-child(even) {
+    background-color: #f8f5f5;
+    }
 
-li {
-  float: left;
-}
+{% endblock moreStyles %}
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  font-weight: normal;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #e9d394;
-}
-
-</style>
-<body>
-
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-
-    <div class="w3-container" >
-      <img src="{% static 'images/logo.png' %}">
-    <h3 class="w3-padding-64"><b>Ambrosia</b></h3>
-  </div>
-
-  <div class="w3-bar-block">
-
-    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Daily Production</a>
-    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Auction Stock</a>
-    <a href="{% url 'stock_sales' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sales</a>
-    <a href="{% url 'production_analysis' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a>
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
 
 
-  </div>
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Auction Stock | Catelogs{% endblock pageContentHeader2 %}
 
-</nav>
 
-<!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-green w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Main Menu</span>
-</header>
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+{% endblock displayMessage %}
 
-  <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Final Production Management</b></h1>
-    <h1 class="w3-xxxlarge w3-text-red"><b>Auction Stock | Catelogs</b></h1>
-  </div>
 
-      <!-- Menu Bar -->
-<ul>
-    <li><a href="{% url 'auction_stock' %}" >Prepare A Catelog</a></li>
-    <li><a href="{% url 'all_catelog' %}" class="ClassActive1">Catelog Details</a></li>
-    <li><a href="{% url 'all_brokers' %}" >Brokers</a></li>
-    <li><a href="{% url 'all_buyers' %}">Buyers</a></li>
-</ul>
+<!----------------------------------Hide Menues--------------------------------------->
 
-<br>
-    <!-- Table -->
-    <h1>Catelog Details</h1>
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!-------------------------Body Menue------------------------->
+{% block auctionStockBtn %}ClassActive{% endblock auctionStockBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block showCatelogBtn %}ClassActive1{% endblock showCatelogBtn %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<!-- Table -->
+<h1>Catelog Details</h1>
 
  <table border="1 px solid black">
 
@@ -219,30 +149,4 @@ li a:hover {
 
 </table>
 
-
-</div>
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-</script>
-
-
-</body>
-</html>
+{% endblock content %}

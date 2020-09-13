@@ -69,22 +69,18 @@ urlpatterns = [
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS', views.SalesPriceTableFGS, name="SalesPriceTableFGS"),
 
 
-
-    path('Factory/FinalProduction/ProductionAnalysis/', views.ProductionAnalysisHome, name="production_analysis"),
-
     path('Factory/FinalProduction/', views.NavigateToProduction,name="final_production_home"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd,name="NavigateToCustomDailyProd"),
     path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct,name="NavigateToCurrentProd"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
 
-    path('Factory/FinalProduction/AddAuctionStock/', views.AddAuctionStock, name="auction_stock"),
+    path('Factory/FinalProduction/AddAuctionStock', views.AddAuctionStock, name="auction_stock"),
     path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.ShowAuctionStock, name="all_catelog"),
     path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.UpdateAuctionStock,name="update_catelog"),
 
     path('Factory/FinalProduction/StockSales', views.StockSalesHome, name="stock_sales"),
     path('Factory/FinalProduction/NotSoldStocks', views.NotSoldStock, name="stock_notsold"),
     path('Factory/FinalProduction/SoldStocks', views.SoldStock, name="stock_sold"),
-
 
     path('Factory/FinalProduction/AuctionStock/Brokers', views.ShowBrokerDetails, name="all_brokers"),
     path('Factory/FinalProduction/AuctionStock/AddBroker', views.AddNewBroker, name="add_broker"),
@@ -98,8 +94,9 @@ urlpatterns = [
     path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.UpdateBuyer, name="update_buyer"),
     path('Factory/FinalProduction/AuctionStock/DeleteBuyer', views.DeleteBuyer, name="delete_buyer"),
 
-    #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+    path('Factory/FinalProduction/ProductionAnalysis/', views.ProductionAnalysisHome, name="production_analysis"),
 
+    #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
     path('Factory/EmployeeHome', views.emp_fund_view, name="EmployeeHome"),
     path('Factory/EmployeeHome/emp_fund_view', views.emp_fund_view, name="emp_fund_view"),
