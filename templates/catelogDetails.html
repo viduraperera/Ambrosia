@@ -109,44 +109,39 @@ Display Message
 <!-- Table -->
 <h1>Catelog Details</h1>
 
- <table border="1 px solid black">
+    <div style="overflow-x:auto;">
 
-    <th>StockId</th>
-    <th>Invoice</th>
-    <th>Net Weight</th>
-    <th>Total Weight</th>
-    <th>No of Packeges</th>
-    <th>Status</th>
-    <th>Sold Count</th>
-    <th>Price</th>
-    <th>Update</th>
+     <table>
 
-    <tr>
-        <td>1</td>
-        <td>113</td>
-        <td>28</td>
-        <td>285.5</td>
-        <td>20</td>
-        <td>Pending</td>
-        <td>0</td>
-        <td>0</td>
+        <th>StockId</th>
+        <th>SubId</th>
+        <th>Total Net Weight</th>
+        <th>Total Weight</th>
+        <th>Total No of Packeges</th>
+        <th>Date</th>
+        <th>Broker</th>
+        <th>Update</th>
 
-        <td>
-            <form method="post" action="{% url 'update_catelog' %}">
-                {% csrf_token %}
-                <input type="hidden" name="uname" value="{{ user.username }}"/>
-                <input type="submit" value="Edit" class="buttonEdit">
-            </form>
-
-            <form method="post" action=" ">
-                {% csrf_token %}
-                <input type="hidden" name="uname" value=""/>
-                <input type="submit" value="Delete" class="buttonDelete">
-            </form>
-        </td>
-    </tr>
+        <tr>
+            <td>1</td>
+            <td>S001</td>
+            <td>250</td>
+            <td>280</td>
+            <td>120</td>
+            <td>2020.09.10</td>
+            <td>A.B.B Brokers</td>
 
 
-</table>
+            <td>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="uname" value="{{ user.username }}"/>
+                    <input type="submit" value="View" class="buttonEdit">
+                </form>
+
+        </tr>
+
+     </table>
+    </div>
 
 {% endblock content %}

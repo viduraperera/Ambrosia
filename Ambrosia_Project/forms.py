@@ -22,6 +22,8 @@ class AllowanceForm(forms.ModelForm):
         fields = '__all__'
 
 
+#final production management - Auction Stock - Sandun
+
 class AddBrokerForm(forms.ModelForm):
     class Meta:
         model = Broker

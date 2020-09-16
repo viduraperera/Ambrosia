@@ -29,9 +29,9 @@ class Broker(models.Model):
 
 #Buyer Model - Sandun
 class Buyer(models.Model):
-    vat_regno = models.CharField(max_length=15, null=True, validators=[
+    vat_regno = models.CharField(max_length=15, null=True, blank=True,validators=[
         RegexValidator(
-            regex = '^[0-9]*$',
+            regex = '^[0-9-]*$',
             message = 'Vat Registration Number must contain only numbers',
             code = 'Vat Reg.No is Invalid'
         )
@@ -205,7 +205,7 @@ class TeaGrades(models.Model):
         db_table ='tea_grade'
 
 
-#teacategory Model - Nethmi
+# #teacategory Model - Nethmi
 class teaCategory(models.Model):
     category_id = models.CharField(max_length=10)
     description = models.CharField(max_length=10)

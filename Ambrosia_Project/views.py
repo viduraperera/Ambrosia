@@ -452,6 +452,8 @@ def NavigateToProduction(request):
 def NavigateToCustomDailyProd(request):
     return render(request, 'View_Daily_production.html')
 
+def NavigateToTeaGrades(request):
+    return render(request, 'TeaGrades.html')
 
 @login_required(login_url='login')
 def NavigateToCurrentProduct(request):
@@ -491,7 +493,9 @@ def StockSalesHome(request):
 def UpdateAuctionStock(request):
     return render(request, 'updateCatelog.html')
 
+
 #Broker-----------------------------------------------------------------------------------------------------
+
 
 @login_required(login_url='login')
 def ShowBrokerDetails(request):
@@ -499,8 +503,9 @@ def ShowBrokerDetails(request):
     try:
         arr = Broker.objects.all()
 
-    except:
-        pass
+    except Exception as e:
+        print(e)
+        messages.error("Exception: "+e)
 
     return render(request, 'AllBrokers.html', {'Brokers': arr})
 
@@ -515,16 +520,19 @@ def AddNewBroker(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request, 'SUccessfully Added Broker Details')
                 return redirect('all_brokers')
-            except:
-                pass
+
+            except Exception as e:
+                print(e)
+                messages.error(request, 'Exception: '+e)
+
         else:
-            #form is not valid
-            pass
+            messages.error(request, 'Invalid Details')
 
     else:
-        #form method is not post
-        pass
+        #form method is not POST
+       pass
 
     var = {'form': form}
     return render(request, 'addBroker.html', var)
@@ -540,26 +548,26 @@ def ShowBroker(request):
 
             try:
                 broker = Broker.objects.get(pk=brID)
+                brokerForm = AddBrokerForm(instance=broker)
 
                 if broker is not None:
-                    return render(request, 'updateBroker.html', {'Broker': broker})
+                    return render(request, 'updateBroker.html', {'Broker': brokerForm, 'BrokerID' : brID})
 
                 else:
-                    #broker not found
-                    pass
+                    messages.error(request, 'Broker not found in Database')
+                    return redirect('all_brokers')
 
-            except:
-                pass
+            except Exception as e:
+                messages.error(request, 'Exception : '+e)
 
         else:
-            #broker id is empty
-            pass
+            messages.error(request, 'Broker id is empty')
 
     else:
-        #form method is not POST
-        pass
+        messages.error(request, 'Form method is invalid')
 
-    return render(request, 'AllBrokers.html')
+
+    return redirect('all_brokers')
 
 
 @login_required(login_url='login')
@@ -569,36 +577,31 @@ def UpdateBroker(request):
         brID = request.POST.get('bId')
 
         if brID is not None:
-            brName = request.POST.get('bName')
-            brPhone = request.POST.get('bPhone')
-            brAddress = request.POST.get('bAddress')
 
             try:
                 broker = Broker.objects.get(pk=brID)
+                bFrom = AddBrokerForm(request.POST, instance=broker)
 
-                if broker is not None:
-                    broker.name = brName
-                    broker.phone = brPhone
-                    broker.address = brAddress
-                    broker.save()
+                if bFrom.is_valid():
+                    bFrom.save()
+                    messages.success(request, 'Successfully Updated Broker Details')
                     return redirect('all_brokers')
 
                 else:
-                    #broker not found in db
-                    pass
+                    #Not Valid
+                    messages.success(request, 'Invalid Details Provided.')
+                    return render(request, 'updateBroker.html', {'Broker': bFrom, 'BrokerID': brID})
 
-            except:
-                pass
+            except Exception as e:
+                messages.error(request, 'Exception Occured: '+ e)
+                return redirect('all_brokers')
 
         else:
             #BRokerId is NUll
-            pass
+            messages.error(request, 'Broker id is Null')
+            return redirect('all_brokers')
 
-    else:
-        #form method is not POST
-        pass
-
-    return render(request, 'updateBroker.html')
+    return redirect('all_brokers')
 
 
 @login_required(login_url='login')
@@ -613,22 +616,21 @@ def deleteBroker(request):
                 broker = Broker.objects.get(pk=brokerid)
 
                 if broker is not None:
+                    messages.success(request, 'Sucessfully Deleted Details')
                     broker.delete()
 
                 else:
-                    # broker not found
-                    pass
+                    messages.error(request, 'Broker not found in database')
 
-            except:
-                pass
+            except Exception as e:
+                print(e)
+                messages.error(request, 'Exception: '+e)
 
         else:
-            #broker id is null
-            pass
+            messages.error(request, 'Broker id is null')
 
     else:
-        #form method is not POST
-        pass
+        messages.error(request, 'Form method is invalid')
 
     return redirect('all_brokers')
 
@@ -654,12 +656,12 @@ def AddNewBuyer(request):
             except Exception as e:
                 # pass
                 print(e)
-                messages.success(request, 'Exception:'+e)
+                messages.error(request, 'Exception:'+e)
                 return redirect('add_buyer')
         else:
             #form method is not valid
             print(form.errors)
-            messages.success(request, 'Invalid Details')
+            messages.error(request, 'Invalid Details')
             pass
 
     #poss form to add buyer
@@ -675,7 +677,7 @@ def ShowBuyerDetails(request):
 
     except Exception as e:
         print(e)
-        messages.success(request, 'Exception: '+e)
+        messages.error(request, 'Exception: '+e)
 
     return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
 
@@ -694,7 +696,7 @@ def ShowBuyer(request):
 
             except Exception as e:
                 print(e)
-                messages.success(request, 'Exception :'+e)
+                messages.error(request, 'Exception :'+e)
 
     return render(request, 'AllBuyer.html')
 
@@ -720,7 +722,7 @@ def UpdateBuyer(request):
 
                     else:
                         #if buyer not found in db
-                        messages.success(request, 'Buyer details not found in database')
+                        messages.error(request, 'Buyer details not found in database')
 
             #form is not valid
             else:
@@ -730,11 +732,11 @@ def UpdateBuyer(request):
 
         except Exception as e:
             print(e)
-            messages.success(request, 'Exception :' + e)
+            messages.error(request, 'Exception :' + e)
 
     else:
         #form method is not
-        messages.success(request, 'Form method is invalid')
+        messages.error(request, 'Form method is invalid')
         return redirect('all_buyers')
 
     return redirect('all_buyers')
@@ -761,14 +763,15 @@ def DeleteBuyer(request):
 
             except Exception as e:
                 print(e)
-                messages.success(request, 'Exception :'+e)
+                messages.error(request, 'Exception :'+e)
 
         else:
             #buyer id is null
-            messages.success(request, 'Passed Buyer id is Null.')
+            messages.error(request, 'Passed Buyer id is Null.')
 
     else:
         #form method is not POST
-        messages.success(request, 'Form method is invalid')
+        messages.error(request, 'Form method is invalid')
 
     return redirect('all_buyers')
+

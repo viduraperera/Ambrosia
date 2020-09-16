@@ -32,6 +32,40 @@ tr:nth-child(even) {
     background-color: #f3f2ee;
     }
 
+.buttonEdit
+    {
+    background-color: #2f960a;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 90%;
+    border-radius: 5px;
+    }
+
+.buttonDelete {
+    margin-top: 15px;
+    background-color: #ff6d00;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 90%;
+    border-radius: 5px;
+    }
+
+.buttonEdit:hover {
+    background: #25ff79;
+    }
+
+.buttonDelete:hover{
+    background: red;
+    }
+
 {% endblock moreStyles %}
 
 <!-------------------------Body Menue------------------------->
@@ -77,19 +111,34 @@ tr:nth-child(even) {
 <table border="1 px solid black">
 
     <th>StockId</th>
-    <th>Invoice</th>
-    <th>Net Weight</th>
-    <th>Total Weight</th>
-    <th>No of Packeges</th>
-    <th>Status</th>
+    <th>SubId</th>
+    <th>Price</th>
+    <th>Tot.Price</th>
+    <th>Buyer</th>
+    <th>Sold Date</th>
+    <th>Edit</th>
 
     <tr>
         <td>1</td>
-        <td>113</td>
-        <td>28</td>
-        <td>285.5</td>
-        <td>20</td>
-        <td>Sold</td>
+        <td>S001</td>
+        <td>300</td>
+        <td>12000</td>
+        <td>C.B.B Brothers</td>
+        <td>2020.09.13</td>
+
+        <td>
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name="uname" value="{{ user.username }}"/>
+                <input type="submit" value="Sold" class="buttonEdit">
+            </form>
+
+            <form method="post" action=" ">
+                {% csrf_token %}
+                <input type="hidden" name="uname" value=""/>
+                <input type="submit" value="Not Sold" class="buttonDelete">
+            </form>
+        </td>
 
     </tr>
 

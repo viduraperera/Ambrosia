@@ -74,26 +74,26 @@
 
     {% csrf_token %}
 
-       <input type="hidden" value="{{ Broker.id }}" name="bId">
+       <input type="hidden" value="{{ BrokerID }}" name="bId">
 
        <div class="sectionform">
 
        <table>
            <tr>
                <td><label><b>Broker Company Name</b></label></td>
-               <td><input type="text" value="{{ Broker.name }}" name="bName"class="w3-input w3-border" required></td>
+               <td>{{ Broker.name }}</td>
            </tr>
 
            <tr>
                <td><label><b>Address</b></label></td>
 
-               <td><textarea name="bAddress" class="w3-input w3-border">{{ Broker.address }}</textarea>
+               <td>{{ Broker.address }}</td>
 
            </tr>
 
            <tr>
                <td><label><b>Phone</b></label></td>
-               <td><input type="text" value="{{ Broker.phone }}" name="bPhone" class="w3-input w3-border" required></td>
+               <td>{{ Broker.phone }}</td>
            </tr>
 
            <br>
