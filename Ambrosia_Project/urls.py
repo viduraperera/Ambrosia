@@ -10,7 +10,7 @@ urlpatterns = [
     path('ViewAllUsers/', views.DeleteUser, name="delete_user"),
 
     path('AddUser', views.registration, name='register'),
-    path('Factory', views.factoryHomepage, name='factory_home'),
+    path('Factory', views.factoryhome, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="attendance_management"),
@@ -75,27 +75,27 @@ urlpatterns = [
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
     path('Factory/FinalProduction/DailyProduction/TeaGrades', views.NavigateToTeaGrades,name="NavigateToTeaGrades"),
 
-    path('Factory/FinalProduction/AddAuctionStock', views.AddAuctionStock, name="auction_stock"),
-    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.ShowAuctionStock, name="all_catelog"),
-    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.UpdateAuctionStock,name="update_catelog"),
+    path('Factory/FinalProduction/AddAuctionStock', views.addAuctionStock, name="auction_stock"),
+    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.showAuctionStock, name="all_catelog"),
+    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.updateAuctionStock,name="update_catelog"),
 
-    path('Factory/FinalProduction/StockSales', views.StockSalesHome, name="stock_sales"),
-    path('Factory/FinalProduction/NotSoldStocks', views.NotSoldStock, name="stock_notsold"),
-    path('Factory/FinalProduction/SoldStocks', views.SoldStock, name="stock_sold"),
+    path('Factory/FinalProduction/StockSales', views.stockSalesHome, name="stock_sales"),
+    path('Factory/FinalProduction/NotSoldStocks', views.notSoldStock, name="stock_notsold"),
+    path('Factory/FinalProduction/SoldStocks', views.soldStock, name="stock_sold"),
 
-    path('Factory/FinalProduction/AuctionStock/Brokers', views.ShowBrokerDetails, name="all_brokers"),
-    path('Factory/FinalProduction/AuctionStock/AddBroker', views.AddNewBroker, name="add_broker"),
-    path('Factory/FinalProduction/AuctionStock/UpdateBroker', views.UpdateBroker, name="update_broker"),
-    path('Factory/FinalProduction/AuctionStock/ShowBroker', views.ShowBroker, name="show_broker"),
+    path('Factory/FinalProduction/AuctionStock/Brokers', views.showBrokerDetails, name="all_brokers"),
+    path('Factory/FinalProduction/AuctionStock/AddBroker', views.addNewBroker, name="add_broker"),
+    path('Factory/FinalProduction/AuctionStock/UpdateBroker', views.updateBroker, name="update_broker"),
+    path('Factory/FinalProduction/AuctionStock/ShowBroker', views.showBroker, name="show_broker"),
     path('Factory/FinalProduction/AuctionStock/DeleteBroker', views.deleteBroker, name="delete_broker"),
 
-    path('Factory/FinalProduction/AuctionStock/Buyers', views.ShowBuyerDetails, name="all_buyers"),
-    path('Factory/FinalProduction/AuctionStock/AddBuyer', views.AddNewBuyer, name="add_buyer"),
-    path('Factory/FinalProduction/AuctionStock/ShowBuyer', views.ShowBuyer, name="show_buyer"),
-    path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.UpdateBuyer, name="update_buyer"),
-    path('Factory/FinalProduction/AuctionStock/DeleteBuyer', views.DeleteBuyer, name="delete_buyer"),
+    path('Factory/FinalProduction/AuctionStock/Buyers', views.showBuyerDetails, name="all_buyers"),
+    path('Factory/FinalProduction/AuctionStock/AddBuyer', views.addNewBuyer, name="add_buyer"),
+    path('Factory/FinalProduction/AuctionStock/ShowBuyer', views.showBuyer, name="show_buyer"),
+    path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.updateBuyer, name="update_buyer"),
+    path('Factory/FinalProduction/AuctionStock/DeleteBuyer', views.deleteBuyer, name="delete_buyer"),
 
-    path('Factory/FinalProduction/ProductionAnalysis/', views.ProductionAnalysisHome, name="production_analysis"),
+    path('Factory/FinalProduction/ProductionAnalysis/', views.productionAnalysisHome, name="production_analysis"),
 
     #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 

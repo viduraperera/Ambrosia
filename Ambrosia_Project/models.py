@@ -6,63 +6,6 @@ from datetime import datetime
 # Create your models here.
 
 
-#Broker Model - Sandun
-class Broker(models.Model):
-    name = models.CharField(max_length=50)
-    address = models.TextField(null=True)
-    phone = models.CharField(max_length=10, null=True, validators=[
-        RegexValidator(
-            regex = '^[0-9]*$',
-            message = 'Phone Number must contain only numbers.',
-            code = 'Phone Number is Invalid'
-        ),
-        RegexValidator(
-            regex = '^.{10}$',
-            message = 'Phone Number length is invalid',
-            code = 'Phone Number is Invalid'
-        )
-    ])
-
-    class Meta:
-        db_table = 'Broker'
-
-
-#Buyer Model - Sandun
-class Buyer(models.Model):
-    vat_regno = models.CharField(max_length=15, null=True, blank=True,validators=[
-        RegexValidator(
-            regex = '^[0-9-]*$',
-            message = 'Vat Registration Number must contain only numbers',
-            code = 'Vat Reg.No is Invalid'
-        )
-    ])
-    name = models.CharField(max_length=50)
-
-    class Meta:
-        db_table = 'Buyer'
-
-
-#Auction Stock Model - Sandun
-class Auction_Stock(models.Model):
-
-    StatusGroup = [
-        ('S', 'Sold'),
-        ('N', 'NotSold'),
-        ('P', 'Pending'),
-    ]
-
-    invoice = models.IntegerField(null=True)
-    net_weight = models.FloatField()
-    total_weight = models.FloatField()
-    no_of_packets = models.IntegerField()
-    status = models.CharField(max_length=10, choices=StatusGroup)
-    sold_count = models.IntegerField()
-    price = models.FloatField()
-
-    class Meta:
-        db_table = 'Auction_Stock'
-
-
 #Employee Model - Malka
 class Employee(models.Model):
     GENDER=(
@@ -178,33 +121,6 @@ class Driver(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
 
 
-#Leaf Inventory Model - Ravija
-class LeafInventory(models.Model):
-    in_Date = models.DateField()
-    in_Time = models.TimeField()
-    tray_Id = models.IntegerField()
-    temp = models.FloatField()
-    weight = models.FloatField()
-    out_Date = models.DateField()
-    out_Time = models.TimeField()
-
-    class Meta:
-        db_table ='inventory'
-
-#LeafStock Model - Ravija
-class LeafStock(models.Model):
-    weight = models.FloatField()
-    rec_Date = models.DateField()
-    rec_Time = models.TimeField()
-    #supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
-
-#Tea Gerades Model - Ravija
-class TeaGrades(models.Model):
-    teaGrade = models.CharField(max_length=10)
-    class Meta:
-        db_table ='tea_grade'
-
-
 # #teacategory Model - Nethmi
 class teaCategory(models.Model):
     category_id = models.CharField(max_length=10)
@@ -218,7 +134,7 @@ class teaCategory(models.Model):
 class Tea_add_prod(models.Model):
     date = models.DateField()
     total_weight = models.FloatField()
-    tea_grades=models.ForeignKey(TeaGrades, on_delete=models.CASCADE, null=True)
+    tea_grades=models.ForeignKey('TeaGrades', on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'add_product'
@@ -317,4 +233,144 @@ class Estate(models.Model):
     supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
 
 
+#Leaf Inventory Model - Ravija
+class LeafInventory(models.Model):
+    in_Date = models.DateField()
+    in_Time = models.TimeField()
+    tray_Id = models.IntegerField()
+    temp = models.FloatField()
+    weight = models.FloatField()
+    out_Date = models.DateField()
+    out_Time = models.TimeField()
+
+    class Meta:
+        db_table ='inventory'
+
+
+#LeafStock Model - Ravija
+class LeafStock(models.Model):
+    weight = models.FloatField()
+    rec_Date = models.DateField()
+    rec_Time = models.TimeField()
+    #supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
+
+
+#Tea Gerades Model - Ravija
+class TeaGrades(models.Model):
+    teaGrade = models.CharField(max_length=10, unique=True)
+    class Meta:
+        db_table ='tea_grade'
+
+
+#Broker Model - Sandun
+class Broker(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.TextField(null=True)
+    vat_regno = models.CharField(max_length=15, null=True, blank=True, validators=[
+        RegexValidator(
+            regex='^[0-9-]*$',
+            message='Vat Registration Number must contain only numbers',
+            code='Vat Reg.No is Invalid'
+        )
+    ])
+    phone = models.CharField(max_length=10, null=True, validators=[
+        RegexValidator(
+            regex = '^[0-9]*$',
+            message = 'Phone Number must contain only numbers.',
+            code = 'Phone Number is Invalid'
+        ),
+        RegexValidator(
+            regex = '^.{10}$',
+            message = 'Phone Number length is invalid',
+            code = 'Phone Number is Invalid'
+        )
+    ])
+
+    class Meta:
+        db_table = 'Broker'
+
+
+#Buyer Model - Sandun
+class Buyer(models.Model):
+    vat_regno = models.CharField(max_length=15, null=True, blank=True,validators=[
+        RegexValidator(
+            regex = '^[0-9-]*$',
+            message = 'Vat Registration Number must contain only numbers',
+            code = 'Vat Reg.No is Invalid'
+        )
+    ])
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = 'Buyer'
+
+
+#Auction SubStock Model - Sandun
+class Auction_SubStock(models.Model):
+
+    packets = (
+        ('DPBS', 'DPBS'),
+        ('MNBS', 'MNBS')
+    )
+
+    SubID = models.IntegerField(unique=True)
+    invoice = models.IntegerField(null=True)
+    no_of_packets = models.IntegerField()
+    net_weight = models.FloatField()
+    total_weight = models.FloatField()
+    grade = models.ForeignKey('TeaGrades', to_field='teaGrade', on_delete=models.CASCADE)
+    packetType = models.CharField(max_length=10, choices=packets)
+    date_prepared = models.DateField()
+    status = models.CharField(max_length=10, null=True)
+
+    class Meta:
+        db_table = 'Auction_SubStock'
+
+
+#Auction MainStock Model - Sandun
+class Auction_MainStock(models.Model):
+
+    SubID = models.IntegerField(unique=True)
+    Date = models.DateField(auto_now=True)
+    Broker = models.ForeignKey('Broker', on_delete=models.CASCADE)
+    total_netWeight = models.FloatField()
+    total_grossWeight = models.FloatField()
+    total_packets = models.IntegerField()
+
+    class Meta:
+        db_table = 'Auction_MainStock'
+
+
+#Auction Sold Stock Model - Sandun
+class Auction_SoldStocks(models.Model):
+
+    MainID = models.ForeignKey('Auction_SubStock', related_name='soldMainID',on_delete = models.CASCADE)
+    SubId = models.ForeignKey('Auction_SubStock', to_field='SubID', on_delete = models.CASCADE)
+    price = models.FloatField()
+    total_price = models.FloatField()
+    Buyer = models.ForeignKey('Buyer', on_delete = models.CASCADE)
+    sold_Date = models.DateField()
+
+    class Meta:
+        db_table = 'Auction_SoldStock'
+
+
+#Auction Not Sold Stock Model - Sandun
+class Auction_NotSoldStocks(models.Model):
+
+    MainID = models.ForeignKey('Auction_SubStock', related_name='notSoldMainID',on_delete = models.CASCADE)
+    SubId = models.ForeignKey('Auction_SubStock', to_field='SubID', on_delete = models.CASCADE)
+
+    class Meta:
+        db_table = 'Auction_NotSoldStock'
+
+
+#Auction Not Sold Stock Log Model - Sandun
+class Auction_NotSoldStocksLog(models.Model):
+
+    DateLastUpdated = models.DateTimeField(auto_now=True)
+    Description = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'Auction_NotSoldStockLog'
 

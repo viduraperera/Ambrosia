@@ -140,6 +140,7 @@ Display Message
     <th>Broker Name</th>
     <th>Address</th>
     <th>Phonenumber</th>
+    <th>Var.Reg Number</th>
     <th>Update</th>
 
      {% for broker in Brokers %}
@@ -147,6 +148,7 @@ Display Message
          <td>{{ broker.name }}</td>
          <td>{{ broker.address }}</td>
          <td>{{ broker.phone }}</td>
+         <td>{{ broker.vat_regno }}</td>
 
         <td>
             <form method="post" action="{% url 'show_broker' %}">

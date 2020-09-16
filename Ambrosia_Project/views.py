@@ -9,11 +9,24 @@ from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
 # Create your views here.
 
+#Home Navigations------------------------------------------------------------------------------------------
 
 @login_required(login_url='login')
 def home(request):
 
     return render(request, 'home.html')
+
+@login_required(login_url='login')
+def factoryhome(request):
+    return render(request, 'factoryhome.html')
+
+
+@login_required(login_url='login')
+def teashopHomepage (request):
+
+    return render(request, 'teashophome.html')
+
+#User Profile-----------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -135,17 +148,7 @@ def DeleteUser(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-
-@login_required(login_url='login')
-def factoryHomepage(request):
-
-    return render(request, 'factoryhome.html')
-
-
-@login_required(login_url='login')
-def teashopHomepage (request):
-
-    return render(request, 'teashophome.html')
+#Employee Management-----------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -405,27 +408,11 @@ def inventoryannualreport (request):
 
 @login_required(login_url='login')
 def editpackets (request):
+
     return render(request, 'editpackets.html')
-    messages.error(request, "Error.Can't Delete User.")
-    return redirect('view_all_users')
 
 
-@login_required(login_url='login')
-def factoryhome(request):
-    return render(request, 'factoryhome.html')
-
-
-@login_required(login_url='login')
-def ProductionAnalysisHome(request):
-    return render(request, 'finalProductAnalysis.html')
-
-
-def NotSoldStock(request):
-    return render(request, 'auction_notSold.html')
-
-
-def SoldStock(request):
-    return render(request, 'auction_soldStock.html')
+#Leaf Inventory-------------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -443,6 +430,16 @@ def NavigateToUpdateInv(request):
     return render(request, 'update_inventory.html')
 
 
+#Final production -------------------------------------------------------------------------------------------
+
+#Daily Production------------------------------------------------------------------------------------------
+
+
+@login_required(login_url='login')
+def finalProductionHome(request):
+    return render(request, 'finalproductionhome.html')
+
+
 @login_required(login_url='login')
 def NavigateToProduction(request):
     return render(request, 'Add_daily_product.html')
@@ -452,8 +449,10 @@ def NavigateToProduction(request):
 def NavigateToCustomDailyProd(request):
     return render(request, 'View_Daily_production.html')
 
+
 def NavigateToTeaGrades(request):
     return render(request, 'TeaGrades.html')
+
 
 @login_required(login_url='login')
 def NavigateToCurrentProduct(request):
@@ -465,53 +464,67 @@ def NavigateToUpdateProduct(request):
     return render(request, 'Update_daily_product.html')
 
 
-@login_required(login_url='login')
-def finalProductionHome(request):
-    return render(request, 'finalproductionhome.html')
-
-#auction stock--------------------------------------------------------------------------------------------
+#Auction stock--------------------------------------------------------------------------------------------
 
 @login_required(login_url='login')
-def AddAuctionStock(request):
-
-    form_auction = AddAuctionStockForm()
-
-    return render(request, 'addAuction_stock.html', {'form': form_auction} )
+def notSoldStock(request):
+    return render(request, 'auction_notSold.html')
 
 
 @login_required(login_url='login')
-def ShowAuctionStock(request):
+def soldStock(request):
+
+    return render(request, 'auction_soldStock.html')
+
+
+@login_required(login_url='login')
+def addAuctionStock(request):
+
+    return render(request, 'addAuction_stock.html')
+
+
+@login_required(login_url='login')
+def showAuctionStock(request):
     return render(request, 'catelogDetails.html')
 
 
 @login_required(login_url='login')
-def StockSalesHome(request):
+def stockSalesHome(request):
     return render(request, 'auctionStock_current.html')
 
 
 @login_required(login_url='login')
-def UpdateAuctionStock(request):
+def updateAuctionStock(request):
     return render(request, 'updateCatelog.html')
+
+
+#Production Analysis--------------------------------------------------------------------------------------------
+
+
+@login_required(login_url='login')
+def productionAnalysisHome(request):
+    return render(request, 'finalProductAnalysis.html')
 
 
 #Broker-----------------------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')
-def ShowBrokerDetails(request):
+def showBrokerDetails(request):
 
     try:
         arr = Broker.objects.all()
+        return render(request, 'AllBrokers.html', {'Brokers': arr})
 
     except Exception as e:
         print(e)
-        messages.error("Exception: "+e)
+        messages.error(request, "Exception")
+        return render(request, 'AllBrokers.html')
 
-    return render(request, 'AllBrokers.html', {'Brokers': arr})
 
 
 @login_required(login_url='login')
-def AddNewBroker(request):
+def addNewBroker(request):
 
     form = AddBrokerForm()
 
@@ -525,7 +538,7 @@ def AddNewBroker(request):
 
             except Exception as e:
                 print(e)
-                messages.error(request, 'Exception: '+e)
+                messages.error(request, 'Exception')
 
         else:
             messages.error(request, 'Invalid Details')
@@ -539,7 +552,7 @@ def AddNewBroker(request):
 
 
 @login_required(login_url='login')
-def ShowBroker(request):
+def showBroker(request):
 
     if request.method == 'POST':
         brID = request.POST.get('bID')
@@ -558,7 +571,8 @@ def ShowBroker(request):
                     return redirect('all_brokers')
 
             except Exception as e:
-                messages.error(request, 'Exception : '+e)
+                print(e)
+                messages.error(request, 'Exception')
 
         else:
             messages.error(request, 'Broker id is empty')
@@ -571,7 +585,7 @@ def ShowBroker(request):
 
 
 @login_required(login_url='login')
-def UpdateBroker(request):
+def updateBroker(request):
 
     if request.method == 'POST':
         brID = request.POST.get('bId')
@@ -593,7 +607,8 @@ def UpdateBroker(request):
                     return render(request, 'updateBroker.html', {'Broker': bFrom, 'BrokerID': brID})
 
             except Exception as e:
-                messages.error(request, 'Exception Occured: '+ e)
+                print(e)
+                messages.error(request, 'Exception Occured')
                 return redirect('all_brokers')
 
         else:
@@ -624,7 +639,7 @@ def deleteBroker(request):
 
             except Exception as e:
                 print(e)
-                messages.error(request, 'Exception: '+e)
+                messages.error(request, 'Exception')
 
         else:
             messages.error(request, 'Broker id is null')
@@ -638,7 +653,7 @@ def deleteBroker(request):
 #Buyer---------------------------------------------------------------------------------------------------------
 
 @login_required(login_url='login')
-def AddNewBuyer(request):
+def addNewBuyer(request):
 
     form = AddBuyerForm()
 
@@ -656,7 +671,7 @@ def AddNewBuyer(request):
             except Exception as e:
                 # pass
                 print(e)
-                messages.error(request, 'Exception:'+e)
+                messages.error(request, 'Exception')
                 return redirect('add_buyer')
         else:
             #form method is not valid
@@ -670,20 +685,20 @@ def AddNewBuyer(request):
 
 
 @login_required(login_url='login')
-def ShowBuyerDetails(request):
+def showBuyerDetails(request):
 
     try:
         buyersArr = Buyer.objects.all()
+        return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
 
     except Exception as e:
         print(e)
-        messages.error(request, 'Exception: '+e)
-
-    return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
+        messages.error(request, 'Exception')
+        return render(request, 'AllBuyer.html')
 
 
 @login_required(login_url='login')
-def ShowBuyer(request):
+def showBuyer(request):
 
     if request.method == 'POST':
         buyerID = request.POST.get('buyerID')
@@ -696,13 +711,13 @@ def ShowBuyer(request):
 
             except Exception as e:
                 print(e)
-                messages.error(request, 'Exception :'+e)
+                messages.error(request, 'Exception')
 
     return render(request, 'AllBuyer.html')
 
 
 @login_required(login_url='login')
-def UpdateBuyer(request):
+def updateBuyer(request):
 
     if request.method == "POST":
 
@@ -732,7 +747,7 @@ def UpdateBuyer(request):
 
         except Exception as e:
             print(e)
-            messages.error(request, 'Exception :' + e)
+            messages.error(request, 'Exception')
 
     else:
         #form method is not
@@ -743,7 +758,7 @@ def UpdateBuyer(request):
 
 
 @login_required(login_url='login')
-def DeleteBuyer(request):
+def deleteBuyer(request):
 
     if request.method == "POST":
         buyerid = request.POST.get('buyerID')
@@ -763,7 +778,7 @@ def DeleteBuyer(request):
 
             except Exception as e:
                 print(e)
-                messages.error(request, 'Exception :'+e)
+                messages.error(request, 'Exception')
 
         else:
             #buyer id is null
