@@ -1,7 +1,7 @@
 {% extends 'FinalPrductionBase.html' %}
 
 <!------------------------------------Title-------------------------------------->
-{% block title %}All Auction Stocks{% endblock title %}
+{% block title %}View Auction Stock{% endblock title %}
 
 <!------------------------------------Styles-------------------------------------->
 
@@ -33,7 +33,7 @@ table {
 th {
     border: 1px solid #dddddd;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     padding: 18px;
     background: #fff9d2;
     }
@@ -41,7 +41,7 @@ th {
 td {
     border: 1px solid #e7e5e5;
     text-align: left;
-    font-size: 20px;
+    font-size: 16px;
     padding: 15px;
     }
 
@@ -56,7 +56,7 @@ tr:nth-child(even) {
 
 
 <!----------------------------------Header2--------------------------------------->
-{% block pageContentHeader2 %}Auction Stock | All Catelogs{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Auction Stock | View Catelogs{% endblock pageContentHeader2 %}
 
 
 <!---------------------------------Messages-------------------------------------->
@@ -90,36 +90,54 @@ Display Message
 {% block content %}
 
 <!-- Table -->
-<h1>Main Catelog Details</h1>
+<h1>Sub Catelog Details</h1>
+
+    <h4>No of Sub Stocks:&ensp;{{ subStocks.rowsNo }} </h4>
+    <h4>Total Net Weight:&ensp;{{ subStocks.tne }} kg</h4>
+    <h4>Total Gross Weight:&ensp;{{ subStocks.tgr }} kg</h4>
+    <h4>Total No of Packets:&ensp;{{ subStocks.tpk }}</h4>
 
     <div style="overflow-x:auto;">
 
      <table>
 
-        <th>CatelogId</th>
+        <th>MainID</th>
         <th>SubStockId</th>
-        <th>Total Net Weight</th>
-        <th>Total Gross Weight</th>
-        <th>Total No of Packeges</th>
-        <th>Date</th>
-        <th>Broker</th>
-        <th>View</th>
+        <th>Invoice</th>
+        <th>No of Packets</th>
+        <th>Net Weight</th>
+        <th>Total Weight</th>
+        <th>Grade</th>
+        <th>Packet Type</th>
+        <th>Date Prepared</th>
+        <th>Status</th>
+        <th>Edit</th>
 
-         {% for st in MainStocks %}
+         {% for stock in subStocks.sub %}
             <tr>
-                <td>{{ st.id }}</td>
-                <td>{{ st.SubID }}</td>
-                <td>{{ st.total_netWeight }}</td>
-                <td>{{ st.total_grossWeight }}</td>
-                <td>{{ st.total_packets }}</td>
-                <td>{{ st.Date }}</td>
-                <td>{{ st.Broker }}</td>
+                <td>{{ stock.id }}</td>
+                <td>{{ stock.SubID }}</td>
+                <td>{{ stock.invoice }}</td>
+                <td>{{ stock.no_of_packets }}</td>
+                <td>{{ stock.net_weight }}</td>
+                <td>{{ stock.total_weight }}</td>
+                <td>{{ stock.grade }}</td>
+                <td>{{ stock.packetType }}</td>
+                <td>{{ stock.date_prepared }}</td>
+                <td>{{ stock.status }}</td>
 
                 <td>
                     <form method="post" action="{% url 'view_mainStock' %}">
                         {% csrf_token %}
                         <input type="hidden" name="sid" value="{{ st.SubID }}"/>
-                        <input type="submit" value="View" class="buttonEdit">
+                        <input type="submit" value="Edit" class="buttonEdit">
+                    </form>
+
+                <br>
+                    <form method="post" action="{% url 'delete_subStock' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="stID" value="{{ stock.id }}"/>
+                        <input type="submit" value="Delete" class="buttonEdit">
                     </form>
 
             </tr>

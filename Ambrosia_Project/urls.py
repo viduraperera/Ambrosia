@@ -25,7 +25,7 @@ urlpatterns = [
     path('factoryworkers_management/AddEmployee', views.employee_registration, name="employee_registration"),
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+    # path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
     path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
     path('Factory/LeafInventory/PreviousInventories', views.NavigateToPrevInv, name="NavigateToPreInv"),
     path('Factory/LeafInventory/PreviousInventories/UpdateInvenories', views.NavigateToUpdateInv, name="NavigateToUpdateInv"),
@@ -75,9 +75,12 @@ urlpatterns = [
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
     path('Factory/FinalProduction/DailyProduction/TeaGrades', views.NavigateToTeaGrades,name="NavigateToTeaGrades"),
 
-    path('Factory/FinalProduction/AddAuctionStock', views.addAuctionStock, name="auction_stock"),
-    path('Factory/FinalProduction/AuctionStock/AuctionStockdetails', views.showAuctionStock, name="all_catelog"),
-    path('Factory/FinalProduction/AuctionStock/UpdateAuctionStockdetails', views.updateAuctionStock,name="update_catelog"),
+    path('Factory/FinalProduction/AddSubAuctionStock', views.addAuctionSubStock, name="prepare_auction_stock"),
+    path('Factory/FinalProduction/DeleteAuctionSubStock', views.deleteAuctionSubStock, name="delete_subStock"),
+    path('Factory/FinalProduction/AddMainAuctionStock', views.addMainAuctionStock, name="add_mainStock"),
+    path('Factory/FinalProduction/AllAuctionMainStocks', views.showAuctionMainStocks, name="all_catelog"),
+    path('Factory/FinalProduction/ViewMainStock', views.showMainAuctionStock, name="view_mainStock"),
+    path('Factory/FinalProduction/UpdateAuctionStockdetails', views.updateAuctionStock,name="update_catelog"),
 
     path('Factory/FinalProduction/StockSales', views.stockSalesHome, name="stock_sales"),
     path('Factory/FinalProduction/NotSoldStocks', views.notSoldStock, name="stock_notsold"),

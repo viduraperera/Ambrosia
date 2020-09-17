@@ -1,4 +1,5 @@
 from django.core.validators import RegexValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from datetime import *
 from datetime import datetime
@@ -255,12 +256,18 @@ class LeafStock(models.Model):
     #supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
 
 
+#--------------------------------------------------------------------------------------------------------------
+
 #Tea Gerades Model - Ravija
 class TeaGrades(models.Model):
     teaGrade = models.CharField(max_length=10, unique=True)
     class Meta:
         db_table ='tea_grade'
 
+    def __str__(self):
+        return self.teaGrade
+
+#-------------------------------------------------------------------------------------------------------------
 
 #Broker Model - Sandun
 class Broker(models.Model):
@@ -289,6 +296,9 @@ class Broker(models.Model):
     class Meta:
         db_table = 'Broker'
 
+    def __str__(self):
+        return self.name
+
 
 #Buyer Model - Sandun
 class Buyer(models.Model):
@@ -304,6 +314,9 @@ class Buyer(models.Model):
     class Meta:
         db_table = 'Buyer'
 
+    def __str__(self):
+        return self.name
+
 
 #Auction SubStock Model - Sandun
 class Auction_SubStock(models.Model):
@@ -313,15 +326,15 @@ class Auction_SubStock(models.Model):
         ('MNBS', 'MNBS')
     )
 
-    SubID = models.IntegerField(unique=True)
+    SubID = models.IntegerField(blank=True)
     invoice = models.IntegerField(null=True)
-    no_of_packets = models.IntegerField()
-    net_weight = models.FloatField()
-    total_weight = models.FloatField()
-    grade = models.ForeignKey('TeaGrades', to_field='teaGrade', on_delete=models.CASCADE)
+    no_of_packets = models.IntegerField(validators=[MinValueValidator(0)])
+    net_weight = models.FloatField(validators=[MinValueValidator(0.0)])
+    total_weight = models.FloatField(validators=[MinValueValidator(0.0)])
+    grade = models.ForeignKey(TeaGrades, to_field='teaGrade', on_delete=models.CASCADE)
     packetType = models.CharField(max_length=10, choices=packets)
-    date_prepared = models.DateField()
-    status = models.CharField(max_length=10, null=True)
+    date_prepared = models.DateField(default=datetime.now , blank=True)
+    status = models.CharField(max_length=10, null=True, blank=True)
 
     class Meta:
         db_table = 'Auction_SubStock'
@@ -330,12 +343,12 @@ class Auction_SubStock(models.Model):
 #Auction MainStock Model - Sandun
 class Auction_MainStock(models.Model):
 
-    SubID = models.IntegerField(unique=True)
-    Date = models.DateField(auto_now=True)
-    Broker = models.ForeignKey('Broker', on_delete=models.CASCADE)
-    total_netWeight = models.FloatField()
-    total_grossWeight = models.FloatField()
-    total_packets = models.IntegerField()
+    SubID = models.IntegerField(blank=True)
+    Date = models.DateField(default=datetime.now , blank=True)
+    Broker = models.ForeignKey(Broker, on_delete=models.CASCADE)
+    total_netWeight = models.FloatField(blank=True)
+    total_grossWeight = models.FloatField(blank=True)
+    total_packets = models.IntegerField(blank=True)
 
     class Meta:
         db_table = 'Auction_MainStock'
@@ -345,10 +358,10 @@ class Auction_MainStock(models.Model):
 class Auction_SoldStocks(models.Model):
 
     MainID = models.ForeignKey('Auction_SubStock', related_name='soldMainID',on_delete = models.CASCADE)
-    SubId = models.ForeignKey('Auction_SubStock', to_field='SubID', on_delete = models.CASCADE)
-    price = models.FloatField()
-    total_price = models.FloatField()
-    Buyer = models.ForeignKey('Buyer', on_delete = models.CASCADE)
+    SubID = models.IntegerField()
+    price = models.FloatField(validators=[MinValueValidator(0.0)])
+    total_price = models.FloatField(validators=[MinValueValidator(0.0)])
+    Buyer = models.ForeignKey('Buyer', on_delete = models.CASCADE, null=True)
     sold_Date = models.DateField()
 
     class Meta:
@@ -359,7 +372,7 @@ class Auction_SoldStocks(models.Model):
 class Auction_NotSoldStocks(models.Model):
 
     MainID = models.ForeignKey('Auction_SubStock', related_name='notSoldMainID',on_delete = models.CASCADE)
-    SubId = models.ForeignKey('Auction_SubStock', to_field='SubID', on_delete = models.CASCADE)
+    SubID = models.IntegerField()
 
     class Meta:
         db_table = 'Auction_NotSoldStock'

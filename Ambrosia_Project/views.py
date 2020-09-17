@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
+from Ambrosia_Project.commonUtills import *
 # Create your views here.
 
 #Home Navigations------------------------------------------------------------------------------------------
@@ -466,6 +467,144 @@ def NavigateToUpdateProduct(request):
 
 #Auction stock--------------------------------------------------------------------------------------------
 
+
+@login_required(login_url='login')
+def addAuctionSubStock(request):
+
+    subForm = AddSubAuctionStockForm()
+    mainStForm = AddMainAuctionStockForm()
+    sid = generateSubStockID()
+
+    if request.method == 'POST':
+        Sfrom = AddSubAuctionStockForm(request.POST)
+
+        try:
+            if Sfrom.is_valid():
+                formobj = Sfrom.save(commit=False)
+                formobj.SubID = sid
+                formobj.status = 'Pending'
+                formobj.save()
+                messages.success(request, 'Record Added Sucessfully')
+                return redirect('prepare_auction_stock')
+
+            else:
+                messages.error(request, 'Invalid Data provided')
+                return redirect('prepare_auction_stock')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
+            return redirect('prepare_auction_stock')
+
+    #All calculations
+    subStock = calculaionsAuctionSubStock(sid)
+
+    var = { 'form': subForm,
+            'mForm': mainStForm,
+            'SubStock':subStock,
+            'sid': sid,
+            }
+
+    return render(request, 'addAuction_stock.html', var)
+
+
+@login_required(login_url='login')
+def deleteAuctionSubStock(request):
+
+    if request.method == 'POST':
+        sid = request.POST.get('stID')
+
+        if sid is not None:
+            stock = Auction_SubStock.objects.get(pk=sid)
+
+            if stock is not None:
+                stock.delete()
+                messages.success(request, 'Successfully Deleted')
+                # return redirect('prepare_auction_stock')
+                return redirect(request.META['HTTP_REFERER'])
+
+            else:
+                messages.error(request, 'Stock not found in database')
+
+        else:
+            messages.error('Stock id is null')
+
+    else:
+        return redirect('prepare_auction_stock')
+
+
+@login_required(login_url='login')
+def addMainAuctionStock(request):
+
+    if request.method == 'POST':
+        subID = request.POST.get('sid')
+        netW = request.POST.get('tnet')
+        grossW = request.POST.get('tgr')
+        pkts = request.POST.get('tpk')
+
+        #get form
+        mainForm = AddMainAuctionStockForm(request.POST)
+
+        try:
+            if mainForm.is_valid():
+                dbObject = mainForm.save(commit=False)
+                dbObject.SubID = subID
+                dbObject.total_netWeight = netW
+                dbObject.total_grossWeight = grossW
+                dbObject.total_packets = pkts
+                dbObject.save()
+                messages.success(request, 'Sucessfully Created Catelog')
+                return redirect('all_catelog')
+
+            #for mdetails invalid
+            else:
+                messages.error(request, 'Invalid Details')
+                return redirect('prepare_auction_stock')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
+            return redirect('prepare_auction_stock')
+
+
+    return redirect('prepare_auction_stock')
+
+
+@login_required(login_url='login')
+def showAuctionMainStocks(request):
+
+    try:
+        allCatelogs = Auction_MainStock.objects.all()
+        return render(request, 'catelogDetails.html', {'MainStocks':allCatelogs})
+
+    except Exception as e:
+        print(e)
+
+    return redirect('prepare_auction_stock')
+
+
+@login_required(login_url='login')
+def showMainAuctionStock(request):
+
+    if request.method == 'POST':
+
+        sid = request.POST.get('sid')
+
+        try:
+            stocks = calculaionsAuctionSubStock(sid)
+
+            if stocks is not None:
+                return render(request, 'viewCatelog.html', {'subStocks': stocks})
+
+            else:
+                return redirect('all_catelog')
+
+        except Exception as e:
+            print(e)
+
+    return redirect('all_catelog')
+
+
 @login_required(login_url='login')
 def notSoldStock(request):
     return render(request, 'auction_notSold.html')
@@ -475,17 +614,6 @@ def notSoldStock(request):
 def soldStock(request):
 
     return render(request, 'auction_soldStock.html')
-
-
-@login_required(login_url='login')
-def addAuctionStock(request):
-
-    return render(request, 'addAuction_stock.html')
-
-
-@login_required(login_url='login')
-def showAuctionStock(request):
-    return render(request, 'catelogDetails.html')
 
 
 @login_required(login_url='login')
@@ -520,7 +648,6 @@ def showBrokerDetails(request):
         print(e)
         messages.error(request, "Exception")
         return render(request, 'AllBrokers.html')
-
 
 
 @login_required(login_url='login')
@@ -651,6 +778,7 @@ def deleteBroker(request):
 
 
 #Buyer---------------------------------------------------------------------------------------------------------
+
 
 @login_required(login_url='login')
 def addNewBuyer(request):
@@ -789,4 +917,3 @@ def deleteBuyer(request):
         messages.error(request, 'Form method is invalid')
 
     return redirect('all_buyers')
-
