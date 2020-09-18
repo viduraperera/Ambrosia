@@ -10,7 +10,6 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
-
 class FundFrom(forms.ModelForm):
     class Meta:
         model = Funds

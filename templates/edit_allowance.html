@@ -1,24 +1,29 @@
 {% extends 'employeeBase.html' %}
 <!-------------------------Title------------------------->
-{% block title %}Add Employee Allowance{% endblock title %}
-{% load static %}
+{% block title %}Edit Employee Funds{% endblock title %}
+
 {% block headImport %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock headImport %}
+
     {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
-    {% block pageContentHeader2 %}Add Employee Allowance{% endblock pageContentHeader2 %}
+    {% block pageContentHeader2 %}Edit Funds{% endblock pageContentHeader2 %}
+
+
 
 {% block content %}
     <div>
-    <form method="POST" class="post-form" action="{% url 'emp_allowance_add' %}">
-            {% csrf_token %}
+    <form method="POST" class="post-form" action="emp_allowance_update{{ Fid }}">
+
+        {% csrf_token %}
+
         <div class="container">
 <br>
             <div class="form-group row">
                 <label class="col-sm-l col-form-label"></label>
                 <div class="col-sm-4">
-                    <h3>ENTER Details</h3>
+                    <h3> Details</h3>
                 </div>
             </div>
             <table>
@@ -30,7 +35,7 @@
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ allowance.allowance_by_price}}
+                            {{ allowanceForm.allowance_by_price }}
                         </div>
                     </td>
                 </tr>
@@ -42,19 +47,19 @@
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ allowance.incentive_1 }}
+                            {{ allowanceForm.incentive_1 }}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="form-group row">
-                        <label class="col-sm-l col-form-label">incentive 2:</label>
+                        <label class="col-sm-l col-form-label">Incentive 2:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ allowance.incentive_2 }}
+                        {{ allowanceForm.incentive_2 }}
                 </div>
                     </td>
                 </tr>
@@ -62,7 +67,7 @@
             <div class="form-group row">
                 <label class="col-sm-l col-form-label"></label>
                 <div class="col-sm-4">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <input type="submit" class="btn btn-primary" value="Update">
                 </div>
             </div>
         </div>

@@ -64,7 +64,7 @@ urlpatterns = [
     path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
 
     path('Shop/SalesHomeIncome/SalesPriceTable', views.SalesPriceTable, name="SalesPriceTable"),
-path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableBOPFUpdate', views.ShopPriceTableBOPFUpdate, name="ShopPriceTableBOPFUpdate"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableBOPFUpdate', views.ShopPriceTableBOPFUpdate, name="ShopPriceTableBOPFUpdate"),
 
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1', views.SalesPriceTableDUST1, name="SalesPriceTableDUST1"),
     path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1/ShopPriceTableDUST1Update', views.ShopPriceTableDUST1Update, name="ShopPriceTableDUST1Update"),
@@ -103,15 +103,21 @@ path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableBOPFUpdate', views.Shop
     path('Factory/FinalProduction/AuctionStock/AddBuyer', views.AddNewBuyer, name="add_buyer"),
     path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.UpdateBuyer, name="update_buyer"),
 
-    #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
 
-    path('Factory/EmployeeHome', views.emp_fund_view, name="EmployeeHome"),
+    # employee_funds_VUP
     path('Factory/EmployeeHome/emp_fund_view', views.emp_fund_view, name="emp_fund_view"),
     path('Factory/EmployeeHome/emp_funds_add/', views.emp_funds_add, name="emp_funds_add"),
-    path('Factory/EmployeeHome/emp_funds_delete<int:id>/', views.emp_funds_delete, name="emp_funds_delete"),
+    path('Factory/EmployeeHome/emp_funds_delete<int:id>', views.emp_funds_delete, name="emp_funds_delete"),
+    path('Factory/EmployeeHome/emp_funds_edit<int:id>', views.emp_funds_edit, name="emp_funds_edit"),
+    path('Factory/EmployeeHome/emp_funds_update<int:id>', views.emp_funds_update, name="emp_funds_update"),
+
+    # employee_allowance_VUP
     path('Factory/EmployeeHome/emp_allowance/', views.emp_allowance, name="emp_allowance"),
     path('Factory/EmployeeHome/emp_allowance_add/', views.emp_allowance_add, name="emp_allowance_add"),
+    path('Factory/EmployeeHome/emp_allowance_delete<int:id>/', views.emp_allowance_delete, name="emp_allowance_delete"),
+    path('Factory/EmployeeHome/emp_allowance_edit<int:id>', views.emp_allowance_edit, name="emp_allowance_edit"),
+    path('Factory/EmployeeHome/emp_allowance_update<int:id>', views.emp_allowance_update, name="emp_allowance_update"),
 
 
 ]

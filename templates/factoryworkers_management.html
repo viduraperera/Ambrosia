@@ -178,17 +178,17 @@ tr:nth-child(even) {
       <a href="{% url 'factoryworkers_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Worker Details</a>
       <a href="{% url 'staff_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Staff Details</a>
       <a href="{% url 'attendance_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Attendance</a>
-    <a href="funds_table.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
+    <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
     <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
+    <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
     <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
 
   </div>
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+<header class="w3-container w3-top w3-hide-large w3-green w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-green w3-margin-right" onclick="w3_open()">☰</a>
   <span>Company Name</span>
 </header>
 
