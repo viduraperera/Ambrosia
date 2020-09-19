@@ -16,25 +16,41 @@ table {
 th {
     border: 1px solid #dddddd;
     text-align: center;
-    font-size: 20px;
-    padding: 18px;
+    font-size: 16px;
+    padding: 14px;
     background: #fff9d2;
     }
 
 td {
     border: 1px solid #e7e5e5;
     text-align: left;
-    font-size: 20px;
-    padding: 15px;
+    font-size: 14px;
+    padding: 10px;
     }
 
 tr:nth-child(even) {
     background-color: #f3f2ee;
     }
 
+.substockHeader {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px;
+    background: #CAFFC4;
+    }
+
+.substockColumn {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    background: #DAFFF6;
+    }
+
 .buttonEdit
     {
-      background-color: #2f960a;
+      background-color: #FF3E1C;
       border: none;
       color: white;
       text-align: center;
@@ -46,7 +62,7 @@ tr:nth-child(even) {
     }
 
 .buttonEdit:hover {
-    background: #25ff79;
+    background: #FFED1C;
     }
 
 {% endblock moreStyles %}
@@ -91,35 +107,59 @@ tr:nth-child(even) {
 
 <h1>Not Sold Stocks</h1>
 
- <table border="1 px solid black">
+<div style="overflow-x:auto;">
 
-    <th>StockId</th>
-    <th>Invoice</th>
-    <th>Net Weight</th>
-    <th>Total Weight</th>
-    <th>No of Packeges</th>
-    <th>Status</th>
-    <th>Update</th>
+    <table border="1 px solid black">
 
-    <tr>
-        <td>1</td>
-        <td>113</td>
-        <td>28</td>
-        <td>285.5</td>
-        <td>20</td>
-        <td>Not Sold</td>
+        <th>Not-Sold.St.Id</th>
+        <th>St.MainID</th>
+        <th>St.SubID</th>
+        <th class="substockHeader">Invoice</th>
+        <th class="substockHeader">Grade</th>
+        <th class="substockHeader">Date Pre.</th>
+        <th class="substockHeader">Status</th>
+        <th class="substockHeader">Net.W(kg)</th>
+        <th class="substockHeader">Tot.W(kg)</th>
+        <th class="substockHeader">No.Pkts</th>
+        <th>Edit</th>
 
-        <td>
-            <form method="post" action="{% url 'update_catelog' %}">
-                {% csrf_token %}
-                <input type="hidden" name="uname" value="{{ user.username }}"/>
-                <input type="submit" value="Sold" class="buttonEdit">
-            </form>
+        {% for ns in nStock %}
 
-        </td>
-    </tr>
+            {% for sub in subStock %}
 
+                {% if sub.id == ns.MainID %}
 
-</table>
+                    <tr>
+                        <td>{{ ns.id }}</td>
+                        <td>{{ ns.MainID }}</td>
+                        <td>{{ ns.SubID }}</td>
+                        <td class="substockColumn">{{ sub.invoice }}</td>
+                        <td class="substockColumn">{{ sub.grade }}</td>
+                        <td class="substockColumn">{{ sub.date_prepared }}</td>
+                        <td class="substockColumn">{{ sub.status }}</td>
+                        <td class="substockColumn">{{ sub.net_weight }}</td>
+                        <td class="substockColumn">{{ sub.total_weight }}</td>
+                        <td class="substockColumn">{{ sub.no_of_packets }}</td>
+
+                        <td>
+                            <form method="post" action="{% url 'delete_NotSoldStock' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="nID" value="{{ ns.id }}"/>
+                                <input type="hidden" name="mID" value="{{ ns.MainID }}"/>
+                                <input type="submit" value="Delete" class="buttonEdit" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                            </form>
+
+                        </td>
+                    </tr>
+
+                 {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+
+</div>
 
 {% endblock content %}

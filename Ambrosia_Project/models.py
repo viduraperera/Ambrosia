@@ -273,14 +273,14 @@ class TeaGrades(models.Model):
 class Broker(models.Model):
     name = models.CharField(max_length=50)
     address = models.TextField(null=True)
-    vat_regno = models.CharField(max_length=15, null=True, blank=True, validators=[
+    vat_regno = models.CharField(max_length=15, null=True, blank=True, unique=True, validators=[
         RegexValidator(
             regex='^[0-9-]*$',
             message='Vat Registration Number must contain only numbers',
             code='Vat Reg.No is Invalid'
         )
     ])
-    phone = models.CharField(max_length=10, null=True, validators=[
+    phone = models.CharField(max_length=10, unique=True, null=True, validators=[
         RegexValidator(
             regex = '^[0-9]*$',
             message = 'Phone Number must contain only numbers.',
@@ -293,6 +293,8 @@ class Broker(models.Model):
         )
     ])
 
+    active = models.IntegerField(blank=True, default=1)
+
     class Meta:
         db_table = 'Broker'
 
@@ -302,7 +304,7 @@ class Broker(models.Model):
 
 #Buyer Model - Sandun
 class Buyer(models.Model):
-    vat_regno = models.CharField(max_length=15, null=True, blank=True,validators=[
+    vat_regno = models.CharField(max_length=15, null=True, blank=True, unique=True, validators=[
         RegexValidator(
             regex = '^[0-9-]*$',
             message = 'Vat Registration Number must contain only numbers',
@@ -310,6 +312,7 @@ class Buyer(models.Model):
         )
     ])
     name = models.CharField(max_length=50)
+    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Buyer'
@@ -335,6 +338,7 @@ class Auction_SubStock(models.Model):
     packetType = models.CharField(max_length=10, choices=packets)
     date_prepared = models.DateField(default=datetime.now , blank=True)
     status = models.CharField(max_length=10, null=True, blank=True)
+    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Auction_SubStock'
@@ -349,6 +353,7 @@ class Auction_MainStock(models.Model):
     total_netWeight = models.FloatField(blank=True)
     total_grossWeight = models.FloatField(blank=True)
     total_packets = models.IntegerField(blank=True)
+    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Auction_MainStock'
@@ -357,12 +362,13 @@ class Auction_MainStock(models.Model):
 #Auction Sold Stock Model - Sandun
 class Auction_SoldStocks(models.Model):
 
-    MainID = models.ForeignKey('Auction_SubStock', related_name='soldMainID',on_delete = models.CASCADE)
-    SubID = models.IntegerField()
+    MainID = models.IntegerField(blank=True)
+    SubID = models.IntegerField(blank=True)
     price = models.FloatField(validators=[MinValueValidator(0.0)])
-    total_price = models.FloatField(validators=[MinValueValidator(0.0)])
-    Buyer = models.ForeignKey('Buyer', on_delete = models.CASCADE, null=True)
+    total_price = models.FloatField(validators=[MinValueValidator(0.0)], blank=True)
+    Buyer = models.ForeignKey('Buyer', on_delete = models.CASCADE, null=True, blank=True)
     sold_Date = models.DateField()
+    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Auction_SoldStock'
@@ -371,8 +377,9 @@ class Auction_SoldStocks(models.Model):
 #Auction Not Sold Stock Model - Sandun
 class Auction_NotSoldStocks(models.Model):
 
-    MainID = models.ForeignKey('Auction_SubStock', related_name='notSoldMainID',on_delete = models.CASCADE)
-    SubID = models.IntegerField()
+    MainID = models.IntegerField(blank=True)
+    SubID = models.IntegerField(blank=True)
+    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Auction_NotSoldStock'
@@ -381,8 +388,8 @@ class Auction_NotSoldStocks(models.Model):
 #Auction Not Sold Stock Log Model - Sandun
 class Auction_NotSoldStocksLog(models.Model):
 
-    DateLastUpdated = models.DateTimeField(auto_now=True)
-    Description = models.CharField(max_length=255)
+    LastUpdated = models.DateTimeField(blank=True, auto_now_add=True)
+    Description = models.TextField(blank=True)
 
     class Meta:
         db_table = 'Auction_NotSoldStockLog'

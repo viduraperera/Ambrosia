@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from Ambrosia_Project.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -89,9 +89,10 @@ def ShowUser(request):
     uname = request.POST.get("uname")
 
     user = User.objects.get(username=uname);
+    form = UserCreationForm(instance=user)
 
     if user is not None:
-        return render(request, 'updateUser.html', {'UserDetails': user})
+        return render(request, 'updateUser.html', {'UserDetails': user, 'form': form })
 
     else:
         #user not found
@@ -105,14 +106,21 @@ def UpdateUser(request):
 
     if request.method == 'POST':
         uname = request.POST.get('un')
-        pword =request.POST.get('pwd')
 
-        if uname is not None and pword is not None:
+        if uname is not None:
             user = User.objects.get(username=uname)
-            user.password = pword
-            user.save();
-            messages.success(request, "User Details Updated Successfully")
-            return redirect('view_all_users')
+            userFrom = CreateUserForm(request.POST, instance=user)
+
+            if userFrom.is_valid():
+                objUser = userFrom.save(commit=False)
+                objUser.username = uname
+                objUser.save()
+                messages.success(request, "User Details Updated Successfully")
+                return redirect('view_all_users')
+
+            else:
+                messages.error(request, "Invalid Details.")
+                return redirect('update_user')
 
         else:
             messages.error(request, "Can't Update Details.")
@@ -512,24 +520,44 @@ def addAuctionSubStock(request):
 def deleteAuctionSubStock(request):
 
     if request.method == 'POST':
-        sid = request.POST.get('stID')
+        mid = request.POST.get('stID')
+        sid = request.POST.get('subID')
 
-        if sid is not None:
-            stock = Auction_SubStock.objects.get(pk=sid)
+        try:
+            if mid is not None:
+                stock = Auction_SubStock.objects.get(pk=mid)
+                mainStock = Auction_MainStock.objects.filter(SubID=sid)
+                chk = Auction_MainStock.objects.filter(SubID=sid).exists()
 
-            if stock is not None:
-                stock.delete()
-                messages.success(request, 'Successfully Deleted')
-                # return redirect('prepare_auction_stock')
-                return redirect(request.META['HTTP_REFERER'])
+                if stock is not None:
+                    stock.delete()
+
+                    if chk:
+                        # All calculations
+                        mStock = Auction_MainStock.objects.get(SubID=sid)
+                        subSt = calculaionsAuctionSubStock(sid)
+                        mStock.total_netWeight = subSt['tne']
+                        mStock.total_grossWeight = subSt['tgr']
+                        mStock.total_packets = subSt['tpk']
+                        mStock.save()
+                        messages.success(request, 'Successfully Deleted')
+                        return redirect('view_mainStock')
+
+                    else:
+                        messages.success(request, 'Successfully Deleted')
+                        return redirect('prepare_auction_stock')
+
+                else:
+                    messages.error(request, 'Sub Stock not found in database')
 
             else:
-                messages.error(request, 'Stock not found in database')
+                messages.error(request,'Stock id is null')
 
-        else:
-            messages.error('Stock id is null')
 
-    else:
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception ')
+
         return redirect('prepare_auction_stock')
 
 
@@ -592,9 +620,16 @@ def showMainAuctionStock(request):
 
         try:
             stocks = calculaionsAuctionSubStock(sid)
+            sForm = AddSubAuctionStockForm()
+
+            var =  {
+                'subStocks': stocks,
+                'form':sForm,
+                'sid':sid
+            }
 
             if stocks is not None:
-                return render(request, 'viewCatelog.html', {'subStocks': stocks})
+                return render(request, 'viewCatelog.html',var)
 
             else:
                 return redirect('all_catelog')
@@ -606,23 +641,353 @@ def showMainAuctionStock(request):
 
 
 @login_required(login_url='login')
-def notSoldStock(request):
-    return render(request, 'auction_notSold.html')
+def afterAddAuctionSubStock(request):
+
+    if request.method == 'POST':
+        sID = request.POST.get('sid')
+        Sfrom = AddSubAuctionStockForm(request.POST)
+
+        try:
+            if Sfrom.is_valid():
+                #add sub stock
+                formobj = Sfrom.save(commit=False)
+                formobj.SubID = sID
+                formobj.status = 'Pending'
+                formobj.save()
+
+                #update main stock All calculations
+                subStockcal = calculaionsAuctionSubStock(sID)
+
+                mainStock = Auction_MainStock.objects.get(SubID=sID)
+                mainStock.total_netWeight = subStockcal['tne']
+                mainStock.total_grossWeight = subStockcal['tgr']
+                mainStock.total_packets = subStockcal['tpk']
+                mainStock.save()
+
+                messages.success(request, 'Record Added Sucessfully')
+                return redirect('view_mainStock')
+
+            else:
+                messages.error(request, 'Invalid Data provided')
+                return redirect('view_mainStock')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
+            return redirect('view_mainStock')
+
+
+    return render(request, 'catelogDetails.html')
+
+
+@login_required(login_url='login')
+def stockSalesHome(request):
+
+    try:
+        curStocks = Auction_SubStock.objects.filter(status='Pending', active=1)
+        return render(request, 'auctionStock_current.html', {'stock': curStocks})
+
+    except Exception as e:
+        messages.error(request, 'Exception')
+        print(e)
+
+    return redirect('stock_sales')
+
+
+@login_required(login_url='login')
+def viewAddSoldStock(request):
+
+    if request.method == 'POST':
+        mid = request.POST.get('mID')
+
+        if mid is not None:
+            mStock = Auction_SubStock.objects.get(pk=mid)
+            mForm = AddAuctionSoldStockForm()
+
+            var = {
+                'stk': mStock,
+                'form': mForm
+            }
+
+            return render(request, 'AddSoldStock.html', var)
+
+
+@login_required(login_url='login')
+def AddSoldStock(request):
+
+    if request.method == 'POST':
+        mainid = request.POST.get('mID')
+        subid = request.POST.get('sID')
+
+        try:
+            if mainid is not None and subid is not None:
+                soldForm = AddAuctionSoldStockForm(request.POST)
+
+                if soldForm.is_valid():
+                    # calculate total price
+                    current = Auction_SubStock.objects.get(pk=mainid)
+                    netW = current.net_weight
+                    total = soldForm.cleaned_data['price'] * netW
+
+                    #save sold stock
+                    sold = soldForm.save(commit=False)
+                    sold.total_price = total
+                    sold.MainID = mainid
+                    sold.SubID = subid
+                    sold.save()
+
+                    #update current stock
+                    current.status = 'Sold'
+                    current.save()
+
+                    messages.success(request, 'Successfully Added to Sold Stocks')
+                    return redirect('stock_sold')
+
+                else:
+                    messages.error(request, 'Invalid Details')
+                    mStock = Auction_SubStock.objects.get(pk=mainid)
+                    mForm = AddAuctionSoldStockForm()
+
+                    var = {
+                        'stk': mStock,
+                        'form': mForm
+                    }
+                    return render(request, 'AddSoldStock.html', var)
+
+            else:
+                messages.error(request, 'Error Main/Sub ID is null')
+                return redirect('stock_sales')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception: ')
+            return redirect('stock_sales')
+
+    return redirect('stock_sales')
 
 
 @login_required(login_url='login')
 def soldStock(request):
 
-    return render(request, 'auction_soldStock.html')
+    try:
+        sold = Auction_SoldStocks.objects.filter(active=1)
+        substocks = Auction_SubStock.objects.filter(status='Sold', active=1)
+        return render(request, 'auction_soldStock.html', {'soldStocks': sold , 'subStocks':substocks })
+
+    except Exception as e:
+        print(e)
+        messages.error(request, 'Exception')
+        return render(request, 'auction_soldStock.html')
 
 
 @login_required(login_url='login')
-def stockSalesHome(request):
-    return render(request, 'auctionStock_current.html')
+def showSoldAuctionSubStock(request):
+
+    if request.method == 'POST':
+        mid = request.POST.get('sID')
+        soldId = request.POST.get('soldID')
+
+        if mid is not None and soldId is not None:
+            soldStock = Auction_SoldStocks.objects.get(pk=soldId)
+            form = AddAuctionSoldStockForm(instance=soldStock)
+            subStock = Auction_SubStock.objects.get(pk=mid)
+
+            totPrice = soldStock.total_price
+
+            var = {
+                'stk':subStock,
+                'form': form,
+                'soldStockId': soldId,
+                'totalPrice':totPrice
+            }
+            return render(request, 'updateSoldStock.html', var)
+
+        else:
+            messages.error(request, 'Error mid/soldId is null')
+            return redirect('stock_sold')
+
+    return redirect('stock_sold')
 
 
 @login_required(login_url='login')
-def updateAuctionStock(request):
+def updateSoldAuctionSubStock(request):
+
+    if request.method == 'POST':
+        soldStId = request.POST.get('soldStockID')
+        mainId = request.POST.get('mID')
+        subId = request.POST.get('sID')
+
+        try:
+            if soldStId is not None and mainId is not None:
+                soldStk = Auction_SoldStocks.objects.get(pk=soldStId)
+                form = AddAuctionSoldStockForm(request.POST, instance=soldStk)
+
+                if form.is_valid():
+                    # calculate total price
+                    current = Auction_SubStock.objects.get(pk=mainId)
+                    netW = current.net_weight
+                    total = form.cleaned_data['price'] * netW
+
+                    #update data
+                    formObject = form.save(commit=False)
+                    formObject.total_price = total
+                    formObject.MainID = mainId
+                    formObject.SubID = subId
+                    formObject.save()
+
+                    messages.success(request, 'Successfully Updated')
+
+                else:
+                    messages.error(request, 'Invalid Details')
+
+            else:
+                messages.error(request, 'Error main/sub/sold id is null')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
+
+    return redirect('stock_sold')
+
+
+@login_required(login_url='login')
+def moveToNotSoldAuctionSubStock(request):
+
+    if request.method == 'POST':
+        soldId = request.POST.get('soldID')
+        mainID = request.POST.get('mID')
+        subID = request.POST.get('sID')
+
+        try:
+
+            if soldId is not None and mainID is not None:
+                #delete(inactive) sold stock record
+                soldSt = Auction_SoldStocks.objects.get(pk=soldId)
+                soldSt.active = 0
+                soldSt.save()
+
+                #update current stock
+                currentSt = Auction_SubStock.objects.get(pk=mainID)
+                currentSt.status = 'Not Sold'
+                currentSt.save()
+
+                #add to not sold stock
+                notSoldSt = Auction_NotSoldStocks()
+                notSoldSt.MainID = mainID
+                notSoldSt.SubID = subID
+                notSoldSt.save()
+
+                #add to log
+                nLog = Auction_NotSoldStocksLog()
+                nLog.Description = '<Add_from_sold.Description>: Add Not Sold Stock. | <Main SubStock ID>: '+mainID+' | <Stock Sub ID>: '+subID+''
+                nLog.save()
+
+                messages.success(request, 'Sucessfully moved to Not Sold Stock')
+                redirect('stock_notsold')
+
+            else:
+                messages.error(request, 'Error main/sold id is null')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
+
+    return redirect('stock_sold')
+
+
+@login_required(login_url='login')
+def NotSoldStockAdd(request):
+
+    if request.method == 'POST':
+        mainId = request.POST.get('mID')
+        subId = request.POST.get('sID')
+
+        try:
+            if mainId is not None and subId is not None:
+
+                #save data in not sold stock
+                notForm = Auction_NotSoldStocks()
+                notForm.MainID = mainId
+                notForm.SubID = subId
+                notForm.save()
+
+                #update status in current stock
+                curStock = Auction_SubStock.objects.get(pk=mainId)
+                curStock.status = 'Not Sold'
+                curStock.save()
+
+                # add data to log
+                nLog = Auction_NotSoldStocksLog()
+                nLog.Description = '<Add.Description>: Add Not Sold Stock. | <Main SubStock ID>: '+mainId+' | <Stock Sub ID>: '+subId+''
+                nLog.save()
+
+                messages.success(request, 'Successfully Added to Not-Sold Stock')
+                return redirect('stock_notsold')
+
+            else:
+                messages.success(request, 'Main/Sub ID is null')
+                return redirect('stock_sales')
+
+        except Exception as e:
+            print(e)
+            messages.success(request, 'Exception')
+            return redirect('stock_sales')
+
+    return redirect('stock_sales')
+
+
+@login_required(login_url='login')
+def notSoldStock(request):
+
+    try:
+        notSold = Auction_NotSoldStocks.objects.filter(active=1)
+        substocks = Auction_SubStock.objects.filter(status='Not Sold', active=1)
+        return render(request, 'auction_notSold.html', {'nStock': notSold, 'subStock':substocks })
+
+    except Exception as e:
+        print(e)
+        messages.error(request, 'Exception')
+        return render(request, 'auction_notSold.html')
+
+
+@login_required(login_url='login')
+def DeleteNotSoldStock(request):
+
+    if request.method == 'POST':
+        notStockid = request.POST.get('nID')
+        subStockid = request.POST.get('mID')
+
+        if notStockid is not None and subStockid is not None:
+            try:
+                #add to log
+                nLog = Auction_NotSoldStocksLog()
+                nLog.Description = '<Delete.Description>: Delete Not Sold Stock. | <Main SubStock ID>: '+subStockid+' | <Not Sold Stock ID>: '+notStockid+''
+                nLog.save()
+
+                # delete record from not sold
+                nStock = Auction_NotSoldStocks.objects.get(pk=notStockid)
+                nStock.delete()
+
+                #update current stock table
+                curStock = Auction_SubStock.objects.get(pk=subStockid)
+                curStock.status = 'Pending'
+                curStock.save()
+
+                messages.success(request, 'Successfully Deleted')
+                return redirect('stock_notsold')
+
+            except Exception as e:
+                print(e)
+                messages.error(request, 'Exception')
+                return redirect('stock_notsold')
+
+        else:
+            messages.error(request, 'Sub/Not sold id is null')
+            return redirect('stock_notsold')
+
+
+@login_required(login_url='login')
+def updateAuctionSubStock(request):
     return render(request, 'updateCatelog.html')
 
 

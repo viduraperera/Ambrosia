@@ -42,8 +42,29 @@ class AddSubAuctionStockForm(forms.ModelForm):
         model = Auction_SubStock
         fields = '__all__'
 
+
 class AddMainAuctionStockForm(forms.ModelForm):
 
     class Meta:
         model = Auction_MainStock
+        fields = '__all__'
+
+
+class AddAuctionSoldStockForm(forms.ModelForm):
+
+    class Meta:
+        model = Auction_SoldStocks
+        fields = '__all__'
+
+
+class AddAuctionNotSoldStockForm(forms.ModelForm):
+
+    class Meta:
+        model = Auction_NotSoldStocks
+        fields = '__all__'
+
+
+class AuctionNotSoldStockLogForm(forms.ModelForm):
+    class Meta:
+        model = Auction_NotSoldStocksLog
         fields = '__all__'

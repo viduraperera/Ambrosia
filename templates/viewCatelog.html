@@ -1,7 +1,25 @@
 {% extends 'FinalPrductionBase.html' %}
 
-<!------------------------------------Title-------------------------------------->
+<!------------------------------------Title--------------------------------------->
 {% block title %}View Auction Stock{% endblock title %}
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+    <script>
+        function formPopupFunction() {
+          document.getElementById("popupForm").style.display="block";
+          document.getElementById("closeBtn").style.visibility="visible";
+          document.getElementById("openBtn").style.visibility="hidden";
+        }
+
+        function closeformPopupFunction() {
+          document.getElementById("popupForm").style.display="none";
+          document.getElementById("openBtn").style.visibility="visible";
+          document.getElementById("closeBtn").style.visibility="hidden";
+        }
+    </script>
+ {% endblock headImport1 %}
 
 <!------------------------------------Styles-------------------------------------->
 
@@ -24,30 +42,83 @@
     background: #25ff79;
     }
 
-table {
+.buttonAdd
+    {
+      background-color:#F41847;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 60%;
+      padding:10px;
+      border-radius: 15px;
+    }
+
+.buttonOpen
+    {
+      background-color:#001EA9;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 40%;
+      padding:10px;
+    }
+
+.buttonClose{
+      visibility:hidden;
+      background-color:#290202;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 40%;
+      padding:10px;
+    }
+
+.buttonAdd:hover , .buttonOpen:hover, .buttonClose:hover{
+    background: #EEF418;
+    color:black;
+    }
+
+.showTable{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     }
 
-th {
+.showTable th {
     border: 1px solid #dddddd;
     text-align: center;
     font-size: 18px;
-    padding: 18px;
+    padding: 10px;
     background: #fff9d2;
     }
 
-td {
+.showTable td {
     border: 1px solid #e7e5e5;
     text-align: left;
     font-size: 16px;
-    padding: 15px;
+    padding: 10px;
     }
 
-tr:nth-child(even) {
+.showTable tr:nth-child(even) {
     background-color: #f8f5f5;
     }
+
+#popupForm {
+  display: none;
+  width: 70%;
+  padding: 30px;
+  background-color: #FEFFE3;
+  margin-top: 20px;
+}
 
 {% endblock moreStyles %}
 
@@ -99,7 +170,7 @@ Display Message
 
     <div style="overflow-x:auto;">
 
-     <table>
+     <table class="showTable">
 
         <th>MainID</th>
         <th>SubStockId</th>
@@ -137,7 +208,8 @@ Display Message
                     <form method="post" action="{% url 'delete_subStock' %}">
                         {% csrf_token %}
                         <input type="hidden" name="stID" value="{{ stock.id }}"/>
-                        <input type="submit" value="Delete" class="buttonEdit">
+                        <input type="hidden" name="subID" value="{{ stock.SubID }}"/>
+                        <input type="submit" value="Delete" class="buttonEdit" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
                     </form>
 
             </tr>
@@ -145,5 +217,85 @@ Display Message
 
      </table>
     </div>
+
+    <br><br>
+
+<button class="buttonOpen" id="openBtn" onclick="formPopupFunction()">Add Sub Stock</button>
+
+<div id="popupForm">
+
+    <h1 style="text-align: center">Add Sub Stock</h1>
+
+    <!-- Form -->
+       <form method="post" action="{% url 'after_add_subStock' %}">
+
+        {% csrf_token %}
+
+           <div class="sectionform">
+
+           <table class="abdTable">
+              <tr>
+                   <td><label><b>Sub Stock ID</b></label></td>
+                  <input type="hidden" name="sid"  value="{{ sid }}">
+                   <td>{{ sid }}</td>
+               </tr>
+
+               <tr>
+                   <td><label><b>Invoice No</b></label></td>
+                   <td>{{ form.invoice }}</td>
+               </tr>
+
+               <tr>
+                   <td><label><b>Tea Category</b></label></td>
+                   <td>{{ form.grade }}</td>
+               </tr>
+
+               <tr>
+                   <td><label><b>Net Weight(kg)</b></label></td>
+                   <td>{{ form.net_weight }}</td>
+               </tr>
+
+               <tr>
+                   <td><label><b>Total Weight(kg)</b></label></td>
+                   <td>{{ form.total_weight }}</td>
+               </tr>
+
+               <tr>
+                   <td><label><b>No of Packeges</b></label></td>
+                   <td>{{ form.no_of_packets }}</td>
+               </tr>
+
+              <tr>
+                   <td><label><b>Packet Type </b></label></td>
+                   <td>{{ form.packetType }}</td>
+               </tr>
+
+               <tr>
+                   <td><label><b>Date Prepared </b></label></td>
+                   <td>{{ form.date_prepared }}</td>
+               </tr>
+
+           </table>
+
+         </div>
+            <br>
+            <button type="submit" class="buttonAdd">Submit SubStock</button>
+        </form>
+
+       <br>
+        <button class="buttonClose" id="closeBtn" onclick="closeformPopupFunction()">Close Form</button>
+
+        <!--------------Errors--------------------------------------->
+        {% if form.errors %}
+
+            <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+                <h3 style="font-weight: bold">{{ form.errors }}</h3>
+            </div>
+
+       {% endif %}
+
+</div>
+
+    <br><br>
 
 {% endblock content %}

@@ -1,6 +1,6 @@
 {% extends 'FinalPrductionBase.html' %}
 
-<!------------------------------------Title-------------------------------------->
+<!------------------------------------Title--------------------------------------->
 {% block title %}Add Auction Stock{% endblock title %}
 
 <!------------------------------------Styles-------------------------------------->
@@ -213,18 +213,18 @@ Display Message
                 <td>{{ stock.packetType }}</td>
                 <td>{{ stock.date_prepared }}</td>
 {#                <td>{{ stock.status }}</td>#}
-
                 <td>
-                    <form method="post" action="">
-                        {% csrf_token %}
-                        <input type="hidden" name="stID" value="{{ stock.id }}"/>
-                        <input type="submit" value="Edit" class="buttonEdit">
-                    </form>
-                <br>
+{#                <td>#}
+{#                    <form method="post" action="">#}
+{#                        {% csrf_token %}#}
+{#                        <input type="hidden" name="stID" value="{{ stock.id }}"/>#}
+{#                        <input type="submit" value="Edit" class="buttonEdit">#}
+{#                    </form>#}
+{#                <br>#}
                     <form method="post" action="{% url 'delete_subStock' %}">
                         {% csrf_token %}
                         <input type="hidden" name="stID" value="{{ stock.id }}"/>
-                        <input type="submit" value="Delete" class="buttonEdit">
+                        <input type="submit" value="Delete" class="buttonEdit" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
                     </form>
                 </td>
             </tr>

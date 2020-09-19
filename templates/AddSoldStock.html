@@ -1,19 +1,19 @@
 {% extends 'FinalPrductionBase.html' %}
 
 <!------------------------------------Title-------------------------------------->
-{% block title %}Current Stock{% endblock title %}
+{% block title %}Add Sold Stock{% endblock title %}
 
 <!------------------------------------Styles-------------------------------------->
 
 {% block moreStyles %}
 
-table {
+.detailsTable {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     }
 
-th {
+.detailsTable th {
     border: 1px solid #dddddd;
     text-align: center;
     font-size: 20px;
@@ -21,31 +21,18 @@ th {
     background: #fff9d2;
     }
 
-td {
+.detailsTable td {
     border: 1px solid #e7e5e5;
     text-align: left;
     font-size: 16px;
     padding: 15px;
     }
 
-tr:nth-child(even) {
+.detailsTable tr:nth-child(even) {
     background-color: #f3f2ee;
     }
 
-.buttonEdit
-    {
-    background-color: #2f960a;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    width: 100%;
-    border-radius: 5px;
-    }
-
-.buttonDelete {
+.buttonAdd{
     margin-top: 15px;
     background-color: #ff6d00;
     border: none;
@@ -54,16 +41,21 @@ tr:nth-child(even) {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width: 100%;
+    padding: 10px;
+    width: 40%;
     border-radius: 5px;
     }
 
-.buttonEdit:hover {
-    background: #25ff79;
+.buttonAdd:hover{
+    background: red;
     }
 
-.buttonDelete:hover{
-    background: red;
+.formTable td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 20px;
+    padding: 15px;
+    font-weight: bold;
     }
 
 {% endblock moreStyles %}
@@ -81,7 +73,7 @@ tr:nth-child(even) {
 
 
 <!----------------------------------Header2--------------------------------------->
-{% block pageContentHeader2 %}Stock Sales | Current Stock{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Stock Sales | Add Sold Stock{% endblock pageContentHeader2 %}
 
 
 <!---------------------------------Messages-------------------------------------->
@@ -107,10 +99,10 @@ tr:nth-child(even) {
 {% block content %}
 
 <!-- Table -->
-<h1>Current Stock Details</h1>
+<h1>Stock Details</h1>
 
 <div style="overflow-x:auto;">
-    <table border="1 px solid black">
+    <table border="1 px solid black" class="detailsTable">
 
     <th>MainID</th>
     <th>SubId</th>
@@ -122,9 +114,6 @@ tr:nth-child(even) {
     <th>Packet Type</th>
     <th>Date Prepared</th>
     <th>Current Status</th>
-    <th>Edit</th>
-
-    {% for stk in stock %}
 
         <tr>
             <td>{{ stk.id }}</td>
@@ -137,27 +126,63 @@ tr:nth-child(even) {
             <td>{{ stk.packetType }}</td>
             <td>{{ stk.date_prepared }}</td>
             <td>{{ stk.status }}</td>
-
-            <td>
-                <form method="post" action="{% url 'view_addSoldStock' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="mID" value="{{ stk.id }}"/>
-                    <input type="submit" value="Sold" class="buttonEdit">
-                </form>
-
-                <form method="post" action="{% url 'add_NotSoldStock' %} ">
-                    {% csrf_token %}
-                    <input type="hidden" name="mID" value="{{ stk.id }}"/>
-                    <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
-                    <input type="submit" value="Not Sold" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Add to Not Sold?.Press Ok To Confirm.')) { return false }">
-                </form>
-            </td>
         </tr>
-
-    {% endfor %}
 
 </table>
 </div>
+<br>
 
+<!-- Form -->
+<h1>Details Form</h1>
+
+    <form method="post" action="{% url 'add_SoldStock' %}">
+
+        {% csrf_token %}
+        <input type="hidden" name="mID" value="{{ stk.id }}"/>
+        <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
+
+        <table class="formTable">
+
+            <tr>
+                <td>SubStock MainID</td>
+                <td>{{ stk.id }}</td>
+            </tr>
+
+            <tr>
+                <td>SubStock SubID</td>
+                <td>{{ stk.SubID }}</td>
+            </tr>
+
+            <tr>
+                <td>Price(1kg)</td>
+                <td>{{ form.price }}</td>
+            </tr>
+
+            <tr>
+                <td>Buyer</td>
+                <td>{{ form.Buyer }}</td>
+            </tr>
+
+            <tr>
+                <td>Sold Date</td>
+                <td>{{ form.sold_Date }}</td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Add Sold Stock" class="buttonAdd">
+
+    </form>
+
+    <!--------------Errors--------------------------------------->
+    {% if form.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
+
+<br><br>
 
 {% endblock content %}

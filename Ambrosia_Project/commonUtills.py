@@ -36,9 +36,11 @@ def calculaionsAuctionSubStock(suId):
         #get all from db
         obj = Auction_SubStock.objects.filter(SubID=suId)
 
+        check = Auction_SubStock.objects.filter(SubID=suId).exists()
+
         noOfRows = Auction_SubStock.objects.filter(SubID=suId).count()
 
-        if obj is not None:
+        if check:
 
             for subStock in obj:
                 # calculate total net weight

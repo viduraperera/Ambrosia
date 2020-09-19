@@ -16,20 +16,36 @@ table {
 th {
     border: 1px solid #dddddd;
     text-align: center;
-    font-size: 20px;
-    padding: 18px;
+    font-size: 16px;
+    padding: 14px;
     background: #fff9d2;
     }
 
 td {
     border: 1px solid #e7e5e5;
     text-align: left;
-    font-size: 20px;
-    padding: 15px;
+    font-size: 14px;
+    padding: 10px;
+    }
+
+.substockHeader {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px;
+    background: #CAFFC4;
+    }
+
+.substockColumn {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    background: #DAFFF6;
     }
 
 tr:nth-child(even) {
-    background-color: #f3f2ee;
+    background-color: #FAE2FF;
     }
 
 .buttonEdit
@@ -41,30 +57,16 @@ tr:nth-child(even) {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width: 90%;
-    border-radius: 5px;
-    }
-
-.buttonDelete {
-    margin-top: 15px;
-    background-color: #ff6d00;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    width: 90%;
+    width: 100%;
+    padding: 8px;
     border-radius: 5px;
     }
 
 .buttonEdit:hover {
-    background: #25ff79;
+    background: #AB0909;
     }
 
-.buttonDelete:hover{
-    background: red;
-    }
+
 
 {% endblock moreStyles %}
 
@@ -108,41 +110,62 @@ tr:nth-child(even) {
 
 <h1> Sold Stock Details </h1>
 
-<table border="1 px solid black">
+<div style="overflow-x:auto;">
+    <table border="1 px solid black">
 
-    <th>StockId</th>
-    <th>SubId</th>
-    <th>Price</th>
-    <th>Tot.Price</th>
-    <th>Buyer</th>
-    <th>Sold Date</th>
-    <th>Edit</th>
+        <th>Main St.Id</th>
+        <th>Sub St.Id</th>
+        <th class="substockHeader">Grade</th>
+        <th class="substockHeader">Date Pre.</th>
+        <th class="substockHeader">Status</th>
+        <th class="substockHeader">Net.W(kg)</th>
+        <th class="substockHeader">Tot.W(kg)</th>
+        <th class="substockHeader">No.Pkts</th>
+        <th>Price(1kg)</th>
+        <th>Tot.Price</th>
+        <th>Buyer</th>
+        <th>S.Date</th>
+        <th>Edit</th>
 
-    <tr>
-        <td>1</td>
-        <td>S001</td>
-        <td>300</td>
-        <td>12000</td>
-        <td>C.B.B Brothers</td>
-        <td>2020.09.13</td>
+        {% for sold in soldStocks %}
 
-        <td>
-            <form method="post" action="">
-                {% csrf_token %}
-                <input type="hidden" name="uname" value="{{ user.username }}"/>
-                <input type="submit" value="Sold" class="buttonEdit">
-            </form>
+            {% for sub in subStocks %}
 
-            <form method="post" action=" ">
-                {% csrf_token %}
-                <input type="hidden" name="uname" value=""/>
-                <input type="submit" value="Not Sold" class="buttonDelete">
-            </form>
-        </td>
+                {% if sub.id == sold.MainID %}
 
-    </tr>
+                    <tr>
+                        <td>{{ sold.MainID }}</td>
+                        <td>{{ sold.SubID }}</td>
+                        <td class="substockColumn">{{ sub.grade }}</td>
+                        <td class="substockColumn">{{ sub.date_prepared }}</td>
+                        <td class="substockColumn">{{ sub.status }}</td>
+                        <td class="substockColumn">{{ sub.net_weight }}</td>
+                        <td class="substockColumn">{{ sub.total_weight }}</td>
+                        <td class="substockColumn">{{ sub.no_of_packets }}</td>
+                        <td>{{ sold.price }}</td>
+                        <td>{{ sold.total_price }}</td>
+                        <td>{{ sold.Buyer }}</td>
+                        <td>{{ sold.sold_Date }}</td>
 
+                        <td>
+                            <form method="post" action="{% url 'view_soldStock' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="soldID" value="{{ sold.id }}"/>
+                                <input type="hidden" name="sID" value="{{ sold.MainID }}"/>
+                                <input type="submit" value="Edit" class="buttonEdit">
+                            </form>
+                        </td>
+                    </tr>
 
-</table>
+                {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+</div>
+
+    <br><br>
 
 {% endblock content %}

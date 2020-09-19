@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{% static 'admin/css/adminLeftMenue.css' %}">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
@@ -101,26 +100,36 @@
     <form method="post" action="{% url 'update_user_details' %}">
 
     {% csrf_token %}
-     <div class="w3-section">
-    <label><b>Password</b>
-        <input type="hidden" value="{{ UserDetails.username }}" name="un">
-        <input type="password" value="{{ UserDetails.password }}" name="pwd" id="pwd" class="w3-input w3-border">
 
-        <input type="checkbox" onclick="ShowPassword('pwd')" class="checkbox"> Show Password
-    </label>
+    <input type="hidden" value="{{ UserDetails.username }}" name="un">
+
+     <div class="w3-section">
+         <label><b>Password</b></label>
+            {{ form.password1 }}
+
+         <br><br>
+
+         <label><b>Re-Enter Password</b></label>
+            {{ form.password2 }}
+
+         <input type="checkbox" onclick="ShowPassword('pwd')" class="checkbox"> Show Password
+
 
         <script>
-        function ShowPassword(id)
+        function ShowPassword()
         {
-            var x = document.getElementById(id);
+            var x = document.getElementById("id_password1");
+            var y = document.getElementById("id_password2");
 
-            if(x.type == "password")
+            if(x.type === "password" && y.type === "password")
             {
                 x.type = "text";
+                y.type = "text";
             }
             else
             {
                 x.type = "password";
+                y.type = "password";
             }
 
         }
@@ -139,6 +148,11 @@
 
 
     </form>
+
+    {% if form.errors %}
+        <h4>{{ form.errors }}</h4>
+    {% endif %}
+
   </div>
 
 <!-- End page content -->

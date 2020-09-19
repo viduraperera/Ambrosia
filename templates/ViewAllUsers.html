@@ -166,19 +166,17 @@ tr:nth-child(even) {
 
 
         <td>
-            {% if user.username != 'admin' %}
-                <form method="post" action="{% url 'update_user' %}">
-                {% csrf_token %}
-                    <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Edit" class="buttonEdit">
-                </form>
+            <form method="post" action="{% url 'update_user' %}">
+            {% csrf_token %}
+                <input type="hidden" name="uname" value="{{ user.username }}"/>
+                <input type="submit" value="Edit" class="buttonEdit">
+            </form>
 
-                <form method="post" action=" {% url 'delete_user' %}">
-                {% csrf_token %}
-                    <input type="hidden" name="uname" value="{{ user.username }}"/>
-                    <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
-                </form>
-            {% endif %}
+            <form method="post" action=" {% url 'delete_user' %}">
+            {% csrf_token %}
+                <input type="hidden" name="uname" value="{{ user.username }}"/>
+                <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+            </form>
         </td>
     </tr>
 
