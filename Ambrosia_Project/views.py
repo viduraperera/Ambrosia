@@ -188,6 +188,8 @@ def preorderlevel(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
+# ---------------------------start of funds of employee-----------------------------------
+
 
 @login_required(login_url='login')
 def emp_fund_view(request):
@@ -229,16 +231,6 @@ def emp_funds_edit(request, id):
 
 
 @login_required(login_url='login')
-def emp_allowance_edit(request, id):
-    allowance_edit = Allowance.objects.get(pk=id)
-
-    form = AllowanceForm(instance=allowance_edit)
-
-    var = {'allowanceForm': form, 'Fid': id}
-    return render(request, 'edit_allowance.html', var)
-
-
-@login_required(login_url='login')
 def emp_funds_update(request, id):
     funds_update = Funds.objects.get(pk=id)
 
@@ -251,24 +243,10 @@ def emp_funds_update(request, id):
 
         return redirect('emp_fund_view')
 
-@login_required(login_url='login')
-def emp_allowance_update(request, id):
-    allowance_update = Allowance.objects.get(pk=id)
-    allowance = AllowanceForm(request.POST, instance=allowance_update)
 
-    if allowance.is_valid():
-        allowance.save()
-        messages.success(request, 'Record Updated Successfully')
-        var = {'allowance_update': allowance_update}
+# ---------------------------end of funds of employee-----------------------------------
 
-        return redirect('emp_allowance')
-
-
-@login_required(login_url='login')
-def emp_allowance_delete(request, id):
-    allowance = Allowance.objects.get(pk=id)
-    allowance.delete()
-    return redirect('emp_allowance')
+# ---------------------------start of allowance of employee-----------------------------------
 
 
 @login_required(login_url='login')
@@ -290,6 +268,39 @@ def emp_allowance_add(request):
                 pass
     var = {'allowance': allowance}
     return render(request, 'add_allowance.html', var)
+
+
+@login_required(login_url='login')
+def emp_allowance_edit(request, id):
+    allowance_edit = Allowance.objects.get(pk=id)
+
+    form = AllowanceForm(instance=allowance_edit)
+
+    var = {'allowanceForm': form, 'Fid': id}
+    return render(request, 'edit_allowance.html', var)
+
+
+@login_required(login_url='login')
+def emp_allowance_update(request, id):
+    allowance_update = Allowance.objects.get(pk=id)
+    allowance = AllowanceForm(request.POST, instance=allowance_update)
+
+    if allowance.is_valid():
+        allowance.save()
+        messages.success(request, 'Record Updated Successfully')
+        var = {'allowance_update': allowance_update}
+
+        return redirect('emp_allowance')
+
+
+@login_required(login_url='login')
+def emp_allowance_delete(request, id):
+    allowance = Allowance.objects.get(pk=id)
+    allowance.delete()
+    return redirect('emp_allowance')
+
+
+# ---------------------------end of allowance of employee-----------------------------------
 
 
 @login_required(login_url='login')
@@ -545,3 +556,8 @@ def NavigateToCurrentProduct(request):
 @login_required(login_url='login')
 def NavigateToUpdateProduct(request):
     return render(request, 'Update_daily_product.html')
+
+
+@login_required(login_url='login')
+def employee_salary_front(request):
+    return render(request, 'employee_salary.html')

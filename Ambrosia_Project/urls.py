@@ -119,6 +119,9 @@ urlpatterns = [
     path('Factory/EmployeeHome/emp_allowance_edit<int:id>', views.emp_allowance_edit, name="emp_allowance_edit"),
     path('Factory/EmployeeHome/emp_allowance_update<int:id>', views.emp_allowance_update, name="emp_allowance_update"),
 
+    # employee_salary_VUP
+    path('Factory/EmployeeHome//')
+
 
 ]
 

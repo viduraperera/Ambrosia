@@ -275,3 +275,7 @@ class LeafStock(models.Model):
     rec_Date = models.DateField()
     rec_Time = models.TimeField()
     supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
+
+
+class EmployeeSalaryMonth(models.Model):
+    month = models.DateField(default=datetime.now)
