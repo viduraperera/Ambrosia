@@ -158,6 +158,7 @@ function NavBarFunction() {
       <a href="{% url 'stock_sales' %}" class="{% block currentStockBtn %}{% endblock currentStockBtn %}">Current Stock</a>
       <a href="{% url 'stock_sold' %}" class="{% block soldStockBtn %}{% endblock soldStockBtn %}">Sold Stocks</a>
       <a href="{% url 'stock_notsold' %}" class="{% block notSoldStockBtn %}{% endblock notSoldStockBtn %}">Not Sold Stock</a>
+      <a href="{% url 'stock_notsoldlog' %}" class="{% block notSoldStockLogBtn %}{% endblock notSoldStockLogBtn %}">Not Sold Stock Log</a>
       <a href="javascript:void(0);" class="icon" onclick="NavBarFunction()">
         <i class="fa fa-bars"></i>
       </a>

@@ -83,16 +83,20 @@ urlpatterns = [
     path('Factory/FinalProduction/ViewMainStock', views.showMainAuctionStock, name="view_mainStock"),
     path('Factory/FinalProduction/UpdateAuctionSubStockdetails', views.updateAuctionSubStock,name="update_subStock"),
 
+    path('Factory/FinalProduction/AddNotSoldToCurrentCatelog', views.addNotSoldToCurrentCatelog,name="addNotSold_currentCatelog"),
+
     path('Factory/FinalProduction/StockSales', views.stockSalesHome, name="stock_sales"),
+    path('Factory/FinalProduction/SoldStocks', views.soldStock, name="stock_sold"),
     path('Factory/FinalProduction/ViewAddToSoldStock', views.viewAddSoldStock, name="view_addSoldStock"),
     path('Factory/FinalProduction/AddSoldStock', views.AddSoldStock, name="add_SoldStock"),
     path('Factory/FinalProduction/ViewSoldStock', views.showSoldAuctionSubStock, name="view_soldStock"),
     path('Factory/FinalProduction/UpdateSoldStock', views.updateSoldAuctionSubStock, name="update_soldStock"),
     path('Factory/FinalProduction/MoveSoldStock', views.moveToNotSoldAuctionSubStock, name="moveto_NotsoldStock"),
+    path('Factory/FinalProduction/ViewNotSoldStocks', views.notSoldStock, name="stock_notsold"),
     path('Factory/FinalProduction/NotSoldStockAdd', views.NotSoldStockAdd, name="add_NotSoldStock"),
     path('Factory/FinalProduction/NotSoldStockDelete', views.DeleteNotSoldStock, name="delete_NotSoldStock"),
-    path('Factory/FinalProduction/ViewNotSoldStocks', views.notSoldStock, name="stock_notsold"),
-    path('Factory/FinalProduction/SoldStocks', views.soldStock, name="stock_sold"),
+    path('Factory/FinalProduction/ViewAuctionNotSoldLog', views.showAuctionNotSoldLog, name="stock_notsoldlog"),
+
 
     path('Factory/FinalProduction/AuctionStock/Brokers', views.showBrokerDetails, name="all_brokers"),
     path('Factory/FinalProduction/AuctionStock/AddBroker', views.addNewBroker, name="add_broker"),

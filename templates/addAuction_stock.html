@@ -3,13 +3,46 @@
 <!------------------------------------Title--------------------------------------->
 {% block title %}Add Auction Stock{% endblock title %}
 
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+    <script>
+        function formPopupFunction() {
+          document.getElementById("popupTable").style.display="block";
+          document.getElementById("closeBtn").style.visibility="visible";
+          document.getElementById("openBtn").style.visibility="hidden";
+        }
+
+        function closeformPopupFunction() {
+          document.getElementById("popupTable").style.display="none";
+          document.getElementById("openBtn").style.visibility="visible";
+          document.getElementById("closeBtn").style.visibility="hidden";
+        }
+    </script>
+ {% endblock headImport1 %}
+
+
 <!------------------------------------Styles-------------------------------------->
 
 {% block moreStyles %}
 
+.formTable{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    }
+
+.formTable td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    }
+
 .buttonEdit
     {
-      background-color: #0b7fd7;
+      background-color: #DC0175;
       border: none;
       color: white;
       text-align: center;
@@ -26,9 +59,28 @@
     color: #000;
     }
 
+.buttonDelete
+    {
+      background-color: #E02516;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 80%;
+      height: 30px;
+      border-radius: 15px;
+    }
+
+.buttonDelete:hover {
+    background: #E5ED34;
+    color: #000;
+    }
+
 .buttonEdit1
 {
-  background-color: #0b7fd7;
+  background-color: #700390;
   border: none;
   color: white;
   text-align: center;
@@ -69,6 +121,36 @@
 .showTable tr:nth-child(even) {
     background-color: #f8f5f5;
     }
+
+.showTableBottom{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+.showTableBottom th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    background: #fff9d2;
+    }
+
+.showTableBottom td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 15px;
+    padding: 10px;
+    background: #F3F9FB;
+    }
+
+#popupTable {
+  display: none;
+  width: 100%;
+  padding: 20px;
+  background-color: #E2FAFF;
+  margin-top: 20px;
+}
 
 {% endblock moreStyles %}
 
@@ -119,7 +201,7 @@ Display Message
 
        <div class="sectionform">
 
-       <table class="abdTable">
+       <table class="formTable">
           <tr>
                <td><label><b>Sub Stock ID</b></label></td>
                <td>{{ sid }}</td>
@@ -162,7 +244,10 @@ Display Message
 
            <tr>
                <td></td>
-               <td><br><button type="submit" class="buttonEdit">Add Sub Stock</button></td></tr>
+               <td>
+                   <button type="submit" class="buttonEdit">Add Sub Stock</button>
+               </td>
+           </tr>
 
        </table>
 
@@ -178,10 +263,10 @@ Display Message
         </div>
 
    {% endif %}
-
+<br><br>
     <!--------------Details Table------------------------------------>
 
-    <h1>Catelog Details</h1>
+    <h1>Current Catelog Details</h1>
 
     <div style="overflow-x:auto;">
 
@@ -224,7 +309,7 @@ Display Message
                     <form method="post" action="{% url 'delete_subStock' %}">
                         {% csrf_token %}
                         <input type="hidden" name="stID" value="{{ stock.id }}"/>
-                        <input type="submit" value="Delete" class="buttonEdit" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                        <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
                     </form>
                 </td>
             </tr>
@@ -239,6 +324,7 @@ Display Message
     <br>
 
     <!--------------Main Stock Table------------------------------------>
+<h1>Add MainStock Stock</h1>
 
     <h4>No of Sub Stocks:&ensp;{{ SubStock.rowsNo }} </h4>
     <h4>Total Net Weight:&ensp;{{ SubStock.tne }} kg</h4>
@@ -275,5 +361,91 @@ Display Message
     </form>
 
     <br><br>
+
+   <button class="buttonEdit" id="openBtn" onclick="formPopupFunction()">Add Not-Sold Sub Stocks</button>
+
+<div id="popupTable" >
+<h1>Add Not-Sold Stock to Catelog</h1>
+    <div style="overflow-x:auto;">
+
+         <table class="showTableBottom">
+
+             <th>MainID</th>
+             <th>SubID</th>
+             <th>Grade</th>
+             <th>pkt.Type</th>
+             <th>Invoice</th>
+             <th>Date Prepared</th>
+             <th>Net.W</th>
+             <th>Total.W</th>
+             <th>No.of.Pkts</th>
+             <th>Choises</th>
+
+
+             {% for nst in notSoldStocks %}
+
+                {% for prst in prevSubStock %}
+
+                    {% if nst.MainID == prst.id  %}
+
+                         <tr>
+
+                             <form method="post" action="{% url 'addNotSold_currentCatelog' %}">
+                                {%  csrf_token %}
+                                 <input type="hidden" name="newSID" value="{{ sid }}" >
+                                 <input type="hidden" name="prvMID" value="{{ prst.id }}" >
+
+                                <td>{{ prst.id }}</td>
+                                <td>{{ prst.SubID }}</td>
+                                <td>{{ prst.grade }}</td>
+                                <td>{{ prst.packetType }}</td>
+
+                                <td>
+                                    {{ prst.invoice }}
+                                    {{ nAddForm.invoice }}
+                                </td>
+
+                                <td>{{ prst.date_prepared }}
+                                    {{ nAddForm.date_prepared }}
+                                </td>
+
+                                <td>
+                                    {{ prst.net_weight }}
+                                    {{ nAddForm.net_weight }}
+                                </td>
+
+                                <td>{{ prst.total_weight }}
+                                    {{ nAddForm.total_weight }}
+                                </td>
+
+                                <td>{{ prst.no_of_packets }}
+                                    {{ nAddForm.no_of_packets }}
+                                </td>
+
+                                <td>
+                                    <input type="submit" value="Add To Catelog" class="buttonEdit">
+                                </td>
+
+                             </form>
+
+                         </tr>
+
+                    {% endif %}
+
+                {% endfor %}
+
+             {% endfor %}
+
+         </table>
+
+    </div>
+
+    <br><br>
+    <button class="buttonDelete" id="closeBtn" onclick="closeformPopupFunction()">Close SubStocks Table</button>
+    <br>
+
+</div>
+
+<br><br>
 
 {% endblock content %}

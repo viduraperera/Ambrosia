@@ -1,0 +1,98 @@
+{% extends 'FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Not Sold Stock Log{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px;
+    background: #fff9d2;
+    }
+
+td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    }
+
+tr:nth-child(even) {
+    background-color: #f3f2ee;
+    }
+
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block stockSalesBtn %}ClassActive{% endblock stockSalesBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block notSoldStockLogBtn %}ClassActive1{% endblock notSoldStockLogBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Stock Sales | Not Sold Stock Log{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<h1>Not Sold Stocks</h1>
+
+<div style="overflow-x:auto;">
+
+    <table border="1 px solid black">
+
+        <th>Time</th>
+        <th>Description</th>
+
+        {% for log in Alllog %}
+        <tr>
+            <td>{{ log.LastUpdated }}</td>
+            <td>{{ log.Description }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<br><br>
+
+{% endblock content %}

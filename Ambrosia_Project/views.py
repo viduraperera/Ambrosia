@@ -507,10 +507,18 @@ def addAuctionSubStock(request):
     #All calculations
     subStock = calculaionsAuctionSubStock(sid)
 
+    # get not sold stock relevent forms-----------------------------------------------
+    prevSubStock = Auction_SubStock.objects.filter(status='Not Sold', active=1)
+    notSoldStocks = Auction_NotSoldStocks.objects.filter(active=1)
+    nAddFrom = AddSubAuctionStockForm()
+
     var = { 'form': subForm,
             'mForm': mainStForm,
             'SubStock':subStock,
             'sid': sid,
+            'prevSubStock':prevSubStock,
+            'notSoldStocks': notSoldStocks,
+            'nAddForm': nAddFrom,
             }
 
     return render(request, 'addAuction_stock.html', var)
@@ -678,6 +686,70 @@ def afterAddAuctionSubStock(request):
 
 
     return render(request, 'catelogDetails.html')
+
+
+@login_required(login_url='login')
+def updateAuctionSubStock(request):
+    return render(request, 'updateCatelog.html')
+
+
+@login_required(login_url='login')
+def addNotSoldToCurrentCatelog(request):
+
+    if request.method == 'POST':
+        newID = request.POST.get('newSID')
+        prMainID = request.POST.get('prvMID')
+
+        if newID is not None and prMainID is not None:
+            newStockForm = AddSubAuctionStockForm(request.POST)
+
+            #get previous stock details
+            prvStock = Auction_SubStock.objects.get(pk=prMainID)
+
+            try:
+
+                if newStockForm.is_valid():
+                    #add(prepare) new stock
+                    newStock = newStockForm.save(commit=False)
+                    newStock.SubID = newID
+                    newStock.grade = prvStock.grade
+                    newStock.packetType = prvStock.packetType
+                    newStock.status = 'Pending'
+                    newStock.save()
+
+                    #delete(inactive) previous sub stock
+                    prvStock.active = 0
+                    prvStock.save()
+
+                    #delete(inactive) not sold stock
+                    prvNotSoldStock = Auction_NotSoldStocks.objects.get(MainID=prMainID)
+                    prvNotSoldStock.active = 0
+                    prvNotSoldStock.save()
+
+                    #update log
+                    notSoldlog = Auction_NotSoldStocksLog()
+                    notSoldlog.Description = '<ReAddStock>: Add Not Sold Stock to new Catelog. | <Previous Sub Stock Main ID >:' \
+                                             ' '+prMainID+' | <New Stock SubID>: '+newID+''
+
+                    notSoldlog.save()
+                    messages.success(request, 'Sucessfully added to new Stock')
+                    return redirect('prepare_auction_stock')
+
+                else:
+                    messages.error(request, 'invalid details')
+
+            except Exception as e:
+                print(e)
+                messages.error(request, 'Exception')
+
+        else:
+            messages.error(request,'Id is null')
+
+
+    return redirect('prepare_auction_stock')
+
+
+#Auction Sales-------------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -987,8 +1059,11 @@ def DeleteNotSoldStock(request):
 
 
 @login_required(login_url='login')
-def updateAuctionSubStock(request):
-    return render(request, 'updateCatelog.html')
+def showAuctionNotSoldLog(request):
+
+    log = Auction_NotSoldStocksLog.objects.all()
+
+    return render(request, 'auctionNotSoldLog.html', {'Alllog':log})
 
 
 #Production Analysis--------------------------------------------------------------------------------------------
