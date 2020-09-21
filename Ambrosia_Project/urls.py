@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import *
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -81,6 +82,7 @@ urlpatterns = [
     path('Factory/FinalProduction/AfterAddAuctionSubStock', views.afterAddAuctionSubStock, name="after_add_subStock"),
     path('Factory/FinalProduction/AllAuctionMainStocks', views.showAuctionMainStocks, name="all_catelog"),
     path('Factory/FinalProduction/ViewMainStock', views.showMainAuctionStock, name="view_mainStock"),
+    path('Factory/FinalProduction/viewAuctionSubstock', views.viewAuctionSubStock,name="view_UpdatesubStock"),
     path('Factory/FinalProduction/UpdateAuctionSubStockdetails', views.updateAuctionSubStock,name="update_subStock"),
 
     path('Factory/FinalProduction/AddNotSoldToCurrentCatelog', views.addNotSoldToCurrentCatelog,name="addNotSold_currentCatelog"),
@@ -97,6 +99,9 @@ urlpatterns = [
     path('Factory/FinalProduction/NotSoldStockDelete', views.DeleteNotSoldStock, name="delete_NotSoldStock"),
     path('Factory/FinalProduction/ViewAuctionNotSoldLog', views.showAuctionNotSoldLog, name="stock_notsoldlog"),
 
+    path('Factory/FinalProduction/SearchAuctionMainStock', views.searchAuctionMainStock, name="search_mainStock"),
+    path('Factory/FinalProduction/SearchAuctionCurrentSubStock', views.searchAuctionCurrentSubStock, name="search_currentSubStock"),
+    path('Factory/FinalProduction/SearchAuctionSoldStock', views.searchAuctionSoldStock, name="search_soldStock"),
 
     path('Factory/FinalProduction/AuctionStock/Brokers', views.showBrokerDetails, name="all_brokers"),
     path('Factory/FinalProduction/AuctionStock/AddBroker', views.addNewBroker, name="add_broker"),
@@ -111,6 +116,8 @@ urlpatterns = [
     path('Factory/FinalProduction/AuctionStock/DeleteBuyer', views.deleteBuyer, name="delete_buyer"),
 
     path('Factory/FinalProduction/ProductionAnalysis/', views.productionAnalysisHome, name="production_analysis"),
+    path('Factory/FinalProduction/ProductionAnalysis/GenerateSoldStockReport', ReportAuctionSoldStock.as_view() , name="generateSoldStockReport"),
+    # path('Factory/FinalProduction/ProductionAnalysis/GenerateNot-SoldStockReport', ReportAuctionNotSoldStock.as_view() , name="generateNotSoldStockReport"),
 
     #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 

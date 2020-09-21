@@ -73,6 +73,30 @@ tr:nth-child(even) {
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
+    <h1>Not Sold Stocks Re-Added Details</h1>
+
+    <div style="overflow-x:auto;">
+
+        <table border="1 px solid black">
+
+            <th>Prev Not Sold Stock ID</th>
+            <th>Prev Sub Stock Main ID</th>
+            <th>New Sub Stock Main ID</th>
+            <th>Date Re-Added To New Sub Stock</th>
+
+            {% for det in Details %}
+            <tr>
+                <td>{{ det.NotSoldStockID }}</td>
+                <td>{{ det.PreviousSubStockMainID }}</td>
+                <td>{{ det.NewSubStockMainID }}</td>
+                <td>{{ det.LastUpdated }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
 <h1>Not Sold Stocks</h1>
 
 <div style="overflow-x:auto;">

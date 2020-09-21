@@ -106,6 +106,29 @@ tr:nth-child(even) {
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
+
+<!---------------------------------Search--------------------------------------->
+<h3>Search Current Sub Stock</h3>
+
+    <form method="get" action="{% url 'search_currentSubStock' %}">
+
+    <input type="text" name="sText" placeholder="Search Current Sub Stocks" required>
+
+        <select name="type" required>
+            <option value="">----</option>
+            <option value="mainID">By Main Sub Stock ID</option>
+            <option value="subID">By Sub Stock Sub ID(Catelog ID)</option>
+            <option value="date">By Date</option>
+            <option value="month">By Month</option>
+            <option value="year">By Year</option>
+        </select>
+
+        <input type="submit" value="Search">
+            <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: MM-DD </p>
+
+    </form>
+
+
 <!-- Table -->
 <h1>Current Stock Details</h1>
 
@@ -157,7 +180,9 @@ tr:nth-child(even) {
     {% endfor %}
 
 </table>
+
 </div>
 
+<br><br>
 
 {% endblock content %}

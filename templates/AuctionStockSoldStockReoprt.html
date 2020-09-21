@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sold Stock Report</title>
+
+<style>
+
+h1{
+    font-size: 15px;
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+.mainTable{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+.subTable td{
+    padding: 5px;
+    font-size: 15px;
+}
+
+.mainTable th {
+        border: 1px solid #000;
+        text-align: center;
+        font-size: 11px;
+        padding: 5px;
+        background: #fff9d2;
+        }
+
+.mainTable td {
+        border: 1px solid #000;
+        text-align: left;
+        font-size: 8px;
+        padding: 5px;
+        }
+
+.substockHeader {
+    border: 1px solid #000;
+    text-align: center;
+    font-size: 11px;
+    padding: 5px;
+    background: #CAFFC4;
+    }
+
+.substockColumn {
+    border: 1px solid #000;
+    text-align: left;
+    font-size: 8px;
+    padding: 5px;
+    background: #DAFFF6;
+    }
+
+tr:nth-child(even) {
+    background-color: #FAE2FF;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<h1 style="color: #CE272D">Ambrosia Tea Factory - Auction Sold Stock Report - {{ type }} : {{ text }}</h1>
+
+<div style="overflow-x:auto;">
+    <table class="mainTable">
+        <tr>
+            <th>St.MainID</th>
+            <th>St.SubID</th>
+            <th class="substockHeader">Grade</th>
+            <th class="substockHeader">Date Pre.</th>
+            <th class="substockHeader">Status</th>
+            <th class="substockHeader">Net.W(kg)</th>
+            <th class="substockHeader">Tot.W(kg)</th>
+            <th class="substockHeader">No.Pkts</th>
+            <th>Price(1kg)</th>
+            <th>Tot.Price</th>
+            <th>Buyer</th>
+            <th>S.Date</th>
+        </tr>
+
+        {% for sold in soldStocks.stock %}
+
+            {% for sub in subStocks %}
+
+                {% if sub.id == sold.MainID %}
+
+                    <tr>
+                        <td>{{ sold.MainID }}</td>
+                        <td>{{ sold.SubID }}</td>
+                        <td class="substockColumn">{{ sub.grade }}</td>
+                        <td class="substockColumn">{{ sub.date_prepared }}</td>
+                        <td class="substockColumn">{{ sub.status }}</td>
+                        <td class="substockColumn">{{ sub.net_weight }}</td>
+                        <td class="substockColumn">{{ sub.total_weight }}</td>
+                        <td class="substockColumn">{{ sub.no_of_packets }}</td>
+                        <td>{{ sold.price }}</td>
+                        <td>{{ sold.total_price }}</td>
+                        <td>{{ sold.Buyer }}</td>
+                        <td>{{ sold.sold_Date }}</td>
+
+                    </tr>
+
+                {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+</div>
+
+<br><br>
+<hr style="border-top: 1px;">
+<h1 style="color: #CE272D ">Summary</h1>
+
+<table class="subTable">
+    <tr>
+        <td>Number of Sub Stocks:</td>
+        <td>{{ calculations.count }}</td>
+    </tr>
+    <tr>
+        <td>Total Price</td>
+        <td>Rs.{{ calculations.tPrice }}</td>
+    </tr>
+    <tr>
+        <td>Total Net Weight:</td>
+        <td>{{ calculations.netWeight }} kg</td>
+    </tr>
+    <tr>
+        <td>Total Gross Weight: </td>
+        <td>{{ calculations.totalWeight }} kg</td>
+    </tr>
+    <tr>
+        <td>Total Sample Weight:</td>
+        <td>{{ calculations.samWeight }} kg</td>
+    </tr>
+
+</table>
+
+<hr style="border-top: 2px dashed black;">
+<hr style="border-top: 2px dashed black;">
+
+<br><br>
+
+</body>
+</html>

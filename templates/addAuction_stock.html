@@ -199,8 +199,6 @@ Display Message
 
     {% csrf_token %}
 
-       <div class="sectionform">
-
        <table class="formTable">
           <tr>
                <td><label><b>Sub Stock ID</b></label></td>
@@ -251,8 +249,6 @@ Display Message
 
        </table>
 
-     </div>
-
     </form>
 
     <!--------------Errors--------------------------------------->
@@ -281,7 +277,6 @@ Display Message
         <th>Grade</th>
         <th>Packet Type</th>
         <th>Date Prepared</th>
-{#        <th>Status</th>#}
         <th>Update</th>
 
      {% if SubStock.sub %}
@@ -297,15 +292,7 @@ Display Message
                 <td>{{ stock.grade }}</td>
                 <td>{{ stock.packetType }}</td>
                 <td>{{ stock.date_prepared }}</td>
-{#                <td>{{ stock.status }}</td>#}
                 <td>
-{#                <td>#}
-{#                    <form method="post" action="">#}
-{#                        {% csrf_token %}#}
-{#                        <input type="hidden" name="stID" value="{{ stock.id }}"/>#}
-{#                        <input type="submit" value="Edit" class="buttonEdit">#}
-{#                    </form>#}
-{#                <br>#}
                     <form method="post" action="{% url 'delete_subStock' %}">
                         {% csrf_token %}
                         <input type="hidden" name="stID" value="{{ stock.id }}"/>

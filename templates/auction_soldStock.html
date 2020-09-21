@@ -108,24 +108,46 @@ tr:nth-child(even) {
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
+<!---------------------------------Search--------------------------------------->
+<h3>Search Sold Stocks</h3>
+
+    <form method="get" action="{% url 'search_soldStock' %}">
+
+    <input type="text" name="sText" placeholder="Search Sold Stocks" required>
+
+        <select name="type" required>
+            <option value="">----</option>
+            <option value="mainID">By Main Sub Stock ID</option>
+            <option value="subID">By Sub Stock Sub ID(Catelog ID)</option>
+            <option value="dateSold">By Date Sold</option>
+            <option value="month">By Sold in searched Month</option>
+            <option value="year">By Sold in searched Year</option>
+        </select>
+
+        <input type="submit" value="Search">
+            <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: MM-DD </p>
+
+    </form>
+
 <h1> Sold Stock Details </h1>
 
 <div style="overflow-x:auto;">
     <table border="1 px solid black">
-
-        <th>Main St.Id</th>
-        <th>Sub St.Id</th>
-        <th class="substockHeader">Grade</th>
-        <th class="substockHeader">Date Pre.</th>
-        <th class="substockHeader">Status</th>
-        <th class="substockHeader">Net.W(kg)</th>
-        <th class="substockHeader">Tot.W(kg)</th>
-        <th class="substockHeader">No.Pkts</th>
-        <th>Price(1kg)</th>
-        <th>Tot.Price</th>
-        <th>Buyer</th>
-        <th>S.Date</th>
-        <th>Edit</th>
+        <tr>
+            <th>St. MainID</th>
+            <th>St. SubID</th>
+            <th class="substockHeader">Grade</th>
+            <th class="substockHeader">Date Pre.</th>
+            <th class="substockHeader">Status</th>
+            <th class="substockHeader">Net.W(kg)</th>
+            <th class="substockHeader">Tot.W(kg)</th>
+            <th class="substockHeader">No.Pkts</th>
+            <th>Price(1kg)</th>
+            <th>Tot.Price</th>
+            <th>Buyer</th>
+            <th>S.Date</th>
+            <th>Edit</th>
+        </tr>
 
         {% for sold in soldStocks %}
 

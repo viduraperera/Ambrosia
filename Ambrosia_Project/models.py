@@ -6,7 +6,6 @@ from datetime import datetime
 
 # Create your models here.
 
-
 #Employee Model - Malka
 class Employee(models.Model):
     GENDER=(
@@ -394,3 +393,12 @@ class Auction_NotSoldStocksLog(models.Model):
     class Meta:
         db_table = 'Auction_NotSoldStockLog'
 
+#Auction Not Sold Stock Details Model - Sandun
+class Auction_RePreparedNotSoldStocksDetails(models.Model):
+    NotSoldStockID = models.IntegerField(blank=True)
+    PreviousSubStockMainID = models.IntegerField(blank=True)
+    NewSubStockMainID = models.IntegerField(blank=True)
+    LastUpdated = models.DateTimeField(blank=True, auto_now_add=True)
+
+    class Meta:
+        db_table = 'Auction_NotSoldStockDetails'
