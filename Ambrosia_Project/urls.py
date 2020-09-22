@@ -1,6 +1,7 @@
-from django.urls import path
 from . import views
 from .views import *
+from Ambrosia_Project.view_mappings import finalProductionAuctionViews
+from django.urls import path, include
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -76,48 +77,8 @@ urlpatterns = [
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
     path('Factory/FinalProduction/DailyProduction/TeaGrades', views.NavigateToTeaGrades,name="NavigateToTeaGrades"),
 
-    path('Factory/FinalProduction/AddSubAuctionStock', views.addAuctionSubStock, name="prepare_auction_stock"),
-    path('Factory/FinalProduction/DeleteAuctionSubStock', views.deleteAuctionSubStock, name="delete_subStock"),
-    path('Factory/FinalProduction/AddMainAuctionStock', views.addMainAuctionStock, name="add_mainStock"),
-    path('Factory/FinalProduction/AfterAddAuctionSubStock', views.afterAddAuctionSubStock, name="after_add_subStock"),
-    path('Factory/FinalProduction/AllAuctionMainStocks', views.showAuctionMainStocks, name="all_catelog"),
-    path('Factory/FinalProduction/ViewMainStock', views.showMainAuctionStock, name="view_mainStock"),
-    path('Factory/FinalProduction/viewAuctionSubstock', views.viewAuctionSubStock,name="view_UpdatesubStock"),
-    path('Factory/FinalProduction/UpdateAuctionSubStockdetails', views.updateAuctionSubStock,name="update_subStock"),
-
-    path('Factory/FinalProduction/AddNotSoldToCurrentCatelog', views.addNotSoldToCurrentCatelog,name="addNotSold_currentCatelog"),
-
-    path('Factory/FinalProduction/StockSales', views.stockSalesHome, name="stock_sales"),
-    path('Factory/FinalProduction/SoldStocks', views.soldStock, name="stock_sold"),
-    path('Factory/FinalProduction/ViewAddToSoldStock', views.viewAddSoldStock, name="view_addSoldStock"),
-    path('Factory/FinalProduction/AddSoldStock', views.AddSoldStock, name="add_SoldStock"),
-    path('Factory/FinalProduction/ViewSoldStock', views.showSoldAuctionSubStock, name="view_soldStock"),
-    path('Factory/FinalProduction/UpdateSoldStock', views.updateSoldAuctionSubStock, name="update_soldStock"),
-    path('Factory/FinalProduction/MoveSoldStock', views.moveToNotSoldAuctionSubStock, name="moveto_NotsoldStock"),
-    path('Factory/FinalProduction/ViewNotSoldStocks', views.notSoldStock, name="stock_notsold"),
-    path('Factory/FinalProduction/NotSoldStockAdd', views.NotSoldStockAdd, name="add_NotSoldStock"),
-    path('Factory/FinalProduction/NotSoldStockDelete', views.DeleteNotSoldStock, name="delete_NotSoldStock"),
-    path('Factory/FinalProduction/ViewAuctionNotSoldLog', views.showAuctionNotSoldLog, name="stock_notsoldlog"),
-
-    path('Factory/FinalProduction/SearchAuctionMainStock', views.searchAuctionMainStock, name="search_mainStock"),
-    path('Factory/FinalProduction/SearchAuctionCurrentSubStock', views.searchAuctionCurrentSubStock, name="search_currentSubStock"),
-    path('Factory/FinalProduction/SearchAuctionSoldStock', views.searchAuctionSoldStock, name="search_soldStock"),
-
-    path('Factory/FinalProduction/AuctionStock/Brokers', views.showBrokerDetails, name="all_brokers"),
-    path('Factory/FinalProduction/AuctionStock/AddBroker', views.addNewBroker, name="add_broker"),
-    path('Factory/FinalProduction/AuctionStock/UpdateBroker', views.updateBroker, name="update_broker"),
-    path('Factory/FinalProduction/AuctionStock/ShowBroker', views.showBroker, name="show_broker"),
-    path('Factory/FinalProduction/AuctionStock/DeleteBroker', views.deleteBroker, name="delete_broker"),
-
-    path('Factory/FinalProduction/AuctionStock/Buyers', views.showBuyerDetails, name="all_buyers"),
-    path('Factory/FinalProduction/AuctionStock/AddBuyer', views.addNewBuyer, name="add_buyer"),
-    path('Factory/FinalProduction/AuctionStock/ShowBuyer', views.showBuyer, name="show_buyer"),
-    path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.updateBuyer, name="update_buyer"),
-    path('Factory/FinalProduction/AuctionStock/DeleteBuyer', views.deleteBuyer, name="delete_buyer"),
-
-    path('Factory/FinalProduction/ProductionAnalysis/', views.productionAnalysisHome, name="production_analysis"),
-    path('Factory/FinalProduction/ProductionAnalysis/GenerateSoldStockReport', ReportAuctionSoldStock.as_view() , name="generateSoldStockReport"),
-    # path('Factory/FinalProduction/ProductionAnalysis/GenerateNot-SoldStockReport', ReportAuctionNotSoldStock.as_view() , name="generateNotSoldStockReport"),
+#---------final Production Auction------------------------------------------------------
+    path('', include('Ambrosia_Project.view_mappings.finalProductionAuctionViews')),
 
     #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
