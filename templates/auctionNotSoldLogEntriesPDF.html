@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auction Not Sold Log Entries</title>
+</head>
+<style>
+
+h1
+{
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    color: blue;
+}
+
+table{
+    border: 1px solid black;
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+th{
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 12px;
+}
+
+td{
+    font-family: Calibri;
+    border: 1px solid black;
+    font-size: 12px;
+    padding: 1px;
+}
+
+.smallCol{
+    font-family: Calibri;
+    border: 1px solid black;
+    font-size: 12px;
+    padding: 1px;
+    width: 20%;
+}
+
+</style>
+
+<body>
+
+<h1>Log</h1>
+<hr>
+    <table>
+        <tr>
+            <th>Date|Time:</th>
+            <th>Description:</th>
+        </tr>
+
+         {% for en in log %}
+            <tr>
+                <td class="smallCol">{{ en.LastUpdated }}</td>
+                <td>{{ en.Description }}</td>
+            </tr>
+         {% endfor %}
+
+    </table>
+
+
+
+</body>
+</html>

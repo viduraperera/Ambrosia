@@ -1,19 +1,25 @@
 from . import views
-from .views import *
-from Ambrosia_Project.view_mappings import finalProductionAuctionViews
 from django.urls import path, include
 
 urlpatterns = [
     path('', views.home, name="home"),
 
+#---------User Profile------------------------------------------------------
+    path('AddUser', views.registration, name='register'),
     path('ViewAllUsers', views.view_AllUsers, name="view_all_users"),
     path('ViewAllUsers/EditUser', views.ShowUser, name="update_user"),
     path('ViewAllUsers/UpdateUserdetails', views.UpdateUser, name="update_user_details"),
     path('ViewAllUsers/', views.DeleteUser, name="delete_user"),
 
-    path('AddUser', views.registration, name='register'),
+
+#---------Main menues-----------------------------------------------------
     path('Factory', views.factoryhome, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
+
+
+#---------final Production Auction------------------------------------------------------
+    path('Factory/FinalProduction/AuctionStock/', include('Ambrosia_Project.url_mappings.finalProductionAuctionUrls')),
+
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="attendance_management"),
     path('Factory/EmployeeHome/markAttendance', views.markAttendance, name="mark_attendance"),
@@ -76,9 +82,6 @@ urlpatterns = [
     path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct,name="NavigateToCurrentProd"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
     path('Factory/FinalProduction/DailyProduction/TeaGrades', views.NavigateToTeaGrades,name="NavigateToTeaGrades"),
-
-#---------final Production Auction------------------------------------------------------
-    path('', include('Ambrosia_Project.view_mappings.finalProductionAuctionViews')),
 
     #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 

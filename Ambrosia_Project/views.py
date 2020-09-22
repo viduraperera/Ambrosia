@@ -10,8 +10,6 @@ from Ambrosia_Project.forms import CreateUserForm
 from django.contrib.auth.models import User
 from Ambrosia_Project.models import *
 
-from Ambrosia_Project.view_mappings.finalProductionAuctionViews import *
-
 # Create your views here.
 
 #Home Navigations------------------------------------------------------------------------------------------

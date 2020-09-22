@@ -105,7 +105,7 @@ tr:nth-child(even) {
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
-<h1>Not Sold Stocks</h1>
+<h1>Not Sold Stocks (Active)</h1>
 
 <div style="overflow-x:auto;">
 
@@ -161,5 +161,55 @@ tr:nth-child(even) {
     </table>
 
 </div>
+
+<!---------------------------------------------------------------------------------->
+<h1>Previous Not Sold Stocks</h1>
+
+<div style="overflow-x:auto;">
+
+    <table border="1 px solid black">
+
+        <th>Not-Sold.St.Id</th>
+        <th>St.MainID</th>
+        <th>St.SubID</th>
+        <th class="substockHeader">Invoice</th>
+        <th class="substockHeader">Grade</th>
+        <th class="substockHeader">Date Pre.</th>
+        <th class="substockHeader">Status</th>
+        <th class="substockHeader">Net.W(kg)</th>
+        <th class="substockHeader">Tot.W(kg)</th>
+        <th class="substockHeader">No.Pkts</th>
+
+        {% for ns in nStock %}
+
+            {% for sub in subStockAll %}
+
+                {% if sub.id == ns.MainID and ns.active == 0 %}
+
+                    <tr>
+                        <td>{{ ns.id }}</td>
+                        <td>{{ ns.MainID }}</td>
+                        <td>{{ ns.SubID }}</td>
+                        <td class="substockColumn">{{ sub.invoice }}</td>
+                        <td class="substockColumn">{{ sub.grade }}</td>
+                        <td class="substockColumn">{{ sub.date_prepared }}</td>
+                        <td class="substockColumn">{{ sub.status }}</td>
+                        <td class="substockColumn">{{ sub.net_weight }}</td>
+                        <td class="substockColumn">{{ sub.total_weight }}</td>
+                        <td class="substockColumn">{{ sub.no_of_packets }}</td>
+
+                    </tr>
+
+                 {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<br><br>
 
 {% endblock content %}

@@ -602,9 +602,11 @@ def NotSoldStockAdd(request):
 def notSoldStock(request):
 
     try:
-        notSold = Auction_NotSoldStocks.objects.filter(active=1)
+        notSold = Auction_NotSoldStocks.objects.all()
         substocks = Auction_SubStock.objects.filter(status='Not Sold', active=1)
-        return render(request, 'auction_notSold.html', {'nStock': notSold, 'subStock':substocks })
+        substockAll = Auction_SubStock.objects.all()
+
+        return render(request, 'auction_notSold.html', {'nStock': notSold, 'subStock':substocks, 'subStockAll':substockAll })
 
     except Exception as e:
         print(e)
@@ -649,12 +651,28 @@ def DeleteNotSoldStock(request):
 
 
 @login_required(login_url='login')
-def showAuctionNotSoldLog(request):
+def viewNotSoldLog(request):
 
     log = Auction_NotSoldStocksLog.objects.all()
+
+    context = {
+        'log': log,
+    }
+    pdf = finalProductionAuction_render_topdf('auctionNotSoldLogEntriesPDF.html', context)
+
+    if pdf:
+        return pdf
+    else:
+        messages.error(request,'Error in pdf')
+        return redirect('stock_notsoldlog')
+
+
+@login_required(login_url='login')
+def showAuctionNotSoldLog(request):
+
     detailsSt = Auction_RePreparedNotSoldStocksDetails.objects.all()
 
-    return render(request, 'auctionNotSoldLog.html', {'Alllog':log, 'Details': detailsSt })
+    return render(request, 'auctionNotSoldLog.html', {'Details': detailsSt })
 
 
 @login_required(login_url='login')
@@ -757,12 +775,12 @@ def searchAuctionCurrentSubStock(request):
             type = request.GET.get('type')
 
             if type == 'mainID':
-
-                chk = Auction_SubStock.objects.filter(pk=text, status='Pending', active=1).exists()
+                sID = int(text)
+                chk = Auction_SubStock.objects.filter(pk=sID, status='Pending', active=1).exists()
 
                 if chk:
-                    stockSub = Auction_SubStock.objects.filter(pk=text, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(pk=text).count()
+                    stockSub = Auction_SubStock.objects.filter(pk=sID, status='Pending', active=1)
+                    result = Auction_SubStock.objects.filter(pk=sID).count()
 
                     messages.success(request, str(result) + ' Results Found')
                     return render(request, 'auctionStock_current.html', {'stock': stockSub })
@@ -771,12 +789,12 @@ def searchAuctionCurrentSubStock(request):
                     messages.error(request, 'No Data Found')
 
             elif type == 'subID':
-
-                chk = Auction_SubStock.objects.filter(SubID=text, status='Pending', active=1).exists()
+                sID = int(text)
+                chk = Auction_SubStock.objects.filter(SubID=sID, status='Pending', active=1).exists()
 
                 if chk:
-                    stockSub = Auction_SubStock.objects.filter(SubID=text, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(SubID=text).count()
+                    stockSub = Auction_SubStock.objects.filter(SubID=sID, status='Pending', active=1)
+                    result = Auction_SubStock.objects.filter(SubID=sID).count()
 
                     messages.success(request, str(result) + ' Results Found')
                     return render(request, 'auctionStock_current.html', {'stock': stockSub })
@@ -851,11 +869,12 @@ def searchAuctionSoldStock(request):
             substocks = Auction_SubStock.objects.filter(status='Sold', active=1)
 
             if type == 'mainID':
-                chk = Auction_SoldStocks.objects.filter(MainID=text, active=1).exists()
+                sID = int(text)
+                chk = Auction_SoldStocks.objects.filter(MainID=sID, active=1).exists()
 
                 if chk:
-                    sold = Auction_SoldStocks.objects.filter(MainID=text,active=1)
-                    count = Auction_SoldStocks.objects.filter(MainID=text,active=1).count()
+                    sold = Auction_SoldStocks.objects.filter(MainID=sID,active=1)
+                    count = Auction_SoldStocks.objects.filter(MainID=sID,active=1).count()
 
                     messages.success(request, str(count) + ' Results found')
                     return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
@@ -864,11 +883,12 @@ def searchAuctionSoldStock(request):
                     messages.error(request, 'No result found')
 
             elif type == 'subID':
-                chk = Auction_SoldStocks.objects.filter(SubID=text, active=1).exists()
+                sID = int(text)
+                chk = Auction_SoldStocks.objects.filter(SubID=sID, active=1).exists()
 
                 if chk:
-                    sold = Auction_SoldStocks.objects.filter(SubID=text, active=1)
-                    count = Auction_SoldStocks.objects.filter(SubID=text, active=1).count()
+                    sold = Auction_SoldStocks.objects.filter(SubID=sID, active=1)
+                    count = Auction_SoldStocks.objects.filter(SubID=sID, active=1).count()
 
                     messages.success(request, str(count)+' Results found')
                     return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
@@ -928,6 +948,59 @@ def searchAuctionSoldStock(request):
             messages.success(request, 'Exception: Invalid Details')
 
     return redirect('stock_sold')
+
+
+@login_required(login_url='login')
+def searchAuctionNotSoldStockDetails(request):
+
+    if request.method == 'GET':
+
+        txt = request.GET.get('txt')
+        sid = int(txt)
+        newID = 0
+
+
+        try:
+            chk = Auction_RePreparedNotSoldStocksDetails.objects.filter(PreviousSubStockMainID=sid).exists()
+            res = Auction_SubStock.objects.filter(pk=sid).exists()
+
+            if chk and res:
+                detailLog = Auction_RePreparedNotSoldStocksDetails.objects.all()
+
+                for record in detailLog:
+
+                    if record.PreviousSubStockMainID == sid:
+                        newID = record.NewSubStockMainID
+
+                    elif record.PreviousSubStockMainID == newID:
+                        newID = record.NewSubStockMainID
+
+                newStock = Auction_SubStock.objects.get(pk=newID)
+                oldStock = Auction_SubStock.objects.get(pk=sid)
+                wloss = oldStock.total_weight - newStock.total_weight
+                wNloss = oldStock.net_weight - newStock.net_weight
+
+                detailsSt = Auction_RePreparedNotSoldStocksDetails.objects.all()
+
+                det = {
+                    'nStock':newStock,
+                    'oStock': oldStock,
+                    'wLoss': wloss,
+                    'wNLoss':wNloss,
+                    'Details': detailsSt,
+                }
+                print(det)
+                return render(request, 'auctionNotSoldLog.html', det)
+
+            else:
+                messages.error(request, 'Stock Not Found in db')
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
+
+
+    return redirect('stock_notsoldlog')
 
 
 #Production Analysis--------------------------------------------------------------------------------------------
@@ -1488,3 +1561,4 @@ def deleteBuyer(request):
         messages.error(request, 'Form method is invalid')
 
     return redirect('all_buyers')
+
