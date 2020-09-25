@@ -10,7 +10,6 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
-
 class FundFrom(forms.ModelForm):
     class Meta:
         model = Funds
@@ -21,3 +20,44 @@ class AllowanceForm(forms.ModelForm):
     class Meta:
         model = Allowance
         fields = '__all__'
+
+
+class AccumulateForm(forms.ModelForm):
+    class Meta:
+        module = Accumulate
+        fields = '__all__'
+
+
+class PacketStockForm(forms.ModelForm):
+    class Meta:
+        module = Packet_stock
+        fields = '__all__'
+
+
+class TransactionForm(forms.ModelForm):
+    class Mate:
+        module = Transactions
+        fields = '__all__'
+
+
+class billItemsForm(forms.ModelForm):
+    class Meta:
+        model = BillItems
+        fields = '__all__'
+
+class priceTableForm(forms.ModelForm):
+    class Meta:
+        model = Price_Table
+        fields ='__all__'
+
+
+
+
+
+
+
+
+
+
+
+

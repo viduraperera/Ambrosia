@@ -1,0 +1,78 @@
+{% extends 'shopSalesBase.html' %}
+
+<!----title------>
+{% block title %}Tea Shop Sales Management{% endblock title %}
+<!----title------>
+
+<!-------------------------Head------------------------->
+{% block headImport %}
+
+{% endblock headImport %}
+
+<!------------Styles----->
+{# Display Message #}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+
+<!-- !PAGE CONTENT! -->
+{% block pageContentHeader1 %}Ambrosia Tea Factory Outlet Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Price Table Update{% endblock pageContentHeader2 %}
+
+
+
+{%  block content %}
+
+
+    <form method="POST" action="{% url 'ShopPriceTableEdit' %}" >
+        {% csrf_token %}
+        <div>
+            <h5>Price</h5>
+
+            <table>
+                <tr>
+                    <td><label>id</label></td>
+                    <td>
+                        <input type="hidden" name="id" id="id_id" value="{{pid}}">
+                        <input type="text" name="id" id="id_id" value="{{pid}}" disabled>
+                    </td>
+                </tr>
+
+                <tr>
+
+                    <td><label>Category</label></td>
+                    <td>
+                        {#                <input type="text" value="{{pForm.category}}" readonly>#}
+                        {{ pForm.category }}
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><label>Weight</label></td>
+                    <td>
+                        {{ pForm.weight }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Price</label></td>
+                    <td>
+                        {{ pForm.price }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Update" class="btn" onclick="if (!confirm('Are you sure you want to Update? Please Ok to Confirm.')) {return false}">
+                    </td>
+
+                </tr>
+
+
+            </table>
+        </div>
+
+    </form>
+{% endblock content%}

@@ -56,25 +56,22 @@ urlpatterns = [
     path('Shop/InventoryHome/inventoryreports/inventoryannualreport', views.inventoryannualreport, name="annualreport"),
     path('Shop/InventoryHome/addteapackets/editpackets', views.editpackets, name="editpackets"),
 
-    path('Shop/SalesHomeIncome/SalesCreateInvoice', views.SalesCreateInvoice, name="SalesCreateInvoice"),
-    path('Shop/SalesHomeIncome/SalesCreateInvoice/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
+    #salesManagement
 
+    path('Shop/SalesHomeIncome/SalesCreateInvoice', views.SalesCreateInvoice, name="SalesCreateInvoice"),
+    path('Shop/SalesHomeIncome/DeleteSalesCreateInvoice', views.BillRowDelete, name="BillRowDelete"),
+    path('Shop/SalesHomeIncome/SalesCreateInvoice/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
 
     path('Shop/SalesHomeIncome/SalesTransaction', views.SalesTransaction, name="SalesTransaction"),
     path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
+    path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill/Vdelete', views.Vdelete, name="Vdelete"),
+
 
     path('Shop/SalesHomeIncome/SalesPriceTable', views.SalesPriceTable, name="SalesPriceTable"),
-path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableBOPFUpdate', views.ShopPriceTableBOPFUpdate, name="ShopPriceTableBOPFUpdate"),
 
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1', views.SalesPriceTableDUST1, name="SalesPriceTableDUST1"),
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST1/ShopPriceTableDUST1Update', views.ShopPriceTableDUST1Update, name="ShopPriceTableDUST1Update"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableEdit', views.ShopPriceTableEdit, name="ShopPriceTableEdit"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableUpdate', views.ShopPriceTableUpdate, name="ShopPriceTableUpdate"),
 
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST2', views.SalesPriceTableDUST2, name="SalesPriceTableDUST2"),
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableDUST2/ShopPriceTableDUST2Update', views.ShopPriceTableDUST2Update, name="ShopPriceTableDUST2Update"),
-
-
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS', views.SalesPriceTableFGS, name="SalesPriceTableFGS"),
-    path('Shop/SalesHomeIncome/SalesPriceTable/SalesPriceTableFGS/ShopPriceTableFGSUpdate', views.ShopPriceTableFGSUpdate, name="ShopPriceTableFGSUpdate"),
 
 
 

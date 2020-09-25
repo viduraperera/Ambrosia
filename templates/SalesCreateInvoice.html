@@ -1,169 +1,130 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<title>Shop CreateInvoice</title>
-<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+{% extends 'shopSalesBase.html' %}
 
-<style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
-</style>
-<head>
-    <link rel="stylesheet" href="{% static 'css/Sales.css' %}" media ="screen">
-</head>
-<body>
+
+<!----title------>
+{% block title %}Tea Shop Sales Management{% endblock title %}
+<!----title------>
+
+<!-------------------------Head------------------------->
+{% block headImport %}
+
+{% endblock headImport %}
+
+<!------------Styles----->
+
+
+
+
+
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-<img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
-    <h3 class="w3-padding-64"><b>Amborisa<br></b></h3>
-  </div>
-  <div class="w3-bar-block">
-      <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="{% url 'SalesCreateInvoice' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Create Invoice</a>
-    <a href="{% url 'SalesTransaction' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Transactions</a>
-    <a href="{% url 'SalesHomeIncome' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Income</a>
-    <a href="{% url 'SalesPriceTable' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Price Table</a>
 
-  </div>
-</nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Company Name</span>
-</header>
+
 
 <!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+{% block pageContentHeader1 %}Ambrosia Tea Factory Outlet Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Create Invoice{% endblock pageContentHeader2 %}
 
-  <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Ambrosia Salary Management</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Create Invoice</b></h1>
+{% block CreateInvoiceBtn %}ClassActive{% endblock CreateInvoiceBtn %}
 
-    <hr style="width:50px;border:5px solid #64ff33" class="w3-round">
-  </div>
-<div class="container">
+{%  block content %}
 
- <div class = "w3-section">
-
-    Transaction ID:<input type="text" value="" placeholder="TID2020090902" class="w3-input w3-border">
-
-    Date:<input type="text" value="" placeholder="09/09/2020" class="w3-input w3-border">
-
-</div>
-    <hr>
-    <h3> Add Items</h3>
-
-  <div class = "w3-section">
-    <select name=""  required="required" class="w3-input w3-border" >
-      <option value = "BOPF">BOPF</option>
-      <option value = "FGS">FGS</option>
-      <option value = "DUST 1">DUST 1</option>
-      <option value = "DUST 2">DUST 2</option>
-
-
-    </select>
-  </div>
     <div>
-    <select name=""  required="required" class="w3-input w3-border">
-      <option value = "1Kg">1Kg</option>
-      <option value = "500g">500g</option>
-      <option value = "400g">400g</option>
-      <option value = "250g">250g</option>
-      <option value = "200g">200g</option>
+        <hr>
+        <h3> Add Items</h3>
+        <form method ="POST" action="{% url 'SalesCreateInvoice' %}">
+            {% csrf_token %}
+            <table>
 
-    </select>
- </div>
-     <div class = "w3-section">
-    <input name=""  required="required" type="text" placeholder="Quantity" class="w3-input w3-border">
-     </div>
-    <hr><button class="btn" >Add Item</button>
-  </div>
+                <tr>
+                    <td><label>Category</label></td>
+                    <td>{{ billForm.itemname }}</td>
+                </tr>
 
+                <tr>
+                    <td><label>Weight </label></td>
+                    <td>{{ billForm.weight }}</td>
+                </tr>
+                <tr>
+                    <td><label>Quantity</label></td>
+                    <td>{{ billForm.Quantity }}</td>
+                </tr>
 
-
-  <hr>
-    <form action="{% url 'SalesViewBill' %}">
-  <div>
-    <table>
-
-
-              <tr >
-                <th > Item Name </th>
-                <th > Quantity </th>
-                <th > Weight </th>
-                <th > Item Price </th>
-                <th > Price </th>
-                <th></th>
-              </tr>
-       <tr>
-        <td>Island Trading</td>
-        <td>t</td>
-        <td>U</td>
-        <td>U</td>
-        <td>U</td>
-        <td><input type="submit" class = "btn" value="Delete"></td>
-
-        </tr>
-      <tr>
-        <td>Island Trading</td>
-        <td>t</td>
-        <td>U</td>
-        <td>U</td>
-        <td>U</td>
-        <td><input type="submit" class = "btn" value="Delete"></td>
-
-      </tr>
+                <tr>
+                    <td><label for="Date">Date : </label></td>
+                    <td>{{ billForm.date }}</td>
+                    <td><label>Invoice id</label></td>
+                    <td>{{ bid }}</td>
+                </tr>
 
 
-    </table>
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Add Item" class="btn" onclick="if (!confirm('Are you sure you want to Add? Please Ok to Confirm.')) {return false}">
+                    </td>
+                </tr>
+
+            </table>
+        </form>
         <br>
+        <br>
+        {% if billForm.errors %}
 
-       <a href="{% url 'SalesCreateInvoice' %}" onclick="w3_close()" class="btn">Calculate</a>
-    Total Price<input type="text" value=""class="w3-section                                                                                                                                     "><br>
-    <button class="btn" >Print Bill</button>
-  </div>
-    <form>
+            <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+                <h3 style="font-width: bold">{{ billForm.errors}}</h3>
+            </div>
+        {% endif %}
 
+        <br>
+        <br>
+    </div>
+
+    <table style="width: 100%">
+        <th>bid</th>
+        <th>id</th>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Weight</th>
+        <th>Quantity</th>
+        <th>Item Price</th>
+        <th>Price</th>
+        <th>Delete</th>
+
+    {% if Invoicelist %}
+        {% for item in Invoicelist %}
+            <tr>
+                <td>{{ bid }}</td>
+                <td>{{ item.id }}</td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.itemname }}</td>
+                <td>{{ item.weight }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>{{ item.itemPrice }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                    <form method="POST" action="{% url 'BillRowDelete' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="rowDelete" value = "{{ item.id }}">
+                        <input type="submit" value="Delete" class="btn" onclick="if (!confirm('Are you sure you want to Delete? Please Ok to Confirm.')) {return false}">
+
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+
+    <form method="POST" action="{% url 'SalesTransaction' %}">
+    {% csrf_token %}
+        <input type="hidden" name="bid" value="{{ bid }}">
+
+    <input type="submit" value="Calulate" class="btn">
+    </form>
+
+{% endblock content %}
 <!-- End page content -->
-</div>
-
-<!-- W3.CSS Container -->
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-</script>
-
-</body>
-</html>

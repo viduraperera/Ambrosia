@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Ambrosia_Project.apps.AmbrosiaProjectConfig',
+
 ]
 
 MIDDLEWARE = [
