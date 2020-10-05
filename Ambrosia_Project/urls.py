@@ -120,7 +120,8 @@ urlpatterns = [
     path('Factory/EmployeeHome/emp_allowance_update<int:id>', views.emp_allowance_update, name="emp_allowance_update"),
 
     # employee_salary_VUP
-    path('Factory/EmployeeHome//')
+    path('Factory/EmployeeHome/employee_salary_front/', views.employee_salary_front, name="employee_salary_front"),
+    path('Factory/EmployeeHome/emp_salary_month_add/', views.emp_salary_month_add, name="emp_salary_month_add"),
 
 
 ]

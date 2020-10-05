@@ -1,8 +1,6 @@
 from django.db import models
-from datetime import datetime
 from datetime import *
 from datetime import datetime
-
 
 # Create your models here.
 # Create your models here.
@@ -278,4 +276,35 @@ class LeafStock(models.Model):
 
 
 class EmployeeSalaryMonth(models.Model):
-    month = models.DateField(default=datetime.now)
+    year = models.DateTimeField(auto_now_add=True)
+    month = models.DateTimeField(auto_now_add=True)
+
+    def salary_year(self):
+        return self.year.strftime('%Y')
+
+    def salary_month(self):
+        return self.month.strftime('%B')
+
+    class Meta:
+        db_table = 'employee_salary_month'
+
+
+# class EmployeeSalaryView(models.Model):
+#     name = models.ForeignKey(Employee, from_fields='name', on_delete=models.CASCADE, null=True)
+#     epf_no = models.ForeignKey(Employee, from_fields='epfNo', on_delete=models.CASCADE, null=True)
+#     working_days = models.ForeignKey(attendance, on_delete=models.CASCADE, null=True)
+#
+#     year_of_salary = models.DateTimeField(auto_now_add=True)
+#
+#     def salary_year(self):
+#         return self.year_of_salary.strftime('%Y')
+#
+#     month_of_salary = models.DateField(auto_now_add=True)
+#
+#     def salary_month(self):
+#         return self.month_of_salary.strftime('%B')
+#
+#     class Meta:
+#         db_table = 'employee_salary_view'
+
+0

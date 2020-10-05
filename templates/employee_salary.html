@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'employeeBase.html' %}
+<!-------------------------Title------------------------->
+{% block title %}Employee Salary{% endblock title %}
 
-</body>
-</html>
+{% block headImport %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock headImport %}
+
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Adding salary month</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Disabled</a>
+    </li>
+  </ul>
+</nav>
+<br>
+
+<br>
+ <div>
+     <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+         <tr>
+             <th>Year</th>
+             <th>Month</th>
+         </tr>
+        </thead>
+        {% for m in salary_month%}
+        <tr>
+            <td>{{ m.salary_year }}</td>
+            <td>{{ m.salary_month }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+ </div>
+    <br>
+    <div>
+         <a href="{% url 'emp_salary_month_add' %}" class="btn btn-primary btn-lg">Add New Salary month</a>
+    </div>
+{% endblock content %}

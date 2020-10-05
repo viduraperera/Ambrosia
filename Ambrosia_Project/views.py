@@ -198,6 +198,12 @@ def emp_fund_view(request):
 
 
 @login_required(login_url='login')
+def employee_salary_front(request):
+    salary_month = EmployeeSalaryMonth.objects.all()
+    return render(request, 'employee_salary.html', {'salary_month': salary_month})
+
+
+@login_required(login_url='login')
 def emp_funds_add(request):
     form = FundFrom()
 
@@ -211,6 +217,19 @@ def emp_funds_add(request):
                 pass
     var = {'forms': form}
     return render(request, 'add_funds.html', var)
+
+
+@login_required(login_url='login')
+def emp_salary_month_add(request):
+    form = EmployeeSalaryMonthFrom(request.POST)
+    if form.is_valid():
+        try:
+            form.save()
+            return redirect('employee_salary_front')
+        except:
+            pass
+    var = {'form': form}
+    return render(request, 'employee_salary_month_add.html', var)
 
 
 @login_required(login_url='login')
@@ -558,6 +577,3 @@ def NavigateToUpdateProduct(request):
     return render(request, 'Update_daily_product.html')
 
 
-@login_required(login_url='login')
-def employee_salary_front(request):
-    return render(request, 'employee_salary.html')
