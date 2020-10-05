@@ -1,34 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<script type="text/javascript">
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	theme: "light1", // "light2", "dark1", "dark2"
-	animationEnabled: false, // change to true
-	title:{
-
-	},
-	data: [
-	{
-		// Change type to "bar", "area", "spline", "pie",etc.
-		type: "column",
-		dataPoints: [
-			{ label: "BOP",  y: 200  },
-			{ label: "BOPF", y: 130  },
-			{ label: "FFS", y: 45  },
-			{ label: "PKA",  y: 78  },
-			{ label: "GGR",  y: 500 }
-		]
-	}
-	]
-});
-chart.render();
-
-}
-</script>
-</head>
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
@@ -37,11 +8,17 @@ chart.render();
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+      .ClassActive {
+    background-color: #8db8e0;
+}
 
+.ClassActive1 {
+    background-color: #87dbb9;
+}
     table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 50%;
+  width: 100%;
 }
 
 td, th {
@@ -56,13 +33,6 @@ tr:nth-child(even) {
   * {
   box-sizing: border-box;
 }
-      .ClassActive {
-    background-color: #8db8e0;
-}
-
-.ClassActive1 {
-    background-color: #87dbb9;
-}
 
 /* Create two equal columns that floats next to each other */
 .column {
@@ -71,6 +41,7 @@ tr:nth-child(even) {
   padding: 10px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
+
 
 /* Clear floats after the columns */
 .row:after {
@@ -118,6 +89,13 @@ li a:hover {
 </style>
 <body>
 
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
@@ -149,56 +127,51 @@ li a:hover {
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
     <h1 class="w3-jumbo"><b>Ambroisa</b></h1>
-    <h3 class="w3-xxxlarge w3-text-green"><b>Current Daily Production Details.</b></h3>
+    <h3 class="w3-xxxlarge w3-text-green"><b>Custom Daily Production Details.</b></h3>
 
   </div>
-
-    <ul>
-        <li><a href="{% url 'final_production_home' %}"  >Add daily Production</a></li>
-        <li><a href="{% url 'NavigateToCustomDailyProd' %}"  >Custom daily production</a></li>
-{#        <li><a href="{% url 'NavigateToCurrentProd' %}" class="ClassActive1">Current production</a></li>#}
-        <li><a href="{% url 'NavigateToTeaGrades' %}" >Tea Grades</a></li>
-
-    </ul>
-    <br>
-
-<!--current product content-->
-    <center>
+     <ul>
+    <li><a href="{% url 'final_production_home' %}"  >Add daily Production</a></li>
+    <li><a href="{% url 'NavigateToCustomDailyProd' %}" class="ClassActive1">Custom daily production</a></li>
+{#    <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>#}
+    <li><a href="{% url 'NavigateToTeaGrades' %}" >Tea Grades</a></li>
+</ul>
   <div>
-      <table>
-          <tr>
-              <td><b>Date :</b></td>
-              <td>20202020202</td>
-          </tr>
-          <tr>
-              <td><b>Total weight :</td>
-              <td>2020202kg</td>
-          </tr>
-
-      </table>
-      <br>
-
-  <table>
+      <h1>Sub production details</h1><br>
+<table>
   <tr>
-    <th>Tea Category (Grade)</th>
+    <th>Daily prod. ID</th>
+    <th>Sub id</th>
+    <th>Date</th>
+    <th>Tea grade</th>
     <th>Weight</th>
+    <th>Action</th>
+  </tr>
 
-  </tr>
-  <tr>
-      <td>BOPF</td>
-      <td>200 kg</td>
-  </tr>
+    {% for pr in products %}
+        <tr>
+            <td>{{ pr.id }}</td>
+            <td>{{ pr.subID }}</td>
+            <td>{{ date }}</td>
+            <td>{{ pr.teaGrade }}</td>
+            <td>{{ pr.gradeWeight }}</td>
+            <td>
+
+                <form method="post"  action="#" >
+                    {% csrf_token %}
+                <input type="hidden" name="id" value="{{ prod.subID }}">
+                <input type="submit" value="Delete">
+
+            </form>
+        </td>
+
+        </tr>
+    {% endfor %}
+
+
 </table>
   </div>
-</center>
-    <br>
-<center>
-    <div>
-        <div id="chartContainer" style="height: 370px; width: 50%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
-    </div>
-        </center>
-<!--current product content ends-->
+
 <!-- End page content -->
 </div>
 
@@ -210,7 +183,7 @@ function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
 }
- 
+
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";

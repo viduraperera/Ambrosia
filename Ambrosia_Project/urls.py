@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.home, name="home"),
 
@@ -29,7 +30,12 @@ urlpatterns = [
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
     path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
     path('Factory/LeafInventory/PreviousInventories', views.NavigateToPrevInv, name="NavigateToPreInv"),
+    # path('Factory/LeafInventory/PreviousInventories/DeleteInv<int:id>/', views.NavigateToPrevInv, name="NavigateToPreInv"),
     path('Factory/LeafInventory/PreviousInventories/UpdateInvenories', views.NavigateToUpdateInv, name="NavigateToUpdateInv"),
+    path('Factory/LeafInventory/PreviousInventories/deleteLeaf', views.DeleteLeaf, name="delete_leaf"),
+    path('Factory/LeafInventory/AddInventory/leafAdd', views.LeafInvAdd, name="LeafInvAdd"),
+    path('Factory/LeafInventory/PreviousInventories/updateLeaf', views.updateLeaf, name="updateLeaf"),
+
 
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
     path('Shop/SalesHomeIncome/SalesHomeMonthlyIncome', views.SalesHomeMonthlyIncome, name="SalesHomeMonthlyIncome"),
@@ -73,10 +79,16 @@ urlpatterns = [
 
     path('Factory/FinalProduction/ProductionAnalysis/', views.ProductionAnalysisHome, name="production_analysis"),
 
-    path('Factory/FinalProduction/', views.NavigateToProduction,name="final_production_home"),
-    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd,name="NavigateToCustomDailyProd"),
-    path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct,name="NavigateToCurrentProd"),
-    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/UpdateProduct', views.NavigateToUpdateProduct,name="NavigateToUpdateProd"),
+# aaaaaaaaaaaaaaaaaaaaaa
+    path('Factory/FinalProduction/DailyProduction', views.NavigateToProduction, name="final_production_home"),
+    path('Factory/FinalProduction/DailyProduction/AddMainProduction', views.addMainFinalProduction, name="addMainFinalProduct"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd, name="NavigateToCustomDailyProd"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/subDel', views.NavigateToDelSubPr, name="delete_sub"),
+    path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct, name="NavigateToCurrentProd"),
+    path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/ViewProduct', views.NavigateToViewProduct, name="NavigateToViewProd"),
+    path('Factory/FinalProduction/DailyProduction/TeaGrades', views.NavigateToTeaGrades, name="NavigateToTeaGrades"),
+    path('Factory/FinalProduction/DailyProduction/TeaGrades/Delete', views.DeleteGrade, name="deleteGrade"),
+
 
     path('Factory/FinalProduction/StockSales', views.StockSalesHome, name="stock_sales"),
     path('Factory/FinalProduction/NotSoldStocks', views.NotSoldStock, name="stock_notsold"),
@@ -95,7 +107,7 @@ urlpatterns = [
     path('Factory/FinalProduction/AuctionStock/AddBuyer', views.AddNewBuyer, name="add_buyer"),
     path('Factory/FinalProduction/AuctionStock/UpdateBuyer', views.UpdateBuyer, name="update_buyer"),
 
-    #path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
+    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
 
     path('Factory/EmployeeHome', views.emp_fund_view, name="EmployeeHome"),

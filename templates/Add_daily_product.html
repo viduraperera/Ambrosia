@@ -8,6 +8,136 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+    body {
+  background: white;
+}
+.event__search__floater {
+  position: fixed;
+  top: 50px;
+/*   left:0; */
+  right: 50px;
+  transition: all ease-in-out 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+.search__anchor{
+  position: relative;
+  width:auto;
+  height: auto;
+/*   TODO: Center anchor */
+}
+.search__submit {
+ opacity:0;
+  width: 0px;
+}
+.search__bar {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  outline:none;
+  border:none;
+  background: #fff;
+  width: 50px;
+  height:50px;
+  border-radius: 25px;
+  opacity: 0;
+  z-index:5;
+  transition: all 0.2;
+  font-size: 1em;
+}
+.search__bar:hover{
+  cursor: pointer;
+}
+.search__bar:focus {
+  width: 250px;
+  left:auto;
+  opacity: 1;
+  cursor: text;
+  transition: all 0.2;
+  padding-left: 25px;
+  padding-right: 70px;
+}
+.search__toggler {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: green;
+  opacity: 1;
+  top: -4px;
+  left: -4px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+.search__toggler:hover{
+  cursor: pointer;
+}
+.search__toggler::before {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: 22px;
+  right:0;
+  bottom:0;
+  left: 22px;
+  width: 12px;
+  height: 2px;
+  background: #fff;
+  transform: rotate(45deg);
+  transition: all 0.2s;
+}
+.search__toggler::after {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top:-5px;
+  right:0;
+  bottom:0;
+  left: -5px;
+  width:25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transition: all 0.2s;
+}
+.search__bar:focus ~ .search__toggler {
+  right: 400px;
+  background: #151515;
+  z-index: 6;
+  transition: all 0.2;
+}
+.search__bar:focus ~ .search__toggler::before{
+  top: 0;
+  left: 0;
+  width: 25px;
+}
+.search__bar:focus ~ .search__toggler::after {
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 2px;
+  border: none;
+  background: white;
+  border-radius: 0%;
+  transform: rotate(-45deg);
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 
     .ClassActive {
     background-color: #8db8e0;
@@ -111,73 +241,85 @@ li a:hover {
   </div>
 
     <ul>
-    <li><a href="{% url 'final_production_home' %}"  class="ClassActive1">Add daily Production</a></li>
-    <li><a href="{% url 'NavigateToCustomDailyProd' %}" >Custom daily production</a></li>
-    <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>
+        <li><a href="{% url 'final_production_home' %}"  class="ClassActive1">Add daily Production</a></li>
+        <li><a href="{% url 'NavigateToCustomDailyProd' %}" >Custom daily production</a></li>
+{#        <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>#}
+        <li><a href="{% url 'NavigateToTeaGrades' %}" >Tea Grades</a></li>
 
 </ul>
 
-  <div>
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
-    <div class="row">
-  <div class="column" style="background-color:#ccc;">
-    <form>
-      <table style="width:100%">
 
+    <h2>Add Sub-Product</h2>
+    <form method="post" action="{% url 'final_production_home' %}">
 
-  <tr>
-    <td>Date:</td>
-    <td><input type="Date"></input></td>
-  </tr>
-  <tr>
-    <td>Total Weight:</td>
-    <td><input type="float"></input></td>
-  </tr>
-  <tr>
-      <td></td>
-      <td></td>
-  </tr>
-</table><br>
-      <center>
+            {% csrf_token %}
 
-      </center>
+        <table>
+            <tr>
+                <th>Sub Product ID</th>
+                <th>{{ subID }}</th>
+            </tr>
+            <tr>
+                <th>Tea Grade</th>
+                <th>{{ form.teaGrade}}</th>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <th>{{ form.gradeWeight }}</th>
+            </tr>
+        </table>
+        <br>
+
+            <input type="submit" value="Add Production">
 
     </form>
-  </div>
-  <div class="column" style="background-color:#ddd;">
-    <form>
-      <table style="width:100%">
 
-      <tr>
-        <td><b>Tea Category (Grade)</td>
-        <td><b>Weight (kg)</td>
-      </tr>
+    <br><br>
+    <h2>Daily Production Details</h2>
+    <table>
+        <tr>
+            <th>Main ID</th>
+            <th>Sub ID</th>
+            <th>Tea Grade</th>
+            <th>Weight</th>
+            <th>actions</th>
+        </tr>
 
+        {% for spr in finalSubProduct %}
+            <tr>
+            <td>{{ spr.id }}</td>
+            <td>{{ spr.subID }}</td>
+            <td>{{ spr.teaGrade }}</td>
+            <td>{{ spr.gradeWeight }}</td>
 
-      <tr>
-        <td><input type="text"></td>
-        <td>
-          <input type="text">
-        </td>
-      </tr>
+            <td>
+                <form method="post" action="{% url 'delete_sub' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="spr" value="{{ spr.id }}"/>
+                    <input type="submit" value="Delete"><br>
+                </form>
+            </td>
+
+            </tr>
+        {% endfor %}
 
     </table>
-      <br>
-      <center>
-        <button>add</button><br><br>
-      <button>Calculate total weight</button><br><br>
+    <br>
 
-      </center>
+    <form method="post" action="{% url 'addMainFinalProduct' %}">
+    {% csrf_token %}
+        <label>Date :  </label>{{ mainForm.date }}<br><br>
+        <input type="hidden" name="sID" value="{{ subID }}">
+        <input type="submit" value="Done"><br>
 
-
-  </div>
-</div>
-    <input type="checkbox">Confirm all and update<br><br>
-         <button type="submit">Submit</button>
-   <!------------------------------------------------------------>
-  </form>
-  </div>
-
+    </form>
 <!-- End page content -->
 </div>
 
@@ -189,7 +331,7 @@ function w3_open() {
   document.getElementById("mySidebar").style.display = "block";
   document.getElementById("myOverlay").style.display = "block";
 }
- 
+
 function w3_close() {
   document.getElementById("mySidebar").style.display = "none";
   document.getElementById("myOverlay").style.display = "none";

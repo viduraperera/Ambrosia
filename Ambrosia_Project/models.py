@@ -140,7 +140,7 @@ class Auction_Stock(models.Model):
         ('P', 'Pending'),
     ]
 
-    invoice = models.IntegerField(null=True);
+    invoice = models.IntegerField(null=True)
     net_weight = models.FloatField()
     total_weight = models.FloatField()
     no_of_packets = models.IntegerField()
@@ -153,22 +153,26 @@ class Auction_Stock(models.Model):
 
 
 class LeafInventory(models.Model):
+
     in_Date = models.DateField()
-    in_Time = models.TimeField()
+    in_Time = models.FloatField()
     tray_Id = models.IntegerField()
     temp = models.FloatField()
     weight = models.FloatField()
     out_Date = models.DateField()
-    out_Time = models.TimeField()
+    out_Time = models.FloatField()
 
     class Meta:
         db_table ='inventory'
 
-
+#nuewwwwww
 class TeaGrades(models.Model):
-    teaGrade = models.CharField(max_length=10)
+    teaGrade = models.CharField(max_length=10, unique=True)
     class Meta:
         db_table ='tea_grade'
+
+    def __str__(self):
+        return self.teaGrade
 
 class Tea_add_prod(models.Model):
     date = models.DateField()
@@ -177,13 +181,6 @@ class Tea_add_prod(models.Model):
 
     class Meta:
         db_table = 'add_product'
-
-
-
-
-
-
-
 
 
 class packetType(models.Model):
@@ -278,4 +275,21 @@ class LeafStock(models.Model):
     rec_Time = models.TimeField()
     supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
 
+class Final_product_sub(models.Model):
+
+    subID = models.IntegerField(blank=True)
+    teaGrade = models.ForeignKey(TeaGrades, on_delete=models.CASCADE)
+    gradeWeight = models.FloatField()
+
+    class Meta:
+        db_table="Final_product_sub"
+
+class Final_product_Main(models.Model):
+
+    subID = models.IntegerField(blank=True)
+    totalWeight = models.FloatField(blank=True)
+    date = models.DateField()
+
+    class Meta:
+        db_table="Final_product_Main"
 

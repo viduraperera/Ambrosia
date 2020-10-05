@@ -20,3 +20,24 @@ class AllowanceForm(forms.ModelForm):
     class Meta:
         model = Allowance
         fields = '__all__'
+
+
+class AddInventoryForm(forms.ModelForm):
+    class Meta:
+        model = LeafInventory
+        fields = '__all__'
+
+class AddSubProductForm(forms.ModelForm):
+    class Meta:
+        model = Final_product_sub
+        fields = '__all__'
+
+class AddMainProductForm(forms.ModelForm):
+    class Meta:
+        model = Final_product_Main
+        fields = '__all__'
+
+class AddTeaGradeform(forms.ModelForm):
+    class Meta:
+        model = TeaGrades
+        fields ='__all__'

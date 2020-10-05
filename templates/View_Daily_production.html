@@ -124,26 +124,38 @@ li a:hover {
 
   </div>
      <ul>
-    <li><a href="{% url 'final_production_home' %}"  >Add daily Production</a></li>
-    <li><a href="{% url 'NavigateToCustomDailyProd' %}" class="ClassActive1">Custom daily production</a></li>
-    <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>
+        <li><a href="{% url 'final_production_home' %}"  >Add daily Production</a></li>
+        <li><a href="{% url 'NavigateToCustomDailyProd' %}" class="ClassActive1">Custom daily production</a></li>
+{#        <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>#}
+        <li><a href="{% url 'NavigateToTeaGrades' %}" >Tea Grades</a></li>
 
 </ul>
   <div>
+      <h1>Main production details</h1><br>
 <table>
   <tr>
     <th>Daily prod. ID</th>
+    <th>Sub id</th>
     <th>Date</th>
     <th>Total Weight</th>
     <th>Action</th>
   </tr>
-
+    {% for prod in prod %}
     <tr>
-    <th>001</th>
-    <th>12/12/2019</th>
-    <th>1996 kg</th>
-      <th><a href="{% url 'NavigateToUpdateProd' %}" background="green">edit</a> <br><button>Delete</button> </th>
-  </tr>
+        <td>{{ prod.id }}</td>
+        <td>{{ prod.subID }}</td>
+        <td>{{ prod.date }}</td>
+        <td>{{ prod.totalWeight}}</td>
+        <td>
+            <form method="post"  action="{% url 'NavigateToViewProd' %}" >
+                {% csrf_token %}
+            <input type="hidden" name="id" value="{{ prod.subID }}">
+            <input type="submit" value="View">
+
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
 </table>
   </div>
 
