@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.forms import *
-from Ambrosia_Project.commonUtills import *
+from Ambrosia_Project.common_utills.auctionStockUtills import *
 from django.views.generic import View
 
 #Auction stock--------------------------------------------------------------------------------------------
