@@ -20,35 +20,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/logo1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/AllRegisteredSuppliers.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/EditSupplier.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/LeafStock.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/StockDetails.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/SupPayments.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/SupRegistration.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/ViewLeafStock.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/ViewSupplierProfile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/pdf.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/supplierBase.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ITProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0002_estate_leafstock_supplier.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0003_auto_20200908_0217.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/factoryhome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/factoryhome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ITProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ITProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ITProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ITProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/AllRegisteredSuppliers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/AllRegisteredSuppliers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/EditSupplier.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/EditSupplier.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/LeafStock.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/LeafStock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/StockDetails.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/StockDetails.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/SupPayments.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/SupPayments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/SupRegistration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/SupRegistration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ViewLeafStock.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ViewLeafStock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ViewSupplierProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/ViewSupplierProfile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="7f77234e-531d-4dee-9548-3f85a8fa896c" />
+  <component name="JupyterTrust" id="bb7f32c8-7e2a-4927-b74d-215f8d66ea9f" />
   <component name="ProjectId" id="1hAX5qe38eCz0iEHWyjEmoEm4Wh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,12 +71,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\THARUKA\PycharmProjects\Ambrosia\static\images" />
       <recent name="C:\Users\THARUKA\PycharmProjects\Ambrosia\templates" />
+      <recent name="C:\Users\THARUKA\PycharmProjects\Ambrosia\static\images" />
       <recent name="C:\Users\M\Desktop\ITProject\ITProject" />
       <recent name="C:\Users\M\Desktop\ITProject\ITProject\templates" />
       <recent name="C:\Users\M\Desktop\ITProject\ITProject\Ambrosia_Project" />
@@ -105,6 +127,19 @@
       <workItem from="1599454691978" duration="20000" />
       <workItem from="1599454728701" duration="1762000" />
       <workItem from="1599465184453" duration="25192000" />
+      <workItem from="1599536276080" duration="40892000" />
+      <workItem from="1599619967705" duration="8788000" />
+      <workItem from="1599740014714" duration="11383000" />
+      <workItem from="1599817637940" duration="17270000" />
+      <workItem from="1599886868881" duration="5711000" />
+      <workItem from="1600177839184" duration="4836000" />
+      <workItem from="1600240327532" duration="1652000" />
+      <workItem from="1600265046835" duration="1255000" />
+      <workItem from="1600404805214" duration="13575000" />
+      <workItem from="1600582539616" duration="20706000" />
+      <workItem from="1600783175304" duration="647000" />
+      <workItem from="1600785591463" duration="677000" />
+      <workItem from="1601993759299" duration="2962000" />
     </task>
     <servers />
   </component>
@@ -121,39 +156,64 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599466314242">
+    <state x="395" y="91" key="#Inspections" timestamp="1599568955619">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1599466314242" />
+    <state x="395" y="91" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1599568955619" />
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601993803254">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1601993803254" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1599456092315">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599456092315" />
-    <state width="1493" height="142" key="GridCell.Tab.0.bottom" timestamp="1599511313882">
+    <state width="1493" height="123" key="GridCell.Tab.0.bottom" timestamp="1600792064826">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1599511313882" />
-    <state width="1493" height="142" key="GridCell.Tab.0.center" timestamp="1599511313881">
+    <state width="1493" height="123" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600792064826" />
+    <state width="1493" height="123" key="GridCell.Tab.0.center" timestamp="1600792064826">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1599511313881" />
-    <state width="1493" height="142" key="GridCell.Tab.0.left" timestamp="1599511313674">
+    <state width="1493" height="123" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1600792064826" />
+    <state width="1493" height="123" key="GridCell.Tab.0.left" timestamp="1600792064826">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1599511313674" />
-    <state width="1493" height="142" key="GridCell.Tab.0.right" timestamp="1599511313881">
+    <state width="1493" height="123" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1600792064826" />
+    <state width="1493" height="123" key="GridCell.Tab.0.right" timestamp="1600792064826">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1599511313881" />
-    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599510070356">
+    <state width="1493" height="123" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600792064826" />
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1600266306589">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599510070356" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599509689340">
+    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600266306589" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1600266306589">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599509689340" />
+    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1600266306589" />
+    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1600266306589">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1600266306589" />
+    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1600266306589">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1600266306589" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1601995346866">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1601995346866" />
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599575886286">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599575886286" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599744887671">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1599744887671" />
   </component>
 </project>

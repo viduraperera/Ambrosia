@@ -27,6 +27,8 @@ urlpatterns = [
 
     path('Home/', include('Ambrosia_Project.urls')),
 
+    path('leaf_stock_delete/', views.leaf_stock_delete)
+
 
 
 ]

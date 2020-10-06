@@ -2,7 +2,7 @@
 
 
 <!-------page title------->
-{% block title %}View Daily Stock Details{% endblock title %}
+{% block title %}View Payment Details{% endblock title %}
 
 
 <!-------start of styles------->
@@ -60,11 +60,11 @@ tr:nth-child(even) {
 
 <!-------Header 1 and 2 captions------->
 {% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
-{% block pageContentHeader2 %}Leaf Stock Details{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Payments Details{% endblock pageContentHeader2 %}
 
 <!-------start of main content block------->
 {% block content %}
-    <a id="tablepad" href="{% url 'S_LeafStock' %}"><input class="regButton" type="submit" value="+  Add New Stock" onclick="w3_close()"></a>
+    <a id="tablepad" href="{% url 'S_SupPayments' %}"><input class="regButton" type="submit" value="+  Make New Payment" onclick="w3_close()"></a>
 
 
   <!--View DailyvStock Details Table-->
@@ -72,7 +72,7 @@ tr:nth-child(even) {
     <table>
       <tr>
         <th>Supplier ID</th>
-        <th>Stock ID</th>
+        <th>Payment ID</th>
         <th>Weight</th>
         <th>Date</th>
         <th>Time</th>
@@ -82,21 +82,16 @@ tr:nth-child(even) {
       <tr>
         <td>{{ form.supplier_id }}</td>
         <td>{{ form.id }}</td>
-        <td>{{ form.weight}}</td>
-        <td>{{ form.rec_Date }}</td>
-        <td>{{ form.rec_Time }}</td>
-          <td>
-              <!-- <form method="post" action="{% url 'S_EditStockDetails' %}">
+        <td>{{ form.tot_weight }}</td>
+        <td>{{ form.pay_Date }}</td>
+        <td>{{ form.pay_Time }}</td>
+        <td>
+            <form method="post" action="{% url 'S_DeletePay' %}">
               {% csrf_token %}
                       <input type="hidden" name="formid" value="{{ form.id }}">
-                      <a href="{% url 'S_EditStockDetails' %}"><input type="submit" value="Edit" class="regButton"></a>
-               </form> -->
-              <form method="post" action="{% url 'S_LeafStockDelete' %}">
-              {% csrf_token %}
-                      <input type="hidden" name="formid" value="{{ form.id }}">
-                      <a href="{% url 'S_StockDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>
-               </form>
-          </td>
+                      <a href="{% url 'S_PaymentDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>
+            </form>
+        </td>
       </tr>
         {% endfor %}
     </table>

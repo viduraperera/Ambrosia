@@ -1,0 +1,92 @@
+{% extends 'Base.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Supplier Payslip{% endblock title %}
+
+
+{% block content %}
+
+<br><br><br><br><br>
+
+    <div class="Container" style="padding: 20px;">
+        <div class="row" style="background-color: azure;">
+            <center>
+                <table>
+                    <tr>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Leaf Stock Supplier Pay Slip (Year/Month)</td>
+                    </tr>
+                </table>
+            </center>
+          <div class="w3-half">
+            <table style="width: 100%; padding: 20px 20px 20px 20px;">
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Supplier ID</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Total Kilograms</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Price per Kilogram</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+                <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+                <tr>
+                    <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp; Salary : </label>></td>
+                <td>&nbsp;</td>
+              </tr>
+                <!---last 3 <tr> tags to get the shape of this table--->
+            </table>
+          </div>
+          <div class="w3-half" >
+            <table style="width: 100%; padding: 20px 20px 20px 20px; ">
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Date</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Time</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;"><label for="nicno" style="font-size: 20px;">Additions (+)</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Expenses (-)</label></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;"></td>
+                <td>&emsp;</td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;"></td>
+                <td>&emsp;</td>
+              </tr>
+            </table>
+          </div>
+          <h4>Signature : ..........................</h4><br>
+        </div>
+    </div>
+
+{% endblock content %}
