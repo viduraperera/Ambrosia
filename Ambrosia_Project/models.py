@@ -253,7 +253,7 @@ class BillItems(models.Model):
     date = models.DateTimeField(default=datetime.now, blank=True)
     Quantity = models.IntegerField(validators=[
         RegexValidator(
-            regex='^[1-10]*$',
+            regex='^[1-9]*$',
             message='You Entered Quantity is not valid.',
             code='Quantity Number is Invalid'
         )

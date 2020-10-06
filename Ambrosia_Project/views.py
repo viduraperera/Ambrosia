@@ -317,12 +317,29 @@ def SalesViewBill(request):
     #         print(e)
 
 
-    var = Transactions.objects.filter()
-    arr = BillItems.objects.filter()
+    # var = Transactions.objects.filter()
+    # arr = BillItems.objects.filter()
+
+    if request.method == 'POST':
+        transID = request.POST.get('invoiceid')
+
+        if transID is not None:
+            try:
+                Trans = BillItems.objects.get(id=transID)
+                tform = billItemsForm(instance=Trans)
+            except Exception as e:
+                print(e)
+
+        else:
+            pass
+
+
+    return redirect('SalesViewBill', {'Trans':Trans, 'tfrom':tform })
 
 
 
-    return render(request, 'SalesViewBill.html', {'saleInvoice': arr,'viewT': var, })
+
+    # return render(request, 'SalesViewBill.html', {'saleInvoice': arr,'viewT': var, })
 
 
 # delete
