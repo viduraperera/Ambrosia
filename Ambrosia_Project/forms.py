@@ -20,3 +20,15 @@ class AllowanceForm(forms.ModelForm):
     class Meta:
         model = Allowance
         fields = '__all__'
+
+
+class RegisterEmployee(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
+class MarkAttendance(forms.ModelForm):
+    class Meta:
+        model = attendance
+        fields = '__all__'

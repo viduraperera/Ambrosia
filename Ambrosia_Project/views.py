@@ -7,12 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
+
+
 # Create your views here.
 
 
 @login_required(login_url='login')
 def registration(request):
-
     form = CreateUserForm()
 
     if request.method == 'POST':
@@ -20,7 +21,7 @@ def registration(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-            messages.success(request, 'User Account '+user+' Created Successfully.')
+            messages.success(request, 'User Account ' + user + ' Created Successfully.')
             return redirect('view_all_users')
 
     context = {'form': form}
@@ -28,7 +29,6 @@ def registration(request):
 
 
 def login_user(request):
-
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -51,19 +51,16 @@ def login_user(request):
 
 @login_required(login_url='login')
 def home(request):
-
     return render(request, 'home.html')
 
 
 def logout_user(request):
-
     logout(request)
     return redirect('login')
 
 
 @login_required(login_url='login')
 def view_AllUsers(request):
-
     array = User.objects.all();
     print(array);
     return render(request, 'ViewAllUsers.html', {'Users': array})
@@ -71,60 +68,185 @@ def view_AllUsers(request):
 
 @login_required(login_url='login')
 def factoryHomepage(request):
-
     return render(request, 'factoryhome.html')
 
 
 @login_required(login_url='login')
-def teashopHomepage (request):
-
+def teashopHomepage(request):
     return render(request, 'teashophome.html')
 
-@login_required(login_url='login')
-def EmployeeHome (request):
 
+@login_required(login_url='login')
+def EmployeeHome(request):
     return render(request, 'attendance_management.html')
 
-@login_required(login_url='login')
-def staff_management (request):
 
-    return render(request, 'staff_management.html')
+@login_required(login_url='login')
+def staff_management(request):
+
+    arr = Employee.objects.filter(empGroup='staff')
+
+    return render(request, 'staff_management.html', {'Employee': arr})
+
 
 @login_required(login_url='login')
 def factoryworkers_management(request):
 
-    return render(request, 'factoryworkers_management.html')
+    arr = Employee.objects.filter(empGroup='factory_Worker')
+
+    return render(request, 'factoryworkers_management.html', {'Employee': arr})
+
+
+@login_required(login_url='login')
+def showAttendance(request):
+    arr = Employee.objects.filter(empGroup='factory_Worker')
+    workingDays = attendance.workingDays
+
+    return render(request, 'attendance_management.html', {'Employee': arr}, workingDays)
+
 
 @login_required(login_url='login')
 def markAttendance(request):
+    form = MarkAttendance()
 
+    if request.method == 'POST':
+        form.MarkAttendance(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                if (form.cleaned_data.get('attendanceStatus') == 'present' ):
+                    attendance.workingDays += 1
+                    return render(request, 'showAttendance', )
+            except:
+                pass
+
+    var = {'form': form}
     return render(request, 'mark_attendance.html')
+
 
 @login_required(login_url='login')
 def edit_employee(request):
 
+    if request.method == "POST":
+        eid = request.POST.get('workersid')
+
+        if eid is not None:
+
+            try:
+                employee = Employee.objects.get(pk=eid)
+                eform = RegisterEmployee(instance=employee)
+                return render(request, 'edit_employee.html' , {'form': eform , 'EmpId' : eid } )
+
+            except Exception as e:
+                print(e)
+
+        else:
+            pass
+
     return render(request, 'edit_employee.html')
+
+
+@login_required(login_url='login')
+def update_employee(request):
+
+    if request.method == 'POST':
+        eid = request.POST.get('empId')
+
+        if eid is not None:
+            employee = Employee.objects.get(pk=eid)
+            form = RegisterEmployee(request.POST, instance=employee)
+
+            if form.is_valid():
+                form.save()
+                try:
+
+                    if (form.cleaned_data.get('empGroup') == 'factory_Worker'):
+                        messages.success(request, 'update successful')
+                        return redirect('factoryworkers_management')
+
+                    else:
+                        messages.success(request, 'update successful')
+                        return redirect('staff_management')
+
+                except Exception as e:
+                    print(e)
+                    messages.success(request, 'Exception:' + e)
+
+            else:
+                messages.error(request, "Can't Update Details.")
+                return redirect('edit_employee')
+
+        else:
+            messages.error(request, "Can't Update Details.")
+            return redirect('edit_employee')
+
 
 @login_required(login_url='login')
 def view_employee(request):
 
-    return render(request, 'view_employee.html')
+    id = request.POST.get("workersid")
+
+    employee = Employee.objects.get(pk=id)
+
+    return render(request, 'view_employee.html', {'employee':employee} )
+
 
 @login_required(login_url='login')
 def employee_registration(request):
+    form = RegisterEmployee()
 
-    return render(request, 'employee_registration.html')
+    if request.method == 'POST':
+        form = RegisterEmployee(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            try:
+                form.save()
+                if (form.cleaned_data.get('empGroup') == 'factory_Worker'):
+                    messages.success(request,'Factory worker added successfully')
+                    return redirect('factoryworkers_management')
+                else:
+                    messages.success(request,'Staff added successfully')
+                    return redirect('staff_management')
+
+            except Exception as e:
+                print(e)
+                messages.success(request, 'Exception:' +e)
+
+        else:
+            print(form.errors)
+            messages.success(request, 'Invalid Details')
+            pass
+
+    var = {'form': form}
+    return render(request, 'employee_registration.html', var)
 
 
-#@login_required(login_url='login')
-#def AddUser(request):
+@login_required(login_url='login')
+def deleteEmployee(request):
+    workersid = request.POST.get('workersid')
+    print(workersid)
+
+    if request.method == 'POST' and workersid is not None:
+        worker = Employee.objects.get(id=workersid)
+
+        workerType = worker.empGroup
+
+        worker.delete()
+
+        if workerType == 'staff':
+            messages.success(request, 'Employee Deleted successfully')
+            return redirect('staff_management')
+
+        else:
+            messages.success(request, 'Employee Deleted successfully')
+            return redirect('factoryworkers_management')
+
 
 
 
 
 @login_required(login_url='login')
 def ShowUser(request):
-
     uname = request.POST.get("uname")
 
     users = User.objects.all();
@@ -139,10 +261,9 @@ def ShowUser(request):
 
 @login_required(login_url='login')
 def UpdateUser(request):
-
     if request.method == 'POST':
         uname = request.POST.get('un')
-        pword =request.POST.get('pwd')
+        pword = request.POST.get('pwd')
 
         if uname != None and pword != None:
             user = User.objects.get(username=uname)
@@ -159,13 +280,9 @@ def UpdateUser(request):
         messages.error(request, "Can't Update Details.")
         return redirect('view_all_users')
 
-    # messages.error(request, "Error.Can't Update Details.")
-    # return redirect('view_all_users')
-
 
 @login_required(login_url='login')
 def DeleteUser(request):
-
     uname = request.POST.get('uname')
 
     if request.method == 'POST' and uname != None:
@@ -181,19 +298,19 @@ def DeleteUser(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-@login_required(login_url='login')
-def inventoryhome (request):
 
+@login_required(login_url='login')
+def inventoryhome(request):
     return render(request, 'inventoryhome.html')
 
-@login_required(login_url='login')
-def addteapackets (request):
 
+@login_required(login_url='login')
+def addteapackets(request):
     return render(request, 'addteapackets.html')
 
-@login_required(login_url='login')
-def preorderlevel (request):
 
+@login_required(login_url='login')
+def preorderlevel(request):
     return render(request, 'preorderlevel.html')
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
@@ -208,60 +325,57 @@ def emp_funds_add(request):
     form = FundFrom()
 
 
-
 @login_required(login_url='login')
 def SalesHomeIncome(request):
-
     return render(request, 'SalesHomeIncome.html')
+
 
 @login_required(login_url='login')
 def SalesHomeMonthlyIncome(request):
-
     return render(request, 'SalesHomeMonthlyIncome.html')
+
 
 @login_required(login_url='login')
 def SalesHomeAnnuallyIncome(request):
-
     return render(request, 'SalesHomeAnnuallyIncome.html')
+
 
 @login_required(login_url='login')
 def SalesCreateInvoice(request):
-
     return render(request, 'SalesCreateInvoice.html')
+
+
 @login_required(login_url='login')
 def SalesTransaction(request):
-
     return render(request, 'SalesTransaction.html')
+
 
 @login_required(login_url='login')
 def SalesViewBill(request):
-
     return render(request, 'SalesViewBill.html')
 
 
 @login_required(login_url='login')
 def SalesPriceTable(request):
-
     return render(request, 'SalesPriceTable.html')
+
 
 @login_required(login_url='login')
 def SalesPriceTableDUST1(request):
-
     return render(request, 'SalesPriceTableDUST1.html')
 
 
 @login_required(login_url='login')
 def SalesPriceTableDUST2(request):
-
     return render(request, 'SalesPriceTableDUST2.html')
+
+
 @login_required(login_url='login')
-
 def SalesPriceTableDUST3(request):
-
     return render(request, 'SalesPriceTableDUST3.html')
 
-def SalesPriceTableFGS(request):
 
+def SalesPriceTableFGS(request):
     return render(request, 'SalesPriceTableFGS.html')
     if request.method == 'POST':
         form = FundFrom(request.POST)
@@ -300,86 +414,80 @@ def emp_allowance_add(request):
     return render(request, 'add_allowance.html', var)
 
 
-#Navigate from Admin home to Registered Suppliers List
+# Navigate from Admin home to Registered Suppliers List
 @login_required(login_url='login')
 def to_reg_suppliers(request):
-
     return render(request, 'AllRegisteredSuppliers.html')
 
 
-#Navigate from Registered Suppliers List to Registration Form
+# Navigate from Registered Suppliers List to Registration Form
 @login_required(login_url='login')
 def to_sup_registration(request):
-
     return render(request, 'SupRegistration.html')
 
 
-#Navigate from Registered Suppliers List to View Supplier Profile
+# Navigate from Registered Suppliers List to View Supplier Profile
 @login_required(login_url='login')
 def to_sup_profile(request):
-
     return render(request, 'ViewSupplierProfile.html')
 
 
-#Navigate from Supplier Profile to Edit Supplier
+# Navigate from Supplier Profile to Edit Supplier
 @login_required(login_url='login')
 def to_edit_profile(request):
-
     return render(request, 'EditSupplier.html')
 
 
-#Navigate from Registered Suppliers List to Stock Details
+# Navigate from Registered Suppliers List to Stock Details
 @login_required(login_url='login')
 def to_stock_details(request):
-
     return render(request, 'StockDetails.html')
 
 
-#Navigate from Stock Details to Add Leaf Stock
+# Navigate from Stock Details to Add Leaf Stock
 @login_required(login_url='login')
 def to_leaf_stock(request):
-
     return render(request, 'LeafStock.html')
 
 
-#Navigate from Stock Details to View Stock Details
+# Navigate from Stock Details to View Stock Details
 @login_required(login_url='login')
 def to_view_stock_details(request):
     # var = LeafStock.objects.select_related('supplier_id').get(pk=1)
     return render(request, 'ViewLeafStock.html')
 
 
-#Navigate from Registered Suppliers List to Payments
+# Navigate from Registered Suppliers List to Payments
 @login_required(login_url='login')
 def to_payments(request):
-
     return render(request, 'SupPayments.html')
 
 
 @login_required(login_url='login')
-def inventoryreports (request):
+def inventoryreports(request):
     return render(request, 'inventoryreports.html')
 
+
 @login_required(login_url='login')
-def iweekly (request):
+def iweekly(request):
     return render(request, 'iweekly.html')
 
+
 @login_required(login_url='login')
-def inventorymonthlyreport (request):
+def inventorymonthlyreport(request):
     return render(request, 'inventorymonthlyreport.html')
 
-@login_required(login_url='login')
-def inventoryannualreport (request):
-    return render(request, 'inventoryannualreport.html')
 
 @login_required(login_url='login')
-def editpackets (request):
+def inventoryannualreport(request):
+    return render(request, 'inventoryannualreport.html')
+
+
+@login_required(login_url='login')
+def editpackets(request):
     return render(request, 'editpackets.html')
     messages.error(request, "Error.Can't Delete User.")
     return redirect('view_all_users')
-
-
-
 
 
 @login_required(login_url='login')
@@ -415,3 +523,5 @@ def NavigateToCurrentProduct(request):
 @login_required(login_url='login')
 def NavigateToUpdateProduct(request):
     return render(request, 'Update_daily_product.html')
+
+

@@ -1,0 +1,53 @@
+{% extends 'Base.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
+
+
+<!-------------------------Styles------------------------->
+{% block headStyles %}
+
+    {% block moreStyles %}{% endblock moreStyles %}
+
+.ClassActive {
+    background-color: #8db8e0;
+}
+
+{% endblock headStyles %}
+
+
+<!-------------------------Body Menue------------------------->
+{% block LinksMenuBar %}
+
+  <div class="w3-bar-block">
+
+{#    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block dailyProductionBtn %}{% endblock dailyProductionBtn %}">Daily Production</a>#}
+
+  </div>
+
+{% endblock LinksMenuBar %}
+
+
+<!-------------------------Page Content Header------------------------->
+
+{% block pageContentHeader %}
+
+  <!------------------------------------- Header ----------------------------->
+
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>{% block pageContentHeader1 %}{% endblock pageContentHeader1 %}</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>{% block pageContentHeader2 %}{% endblock pageContentHeader2 %}</b></h1>
+  </div>
+    
+
+{% endblock pageContentHeader %}
+
+
+<!----------------------------------Main Content------------------------------------------->
+<!----------------------------------------------------------------------------------------->
+
+{#{% block content %}#}
+{#    #}
+{#{% endblock content %}#}
+
+<!----------------------------------------------------------------------------------------->

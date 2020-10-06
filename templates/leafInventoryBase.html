@@ -1,0 +1,54 @@
+{% extends 'Base.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Leaf Inventory Management{% endblock title %}
+
+
+<!-------------------------Styles------------------------->
+{% block headStyles %}
+
+    {% block moreStyles %}{% endblock moreStyles %}
+
+.ClassActive {
+    background-color: #8db8e0;
+}
+
+{% endblock headStyles %}
+
+
+<!-------------------------Body Menue------------------------->
+{% block LinksMenuBar %}
+
+  <div class="w3-bar-block">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block addInventoryBtn %}{% endblock addInventoryBtn %}">New Inventory</a>
+    <a href="{% url 'NavigateToPreInv' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block prevInventoryBtn %}{% endblock prevInventoryBtn %}">Previous Inventories</a>
+    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
+
+  </div>
+
+{% endblock LinksMenuBar %}
+
+
+<!-------------------------Page Content Header------------------------->
+
+{% block pageContentHeader %}
+
+  <!------------------------------------- Header ----------------------------->
+
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>{% block pageContentHeader1 %}{% endblock pageContentHeader1 %}</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>{% block pageContentHeader2 %}{% endblock pageContentHeader2 %}</b></h1>
+  </div>
+
+
+{% endblock pageContentHeader %}
+
+
+<!----------------------------------Main Content------------------------------------------->
+<!----------------------------------------------------------------------------------------->
+
+{#{% block content %}#}
+{#    #}
+{#{% endblock content %}#}
+
+<!----------------------------------------------------------------------------------------->

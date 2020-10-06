@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from datetime import datetime
 from datetime import *
@@ -19,47 +20,68 @@ class Buyer(models.Model):
 
 class Employee(models.Model):
     GENDER=(
-        ('M','Male'),
-        ('F','Female'),
+        ('Male','Male'),
+        ('Female','Female'),
     )
     MARITALSTATUS=(
-        ('Marr','Married'),
-        ('UnMarr','Unmarried'),
+        ('Married','Married'),
+        ('UnMarried','Unmarried'),
     )
     EMPLOYEETYPE=(
-        ('Pay','Permanent'),
-        ('Temp','Temparory'),
+        ('Permanent','Permanent'),
+        ('Temparory','Temparory'),
+    )
+    EMPGROUP = (
+        ('staff', 'Staff'),
+        ('factory_Worker', 'FactoryWorker'),
+    )
+    DESIGNATION = (
+        ('Factory_Officer', 'Factory_Officer'),
+        ('AssistantFactory_Officer', 'AssistantFactory_Officer'),
+        ('Clerk', 'Clerk'),
+        ('Trainee', 'Trainee'),
+        ('Supervisor', 'Supervisor'),
+        ('Cashier', 'Cashier'),
+        ('Driver','Driver'),
     )
 
-    nic = models.CharField(max_length=15, unique=True)
-    epfNo = models.IntegerField(unique=True, null=True)
+    nic = models.CharField(max_length=15, unique=True, validators=[
+        RegexValidator(
+            regex= '^[0-9]*$',
+            message='NIC is invalid',
+            code='Invalid NIC',
+        )
+    ])
+    epfNo = models.IntegerField(unique=True, null=True, validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='EPF No can only contain numbers',
+            code='EPF No is invalid'
+        )
+    ])
     name = models.CharField(max_length=50)
-    address = models.TextField()
+    address = models.TextField(null=True)
     gender = models.CharField(max_length=50, choices=GENDER)
-    dob = models.DateField()
+    dob = models.DateField(null=True)
     maritalStatus = models.CharField(max_length=50, choices=MARITALSTATUS)
-    contactNo = models.CharField(max_length=10, null=True)
+    contactNo = models.CharField(max_length=10, null=True, validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='Contact No can only contain numbers',
+            code='Invalid Contact No '
+        ),
+        RegexValidator(
+            regex='^.{10}$',
+            message='Contact No length is invalid',
+            code='Invalid Contact No ',
+        )
+    ])
     doa = models.DateField(null=True)
     basicSalary = models.FloatField(null=True)
-    empType = models.CharField(max_length=50, choices=EMPLOYEETYPE)
+    empType = models.CharField(max_length=50, choices=EMPLOYEETYPE,null=True)
+    empGroup = models.CharField(max_length=50, choices=EMPGROUP, null=True)
+    designation = models.CharField(max_length=50, choices=DESIGNATION,null=True, blank=True)
 
-class NormalEmployee(models.Model):
-    EMPGROUP=(
-        ('staf','Staff'),
-        ('facwork','FactoryWorker'),
-    )
-    DESIGNATION =(
-        ('FO','Factory_Officer'),
-        ('AFO','AssistantFactory_Officer'),
-        ('CLR','Clerk'),
-        ('TRA','Trainee'),
-
-
-    )
-    epfNo = models.IntegerField(null=True)
-    empGroup = models.CharField(max_length=50, choices=EMPGROUP)
-    designation = models.CharField(max_length=50, choices=DESIGNATION)
-    nic = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
 
 
 class attendance(models.Model):
@@ -72,10 +94,11 @@ class attendance(models.Model):
         ('Abs','Absent'),
     )
     date = models.DateField(default=datetime.now)
-    daytype = models.CharField(max_length=20, choices=DAYTYPE)
-    attendaceStatus = models.CharField(max_length=50, choices=STATUS)
-    workingDays = models.IntegerField()
+    daytype = models.CharField(max_length=20, choices=DAYTYPE, null=True)
+    attendaceStatus = models.CharField(max_length=50, choices=STATUS, null=True)
+    workingDays = models.IntegerField(null=True)
     nic = models.ForeignKey(Employee, on_delete=models.CASCADE, null= True)
+
 
 class Oil_Stock(models.Model):
     Amount = models.FloatField()

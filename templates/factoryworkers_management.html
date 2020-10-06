@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>Factoryworkers_Management</title>
-<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
+{% extends 'employeeBase.html' %}
 
+<!-------------title--------------->
+{% block title %}factoryworkers_details{% endblock title %}
+
+<!-------------styles--------------->
+{% block moreStyles %}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 .addButton{
     background-color: #4CAF50; /* Green */
     border: none;
@@ -36,13 +32,6 @@ body {font-size:16px;}
     margin: 4px 2px;
     cursor: pointer;
 }
-
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
@@ -92,7 +81,7 @@ tr:nth-child(even) {
   cursor: pointer;
 }
 .search__bar:focus {
-  width: 250px;
+  width: 200px;
   left:auto;
   opacity: 1;
   cursor: text;
@@ -163,52 +152,35 @@ tr:nth-child(even) {
   border-radius: 0%;
   transform: rotate(-45deg);
 }
-</style>
-<body>
+{% endblock moreStyles %}
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-      <img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
-    <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-      <a href="{% url 'factoryworkers_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Worker Details</a>
-      <a href="{% url 'staff_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Staff Details</a>
-      <a href="{% url 'attendance_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Attendance</a>
-    <a href="funds_table.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+{% block displayMessage %}
 
-  </div>
-</nav>
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
-<!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Company Name</span>
-</header>
+{% endblock displayMessage %}
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+{% block pageContentHeader2 %}Factory Worker's Details{% endblock pageContentHeader2 %}
+
+{% block facBtn %}ClassActive{% endblock facBtn %}
+
+{% block content %}
 
   <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Ambrosia</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Factory Worker Details.</b></h1>
-      <a href="{% url 'employee_registration' %}"><input class="addButton" type="submit" value="+  Add New Worker" onclick="w3_close()"></a>
+  <div class="w3-container" style="margin-top:0px" id="showcase">
+      <a href="{% url 'employee_registration1' %}"><input class="addButton" type="submit" value="+  Add New Worker" onclick="w3_close()"></a>
   </div>
 <br>
     <div>
         <div class="event__search__floater">
         <div class="search__anchor">
-          <form id="event-search-form" action="get">
+          <form id="event-search-form" method="get">
                 <input type="text" class="search__bar" placeholder="Search Employee">
             <input class="search__submit" type="submit">
             <div class="search__toggler"></div>
@@ -216,50 +188,43 @@ tr:nth-child(even) {
           </div>
         </div>
         <table class = "table table-striped table-bordered table-sm">
-            <thread class = "thread-dark">
             <th>EPF No</th>
             <th>NIC</th>
             <th>Name</th>
              <th>Contact No</th>
             <th>Action</th>
-            <tr>
-                 </thread>
-                <td>56</td>
-                <td>712345678V</td>
-                <td>Saman Kumara</td>
-                <td>0712345678</td>
-                <td>
-                    <a href="{% url 'view_employee' %}"><input class="addButton" type="submit" value="View" onclick="w3_close()"></a>
-                    <a href="{% url 'edit_employee' %}"><input class="addButton" type="submit" value="Edit" onclick="w3_close()"></a>
-                    <a href="#"><input class="deleteButton" type="submit" value="Delete" onclick="w3_close()"></a>
-                </td>
-            </tr>
+
+                {% for workers in Employee %}
+                    <tr>
+                        <td>{{ workers.epfNo }}</td>
+                        <td>{{ workers.nic }}</td>
+                        <td>{{ workers.name }}</td>
+                        <td>{{ workers.contactNo }}</td>
+                        <td>
+                            <table>
+                                <tr>
+                                     <form method="post" action="{% url 'view_employee' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="workersid" value="{{ workers.id }}">
+                                        <input type="submit" value="View" class="addButton">
+                                    </form>
+
+                                     <form method="post" action="{% url 'edit_employee' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="workersid" value="{{ workers.id }}">
+                                        <input type="submit" value="Edit" class="addButton">
+                                    </form>
+
+                                    <form method="post" action="{% url 'delete_employee' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="workersid" value="{{ workers.id }}">
+                                        <input type="submit" value="Delete" class="deleteButton" onclick="if(!confirm('Are you sure you want to delete? Press OK to confirm')){return false}">
+                                    </form>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                {% endfor %}
         </table>
-    </div>
-
-<!-- End page content -->
-</div>
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-</script>
-
-</body>
-</html>
+        </div>
+{% endblock content %}
