@@ -346,7 +346,7 @@ class Auction_SubStock(models.Model):
 #Auction MainStock Model - Sandun
 class Auction_MainStock(models.Model):
 
-    SubID = models.IntegerField(blank=True)
+    SubID = models.IntegerField(primary_key= True, blank=True)
     Date = models.DateField(default=datetime.now , blank=True)
     Broker = models.ForeignKey(Broker, on_delete=models.CASCADE)
     total_netWeight = models.FloatField(blank=True)

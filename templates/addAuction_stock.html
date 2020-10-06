@@ -338,6 +338,7 @@ Display Message
 <br>
     <!--------------Details Table------------------------------------>
 
+{#check availability#}
      {% if SubStock.sub %}
 
         <h1>Current Catelog Details</h1>
@@ -429,90 +430,93 @@ Display Message
     
     <br>
 
+{#check availability#}
+{% if notSoldStocks %}
+
    <button class="buttonEdit" id="openBtn" onclick="formPopupFunction()"><i class="fas fa-angle-double-down fa-x"></i>&nbsp;&nbsp;Add Not-Sold Sub Stocks</button>
 
-<div id="popupTable" >
-<h1>Add Not-Sold Stock to Catelog</h1>
-    <div style="overflow-x:auto;">
+    <div id="popupTable" >
+    <h1>Add Not-Sold Stock to Catelog</h1>
+        <div style="overflow-x:auto;">
 
-         <table class="showTableBottom">
+             <table class="showTableBottom">
 
-             <th>MainID</th>
-             <th>SubID</th>
-             <th>Grade</th>
-             <th>pkt.Type</th>
-             <th>Invoice</th>
-             <th>Date Prepared</th>
-             <th>Net.W</th>
-             <th>Total.W</th>
-             <th>No.of.Pkts</th>
-             <th>Choises</th>
+                 <th>MainID</th>
+                 <th>SubID</th>
+                 <th>Grade</th>
+                 <th>pkt.Type</th>
+                 <th>Invoice</th>
+                 <th>Date Prepared</th>
+                 <th>Net.W</th>
+                 <th>Total.W</th>
+                 <th>No.of.Pkts</th>
+                 <th>Choises</th>
 
 
-             {% for nst in notSoldStocks %}
+                 {% for nst in notSoldStocks %}
 
-                {% for prst in prevSubStock %}
+                    {% for prst in prevSubStock %}
 
-                    {% if nst.MainID == prst.id  %}
+                        {% if nst.MainID == prst.id  %}
 
-                         <tr>
+                             <tr>
 
-                             <form method="post" action="{% url 'addNotSold_currentCatelog' %}">
-                                {%  csrf_token %}
-                                 <input type="hidden" name="newSID" value="{{ sid }}" >
-                                 <input type="hidden" name="prvMID" value="{{ prst.id }}" >
+                                 <form method="post" action="{% url 'addNotSold_currentCatelog' %}">
+                                    {%  csrf_token %}
+                                     <input type="hidden" name="newSID" value="{{ sid }}" >
+                                     <input type="hidden" name="prvMID" value="{{ prst.id }}" >
 
-                                <td>{{ prst.id }}</td>
-                                <td>{{ prst.SubID }}</td>
-                                <td>{{ prst.grade }}</td>
-                                <td>{{ prst.packetType }}</td>
+                                    <td>{{ prst.id }}</td>
+                                    <td>{{ prst.SubID }}</td>
+                                    <td>{{ prst.grade }}</td>
+                                    <td>{{ prst.packetType }}</td>
 
-                                <td>
-                                    {{ prst.invoice }}
-                                    {{ nAddForm.invoice }}
-                                </td>
+                                    <td>
+                                        {{ prst.invoice }}
+                                        {{ nAddForm.invoice }}
+                                    </td>
 
-                                <td>{{ prst.date_prepared }}
-                                    {{ nAddForm.date_prepared }}
-                                </td>
+                                    <td>{{ prst.date_prepared }}
+                                        {{ nAddForm.date_prepared }}
+                                    </td>
 
-                                <td>
-                                    {{ prst.net_weight }}
-                                    {{ nAddForm.net_weight }}
-                                </td>
+                                    <td>
+                                        {{ prst.net_weight }}
+                                        {{ nAddForm.net_weight }}
+                                    </td>
 
-                                <td>{{ prst.total_weight }}
-                                    {{ nAddForm.total_weight }}
-                                </td>
+                                    <td>{{ prst.total_weight }}
+                                        {{ nAddForm.total_weight }}
+                                    </td>
 
-                                <td>{{ prst.no_of_packets }}
-                                    {{ nAddForm.no_of_packets }}
-                                </td>
+                                    <td>{{ prst.no_of_packets }}
+                                        {{ nAddForm.no_of_packets }}
+                                    </td>
 
-                                <td>
-                                    <input type="submit" value="Add To Catelog" class="buttonEdit">
-                                </td>
+                                    <td>
+                                        <input type="submit" value="Add To Catelog" class="buttonEdit">
+                                    </td>
 
-                             </form>
+                                 </form>
 
-                         </tr>
+                             </tr>
 
-                    {% endif %}
+                        {% endif %}
 
-                {% endfor %}
+                    {% endfor %}
 
-             {% endfor %}
+                 {% endfor %}
 
-         </table>
+             </table>
+
+        </div>
+
+        <br><br>
+        <button class="buttonClose" id="closeBtn" onclick="closeformPopupFunction()"><i class="fas fa-angle-double-up fa-x"></i>&nbsp;&nbsp;Close SubStocks Table</button>
+        <br>
 
     </div>
-
-    <br><br>
-    <button class="buttonClose" id="closeBtn" onclick="closeformPopupFunction()"><i class="fas fa-angle-double-up fa-x"></i>&nbsp;&nbsp;Close SubStocks Table</button>
-    <br>
-
-</div>
-
+{% endif %}
 <br><br>
 
 {% endblock content %}

@@ -64,22 +64,32 @@ def deleteAuctionSubStock(request):
         try:
             if mid is not None:
                 stock = Auction_SubStock.objects.get(pk=mid)
-                mainStock = Auction_MainStock.objects.filter(SubID=sid)
                 chk = Auction_MainStock.objects.filter(SubID=sid).exists()
 
                 if stock is not None:
+                    #delete sub stock
                     stock.delete()
 
                     if chk:
-                        # All calculations
-                        mStock = Auction_MainStock.objects.get(SubID=sid)
-                        subSt = calculaionsAuctionSubStock(sid)
-                        mStock.total_netWeight = subSt['tne']
-                        mStock.total_grossWeight = subSt['tgr']
-                        mStock.total_packets = subSt['tpk']
-                        mStock.save()
-                        messages.success(request, 'Successfully Deleted')
-                        return redirect('view_mainStock')
+                        #check the catelog has another stock
+                        subCount = Auction_SubStock.objects.filter(SubID=sid).count()
+
+                        if subCount == 0:
+                            mainStock = Auction_MainStock.objects.get(SubID=sid)
+                            mainStock.delete()
+                            messages.success(request, 'Successfully Deleted Main and Sub Stocks')
+                            return redirect('view_mainStock')
+
+                        else:
+                            # All calculations - update main stock data
+                            mStock = Auction_MainStock.objects.get(SubID=sid)
+                            subSt = calculaionsAuctionSubStock(sid)
+                            mStock.total_netWeight = subSt['tne']
+                            mStock.total_grossWeight = subSt['tgr']
+                            mStock.total_packets = subSt['tpk']
+                            mStock.save()
+                            messages.success(request, 'Successfully Deleted')
+                            return redirect('view_mainStock')
 
                     else:
                         messages.success(request, 'Successfully Deleted')
@@ -96,7 +106,7 @@ def deleteAuctionSubStock(request):
             print(e)
             messages.error(request, 'Exception ')
 
-        return redirect('prepare_auction_stock')
+        return redirect('view_mainStock')
 
 
 @login_required(login_url='login')
@@ -251,7 +261,7 @@ def updateAuctionSubStock(request):
         try:
 
             stock = Auction_SubStock.objects.get(pk=mainID)
-            sid =stock.SubID
+            sid = stock.SubID
             form = AddSubAuctionStockForm(request.POST, instance=stock)
 
             if form.is_valid():
@@ -259,6 +269,16 @@ def updateAuctionSubStock(request):
                 subObject.SubID = sid
                 subObject.status = 'Pending'
                 subObject.save()
+
+                #update main stock All calculations
+                subStockcal = calculaionsAuctionSubStock(sid)
+
+                mainStock = Auction_MainStock.objects.get(SubID=sid)
+                mainStock.total_netWeight = subStockcal['tne']
+                mainStock.total_grossWeight = subStockcal['tgr']
+                mainStock.total_packets = subStockcal['tpk']
+                mainStock.save()
+
                 messages.success(request, 'Successfully Updated')
                 return redirect('all_catelog')
 
