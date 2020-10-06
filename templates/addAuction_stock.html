@@ -7,6 +7,8 @@
 <!------------------------------------Scripts-------------------------------------->
  {% block headImport1 %}
 
+     <script src="https://kit.fontawesome.com/f78ce457b0.js" crossorigin="anonymous"></script>
+
     <script>
         function formPopupFunction() {
           document.getElementById("popupTable").style.display="block";
@@ -28,21 +30,151 @@
 {% block moreStyles %}
 
 .formTable{
-    font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 60%;
-    }
+    width: 100%;
+}
 
 .formTable td {
+    border: 1px solid #1E54D5;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    background-color: #EDF3FF;
+}
+
+.showTable{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.showTable th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    background: #fff9d2;
+}
+
+.showTable td {
     border: 1px solid #e7e5e5;
     text-align: left;
     font-size: 16px;
     padding: 10px;
-    }
+}
+
+.showTable tr:nth-child(even) {
+    background-color: #f8f5f5;
+}
+
+.showTableBottom{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.showTableBottom th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    background: #fff9d2;
+}
+
+.showTableBottom td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 15px;
+    padding: 10px;
+    background: #F3F9FB;
+}
+
+#popupTable {
+  display: none;
+  width: 100%;
+  padding: 20px;
+  background-color: #E2FAFF;
+  margin-top: 20px;
+}
+
+.subStockFormContainer{
+    margin-top:20px;
+    text-Align:center;
+    padding:5px;
+    background:#EAEAFF;
+    width:60%;
+}
+
+.subStockFormContainer h1
+{
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.buttonAddStock
+{
+      background-color: #020074;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: bold;
+      width: 50%;
+      height: 50px;
+      border-radius: 10px;
+}
+
+.buttonAddStock:hover {
+    background: #E2DB18;
+    font-size: 18px;
+    color: #000;
+}
+
+.mainStockDetailsContainer
+{
+    margin-top:20px;
+    padding:15px;
+    background:#D8FDEB;
+    width:60%;
+    text-Align:center;
+}
+.mainStockDetailsContainer table
+{
+    text-Align:left;
+}
+
+.mainStockDetailsContainer h1
+{
+    color: #032C95;
+    font-weight: bold;
+    margin-bottom:30px;
+}
+
+.buttonEdit1
+{
+      background-color:#E0C105;
+      border: none;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      font-weight:bold;
+      width: 50%;
+      height: 50px;
+      text-transform: uppercas;
+      align:center;
+}
+
+.buttonEdit1:hover {
+    background: #CF1B1B;
+    color: white;
+}
 
 .buttonEdit
     {
-      background-color: #DC0175;
+      background-color: #9F029C;
       border: none;
       color: white;
       text-align: center;
@@ -50,14 +182,30 @@
       display: inline-block;
       font-size: 16px;
       width: 100%;
-      height: 30px;
-      border-radius: 15px;
-    }
+      height: 50px;
+}
 
 .buttonEdit:hover {
-    background: #e9e444;
+    background: #DC0175;
+}
+
+.buttonClose
+{
+      background-color: #E02516;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 100%;
+      height: 40px;
+}
+
+.buttonClose:hover {
+    background: #E5ED34;
     color: #000;
-    }
+}
 
 .buttonDelete
     {
@@ -69,87 +217,13 @@
       display: inline-block;
       font-size: 16px;
       width: 80%;
-      height: 30px;
+      height: 40px;
       border-radius: 15px;
-    }
+}
 
 .buttonDelete:hover {
     background: #E5ED34;
     color: #000;
-    }
-
-.buttonEdit1
-{
-  background-color: #700390;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width: 50%;
-  height: 50px;
-  border-radius: 15px;
-    }
-
-.buttonEdit1:hover {
-    background: #0F0;
-    color: #000;
-    }
-
-.showTable{
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    }
-
-.showTable th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    font-size: 20px;
-    padding: 10px;
-    background: #fff9d2;
-    }
-
-.showTable td {
-    border: 1px solid #e7e5e5;
-    text-align: left;
-    font-size: 16px;
-    padding: 10px;
-    }
-
-.showTable tr:nth-child(even) {
-    background-color: #f8f5f5;
-    }
-
-.showTableBottom{
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    }
-
-.showTableBottom th {
-    border: 1px solid #dddddd;
-    text-align: center;
-    font-size: 15px;
-    padding: 10px;
-    background: #fff9d2;
-    }
-
-.showTableBottom td {
-    border: 1px solid #e7e5e5;
-    text-align: left;
-    font-size: 15px;
-    padding: 10px;
-    background: #F3F9FB;
-    }
-
-#popupTable {
-  display: none;
-  width: 100%;
-  padding: 20px;
-  background-color: #E2FAFF;
-  margin-top: 20px;
 }
 
 {% endblock moreStyles %}
@@ -192,7 +266,9 @@ Display Message
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
-<h1>Add Sub Stock</h1>
+<div class="subStockFormContainer">
+
+<h1>Sub Stock Form</h1>
 
 <!-- Form -->
    <form method="post" action="{% url 'prepare_auction_stock' %}">
@@ -240,18 +316,17 @@ Display Message
                <td>{{ form.date_prepared }}</td>
            </tr>
 
-           <tr>
-               <td></td>
-               <td>
-                   <button type="submit" class="buttonEdit">Add Sub Stock</button>
-               </td>
-           </tr>
-
        </table>
+       <br>
+      <button type="submit" class="buttonAddStock">Add Sub Stock &nbsp;<i class="fas fa-check"></i></button>
 
     </form>
 
-    <!--------------Errors--------------------------------------->
+    <br>
+
+</div>
+
+<!--------------Errors--------------------------------------->
     {% if form.errors %}
 
         <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
@@ -259,64 +334,64 @@ Display Message
         </div>
 
    {% endif %}
-<br><br>
+
+<br>
     <!--------------Details Table------------------------------------>
-
-    <h1>Current Catelog Details</h1>
-
-    <div style="overflow-x:auto;">
-
-     <table class="showTable">
-
-        <th>MainId</th>
-        <th>SubStockId</th>
-        <th>Invoice</th>
-        <th>No of Packets</th>
-        <th>Net Weight(kg)</th>
-        <th>Total Weight(kg)</th>
-        <th>Grade</th>
-        <th>Packet Type</th>
-        <th>Date Prepared</th>
-        <th>Update</th>
 
      {% if SubStock.sub %}
 
-         {% for stock in SubStock.sub %}
-            <tr>
-                <td>{{ stock.id }}</td>
-                <td>{{ stock.SubID }}</td>
-                <td>{{ stock.invoice }}</td>
-                <td>{{ stock.no_of_packets }}</td>
-                <td>{{ stock.net_weight }}</td>
-                <td>{{ stock.total_weight }}</td>
-                <td>{{ stock.grade }}</td>
-                <td>{{ stock.packetType }}</td>
-                <td>{{ stock.date_prepared }}</td>
-                <td>
-                    <form method="post" action="{% url 'delete_subStock' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="stID" value="{{ stock.id }}"/>
-                        <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
-                    </form>
-                </td>
-            </tr>
+        <h1>Current Catelog Details</h1>
 
-         {% endfor %}
+        <div style="overflow-x:auto;">
 
-     {% endif %}
+         <table class="showTable">
 
-     </table>
-    </div>
+            <th>MainId</th>
+            <th>SubStockId</th>
+            <th>Invoice</th>
+            <th>No of Packets</th>
+            <th>Net Weight(kg)</th>
+            <th>Total Weight(kg)</th>
+            <th>Grade</th>
+            <th>Packet Type</th>
+            <th>Date Prepared</th>
+            <th>Update</th>
 
+             {% for stock in SubStock.sub %}
+                <tr>
+                    <td>{{ stock.id }}</td>
+                    <td>{{ stock.SubID }}</td>
+                    <td>{{ stock.invoice }}</td>
+                    <td>{{ stock.no_of_packets }}</td>
+                    <td>{{ stock.net_weight }}</td>
+                    <td>{{ stock.total_weight }}</td>
+                    <td>{{ stock.grade }}</td>
+                    <td>{{ stock.packetType }}</td>
+                    <td>{{ stock.date_prepared }}</td>
+                    <td>
+                        <form method="post" action="{% url 'delete_subStock' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="stID" value="{{ stock.id }}"/>
+                            <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                        </form>
+                    </td>
+                </tr>
+
+             {% endfor %}
+
+         </table>
+        </div>
     <br>
 
     <!--------------Main Stock Table------------------------------------>
+<div class="mainStockDetailsContainer">
+
 <h1>Add MainStock Stock</h1>
 
-    <h4>No of Sub Stocks:&ensp;{{ SubStock.rowsNo }} </h4>
-    <h4>Total Net Weight:&ensp;{{ SubStock.tne }} kg</h4>
-    <h4>Total Gross Weight:&ensp;{{ SubStock.tgr }} kg</h4>
-    <h4>Total No of Packets:&ensp;{{ SubStock.tpk }}</h4>
+    <h3>No of Sub Stocks:&ensp;{{ SubStock.rowsNo }} </h3>
+    <h3>Total Net Weight:&ensp;{{ SubStock.tne }} kg</h3>
+    <h3>Total Gross Weight:&ensp;{{ SubStock.tgr }} kg</h3>
+    <h3>Total No of Packets:&ensp;{{ SubStock.tpk }}</h3>
 
     <form method="post" action="{% url 'add_mainStock' %}">
         {% csrf_token %}
@@ -332,24 +407,29 @@ Display Message
             </tr>
 
             <tr>
-                <td><h4><b>Broker</b></h4></td>
+                <td><h4><b>Broker :</b></h4></td>
                 <td>{{ mForm.Broker }}</td>
             </tr>
 
             <tr>
-                <td><h4><b>Date</b></h4></td>
+                <td><h4><b>Date :</b></h4></td>
                 <td>{{ mForm.Date }}</td>
             </tr>
 
         </table>
-
-        <input type="submit" value="Confirm Catelog" class="buttonEdit1">
+        <br>
+        <button type="submit"class="buttonEdit1">Confirm Catelog &nbsp; <i class="fas fa-check-circle"></i></button>
 
     </form>
 
-    <br><br>
+    <br>
 
-   <button class="buttonEdit" id="openBtn" onclick="formPopupFunction()">Add Not-Sold Sub Stocks</button>
+</div>
+{% endif %}
+    
+    <br>
+
+   <button class="buttonEdit" id="openBtn" onclick="formPopupFunction()"><i class="fas fa-angle-double-down fa-x"></i>&nbsp;&nbsp;Add Not-Sold Sub Stocks</button>
 
 <div id="popupTable" >
 <h1>Add Not-Sold Stock to Catelog</h1>
@@ -428,7 +508,7 @@ Display Message
     </div>
 
     <br><br>
-    <button class="buttonDelete" id="closeBtn" onclick="closeformPopupFunction()">Close SubStocks Table</button>
+    <button class="buttonClose" id="closeBtn" onclick="closeformPopupFunction()"><i class="fas fa-angle-double-up fa-x"></i>&nbsp;&nbsp;Close SubStocks Table</button>
     <br>
 
 </div>
