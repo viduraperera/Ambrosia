@@ -30,6 +30,7 @@ def registration(request):
 def login_user(request):
 
     if request.user.is_authenticated:
+
         return redirect('home')
 
     else:
