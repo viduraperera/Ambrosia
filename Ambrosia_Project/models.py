@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import *
 from datetime import datetime
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator
 
 
 # Create your models here.
@@ -251,13 +251,7 @@ class BillItems(models.Model):
     itemPrice = models.FloatField(blank=True)
     price = models.FloatField(blank=True)
     date = models.DateTimeField(default=datetime.now, blank=True)
-    Quantity = models.IntegerField(validators=[
-        RegexValidator(
-            regex='^[1-9]*$',
-            message='You Entered Quantity is not valid.',
-            code='Quantity Number is Invalid'
-        )
-    ])
+    Quantity = models.IntegerField(validators=[MinValueValidator(0.0)])
 
 
 class Price_Table(models.Model):

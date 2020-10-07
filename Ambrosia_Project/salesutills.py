@@ -64,33 +64,38 @@ def transactioncalTotal(tbid):
     return None
 
 
-# def viewbill(vbill):
-#     try:
-#         vbobj = BillItems.objects.filter(invoice_id=vbill)
-#
-#         viewlist = {'vbobj', vbobj}
-#
-#         return viewlist
-#
-#     except Exception as e:
-#         print(e)
+def viewbill(vbill):
+    try:
+        viewob = BillItems.objects.filter(invoice_id=vbill)
 
-    # try:
-    #     ob = BillItems.objects.filter(invoice_id=tbid)
-    #
-    #     if ob is not None:
-    #
-    #         # for invoice in ob:
-    #
-    #         translist = {'ob': ob}
-    #
-    #         return translist
-    #
-    #
-    #     else:
-    #         return None
-    #
-    #
-    # except Exception as e:
-    #     print(e)
-    #
+        if viewob is not None:
+
+            for viewBill in viewob:
+                id = viewBill.id
+                date = viewBill.date
+                itemname=viewBill.itemname
+                weight=viewBill.weight
+                Quantity = viewBill.Quantity
+                itemprice = viewBill.itemPrice
+                price = viewBill.price
+
+                View = {
+                    'id': id,
+                    'date': date,
+                    'itemname': itemname,
+                    'Quantity': Quantity,
+                    'weight': weight,
+                    'itemprice': itemprice,
+                    'price': price
+
+                }
+                return View
+            else:
+                return None
+
+    except Exception as e:
+        print(e)
+
+    return None
+
+
