@@ -11,6 +11,17 @@ from Ambrosia_Project.salary_calculations import  *
 
 @login_required(login_url='login')
 def emp_fund_view(request):
+    # check funds table
+    fund_obj = Funds.objects.first()
+    if fund_obj is None:
+        fund = FundFrom()
+        fund_obj = fund.save(commit=False)
+        fund_obj.emp_etf = 3
+        fund_obj.epf_employee = 8
+        fund_obj.epf_employer = 12
+
+        fund_obj.save()
+
     funds = Funds.objects.all()
     return render(request, "funds_table.html", {'funds': funds})
 
@@ -149,11 +160,14 @@ def emp_salary_single_view(request):
         month = request.POST.get("month")
         emp_id = request.POST.get("e_id")
          # validate year and month
+
         if year is None and month is None:
             emp_employee = Employee.objects.get(id=emp_id)
             return render(request, 'emp_salary_single_view.html', {'emp_employee': emp_employee})
 
         else:
-            salary_cal(year, month, emp_id)
+            emp_employee = Employee.objects.get(id=emp_id)
+            all_cals = salary_cal(year, month, emp_id)
+            return render(request, 'emp_salary_single_view.html', {'emp_employee': emp_employee, 'all_cals': all_cals})
 
 

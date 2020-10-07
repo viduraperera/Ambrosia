@@ -32,14 +32,10 @@
             <td>{{ fund.epf_employer}}</td>
             <td>
                 <a href="/Home/Factory/EmployeeHome/emp_funds_edit{{ fund.id }}" class="btn btn-success">Edit</a>
-                <a href="/Home/Factory/EmployeeHome/emp_funds_delete{{ fund.id }}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     {% endfor %}
     </table>
  </div>
-    <div>
-         <a href="{% url 'emp_funds_add' %}" class="btn btn-primary btn-lg">Add New Funds</a>
-    </div>
 
 {% endblock content %}

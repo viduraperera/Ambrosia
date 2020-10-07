@@ -70,6 +70,7 @@ class attendance(models.Model):
 
 
 class Funds(models.Model):
+    # delete the date in funds
     date = models.DateField(default=datetime.now)
     emp_etf = models.FloatField()
     epf_employee = models.FloatField()
@@ -100,6 +101,8 @@ class EmployeeSalaryMonth(models.Model):
 
     class Meta:
         db_table = 'employee_salary_month'
+
+
 
 
 # class EmployeeSalaryView(models.Model):

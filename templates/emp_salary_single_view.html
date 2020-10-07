@@ -33,11 +33,24 @@
         </table>
  <div>
     <form method="post" action="{%  url 'emp_salary_single_view' %}">
+        {% csrf_token %}
         <input type="hidden" name="e_id" value="{{ emp_employee.id }}">
         <input type="text" name="year" required>
         <input type="text" name="month" required>
         <input type="submit" value="view Date">
     </form>
  </div>
+
+    <h3>Salary Details</h3>
+
+    <form>
+        <input type="number" name="monthly attendence" value="{{ all_cals.total_attendance }}">
+        <input type="number" name="monthly basic_salary_for_month" value="{{ all_cals.basic_salary_for_month }}">
+        <input type="number" name="monthly etf_month" value="{{ all_cals.etf_month }}">
+        <input type="number" name="monthly epf_employee_month" value="{{ all_cals.epf_employee_month }}">
+        <input type="number" name="monthly epf_employer_month" value="{{ all_cals.epf_employer_month }}">
+
+
+    </form>
 
 {% endblock content %}
