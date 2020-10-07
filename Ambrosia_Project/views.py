@@ -478,7 +478,7 @@ def NavigateToPrevInv(request):
 @login_required(login_url='login')
 def NavigateToInvReport(request):
     leaf = LeafInventory.objects.all()
-    return render(request,'inventoryPDF.html',{'leaf':leaf})
+    return render(request,'inventoryPDF.html',{'leafPDF':leaf})
 
 @login_required(login_url='login')
 def NavigateToUpdateInv(request):
@@ -715,11 +715,11 @@ def DeleteGrade(request):
 
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
-        data = {
-             'today': datetime.date.today(),
-             'amount': 39.99,
-            'customer_name': 'Cooper Mann',
-            'order_id': 1233434,
-        }
-        pdf = render_to_pdf('pdf/invoice.html', data)
+        # data = {
+        #      'today': datetime.date.today(),
+        #      'amount': 39.99,
+        #     'customer_name': 'Cooper Mann',
+        #     'order_id': 1233434,
+        # }
+        pdf = render_to_pdf('pdf/invoice.html')
         return HttpResponse(pdf, content_type='application/pdf')

@@ -8,6 +8,28 @@
 <!------style-------->
 
 {% block moreStyles %}
+.submit{
+    border: 0px;
+    background:#66bd5a;
+    color:white;
+    width:20%;
+}
+.submit:hover{
+    color:white;
+    background:#438a42
+    }
+.formm{
+    background: #d9e3bf;
+    width:70%;
+    align:center;
+    text-align:center;
+    }
+    .note{
+    color:darkred;
+    }
+.formm:hover{
+    background:#c4d1a1;
+    }
 
 {% endblock moreStyles %}
 
@@ -32,13 +54,13 @@
 <!---main content----->
 {% block content %}
   <div>
-  <div>
-         <b>Note : Dates must be in "yyyy-mm-dd" format</b><br>
+  <div >
+
      </div>
-
-    <form method="post" action="#">
-
-
+    <center>
+    <form method="post" action="#" class="formm">
+    <b class="note">Note : Dates must be in "yyyy-mm-dd" format</b><br><br>
+        {% csrf_token %}
           <label for="Date"> In Date:</label><br>
           {{ form.in_Date }}<br><br>
           <label for="inTime">In time:</label><br>
@@ -54,14 +76,15 @@
           <label for="outTime">Out time:</label><br>
           {{ form.out_Time }}<br><br>
           <br><br>
-        <form method="post" action="{% url 'AddInventory' %}">
-          {% csrf_token %}
-            <input type="hidden" name="inDate" value="{{ form.in_Date }}">
-            <a href="{% url 'NavigateToPreInv' %}"><input type="submit" value="Submit"></a>
-    </form>
 
-    </form>
 
+            <input type="submit" value="Submit" class="submit">
+
+
+        <br>
+    </form>
+        </center>
+    <br>
     </div>
   </div>
 

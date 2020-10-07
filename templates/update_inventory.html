@@ -8,7 +8,25 @@
 <!------style-------->
 
 {% block moreStyles %}
-
+.submit{
+    border: 0px;
+    background:#66bd5a;
+    color:white;
+    width:20%;
+}
+.submit:hover{
+    color:white;
+    background:#438a42
+    }
+.formm{
+    background: #d9e3bf;
+    width:70%;
+    align:center;
+    text-align:center;
+    }
+    .note{
+    color:darkred;
+    }
 {% endblock moreStyles %}
 
 <!----header---->
@@ -23,12 +41,13 @@
 {% block content %}
      <div>
      <div>
-         <b>Note : Dates must be in "yyyy-mm-dd" format</b>
+
      </div>
      <br>
-
-    <form method="post" action="{% url 'updateLeaf' %}">
+<center>
+    <form method="post" action="{% url 'updateLeaf' %}" class="formm">
         {% csrf_token %}
+        <b class="note">Note : Dates must be in "yyyy-mm-dd" format</b><br><br>
 
         <input type="hidden" name = "LID" value="{{ lid }}">
 
@@ -57,10 +76,11 @@
         <br><br>
           <br><br>
 
-      <input type="submit" value="Update" name="updateInv">
+      <input type="submit" value="Update" name="updateInv" class="submit">
     </form>
-
+</center>
   </div>
+    <br>
 
 {% endblock content %}
 
