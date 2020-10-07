@@ -21,7 +21,9 @@ urlpatterns = [
 
     # employee_salary_VUP
     path('emp_salary_main/', salary_management_views.emp_salary_main, name="emp_salary_main"),
-    path('emp_final_salary_view', salary_management_views.emp_final_salary_view, name='emp_final_salary_view')
+    path('emp_final_salary_view', salary_management_views.emp_final_salary_view, name='emp_final_salary_view'),
+    path('emp_epf_view', salary_management_views.emp_epf_view, name='emp_epf_view'),
+    path('emp_etf_view', salary_management_views.emp_etf_view, name='emp_etf_view'),
 
 
 ]

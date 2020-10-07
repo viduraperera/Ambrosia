@@ -117,5 +117,3 @@ class EmployeeSalaryMonth(models.Model):
 #
 #     class Meta:
 #         db_table = 'employee_salary_view'
-
-0

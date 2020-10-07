@@ -15,16 +15,6 @@ def emp_fund_view(request):
 
 
 @login_required(login_url='login')
-def emp_salary_main(request):
-    return render(request, 'employee_salary.html')
-
-
-@login_required(login_url='login')
-def emp_final_salary_view(request):
-    return render(request, 'final_salary.html')
-
-
-@login_required(login_url='login')
 def emp_funds_add(request):
     form = FundFrom()
 
@@ -127,3 +117,23 @@ def emp_allowance_delete(request, id):
     return redirect('emp_allowance')
 
 # ---------------------------end of allowance of employee-----------------------------------
+
+
+@login_required(login_url='login')
+def emp_salary_main(request):
+    return render(request, 'employee_salary.html')
+
+
+@login_required(login_url='login')
+def emp_final_salary_view(request):
+    return render(request, 'final_salary.html')
+
+
+@login_required(login_url='login')
+def emp_etf_view(request):
+    return render(request, 'etf_table_view.html')
+
+
+@login_required(login_url='login')
+def emp_epf_view(request):
+    return render(request, 'epf_table_view.html')

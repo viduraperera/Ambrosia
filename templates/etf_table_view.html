@@ -1,6 +1,6 @@
 {% extends 'employeeBase.html' %}
 <!-------------------------Title------------------------->
-{% block title %}Employee Final Salary{% endblock title %}
+{% block title %}Employee ETF Tables{% endblock title %}
 
 
 {% block headImport %}
@@ -14,14 +14,14 @@
     <li class="nav-item">
       <a class="nav-link" href="{% url 'emp_salary_main' %}">Calculating salary</a>
     </li>
-    <li class="nav-item active">
-      <a class="nav-link" href="#">Final Salary View</a>
+    <li class="nav-item ">
+      <a class="nav-link" href="{% url 'emp_final_salary_view' %}">Final Salary View</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'emp_epf_view' %}">EPF view</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'emp_etf_view' %}">ETF view</a>
+    <li class="nav-item active">
+      <a class="nav-link" href="#">ETF view</a>
     </li>
   </ul>
 </nav>

@@ -1,7 +1,6 @@
 {% extends 'employeeBase.html' %}
 <!-------------------------Title------------------------->
-{% block title %}Employee Final Salary{% endblock title %}
-
+{% block title %}Employee EPF Tables{% endblock title %}
 
 {% block headImport %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -11,16 +10,16 @@
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
-    <li class="nav-item">
+    <li class="nav-item ">
       <a class="nav-link" href="{% url 'emp_salary_main' %}">Calculating salary</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'emp_final_salary_view' %}">Final Salary View</a>
+    </li>
     <li class="nav-item active">
-      <a class="nav-link" href="#">Final Salary View</a>
+      <a class="nav-link" href="#">EPF view</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'emp_epf_view' %}">EPF view</a>
-    </li>
-    <li class="nav-item">
+    <li class="nav-item ">
       <a class="nav-link" href="{% url 'emp_etf_view' %}">ETF view</a>
     </li>
   </ul>
