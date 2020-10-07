@@ -4,9 +4,9 @@
 {% block title %}Tea Shop Inventory Management{% endblock title %}
 
 <!-------------------------Head------------------------->
-    {% block headImport %}
+{% block headImport %}
 
-    {% endblock headImport %}
+{% endblock headImport %}
 
 {% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
 
@@ -15,32 +15,32 @@
 {% block levelbtn %}ClassActive{% endblock levelbtn %}
 
 {% block content %}
-  <!-- form -->
-  <br>
+    <!-- form -->
+    <br>
     <form method="post" action={% url 'preorderlevel' %}>
 
         {%  csrf_token %}
 
-	<br>
+        <br>
 
-
-		<div class="form-group">
-		<label for="preorder_level">Pre-order Level: </label>
+        <input type="hidden" name="pktid" value="{{ PID }}">
+        <div class="form-group">
+            <label for="preorder_level">Pre-order Level: </label>
 
             {{ pForm.preorder_level }}
-	<br>
-            </div>
+            <br>
+        </div>
 
-<br><br>
-	<div class="form-group">
+        <br><br>
+        <div class="form-group">
 
-        <button type="submit" class="btn1">SAVE</button>
+            <button type="submit" class="btn1">SAVE</button>
 
-	</div>
-	<br>
+        </div>
+        <br>
     </form>
-<!-- End page content -->
-</div>
+    <!-- End page content -->
+    </div>
 
 
 {% endblock content %}
