@@ -19,10 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="podi nethmi added available stock and added composite key">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="podi nethmi edited3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +48,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="podi_nethmi" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,7 +65,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -164,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602073855168</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="podi nethmi edited3">
+      <created>1602079687429</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602079687429</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +189,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="podi nethmi edited" />
     <MESSAGE value="podi nethmi added available stock and added composite key" />
-    <option name="LAST_COMMIT_MESSAGE" value="podi nethmi added available stock and added composite key" />
+    <MESSAGE value="podi nethmi edited3" />
+    <option name="LAST_COMMIT_MESSAGE" value="podi nethmi edited3" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599537309045">
@@ -212,14 +217,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1601970399795" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1599894870241">
+    <state x="277" y="57" key="SettingsEditor" timestamp="1602079612470">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1599894870241" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1602065325483">
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1602079612470" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1602079698957">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602065325483" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602079698957" />
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1599749614484">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
