@@ -25,9 +25,38 @@
   </ul>
 </nav>
 <br>
-
 <br>
+     <div>
+     <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+         <tr>
+             <th>ID</th>
+             <th>NIC</th>
+             <th>Name</th>
+             <th>EPF number</th>
+             <th>Date of Attend</th>
+             <th>Basic Salary</th>
+         </tr>
+        </thead>
+        {% for emp in employee%}
+        <tr>
+            <td>{{ emp.id}}</td>
+            <td>{{ emp.nic }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.epfNo}}</td>
+            <td>{{ emp.doa}}</td>
+            <td>{{ emp.basicSalary}}</td>
+            <td>
+                <form method="post" action="{% url 'emp_salary_single_view' %}">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ emp.id }}" name="e_id">
+                    <input type="submit" value="View Salary Details" class="btn btn-success">
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+ </div>
 
-    <br>
 
 {% endblock content %}

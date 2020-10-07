@@ -26,3 +26,4 @@ class EmployeeSalaryMonthFrom(forms.ModelForm):
     class Meta:
         model = EmployeeSalaryMonth
         fields = '__all__'
+

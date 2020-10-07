@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from Ambrosia_Project.forms import FundFrom, Allowance, AllowanceForm
-from Ambrosia_Project.models import Funds
+from Ambrosia_Project.models import *
+from Ambrosia_Project.salary_calculations import  *
 
 
 # ---------------------------start of funds of employee-----------------------------------
@@ -121,7 +122,8 @@ def emp_allowance_delete(request, id):
 
 @login_required(login_url='login')
 def emp_salary_main(request):
-    return render(request, 'employee_salary.html')
+    employee = Employee.objects.all()
+    return render(request, 'employee_salary.html', {'employee': employee})
 
 
 @login_required(login_url='login')
@@ -137,3 +139,21 @@ def emp_etf_view(request):
 @login_required(login_url='login')
 def emp_epf_view(request):
     return render(request, 'epf_table_view.html')
+
+
+@login_required(login_url='login')
+def emp_salary_single_view(request):
+
+    if request.method == "POST":
+        year = request.POST.get("year")
+        month = request.POST.get("month")
+        emp_id = request.POST.get("e_id")
+         # validate year and month
+        if year is None and month is None:
+            emp_employee = Employee.objects.get(id=emp_id)
+            return render(request, 'emp_salary_single_view.html', {'emp_employee': emp_employee})
+
+        else:
+            salary_cal(year, month, emp_id)
+
+

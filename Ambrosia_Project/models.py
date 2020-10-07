@@ -60,10 +60,12 @@ class attendance(models.Model):
         ('Pres', 'Present'),
         ('Abs', 'Absent'),
     )
-    date = models.DateField(default=datetime.now)
+    date = models.DateField(null=True, blank=True)
     daytype = models.CharField(max_length=20, choices=DAYTYPE)
     attendaceStatus = models.CharField(max_length=50, choices=STATUS)
+    # delete the working days
     workingDays = models.IntegerField()
+    # change the nic to id
     nic = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
 
 
