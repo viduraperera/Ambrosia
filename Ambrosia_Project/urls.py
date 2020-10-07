@@ -35,6 +35,8 @@ urlpatterns = [
     path('Factory/LeafInventory/PreviousInventories/deleteLeaf', views.DeleteLeaf, name="delete_leaf"),
     path('Factory/LeafInventory/AddInventory/leafAdd', views.LeafInvAdd, name="LeafInvAdd"),
     path('Factory/LeafInventory/PreviousInventories/updateLeaf', views.updateLeaf, name="updateLeaf"),
+    path('Factory/LeafInventory/PreviousInventories/InventoryReport', views.NavigateToInvReport, name="NavigateToInvReport"),
+
 
 
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),

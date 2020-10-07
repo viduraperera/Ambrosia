@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from datetime import datetime
 from datetime import *
@@ -155,12 +156,12 @@ class Auction_Stock(models.Model):
 class LeafInventory(models.Model):
 
     in_Date = models.DateField()
-    in_Time = models.FloatField()
+    in_Time = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(24) ])
     tray_Id = models.IntegerField()
     temp = models.FloatField()
     weight = models.FloatField()
     out_Date = models.DateField()
-    out_Time = models.FloatField()
+    out_Time = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(24) ])
 
     class Meta:
         db_table ='inventory'

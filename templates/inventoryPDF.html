@@ -37,9 +37,11 @@
         </style>
     </head>
     <body>
+    {% for leaf in leafPDF %}
         <div class='wrapper'>
             <div class='header'>
-                <p class='title'>Inventory # </p>
+
+                <p class='title'>Inventory ID : {{leaf.id}} </p>
             </div>
         <div>
         <div class='details'>
@@ -47,31 +49,31 @@
             <table>
                 <tr>
                     <td>In Date :</td>
-                    <td>date eka</td>
+                    <td>{{ leaf.in_Date}}</td>
                 </tr>
                 <tr>
                     <td>In Time:</td>
-                    <td>time</td>
+                    <td>{{ leaf.in_Time }}</td>
                 </tr>
                 <tr>
                     <td>Tray Id:</td>
-                    <td>id</td>
+                    <td>{{ leaf.tray_Id }}</td>
                 </tr>
                 <tr>
                     <td>Temperature:</td>
-                    <td>temp</td>
+                    <td>{{ leaf.temp }}</td>
                 </tr>
                 <tr>
                     <td>Stock Weight:</td>
-                    <td>weight</td>
+                    <td>{{ leaf.weight }}</td>
                 </tr>
                 <tr>
                     <td>Out Date:</td>
-                    <td>outttt date</td>
+                    <td>{{ leaf.out_Date}}</td>
                 </tr>
                 <tr>
                     <td>Out Time:</td>
-                    <td>outttttt time</td>
+                    <td>{{ leaf.out_Time}}</td>
                 </tr>
 
             </table>
@@ -80,6 +82,7 @@
             <l>******************************************************************************</l>
         </div>
     </div>
-
+        </div>
+{% endfor %}
     </body>
 </html>

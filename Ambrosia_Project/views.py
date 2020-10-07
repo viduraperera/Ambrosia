@@ -461,6 +461,11 @@ def NavigateToInventory(request):
                 return redirect('NavigateToPreInv')
             except:
                 pass
+
+        else:
+            messages.error(request, "Invalid Details")
+
+
     var = {'form': form}
     return render(request, 'add_inventory.html', var)
 
@@ -470,7 +475,10 @@ def NavigateToPrevInv(request):
     leaf = LeafInventory.objects.all()
     return render(request, 'View_pre_inv.html', {'leaf': leaf})
 
-
+@login_required(login_url='login')
+def NavigateToInvReport(request):
+    leaf = LeafInventory.objects.all()
+    return render(request,'inventoryPDF.html',{'leaf':leaf})
 
 @login_required(login_url='login')
 def NavigateToUpdateInv(request):

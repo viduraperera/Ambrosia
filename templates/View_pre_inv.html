@@ -212,9 +212,9 @@ tr:nth-child(even) {
 
         <br>
 
-        <form method="post" action="#">
+        <form method="post" action="{% url 'NavigateToInvReport' %}">
         {% csrf_token %}
-                    <input type="hidden" name="leafid" value="{{ leaf.id }}"/>
+                    <input type="hidden" name="leafPDF" value="{{ leafPDF.id }}"/>
                     <input type="submit" value="report" class="actionbtn" >
         </form>
 
