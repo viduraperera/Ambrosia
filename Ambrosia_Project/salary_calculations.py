@@ -34,9 +34,12 @@ def salary_cal(year, month, emp_id):
 
     funds = Funds.objects.first()
 
-    etf_month = basic_salary_for_month * (funds.emp_etf / 100)
-    epf_employee_month = basic_salary_for_month * (funds.epf_employee / 100)
-    epf_employer_month = basic_salary_for_month * (funds.epf_employer / 100)
+    emp = Employee.objects.get(id=emp_id)
+
+    if emp.empType == "Permanent":
+        etf_month = basic_salary_for_month * (funds.emp_etf / 100)
+        epf_employee_month = basic_salary_for_month * (funds.epf_employee / 100)
+        epf_employer_month = basic_salary_for_month * (funds.epf_employer / 100)
 
     static_cals = {
 

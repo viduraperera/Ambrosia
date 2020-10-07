@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
+from django.contrib import messages
 from Ambrosia_Project.forms import FundFrom, Allowance, AllowanceForm
 from Ambrosia_Project.models import *
 from Ambrosia_Project.salary_calculations import  *
@@ -183,6 +183,36 @@ def emp_add_salary_view(request):
 
     if request.method == "POST":
         year = request.POST.get("year")
-        
+        month = request.POST.get("month")
+        employee_id = request.POST.get("employee_id")
+
+        salary_obj = EmployeeSalary.objects.get(emp_id=employee_id, year=year, month=month)
+
+        if salary_obj is None:
+
+            basic_salary = request.POST.get("basic_salary")
+            monthly_attendance = request.POST.get("monthly_attendance")
+            monthly_basic_salary_for_month = request.POST.get("monthly_basic_salary_for_month")
+            monthly_etf_month = request.POST.get("monthly_etf_month")
+            monthly_epf_employee_month = request.POST.get("monthly_epf_employee_month")
+            monthly_epf_employer_month = request.POST.get("monthly_epf_employer_month")
+
+            salary = EmployeeSalary()
+            salary.year = year
+            salary.month = month
+            salary.emp_id = employee_id
+            salary.basic_salary_of_day = basic_salary
+            salary.attendance_on_month = monthly_attendance
+            salary.basic_salary_of_month = monthly_basic_salary_for_month
+            salary.etf_of_month = monthly_etf_month
+            salary.epf_employee_month = monthly_epf_employee_month
+            salary.epf_employer_month = monthly_epf_employer_month
+
+            salary.save()
+            return redirect('emp_salary_main')
+
+        else:
+            messages.error(request, "this employee salary already calculated")
+            return redirect('emp_salary_main')
 
     return None

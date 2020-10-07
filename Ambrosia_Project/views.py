@@ -363,52 +363,10 @@ def StockSalesHome(request):
     return render(request, 'auctionStock_current.html')
 
 
-@login_required(login_url='login')
-def UpdateAuctionStock(request):
-    return render(request, 'updateCatelog.html')
-
-
-@login_required(login_url='login')
-def ShowBrokerDetails(request):
-    return render(request, 'AllBrokers.html')
-
-
-@login_required(login_url='login')
-def ShowBuyerDetails(request):
-    return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def AddNewBroker(request):
-    return render(request, 'addBroker.html')
-
-
-@login_required(login_url='login')
-def AddNewBuyer(request):
-    return render(request, 'addBuyer.html')
-
-
-@login_required(login_url='login')
-def UpdateBroker(request):
-    return render(request, 'updateBroker.html')
-
-
-@login_required(login_url='login')
-def UpdateBuyer(request):
-    return render(request, 'updateBuyer.html')
-
 
 @login_required(login_url='login')
 def ProductionAnalysisHome(request):
     return render(request, 'finalProductAnalysis.html')
-
-
-def NotSoldStock(request):
-    return render(request, 'auction_notSold.html')
-
-
-def SoldStock(request):
-    return render(request, 'auction_soldStock.html')
 
 
 @login_required(login_url='login')
