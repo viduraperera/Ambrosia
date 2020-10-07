@@ -1,0 +1,65 @@
+{% extends 'shopInventoryBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
+
+<!-------------------------Head------------------------->
+    {% block headImport %}
+
+    {% endblock headImport %}
+
+{% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
+
+{% block pageContentHeader2 %}View Tea Packets{% endblock pageContentHeader2 %}
+
+
+
+{% block viewteabtn %}ClassActive{% endblock viewteabtn %}
+
+
+{% block content %}
+
+<!-- table -->
+<div>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Category</th>
+      <th>Weight</th>
+    <th>Number of Packets</th>
+	<th>Edit/Delete</th>
+  </tr>
+
+    {% for packets in Packets %}
+  <tr>
+    <td>{{ packets.date  }}</td>
+    <td>{{ packets.category }}</td>
+    <td>{{ packets.weight }}</td>
+    <td>{{ packets.noOfPackets }}</td>
+	<td> <form method="post" action = "{% url 'editpackets' %}">
+        {% csrf_token %}
+        <input type="hidden" name="pid" class="btn1" value="{{ packets.id }}">
+        <input type="submit" class="btn1" value="Edit">
+    </form>
+        <form method="post" action = "{% url 'deletepackets' %}">
+            {% csrf_token %}
+                <input type="hidden" name="deleteid" class="btn2" value="{{ packets.id }}">
+                <input type="submit" value="DELETE"  class="btn2" >
+        </form>
+    </td>
+  </tr>
+    {% endfor %}
+  <tr>
+    <td>	</td>
+    <td>Total</td>
+    <td>	</td>
+	<td> 	</td>
+	<td> 	</td>
+  </tr>
+</table>
+</div>
+
+<!-- End page content -->
+
+
+{% endblock content %}

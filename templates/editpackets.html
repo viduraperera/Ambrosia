@@ -1,124 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>W3.CSS Template</title>
-<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-<style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
+{% extends 'shopInventoryBase.html' %}
 
-</style>
-<body>
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-      <img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
-    <h3 class="w3-padding-64"><b>Amborisa<br></b></h3>
-  </div>
-  <div class="w3-bar-block">
-  <a href="home.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="factoryoutlet.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Add tea packets</a>
-    <a href="preorderlevel.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pre-order Level</a>
-    <a href="reports.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Reports</a>
-  </div>
-</nav>
+<!-------------------------Head------------------------->
+    {% block headImport %}
 
-<!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Company Name</span>
-</header>
+    {% endblock headImport %}
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+{% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+{% block pageContentHeader2 %}Edit Tea Pakctes{% endblock pageContentHeader2 %}
 
-  <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Amborisa</b></h1>
-    <h1 class="w3-xxxlarge w3-text-green"><b>Factory Outlet</b></h1>
-	<h3><b>Add tea packets</b></h3>
-	<hr style="width:50px;border:5px solid #64ff33" class="w3-round">
-  </div>
-  <!-- form -->
+{% block viewteabtn %}ClassActive{% endblock viewteabtn %}
+
+{% block content %}
+
+<!-- form -->
   <br>
+    <form method="post" action="{% url 'updatepackets' %}">
+    {% csrf_token %}
+
+        <input type="hidden" name="pktid" value="{{ PID }}">
+
 	<div class="form-group">
 		<label for="email">Date:</label>
-		<form action="/action_page.php">
-	<input type="date" id="date" name="date" class="form-control">
-</form>
+        {{ pForm.date }}
 	</div>
 	<br>
 	<div class="form-group">
 		<label for="email">category:</label>
-		<select id="category" class="form-control" name="category" placeholder="Enter category weight">
-			<option value="bopf">BOPF</option>
-			<option value="dust1">DUST 1</option>
-			<option value="dust2">DUST 2</option>
-			<option value="fgs">FGS</option>
-		</select>
+		{{ pForm.category }}
 	</div>
 	<br>
 	<div class="form-group">
 		<label for="email">Category Weight:</label>
-		<select id="catweight" class="form-control" name="category weight" placeholder="Enter category weight" required="required">
-			<option value="1kg">1Kg</option>
-			<option value="500g">500g</option>
-			<option value="400g">400g</option>
-			<option value="250g">250g</option>
-			<option value="250g">200g</option>
-		</select>
+		{{ pForm.weight }}
 	</div>
 	<br><br>
 		<div class="form-group">
 		<label for="email">Number of packets:</label>
-		<input type="number" class="form-control" id="number" placeholder="Enter number of packets" name="number of packets">
+		{{ pForm.noOfPackets }}
 	</div>
 	<br>
 	<div class="form-group">
-		<center>
-			<form action = "{% url 'addteapackets' %}"><input type="submit" class="btn btn-success" value="SAVE"></form>
-		</center>
+        <input type="submit" class="btn1" value="SAVE">
 	</div>
 	<br>
-
+</form>
 <!-- End page content -->
-</div>
-
-
-<!-- W3.CSS Container -->
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"> <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity"></a></p></div>
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
- 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-</script>
-
-</body>
-</html>
+{% endblock content %}

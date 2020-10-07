@@ -1,0 +1,137 @@
+{% extends 'Base.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
+
+
+<!-------------------------Styles------------------------->
+{% block headStyles %}
+
+
+
+    {% block moreStyles %}
+
+<style>
+
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.btn1 {
+ border-radius: 12px;
+ padding: 8px 10px;
+ border: none;
+color: white;
+  background-color: green;
+   transition-duration: 0.4s;
+}
+
+
+.btn1:hover {
+  background-color: #000000;
+  color: white;
+}
+.btn2 {
+ border-radius: 12px;
+ padding: 8px 10px;
+color: white;
+ border: none;
+  background-color: darkred;
+   transition-duration: 0.4s;
+}
+
+
+.btn2:hover {
+  background-color: #000000;
+  color: white;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 100px;
+  align: center;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 30px 2px;
+  cursor: pointer;
+}
+.button3 {border-radius: 8px;}
+    {% endblock moreStyles %}
+
+
+<!-------------------------Body Display Message------------------------->
+{% block displayMessage %}
+    dislay messages
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+
+{% endblock displayMessage %}
+
+.ClassActive {
+    background-color: #8db8e0;
+}
+
+  </style>
+{% endblock headStyles %}
+
+
+<!-------------------------Body Menue------------------------->
+{% block LinksMenuBar %}
+
+  <div class="w3-bar-block">
+
+{#    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block dailyProductionBtn %}{% endblock dailyProductionBtn %}">Daily Production</a>#}
+    <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block homebtn %}{% endblock homebtn %}">Home</a>
+    <a href="{% url 'addteapackets' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block addteabtn %}{% endblock addteabtn %}">Add tea packets</a>
+    <a href="{% url 'viewpackets' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block viewteabtn %}{% endblock viewteabtn %}">View Tea Packets</a>
+    <a href="{% url 'preorderlevel' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block levelbtn %}{% endblock levelbtn %}">Pre-order Level</a>
+    <a href="{% url 'inventoryreports' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block reportbtn %}{% endblock reportbtn %}">Reports</a>
+  </div>
+
+{% endblock LinksMenuBar %}
+
+
+<!-------------------------Page Content Header------------------------->
+
+{% block pageContentHeader %}
+
+  <!------------------------------------- Header ----------------------------->
+
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>{% block pageContentHeader1 %}{% endblock pageContentHeader1 %}</b></h1>
+    <h1 class="w3-xxxlarge w3-text-green"><b>{% block pageContentHeader2 %}{% endblock pageContentHeader2 %}</b></h1>
+  </div>
+    
+
+{% endblock pageContentHeader %}
+
+
+<!----------------------------------Main Content------------------------------------------->
+<!----------------------------------------------------------------------------------------->
+
+{#{% block content %}#}
+{#    #}
+{#{% endblock content %}#}
+
+<!----------------------------------------------------------------------------------------->
