@@ -29,6 +29,7 @@ urlpatterns = [
     path('Shop/InventoryHome/preorderlevel/editlevel', views.editlevel, name="editlevel"),
     # path('Shop/InventoryHome/preorderlevel/updatelevel', views.updatelevel, name="updatelevel"),
     # path('Shop/InventoryHome/preorderlevel/deletelevel', views.deletelevel, name="deletelevel"),
+#
 
     path('Shop/InventoryHome/inventoryreports', views.inventoryreports, name="inventoryreports"),
     path('Shop/InventoryHome/inventoryreports/weeklyreport', views.iweekly, name="iweekly"),
