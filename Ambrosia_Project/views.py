@@ -296,6 +296,11 @@ def preorderlevel(request):
 
 
 @login_required(login_url='login')
+def availableStock (request):
+    return render(request, 'availbleStock.html')
+
+
+@login_required(login_url='login')
 def addlevel (request):
 
     formAdd = PreOrderLevelForm()
@@ -310,7 +315,9 @@ def addlevel (request):
             except Exception as e:
                 print(e)
                 pass
-
+        else:
+            messages.success(request, 'Already Exist...  ')
+            return redirect('preorderlevel')
     #aasign all objects
     array = preorder.objects.all()
 

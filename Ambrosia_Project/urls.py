@@ -24,6 +24,8 @@ urlpatterns = [
     path('Shop/InventoryHome/addteapackets/deletepackets', views.deletepackets, name="deletepackets"),
     path('Shop/InventoryHome/viewpackets', views.viewpackets, name="viewpackets"),
 
+    path('Shop/InventoryHome/availableStock', views.availableStock, name="availableStock"),
+
     path('Shop/InventoryHome/preorderlevel', views.preorderlevel, name="preorderlevel"),
     path('Shop/InventoryHome/preorderlevel/addlevel', views.addlevel, name="addlevel"),
     path('Shop/InventoryHome/preorderlevel/editlevel', views.editlevel, name="editlevel"),

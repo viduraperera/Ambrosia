@@ -51,10 +51,10 @@ class categoryProduct(models.Model):
 
 class addPackets(models.Model):
     CATEGORY = (
-        ('bopf', 'BOPF'),
-        ('dust1', 'DUST 1'),
-        ('dust2', 'DUST 2'),
-        ('fgs', 'FGS'),
+        ('BOPF', 'BOPF'),
+        ('DUST1', 'DUST 1'),
+        ('DUST2', 'DUST 2'),
+        ('FGS', 'FGS'),
     )
     WEIGHT = (
         ('1kg', '1Kg'),
@@ -68,13 +68,23 @@ class addPackets(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY)
     weight = models.CharField(max_length=10, choices=WEIGHT)
 
+class stock(models.Model):
+    class Meta:
+        unique_together = (('category', 'weight'),)
+
+    category = models.CharField(max_length=10)
+    weight = models.CharField(max_length=10)
+    available_stock = models.IntegerField()
 
 class preorder(models.Model):
+    class Meta:
+        unique_together = (('category', 'weight'),)
+
     CATEGORY = (
-        ('bopf', 'BOPF'),
-        ('dust1', 'DUST 1'),
-        ('dust2', 'DUST 2'),
-        ('fgs', 'FGS'),
+        ('BOPF', 'BOPF'),
+        ('DUST1', 'DUST 1'),
+        ('DUST2', 'DUST 2'),
+        ('FGS', 'FGS'),
     )
     WEIGHT = (
         ('1kg', '1Kg'),

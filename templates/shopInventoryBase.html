@@ -105,6 +105,7 @@ color: white;
     <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block homebtn %}{% endblock homebtn %}">Home</a>
     <a href="{% url 'addteapackets' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block addteabtn %}{% endblock addteabtn %}">Add tea packets</a>
     <a href="{% url 'viewpackets' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block viewteabtn %}{% endblock viewteabtn %}">View Tea Packets</a>
+  <a href="{% url 'availableStock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block stockbtn %}{% endblock stockbtn %}">Available Stock</a>
     <a href="{% url 'preorderlevel' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block levelbtn %}{% endblock levelbtn %}">Pre-order Level</a>
     <a href="{% url 'inventoryreports' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block reportbtn %}{% endblock reportbtn %}">Reports</a>
   </div>
