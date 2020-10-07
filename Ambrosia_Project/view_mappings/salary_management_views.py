@@ -168,6 +168,21 @@ def emp_salary_single_view(request):
         else:
             emp_employee = Employee.objects.get(id=emp_id)
             all_cals = salary_cal(year, month, emp_id)
-            return render(request, 'emp_salary_single_view.html', {'emp_employee': emp_employee, 'all_cals': all_cals})
+            var = {
+                'emp_employee': emp_employee,
+                'all_cals': all_cals,
+                'year': year,
+                'month': month,
+            }
+
+            return render(request, 'emp_salary_single_view.html', var)
 
 
+@login_required(login_url='login')
+def emp_add_salary_view(request):
+
+    if request.method == "POST":
+        year = request.POST.get("year")
+        
+
+    return None

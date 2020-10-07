@@ -22,8 +22,3 @@ class AllowanceForm(forms.ModelForm):
         fields = '__all__'
 
 
-class EmployeeSalaryMonthFrom(forms.ModelForm):
-    class Meta:
-        model = EmployeeSalaryMonth
-        fields = '__all__'
-

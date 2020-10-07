@@ -28,8 +28,7 @@ urlpatterns = [
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
     path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
-    path('Factory/LeafInventory/PreviousInventories', views.NavigateToPrevInv, name="NavigateToPreInv"),
-    path('Factory/LeafInventory/PreviousInventories/UpdateInvenories', views.NavigateToUpdateInv, name="NavigateToUpdateInv"),
+
 
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),

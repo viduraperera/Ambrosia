@@ -431,18 +431,12 @@ def NavigateToProduction(request):
     return render(request, 'Add_daily_product.html')
 
 
-@login_required(login_url='login')
-def NavigateToCustomDailyProd(request):
-    return render(request, 'View_Daily_production.html')
 
 
-@login_required(login_url='login')
-def NavigateToCurrentProduct(request):
-    return render(request, 'Current_product.html')
 
 
-@login_required(login_url='login')
-def NavigateToUpdateProduct(request):
-    return render(request, 'Update_daily_product.html')
+
+
+
 
 

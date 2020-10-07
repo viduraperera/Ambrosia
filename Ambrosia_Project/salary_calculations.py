@@ -16,7 +16,7 @@ def salary_cal(year, month, emp_id):
 
     # monthly attendence calculations
 
-    monthly_attendence = attendance.objects.filter(nic=emp_id, date__month=month, date__year=year, attendaceStatus='Present')
+    monthly_attendence = attendance.objects.filter(empID=emp_id, date__month=month, date__year=year, attendaceStatus='Present')
 
     for att in monthly_attendence:
 

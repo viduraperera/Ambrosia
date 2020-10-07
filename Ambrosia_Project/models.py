@@ -63,15 +63,10 @@ class attendance(models.Model):
     date = models.DateField(null=True, blank=True)
     daytype = models.CharField(max_length=20, choices=DAYTYPE)
     attendaceStatus = models.CharField(max_length=50, choices=STATUS)
-    # delete the working days
-    workingDays = models.IntegerField()
-    # change the nic to id
-    nic = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
+    empID = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
 
 
 class Funds(models.Model):
-    # delete the date in funds
-    date = models.DateField(default=datetime.now)
     emp_etf = models.FloatField()
     epf_employee = models.FloatField()
     epf_employer = models.FloatField()
@@ -89,19 +84,21 @@ class Allowance(models.Model):
         db_table = "allowance"
 
 
-class EmployeeSalaryMonth(models.Model):
-    year = models.DateTimeField(auto_now_add=True)
-    month = models.DateTimeField(auto_now_add=True)
-
-    def salary_year(self):
-        return self.year.strftime('%Y')
-
-    def salary_month(self):
-        return self.month.strftime('%B')
+class EmployeeSalary(models.Model):
+    emp_id = models.IntegerField()
+    attendance_on_month = models.FloatField()
+    year = models.CharField(max_length=4)
+    month = models.CharField(max_length=20)
+    basic_salary_of_day = models.FloatField()
+    basic_salary_of_month = models.FloatField()
+    etf_of_month = models.FloatField()
+    epf_employee_month = models.FloatField()
+    epf_employer_month = models.FloatField()
+    total_salary = models.FloatField(null=True)
+    remaining_salary = models.FloatField(null=True)
 
     class Meta:
-        db_table = 'employee_salary_month'
-
+        db_table = 'Employee_salary'
 
 
 
