@@ -1,107 +1,74 @@
+import datetime
+from datetime import *
+from datetime import datetime
+from django.core.validators import RegexValidator
 from django.db import models
 
 
-class Broker(models.Model):
-    name = models.CharField(max_length=50)
-    address = models.TextField(null=True)
-    phone = models.CharField(max_length=10, null=True)
+#transport
+#
+# class Oil_Stock(models.Model):
+#     Amount = models.FloatField()
+#     Date = models.DateField(default= datetime.now)
 
 
-class Buyer(models.Model):
-    vat_regno = models.CharField(max_length=30)
-    name = models.CharField(max_length=50)
+class Driver(models.Model):
+    licence_no = models.CharField(max_length=10)
+    epfNo = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.licence_no
 
 
-class packetType(models.Model):
-    WEIGHT = (
-        ('1kg', '1Kg'),
-        ('500g', '500g'),
-        ('400g', '400g'),
-        ('250g', '250g'),
-        ('200g', '200g'),
-    )
-    packet_weight_id = models.CharField(max_length=10)
-    weight = models.CharField(max_length=10, choices=WEIGHT)
+class Vehicle(models.Model):
+    VehicleNo = models.CharField(max_length=20, unique=True)
+    status = models.CharField(max_length=20)
+    Driverid = models.ForeignKey(Driver, on_delete=models.CASCADE, null=True)
 
-    #class Meta:
-    #    db_table = 'packetType'
+    def __str__(self):
+        return self.VehicleNo
 
 
-class teaCategory(models.Model):
-    CATEGORY = (
-        ('bopf', 'BOPF'),
-        ('dust1', 'DUST 1'),
-        ('dust2', 'DUST 2'),
-        ('fgs', 'FGS'),
-    )
+class Driving_Records(models.Model):
+    Date = models.DateField(default=datetime.now)
+    Start_Reading = models.CharField(max_length=20, validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='Start date must contain only numbers',
+            code='Start date is invalid'
+        )
+    ])
 
-    category_id = models.CharField(max_length=10)
-    description = models.CharField(max_length=10, choices=CATEGORY)
+    End_Reading = models.CharField(max_length=20,validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='End date must contain only numbers',
+            code='End date is invalid'
+        )
+    ])
+    Meter_Difference = models.IntegerField(blank=True)
+    VehicleNo = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True)
 
-    #class Meta:
-     #   db_table = 'teaCategory'
-
-
-class categoryProduct(models.Model):
-    cp_id = models.CharField(max_length=10)
-    price = models.FloatField()
-    category_id = models.ForeignKey(teaCategory, on_delete=models.CASCADE, null=True)
-    packet_weight_id = models.ForeignKey(packetType, on_delete=models.CASCADE, null=True)
-
-
-class addPackets(models.Model):
-    CATEGORY = (
-        ('bopf', 'BOPF'),
-        ('dust1', 'DUST 1'),
-        ('dust2', 'DUST 2'),
-        ('fgs', 'FGS'),
-    )
-    WEIGHT = (
-        ('1kg', '1Kg'),
-        ('500g', '500g'),
-        ('400g', '400g'),
-        ('250g', '250g'),
-        ('200g', '200g'),
-    )
-    date = models.DateField()
-    noOfPackets = models.IntegerField()
-    category = models.CharField(max_length=10, choices=CATEGORY)
-    weight = models.CharField(max_length=10, choices=WEIGHT)
-
-
-class preorder(models.Model):
-    CATEGORY = (
-        ('bopf', 'BOPF'),
-        ('dust1', 'DUST 1'),
-        ('dust2', 'DUST 2'),
-        ('fgs', 'FGS'),
-    )
-    WEIGHT = (
-        ('1kg', '1Kg'),
-        ('500g', '500g'),
-        ('400g', '400g'),
-        ('250g', '250g'),
-        ('200g', '200g'),
-    )
-    category = models.CharField(max_length=10, choices=CATEGORY)
-    weight = models.CharField(max_length=10, choices=WEIGHT)
-    preorder_level = models.IntegerField()
+#
+#
+# class Oil(models.Model):
+#     Container_No = models.IntegerField()
+#     OilType = (
+#         ('D','Diesel'),
+#         ('O','Oil'),
+#
+#     )
+#     Consumed_Amount = models.FloatField(null=True)
+#     Price = models.FloatField(null=True)
+#     type = models.CharField(max_length=10, choices=OilType)
+#     VehicleNo = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True)
+#
+#
+class Services(models.Model):
+    Bill_No = models.CharField(max_length=10)
+    Description = models.TextField()
+    Service_Date = models.DateField(default=datetime.now)
+    VehicleNo = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True)
+    Amount = models.FloatField()
 
 
-class Accumulate(models.Model):
-    noOf_Packets = models.IntegerField()
-    cp_id = models.ForeignKey(categoryProduct, on_delete=models.CASCADE, null=True)
-
-
-class Packet_stock(models.Model):
-    product_ID = models.CharField(max_length=10)
-    no_ofPackets = models.IntegerField()
-    date = models.DateField()
-    cp_id = models.ForeignKey(categoryProduct, on_delete=models.CASCADE, null=True)
-
-
-class Sales_Transactions(models.Model):
-    noOfPackets = models.IntegerField()
-    total_Price = models.FloatField()
-    cp_id = models.ForeignKey(categoryProduct, on_delete=models.CASCADE, null=True)
-    product_ID = models.ForeignKey(Packet_stock, on_delete=models.CASCADE, null=True)

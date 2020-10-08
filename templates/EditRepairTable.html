@@ -1,0 +1,146 @@
+{% extends 'transportationBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Transportation Management{% endblock title %}
+
+<!-------------------------Styles------------------------->
+    {% block moreStyles %}
+
+
+table
+    {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th
+    {
+      border: 1px solid #dddddd;
+      text-align: center;
+      font-size: 15px;
+      padding: 18px;
+      background: #fff9d2;
+    }
+
+    td
+    {
+      border: 1px solid #e7e5e5;
+      text-align: left;
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    tr:nth-child(even)
+    {
+      background-color: #eae9e7;
+    }
+
+  .btn {
+    background-color: #34b006;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+   .btn:hover {
+  background-color: #000000;
+  color: #77fd01;
+}
+    .btn1 {
+    background-color: #fd4201;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+
+}
+
+   .btn1:hover {
+  background-color: #000000;
+  color: #fd4201;
+}
+
+
+.regButton {
+    background-color: #4caf50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+
+    {% endblock moreStyles %}
+
+ {% block repairsBtn %}ClassActive{% endblock repairsBtn %}
+
+{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Update Repairs{% endblock pageContentHeader2 %}
+
+
+     {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
+     {% block OilMenu %}{% endblock OilMenu %}
+
+{% block repairTableBtn %}ClassActive1{% endblock repairTableBtn %}
+
+{% block content %}
+    <br><br>
+
+
+  <!--Update Vehicle Repairs Form-->
+  <div style="padding-left: 20px;">
+    <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+
+        <form action="{% url 'update_repair_records' %}" method="post">
+
+            {% csrf_token %}
+
+              <input type = "hidden" name="repairID" value="{{ ReId }}"/>
+
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="billno" style="font-size: 20px;">Bill No:</label></td>
+      <td>&emsp;{{ REform.Bill_No }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></td>
+      <td>&emsp;{{ REform.VehicleNo }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="description" style="font-size: 20px;">Description:</label></td>
+      <td>&emsp;{{ REform.Description }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="servicedate" style="font-size: 20px;">Service Date:</label></td>
+      <td>&emsp;{{ REform.Service_Date }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="amount" style="font-size: 20px;">Amount:</label></td>
+      <td>&emsp;{{ REform.Amount }}</td>
+      </tr>
+
+
+      <tr>
+      <td></td>
+      <td>
+          <input class="regButton" type="submit" value="Update" >
+      </tr>
+
+        </form>
+    </table>
+
+
+  </div>
+
+
+{% endblock content %}

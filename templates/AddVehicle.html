@@ -1,0 +1,171 @@
+{% extends 'transportationBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Transportation Management{% endblock title %}
+
+<!-------------------------Styles------------------------->
+    {% block moreStyles %}
+
+
+    table
+    {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th
+    {
+      border: 1px solid #dddddd;
+      text-align: center;
+      font-size: 15px;
+      padding: 18px;
+      background: #fff9d2;
+    }
+
+    td
+    {
+      border: 1px solid #e7e5e5;
+      text-align: left;
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    tr:nth-child(even)
+    {
+      background-color: #eae9e7;
+    }
+
+  .btn {
+    background-color: #34b006;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+   .btn:hover {
+  background-color: #000000;
+  color: #77fd01;
+}
+    .btn1 {
+    background-color: #fd4201;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+
+}
+
+   .btn1:hover {
+  background-color: #000000;
+  color: #fd4201;
+}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+    {% endblock moreStyles %}
+
+
+ {% block recordsBtn %}ClassActive{% endblock recordsBtn %}
+
+{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Add Vehicle{% endblock pageContentHeader2 %}
+
+
+     {% block RepairMenu %}{% endblock RepairMenu %}
+     {% block OilMenu %}{% endblock OilMenu %}
+
+{% block addVehicleBtn %}ClassActive1{% endblock addVehicleBtn %}
+
+
+{% block content %}
+    <br><br>
+  <!--Add Vehicle Details Form-->
+  <div style="padding-left: 20px;">
+    <table  class="formTable">
+        <form action="{% url 'addVehicle' %}" method="post">
+            {% csrf_token %}
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></td>
+      <td>&emsp;{{ Vform.vehicleForm.VehicleNo }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="status" style="font-size: 20px;">Status:</label></td>
+      <td>&emsp;{{ Vform.vehicleForm.status }}</td>
+      </tr>
+
+      <td style="padding-bottom: 10px;"><label for="status" style="font-size: 20px;">Driver ID:</label></td>
+      <td>&emsp;{{ Vform.vehicleForm.Driverid }}</td>
+      </tr>
+
+
+      <tr>
+      <td></td>
+      <td>
+          <input class="regButton" type="submit" value="ADD" >
+      </tr>
+
+        </form>
+    </table>
+
+
+    <br>
+
+
+{#      vehicle details table#}
+<div>
+       <table>
+              <tr >
+
+                <th > Vehicle No </th>
+                <th> Status</th>
+                <th>Driver ID</th>
+                <th>Delete</th>
+
+              </tr>
+
+            {% for vehicle in AllVehicle %}
+        <tr>
+        <td>{{ vehicle.VehicleNo}} </td>
+        <td>{{ vehicle.Driverid}}</td>
+        <td>{{ vehicle.status}}</td>
+
+
+
+         <form method="post" action=" {% url 'delete_record' %}">
+                    {% csrf_token %}
+             <input type = "hidden" name="id" value="{{ vehicle.id }}"/>
+            <td><input type="submit" class = "btn" value="Delete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return }"
+></td>
+
+         </form>
+
+        </tr>
+        {% endfor %}
+
+        </tr>
+
+
+    </table>
+
+</div>
+
+
+
+  </div>
+
+{% endblock content %}
+
+

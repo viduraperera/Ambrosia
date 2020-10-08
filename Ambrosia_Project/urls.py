@@ -16,25 +16,35 @@ urlpatterns = [
 
     path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
 
-    path('Shop/InventoryHome', views.inventoryhome, name="inventoryhome"),
 
-    path('Shop/InventoryHome/addteapackets', views.addteapackets, name="addteapackets"),
-    path('Shop/InventoryHome/addteapackets/editpackets', views.editpackets, name="editpackets"),
-    path('Shop/InventoryHome/addteapackets/Updatepackets', views.updatePackets, name="updatepackets"),
-    path('Shop/InventoryHome/addteapackets/deletepackets', views.deletepackets, name="deletepackets"),
-    path('Shop/InventoryHome/viewpackets', views.viewpackets, name="viewpackets"),
+    # transport management
 
-    path('Shop/InventoryHome/preorderlevel', views.preorderlevel, name="preorderlevel"),
-    path('Shop/InventoryHome/preorderlevel/addlevel', views.addlevel, name="addlevel"),
-    path('Shop/InventoryHome/preorderlevel/editlevel', views.editlevel, name="editlevel"),
-    # path('Shop/InventoryHome/preorderlevel/updatelevel', views.updatelevel, name="updatelevel"),
-    # path('Shop/InventoryHome/preorderlevel/deletelevel', views.deletelevel, name="deletelevel"),
-#
+    # Driver
+    path('Factory/Transport', views.driver_records, name="Transport"),
+    path('Factory/Transport/UpdateDriver', views.DisplayDriverRecord, name="ShowDriver"),
+    path('Factory/Transport/DeleteDriverRecords', views.deleteDriverRecord, name="delete_Driver_record"),
+    path('Factory/Transport/Records', views.UpdateDriverRecord, name="update_Driver_record"),
 
-    path('Shop/InventoryHome/inventoryreports', views.inventoryreports, name="inventoryreports"),
-    path('Shop/InventoryHome/inventoryreports/weeklyreport', views.iweekly, name="iweekly"),
-    path('Shop/InventoryHome/inventoryreports/inventorymonthlyreport', views.inventorymonthlyreport, name="monthlyreport"),
-    path('Shop/InventoryHome/inventoryreports/inventoryannualreport', views.inventoryannualreport, name="annualreport"),
+    # Vehicle
+    path('Factory/Transport/AddVehicle', views.Vehicle_Records, name="addVehicle"),
+    path('Factory/Transport/DeleteVehicleRecords', views.deleteVehicleRecord, name="delete_record"),
+
+    #Driving records
+    path('Factory/Transport/DrivingRecords', views.DrivingRecords, name="vehicle_records"),
+    path('Factory/Transport/ShowRecords', views.ShowDrivingRecords, name="RecordTable"),
+    path('Factory/Transport/DeleteRecords', views.deleteRecords, name="delete_driving_records"),
+
+
+    #vehicle repairs
+    path('Factory/Transport/VehicleRepairs', views.AddVehicleRepairs, name="VehicleRepairs"),
+    path('Factory/Transport/ShowVehicleRepairs', views.ShowVehicleRepairs, name="RepairTable"),
+    path('Factory/Transport/EditVehicleRepairs', views.DisplayUpdateRepairs, name="show_repair_records"),
+
+    path('Factory/Transport/UpdateVehicleRepairs', views.UpdateVehicleRepairs, name="update_repair_records"),
+    path('Factory/Transport/deleteVehicleRepairs', views.delete_RepairRecords, name="delete_repair_records"),
+
 
 ]
+
+
 

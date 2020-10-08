@@ -1,0 +1,146 @@
+{% extends 'transportationBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Transportation Management{% endblock title %}
+
+<!-------------------------Styles------------------------->
+    {% block moreStyles %}
+
+
+    table
+    {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th
+    {
+      border: 1px solid #dddddd;
+      text-align: center;
+      font-size: 15px;
+      padding: 18px;
+      background: #fff9d2;
+    }
+
+    td
+    {
+      border: 1px solid #e7e5e5;
+      text-align: left;
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    tr:nth-child(even)
+    {
+      background-color: #eae9e7;
+    }
+
+  .btn {
+    background-color: #34b006;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+   .btn:hover {
+  background-color: #000000;
+  color: #77fd01;
+}
+    .btn1 {
+    background-color: #fd4201;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+
+}
+
+   .btn1:hover {
+  background-color: #000000;
+  color: #fd4201;
+}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+    {% endblock moreStyles %}
+
+
+ {% block recordsBtn %}ClassActive{% endblock recordsBtn %}
+
+{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Vehicle Records Table{% endblock pageContentHeader2 %}
+
+
+     {% block RepairMenu %}{% endblock RepairMenu %}
+     {% block OilMenu %}{% endblock OilMenu %}
+
+{% block recordTableBtn %}ClassActive1{% endblock recordTableBtn %}
+
+
+{% block content %}
+<br><br>
+<div>
+       <table>
+              <tr >
+                 <th>ID</th>
+                <th>Vehicle No</th>
+                <th>Date</th>
+                <th>Start Readings </th>
+                <th>End Readings</th>
+                <th>Meter Difference</th>
+                <th>Delete</th>
+
+
+
+            {% for record in records %}
+
+        <tr>
+        <td>{{ record.id }}</td>
+        <td>{{ record.VehicleNo}}</td>
+        <td>{{ record.Date}} </td>
+        <td>{{ record.Start_Reading}}</td>
+        <td>{{ record.End_Reading}}</td>
+        <td>{{ record.Meter_Difference }}</td>
+
+
+
+         <form method="post" action=" {% url 'delete_driving_records' %}">
+                    {% csrf_token %}
+             <input type = "hidden" name="id" value="{{ record.id }}"/>
+            <td><input type="submit" class = "btn" value="Delete"></td>
+
+         </form>
+
+
+{#         <form method="post" action=" {% url 'view_driving_records' %}">#}
+{#                    {% csrf_token %}#}
+{#             <input type = "hidden" name="id" value="{{ record.id }}"/>#}
+{#            <td><input type="submit" class = "btn" value="View"></td>#}
+{##}
+{#         </form>#}
+
+
+
+        </tr>
+        {% endfor %}
+
+
+       </table>
+
+
+  </div>
+
+
+{% endblock content %}

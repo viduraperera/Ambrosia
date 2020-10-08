@@ -1,0 +1,144 @@
+{#{% extends 'transportationBase.html' %}#}
+{##}
+{#<!-------------------------Title------------------------->#}
+{#{% block title %}Transportation Management{% endblock title %}#}
+{##}
+{#<!-------------------------Styles------------------------->#}
+{#    {% block moreStyles %}#}
+{##}
+{##}
+{#table#}
+{#    {#}
+{#      font-family: arial, sans-serif;#}
+{#      border-collapse: collapse;#}
+{#      width: 100%;#}
+{#    }#}
+{##}
+{#    th#}
+{#    {#}
+{#      border: 1px solid #dddddd;#}
+{#      text-align: center;#}
+{#      font-size: 15px;#}
+{#      padding: 18px;#}
+{#      background: #fff9d2;#}
+{#    }#}
+{##}
+{#    td#}
+{#    {#}
+{#      border: 1px solid #e7e5e5;#}
+{#      text-align: left;#}
+{#      font-size: 20px;#}
+{#      padding: 15px;#}
+{#    }#}
+{##}
+{#    tr:nth-child(even)#}
+{#    {#}
+{#      background-color: #eae9e7;#}
+{#    }#}
+{##}
+{#  .btn {#}
+{#    background-color: #34b006;#}
+{#    border-radius: 12px;#}
+{#    padding: 8px 10px;#}
+{#    border: none;#}
+{#    transition-duration: 0.4s;#}
+{#}#}
+{##}
+{#   .btn:hover {#}
+{#  background-color: #000000;#}
+{#  color: #77fd01;#}
+{#}#}
+{#    .btn1 {#}
+{#    background-color: #fd4201;#}
+{#    border-radius: 12px;#}
+{#    padding: 8px 10px;#}
+{#    border: none;#}
+{#    transition-duration: 0.4s;#}
+{##}
+{#}#}
+{##}
+{#   .btn1:hover {#}
+{#  background-color: #000000;#}
+{#  color: #fd4201;#}
+{#}#}
+{##}
+{##}
+{#.regButton {#}
+{#    background-color: #4caf50; /* Green */#}
+{#    border: none;#}
+{#    color: white;#}
+{#    padding: 8px 22px;#}
+{#    text-align: center;#}
+{#    text-decoration: none;#}
+{#    font-size: 16px;#}
+{#    margin: 4px 2px;#}
+{#    cursor: pointer;#}
+{#  }#}
+{##}
+{##}
+{#    {% endblock moreStyles %}#}
+{##}
+{# {% block recordsBtn %}ClassActive{% endblock recordsBtn %}#}
+{##}
+{#{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}#}
+{#{% block pageContentHeader2 %}Update Records{% endblock pageContentHeader2 %}#}
+{##}
+{##}
+{#     {% block RepairMenu %}{% endblock RepairMenu %}#}
+{#     {% block OilMenu %}{% endblock OilMenu %}#}
+{##}
+{#{% block vehicleRecordBtn %}ClassActive1{% endblock vehicleRecordBtn %}#}
+{##}
+{#{% block content %}#}
+{#    <br><br>#}
+{##}
+{##}
+{#  <!--Update Vehicle Records Form-->#}
+{#  <div style="padding-left: 20px;">#}
+{#    <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">#}
+{##}
+{#        <form action="{% url 'update_driving_record' %}" method="post">#}
+{##}
+{#            {% csrf_token %}#}
+{##}
+{#         <input type = "hidden" name="RID" value="{{ RId }}"/>#}
+{##}
+{#      <tr>#}
+{#      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;"> Date:</label></td>#}
+{#           <td> {{ Rform.Date }}</td>#}
+{##}
+{#      </tr>#}
+{##}
+{#      <tr>#}
+{#      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">Start Reading:</label></td>#}
+{#          <td>{{ Rform.Start_Reading }}</td>#}
+{##}
+{#      </tr>#}
+{#              <tr>#}
+{#      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">End Reading:</label></td>#}
+{#            <td>{{ Rform.End_Reading }}</td>#}
+{##}
+{#      </tr>#}
+{#              <tr>#}
+{#      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">Vehicle No:</label></td>#}
+{#            <td>{{ Rform.VehicleNo }}</td>#}
+{##}
+{#      </tr>#}
+{##}
+{#      <tr>#}
+{#      <td></td>#}
+{#      <td>#}
+{##}
+{#          <input class="regButton" type="submit" value="Update" >#}
+{##}
+{#      </tr>#}
+{##}
+{#        </form>#}
+{##}
+{#    </table>#}
+{##}
+{##}
+{#  </div>#}
+{##}
+{##}
+{#{% endblock content %}#}

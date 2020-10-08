@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from Ambrosia_Project.forms import CreateUserForm, AddTeaPacketsForm, PreOrderLevelForm
+from Ambrosia_Project.forms import *
+from Ambrosia_Project.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+
 # Create your views here.
-from Ambrosia_Project.models import addPackets, preorder
 
 
 @login_required(login_url='login')
@@ -146,195 +147,116 @@ def DeleteUser(request):
     # return redirect('view_all_users')
 
 
+
+
+
+#transport management
+#add vehicle
 @login_required(login_url='login')
-def inventoryhome (request):
-    return render(request, 'inventoryhome.html')
+def Vehicle_Records(request):
 
-
-@login_required(login_url='login')
-def addteapackets (request):
-    return render(request, 'addteapackets.html')
-
-
-@login_required(login_url='login')
-def inventoryreports (request):
-    return render(request, 'inventoryreports.html')
-
-
-@login_required(login_url='login')
-def iweekly (request):
-    return render(request, 'iweekly.html')
-
-
-@login_required(login_url='login')
-def inventorymonthlyreport (request):
-    return render(request, 'inventorymonthlyreport.html')
-
-
-@login_required(login_url='login')
-def inventoryannualreport (request):
-    return render(request, 'inventoryannualreport.html')
-
-
-@login_required(login_url='login')
-def viewpackets(request):
-
-    packets = addPackets.objects.all()
-
-    return render(request, 'viewpackets.html', {'Packets': packets})
-
-
-@login_required(login_url='login')
-def addteapackets (request):
-
-    formA = AddTeaPacketsForm()
+    form = AddVehicle()
 
     if request.method == 'POST':
 
-        formA = AddTeaPacketsForm(request.POST)
-
-        if formA.is_valid():
-            try:
-                formA.save()
-                messages.success(request, 'Successfullly added')
-                return redirect('viewpackets')
-            except Exception as e:
-                #pass
-                print(e)
-                messages.success(request, 'Exception:'+e)
-                # return redirect('viewpackets')
-        else:
-            # form method is not valid
-            # print(formA.errors)
-            # messages.success(request, 'Invalid Details')
-            pass
-
-    return render(request, 'addteapackets.html', {'form': formA})
-
-
-@login_required(login_url='login')
-def editpackets (request):
-
-    if request.method == 'POST':
-        packetId = request.POST.get('pid')
-
-        if packetId is not None:
-
-            try:
-                packet = addPackets.objects.get(pk=packetId)
-                form = AddTeaPacketsForm(instance=packet)
-
-                return render(request, 'editpackets.html', {'pForm': form, 'PID': packetId})
-
-            except Exception as e:
-                print(e)
-
-        else:
-            pass
-
-    return render(request, 'viewpackets.html')
-
-
-@login_required(login_url='login')
-def updatePackets(request):
-
-    if request.method == 'POST':
-        pktId = request.POST.get('pktid')
-
-        if pktId is not None:
-            packet = addPackets.objects.get(pk=pktId)
-            pform = AddTeaPacketsForm(request.POST, instance=packet)
-
-            if pform.is_valid():
-                pform.save()
-                messages.success(request, 'Edited Successfully')
-                return redirect('viewpackets')
-
-            else:
-                #invalid
-                return render(request, 'editpackets.html', {'pForm': pform, 'PID': pktId})
-
-        else:
-            pass
-
-    return render(request, 'viewpackets.html')
-
-
-@login_required(login_url='login')
-def deletepackets(request):
-    packetsid = request.POST.get('deleteid')
-
-    if request.method == 'POST' and packetsid is not None:
-        packets = addPackets.objects.get(id=packetsid)
-        packets.delete()
-        messages.success(request, 'Deleted Successfully')
-    return redirect('viewpackets')
-
-
-@login_required(login_url='login')
-def preorderlevel(request):
-
-    all = preorder.objects.all()
-    bopf = all.filter(category='BOPF')
-    dust1 = all.filter(category='DUST 1')
-    dust2 = all.filter(category='DUST 2')
-    fgs = all.filter(category='FGS')
-
-    form = PreOrderLevelForm()
-
-    var = {
-        'Bopf': bopf,
-        'DUST1': dust1,
-        'DUST2': dust2,
-        'FGS': fgs,
-        'formA': form
-    }
-
-
-
-    return render(request, 'preorderlevel.html', var)
-
-
-@login_required(login_url='login')
-def addlevel (request):
-
-    formAdd = PreOrderLevelForm()
-
-    if request.method == 'POST':
-        form = PreOrderLevelForm(request.POST)
+        form = AddVehicle(request.POST)
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, 'Added Successfully')
-                return redirect('preorderlevel')
+                return redirect('addVehicle')
             except Exception as e:
                 print(e)
                 pass
 
-    #aasign all objects
-    array = preorder.objects.all()
+    #assign all vehicle objects
+    array = Vehicle.objects.all()
 
-    #aasign form
-    var = {'preordelevelform': form}
-
-    alldetails = {'formAdd': var, 'orderlevel':array}
+    #assign form
+    var = {'vehicleForm': form}
 
 
-    return render(request, 'preorderlevel.html', {'formAdd': formAdd})
+    alldetails = {'Vform':var , 'AllVehicle':array }
+
+    return render(request, 'AddVehicle.html', alldetails)
+
+#delete vehicle
+@login_required(login_url='login')
+def deleteVehicleRecord(request):
+
+    id = request.POST.get('id')
+
+    if request.method == 'POST' and id != None:
+        vehicle = Vehicle.objects.get(id=id)
+        vehicle.delete()
+
+    return redirect('addVehicle ')
+
+
+
+#add driver
 
 @login_required(login_url='login')
-def editlevel (request):
+def driver_records(request):
+
+    form = AddDriver()
 
     if request.method == 'POST':
-        levelId = request.POST.get('lid')
 
-        if levelId is not None:
+        form = AddDriver(request.POST)
 
+        if form.is_valid():
             try:
-                level = preorder.objects.get(pk=levelId)
-                form = PreOrderLevelForm(instance=level)
+                # epfno = form.cleaned_data("epfNo")
+                # result = checkEpNo(epfno)
 
-                return render(request, 'preorderlevel.html', {'pForm': form, 'PID': levelId})
+                form.save()
+                messages.success(request, 'Successfully added driver details')
+                return redirect('Transport')
+
+            except Exception as e:
+                print(e)
+                messages.success(request, 'Exception:'+ e)
+
+        else:
+            print(form.errors)
+            messages.success(request, 'Invalid Details')
+
+
+    #assign all vehicle objects
+    array = Driver.objects.all()
+
+    #assign form
+    var = {'driverForm': form}
+
+
+    allDdetails = {'VDform':var , 'AllDriver':array }
+
+    return render(request, 'AddDriver.html', allDdetails)
+
+#delete driver
+@login_required(login_url='login')
+def deleteDriverRecord(request):
+
+    id = request.POST.get('id')
+
+    if request.method == 'POST' and id != None:
+        driver = Driver.objects.get(id=id)
+        driver.delete()
+
+    return redirect('Transport')
+
+#display driver
+@login_required(login_url='login')
+def DisplayDriverRecord(request):
+
+    if request.method == 'POST':
+        id = request.POST.get('Did')
+
+        if id is not None:
+            try:
+                driver = Driver.objects.get(pk=id)
+                driverForm = AddDriver(instance=driver)
+                return render(request, 'UpdateDriver.html', {'Dform': driverForm, 'DId':id } )
 
             except Exception as e:
                 print(e)
@@ -342,38 +264,308 @@ def editlevel (request):
         else:
             pass
 
-    return render(request, 'editlevel.html')
+    else:
+        pass
+
+    return redirect('Transport')
+
+#update driver records
+@login_required(login_url='login')
+def UpdateDriverRecord(request):
+
+    if request.method == 'POST':
+        dID = request.POST.get('DID')
+
+        if dID is not None:
+
+            try:
+                driver = Driver.objects.get(pk=dID)
+                form_update = AddDriver(request.POST, instance=driver)
+
+                if form_update.is_valid():
+                    form_update.save()
+                    return redirect('AddDriver')
+
+                else:
+                    #invalid
+                    pass
+
+            except Exception as e:
+                print(e)
+
+        else:
+            #id not found
+            pass
+
+    return redirect('Transport')
+
+
+
+#add vehicle driving records
+@login_required(login_url='login')
+def DrivingRecords(request):
+
+    form = VehicleRecordsForm()
+    diff = 0
+
+    if request.method == 'POST':
+
+        form = VehicleRecordsForm(request.POST)
+
+        if form.is_valid():
+            try:
+                start = form.cleaned_data['Start_Reading']
+                end = form.cleaned_data['End_Reading']
+                diff = int(end) - int(start)
+
+                if diff > 0:
+
+                    form_mread = form.save(commit=False)
+                    form_mread.Meter_Difference = diff
+
+                    form.save()
+                    messages.success(request, 'Successfully added driver details')
+                    return redirect('RecordTable')
+
+                else:
+                    messages.error(request, 'End reading Number Error')
+
+            except Exception as e:
+                print(e)
+                messages.error(request, 'Exception:' + e)
+
+        else:
+            print(form.errors)
+            messages.error(request, 'Invalid Details')
+
+    # assign form
+    var = {'RecordForm': form}
+
+    return render(request, 'VehicleRecords.html', var)
+
+#show driving records
+@login_required(login_url='login')
+def ShowDrivingRecords(request):
+
+    records = Driving_Records.objects.all()
+
+    return render(request, 'VehicleRecordsTable.html', {'records': records})
+
+
+
+#delete vehicle driving records
+@login_required(login_url='login')
+def deleteRecords(request):
+
+    id = request.POST.get('id')
+
+    if request.method == 'POST' and id != None:
+        record = Driving_Records.objects.get(id=id)
+        record.delete()
+
+    return redirect('RecordTable')
+
+
 
 #
+# #add oil
 # @login_required(login_url='login')
-# def deletelevel(request):
+# def AddFuelLog(request):
+#
+#     form = OilForm()
 #
 #     if request.method == 'POST':
-#         levelId = request.POST.get('lid')
 #
-#         if levelId is not None:
-#             level = preorder.objects.get(pk=levelId)
-#             lform = PreOrderLevelForm(request.POST, instance=level)
+#         form = OilForm(request.POST)
+#         if form.is_valid():
+#             try:
+#                 form.save()
+#                 return redirect('ViewOilTable')
 #
-#             if lform.is_valid():
-#                 lform.save()
-#                 return redirect('viewpackets')
+#             except Exception as e:
+#                 print(e)
+#                 pass
 #
-#             else:
-#                 #invalid
-#                 return render(request, 'preorderlevel.html', {'lform': lform, 'PID': levelId})
 #
-#         else:
-#             pass
+#     #assign form
+#     var = {'OilForm': form}
 #
-#     return render(request, 'preorderlevel.html')
+#     return render(request, 'FuelLog.html', var)
 #
+# #view oil table
 # @login_required(login_url='login')
-# def deletepackets(request):
+# def ShowOil(request):
 #
-#     levelId = request.POST.get('deleteid')
+#     oil = Oil.objects.all()
 #
-#     if request.method == 'POST' and levelId is not None:
-#         level = preorder.objects.get(id=levelId)
-#         level.delete()
-#     return redirect('preorderlevel')
+#     return render(request, 'ViewOilTable.html', {'oil': oil})
+#
+#
+#
+# #delete oil
+# @login_required(login_url='login')
+# def deleteOilRecords(request):
+#
+#     id = request.POST.get('id')
+#
+#     if request.method == 'POST' and id != None:
+#         oil = Oil.objects.get(id=id)
+#         oil.delete()
+#
+#     return redirect('ViewOilTable')
+#
+#
+# #add oil stock
+# @login_required(login_url='login')
+# def AddOil_Stock(request):
+#
+#     form = Oil_StockForm()
+#
+#     if request.method == 'POST':
+#
+#         form = Oil_StockForm(request.POST)
+#         if form.is_valid():
+#             try:
+#                 form.save()
+#                 return redirect('Oil_Stock')
+#             except Exception as e:
+#                 print(e)
+#                 pass
+#
+#     #assign all oil stock objects
+#     array = Oil_Stock.objects.all()
+#
+#     #assign form
+#     var = {'oil_stockForm': form}
+#
+#
+#     alldetails = {'OSform':var , 'AllStock':array }
+#
+#     return render(request, 'Oil_Stock.html', alldetails)
+#
+# #delete oil stock
+# @login_required(login_url='login')
+# def deleteOil_StockRecords(request):
+#
+#     id = request.POST.get('id')
+#
+#     if request.method == 'POST' and id != None:
+#         oil_stock = Oil_Stock.objects.get(id=id)
+#         oil_stock.delete()
+#
+#     return redirect('Oil_Stock')
+
+
+#add vehicle repairs
+@login_required(login_url='login')
+def AddVehicleRepairs(request):
+
+    form = RepairForm()
+
+    if request.method == 'POST':
+
+        form = RepairForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('RepairTable')
+
+            except Exception as e:
+                print(e)
+
+                pass
+
+
+    #assign form
+    var = {'repairForm': form}
+
+    return render(request, 'VehicleRepairs.html', var)
+
+
+@login_required(login_url='login')
+def ShowVehicleRepairs(request):
+
+    repairs = Services.objects.all()
+
+    return render(request, 'RepairTable.html', {'repairs': repairs})
+
+#display repairs
+@login_required(login_url='login')
+def DisplayUpdateRepairs(request):
+
+    if request.method == 'POST':
+
+        id = request.POST.get('ReId')
+
+        if id is not None:
+            try:
+                repair = Services.objects.get(pk=id)
+                rForm = RepairForm(instance=repair)
+                return render(request, 'EditRepairTable.html', {'REform': rForm, 'ReId':id } )
+
+            except Exception as e:
+                print(e)
+
+        else:
+            pass
+
+    else:
+        pass
+
+    return redirect('RepairTable')
+
+
+
+#update vehicle repairs
+@login_required(login_url='login')
+def UpdateVehicleRepairs(request):
+
+
+    if request.method == 'POST':
+        id = request.POST.get('repairID')
+
+        if id is not None:
+
+            try:
+                repair = Services.objects.get(pk=id)
+                form_update = RepairForm(request.POST, instance=repair)
+
+                if form_update.is_valid():
+                    form_update.save()
+
+                else:
+                    #invalid
+                    pass
+
+            except Exception as e:
+                print(e)
+
+        else:
+            #id not found
+            pass
+
+    return redirect('RepairTable')
+
+
+#delete repair details
+@login_required(login_url='login')
+def delete_RepairRecords(request):
+
+    id = request.POST.get('id')
+
+    if request.method == 'POST' and id != None:
+     repair = Services.objects.get(id=id)
+     repair.delete()
+
+    return redirect('RepairTable')
+
+
+
+
+
+
+
+
+
+
+
