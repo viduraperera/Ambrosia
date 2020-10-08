@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from Ambrosia_Project.forms import CreateUserForm, AddTeaPacketsForm, PreOrderLevelForm
+from Ambrosia_Project.forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 # Create your views here.
-from Ambrosia_Project.models import addPackets, preorder
+from Ambrosia_Project.models import *
 
 
 @login_required(login_url='login')
@@ -145,6 +145,9 @@ def DeleteUser(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
+#--------------------------------------------------------------------------------------------
+
+
 
 @login_required(login_url='login')
 def inventoryhome (request):
@@ -152,34 +155,103 @@ def inventoryhome (request):
 
 
 @login_required(login_url='login')
-def addteapackets (request):
-    return render(request, 'addteapackets.html')
+def addCategoryProduct(request):
+
+    form = AddcategoryProductForm()
+
+    if request.method == 'POST':
+
+        form = AddcategoryProductForm(request.POST)
+
+        try:
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Successfully Added")
+                return redirect('addCategoryProduct')
+
+            else:
+                messages.error(request, 'Error Invalid Details')
+
+        except Exception as e:
+            print(e)
+
+    cprod = CategoryProduct.objects.all()
+
+    return render(request, 'addCategoryProduct.html', {'form': form, 'c_products': cprod})
 
 
 @login_required(login_url='login')
-def inventoryreports (request):
-    return render(request, 'inventoryreports.html')
+def viewCategoryProduct(request):
+
+    if request.method == 'POST':
+        cpID = request.POST.get('cpID')
+
+        cat_product = CategoryProduct.objects.get(id=cpID)
+        form = AddcategoryProductForm(instance=cat_product)
+
+        return render(request, 'viewCategoryProduct.html', {'cpForm': form, 'cpID': cpID})
+
+    return redirect('addCategoryProduct')
 
 
 @login_required(login_url='login')
-def iweekly (request):
-    return render(request, 'iweekly.html')
+def updateategoryProduct(request):
+
+    if request.method == 'POST':
+        cpID = request.POST.get('cpID')
+
+        if cpID is not None:
+            try:
+
+                cat_product = CategoryProduct.objects.get(id=cpID)
+                form = AddcategoryProductForm(request.POST, instance=cat_product)
+
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Successfully Updated")
+                    return redirect('addCategoryProduct')
+
+                else:
+                    messages.error(request, "Invalid Details")
+
+            except Exception as e:
+                print(e)
+
+        else:
+            messages.error(request, "CPID is null")
+
+
+    return redirect('addCategoryProduct')
 
 
 @login_required(login_url='login')
-def inventorymonthlyreport (request):
-    return render(request, 'inventorymonthlyreport.html')
+def deleteCategoryProduct(request):
+
+    if request.method == 'POST':
+        prID = request.POST.get('cpID')
+
+        if prID is not None:
+
+            try:
+                produtCat = CategoryProduct.objects.get(id=prID)
+                produtCat.delete()
+                messages.success(request, 'Sucessfully Deleted')
+                return redirect('addCategoryProduct')
+
+            except Exception as e:
+                print(e)
+
+        else:
+            messages.error(request, 'Category Product ID is null')
 
 
-@login_required(login_url='login')
-def inventoryannualreport (request):
-    return render(request, 'inventoryannualreport.html')
+    return redirect('addCategoryProduct')
 
 
 @login_required(login_url='login')
 def viewpackets(request):
 
-    packets = addPackets.objects.all()
+    packets = AddPackets.objects.all()
 
     return render(request, 'viewpackets.html', {'Packets': packets})
 
@@ -221,7 +293,7 @@ def editpackets (request):
         if packetId is not None:
 
             try:
-                packet = addPackets.objects.get(pk=packetId)
+                packet = AddPackets.objects.get(pk=packetId)
                 form = AddTeaPacketsForm(instance=packet)
 
                 return render(request, 'editpackets.html', {'pForm': form, 'PID': packetId})
@@ -242,7 +314,7 @@ def updatePackets(request):
         pktId = request.POST.get('pktid')
 
         if pktId is not None:
-            packet = addPackets.objects.get(pk=pktId)
+            packet = AddPackets.objects.get(pk=pktId)
             pform = AddTeaPacketsForm(request.POST, instance=packet)
 
             if pform.is_valid():
@@ -265,34 +337,11 @@ def deletepackets(request):
     packetsid = request.POST.get('deleteid')
 
     if request.method == 'POST' and packetsid is not None:
-        packets = addPackets.objects.get(id=packetsid)
+        packets = AddPackets.objects.get(id=packetsid)
         packets.delete()
         messages.success(request, 'Deleted Successfully')
     return redirect('viewpackets')
 
-
-@login_required(login_url='login')
-def preorderlevel(request):
-
-    all = preorder.objects.all()
-    bopf = all.filter(category='BOPF')
-    dust1 = all.filter(category='DUST 1')
-    dust2 = all.filter(category='DUST 2')
-    fgs = all.filter(category='FGS')
-
-    form = PreOrderLevelForm()
-
-    var = {
-        'Bopf': bopf,
-        'DUST1': dust1,
-        'DUST2': dust2,
-        'FGS': fgs,
-        'formA': form
-    }
-
-
-
-    return render(request, 'preorderlevel.html', var)
 
 
 @login_required(login_url='login')
@@ -301,86 +350,21 @@ def availableStock (request):
 
 
 @login_required(login_url='login')
-def addlevel (request):
+def inventoryreports (request):
+    return render(request, 'inventoryreports.html')
 
-    formAdd = PreOrderLevelForm()
-
-    if request.method == 'POST':
-        form = PreOrderLevelForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                messages.success(request, 'Added Successfully')
-                return redirect('preorderlevel')
-            except Exception as e:
-                print(e)
-                pass
-        else:
-            messages.success(request, 'Already Exist...  ')
-            return redirect('preorderlevel')
-    #aasign all objects
-    array = preorder.objects.all()
-
-    #aasign form
-    var = {'preordelevelform': form}
-
-    alldetails = {'formAdd': var, 'orderlevel':array}
-
-
-    return render(request, 'preorderlevel.html', {'formAdd': formAdd})
 
 @login_required(login_url='login')
-def editlevel (request):
+def iweekly (request):
+    return render(request, 'iweekly.html')
 
-    if request.method == 'POST':
-        levelId = request.POST.get('lid')
 
-        if levelId is not None:
+@login_required(login_url='login')
+def inventorymonthlyreport (request):
+    return render(request, 'inventorymonthlyreport.html')
 
-            try:
-                level = preorder.objects.get(pk=levelId)
-                form = PreOrderLevelForm(instance=level)
 
-                return render(request, 'preorderlevel.html', {'pForm': form, 'PID': levelId})
+@login_required(login_url='login')
+def inventoryannualreport (request):
+    return render(request, 'inventoryannualreport.html')
 
-            except Exception as e:
-                print(e)
-
-        else:
-            pass
-
-    return render(request, 'editlevel.html')
-
-#
-# @login_required(login_url='login')
-# def deletelevel(request):
-#
-#     if request.method == 'POST':
-#         levelId = request.POST.get('lid')
-#
-#         if levelId is not None:
-#             level = preorder.objects.get(pk=levelId)
-#             lform = PreOrderLevelForm(request.POST, instance=level)
-#
-#             if lform.is_valid():
-#                 lform.save()
-#                 return redirect('viewpackets')
-#
-#             else:
-#                 #invalid
-#                 return render(request, 'preorderlevel.html', {'lform': lform, 'PID': levelId})
-#
-#         else:
-#             pass
-#
-#     return render(request, 'preorderlevel.html')
-#
-# @login_required(login_url='login')
-# def deletepackets(request):
-#
-#     levelId = request.POST.get('deleteid')
-#
-#     if request.method == 'POST' and levelId is not None:
-#         level = preorder.objects.get(id=levelId)
-#         level.delete()
-#     return redirect('preorderlevel')

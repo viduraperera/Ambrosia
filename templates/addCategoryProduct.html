@@ -10,35 +10,31 @@
 
 {% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
 
-{% block pageContentHeader2 %}Pre-order Level{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Category product{% endblock pageContentHeader2 %}
 
 {% block levelbtn %}ClassActive{% endblock levelbtn %}
 
 {% block content %}
   <!-- form -->
   <br>
-    <form method="post" action={% url 'addlevel' %}>
+    <form method="post" action={% url 'addCategoryProduct' %}>
 
         {%  csrf_token %}
 
+    <div class="form-group">
+		<label for="category">Category Product Name: </label>
+		{{ form.cp_name }}
+    </div>
 	<br>
 	<div class="form-group">
-		<label for="category">category: </label>
-		{{ formA.category }}
+		<label for="category">Tea Category: </label>
+		{{ form.category }}
     </div>
 	<br>
 	<div class="form-group">
 		<label for="weight">Category Weight: </label>
-		{{ formA.weight }}
+		{{ form.weight }}
 	</div>
-	<br><br>
-		<div class="form-group">
-		<label for="noofpackets">Pre-order Level: </label>
-
-            {{ formA.preorder_level }}
-	<br>
-            </div>
-
 
 	<div class="form-group">
 
@@ -52,23 +48,31 @@
 <div>
 <table>
   <tr>
+    <th>Category Product Name</th>
     <th>Category</th>
     <th>Weight</th>
-	<th>Pre-Order Level</th>
      <th>Edit/Delete</th>
   </tr>
-    {% for plevel in Bopf %}
+    {% for prod in c_products %}
   <tr>
 
-    <td>{{ plevel.category }}</td>
-    <td>{{ plevel.weight }}</td>
-	<td>{{ plevel.preorder_level }}</td>
+    <td>{{ prod.cp_name }}</td>
+    <td>{{ prod.category }}</td>
+	<td>{{ prod.weight }}</td>
 
       <td>
 
-          <form action = "{% url 'editlevel' %}">
+          <form action = "{% url 'viewCategoryProduct' %}" method="post">
               {% csrf_token %}
+          <input type="hidden" name="cpID" value="{{ prod.id }}">
           <input type="submit" class="btn1" value="Edit">
+          </form>
+
+        <form action = "{% url 'deleteCategoryProduct' %}" method="post">
+              {% csrf_token %}
+          <input type="hidden"  name="cpID" value="{{ prod.id }}" >
+          <input type="submit" class="btn2" value="Delete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+
           </form>
 
       </td>

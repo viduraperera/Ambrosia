@@ -10,23 +10,36 @@
 
 {% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
 
-{% block pageContentHeader2 %}Edit Pre-order Level{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Edit Category Product{% endblock pageContentHeader2 %}
 
 {% block levelbtn %}ClassActive{% endblock levelbtn %}
 
 {% block content %}
     <!-- form -->
     <br>
-    <form method="post" action={% url 'preorderlevel' %}>
+    <form method="post" action="{% url 'updateategoryProduct' %}">
 
         {%  csrf_token %}
 
         <br>
 
-        <input type="hidden" name="pktid" value="{{ PID }}">
+        <input type="hidden" name="cpID" value="{{ cpID }}">
+
         <div class="form-group">
-            <label for="preorder_level">Pre-order Level: </label>
-            {{ pForm.preorder_level }}
+            <label >Category Product Name: </label>
+            {{ cpForm.cp_name }}
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label >Tea Category: </label>
+            {{ cpForm.category }}
+            <br>
+        </div>
+
+        <div class="form-group">
+            <label >Category Weight: </label>
+            {{ cpForm.weight }}
             <br>
         </div>
 

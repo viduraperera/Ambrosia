@@ -18,6 +18,12 @@ urlpatterns = [
 
     path('Shop/InventoryHome', views.inventoryhome, name="inventoryhome"),
 
+    path('Shop/InventoryHome/addCategoryProduct', views.addCategoryProduct, name="addCategoryProduct"),
+    path('Shop/InventoryHome/updateategoryProduct', views.updateategoryProduct, name="updateategoryProduct"),
+    path('Shop/InventoryHome/viewCategoryProduct', views.viewCategoryProduct, name="viewCategoryProduct"),
+    path('Shop/InventoryHome/deleteCategoryProduct', views.deleteCategoryProduct, name="deleteCategoryProduct"),
+
+
     path('Shop/InventoryHome/addteapackets', views.addteapackets, name="addteapackets"),
     path('Shop/InventoryHome/addteapackets/editpackets', views.editpackets, name="editpackets"),
     path('Shop/InventoryHome/addteapackets/Updatepackets', views.updatePackets, name="updatepackets"),
@@ -25,12 +31,6 @@ urlpatterns = [
     path('Shop/InventoryHome/viewpackets', views.viewpackets, name="viewpackets"),
 
     path('Shop/InventoryHome/availableStock', views.availableStock, name="availableStock"),
-
-    path('Shop/InventoryHome/preorderlevel', views.preorderlevel, name="preorderlevel"),
-    path('Shop/InventoryHome/preorderlevel/addlevel', views.addlevel, name="addlevel"),
-    path('Shop/InventoryHome/preorderlevel/editlevel', views.editlevel, name="editlevel"),
-    # path('Shop/InventoryHome/preorderlevel/updatelevel', views.updatelevel, name="updatelevel"),
-    # path('Shop/InventoryHome/preorderlevel/deletelevel', views.deletelevel, name="deletelevel"),
 
     path('Shop/InventoryHome/inventoryreports', views.inventoryreports, name="inventoryreports"),
     path('Shop/InventoryHome/inventoryreports/weeklyreport', views.iweekly, name="iweekly"),
