@@ -7,7 +7,6 @@ from django.views.generic import View
 
 #Auction stock--------------------------------------------------------------------------------------------
 
-
 @login_required(login_url='login')
 def addAuctionSubStock(request):
 
@@ -355,7 +354,6 @@ def addNotSoldToCurrentCatelog(request):
         else:
             messages.error(request,'Id is null')
 
-
     return redirect('prepare_auction_stock')
 
 
@@ -393,6 +391,9 @@ def viewAddSoldStock(request):
 
             return render(request, 'AddSoldStock.html', var)
 
+    else:
+        return redirect('StockSales')
+
 
 @login_required(login_url='login')
 def AddSoldStock(request):
@@ -426,13 +427,15 @@ def AddSoldStock(request):
                     return redirect('stock_sold')
 
                 else:
+                    formErrors = soldForm.errors
                     messages.error(request, 'Invalid Details')
                     mStock = Auction_SubStock.objects.get(pk=mainid)
                     mForm = AddAuctionSoldStockForm()
 
                     var = {
                         'stk': mStock,
-                        'form': mForm
+                        'form': mForm,
+                        'errors':formErrors,
                     }
                     return render(request, 'AddSoldStock.html', var)
 
@@ -1090,19 +1093,6 @@ class ReportAuctionSoldStock(View):
 
 
 @login_required(login_url='login')
-def showBrokerDetails(request):
-
-    try:
-        arr = Broker.objects.all()
-        return render(request, 'AllBrokers.html', {'Brokers': arr})
-
-    except Exception as e:
-        print(e)
-        messages.error(request, "Exception")
-        return render(request, 'AllBrokers.html')
-
-
-@login_required(login_url='login')
 def addNewBroker(request):
 
     form = AddBrokerForm()
@@ -1128,6 +1118,19 @@ def addNewBroker(request):
 
     var = {'form': form}
     return render(request, 'addBroker.html', var)
+
+
+@login_required(login_url='login')
+def showBrokerDetails(request):
+
+    try:
+        arr = Broker.objects.all()
+        return render(request, 'AllBrokers.html', {'Brokers': arr})
+
+    except Exception as e:
+        print(e)
+        messages.error(request, "Exception")
+        return render(request, 'AllBrokers.html')
 
 
 @login_required(login_url='login')
@@ -1182,8 +1185,9 @@ def updateBroker(request):
 
                 else:
                     #Not Valid
+                    errorsForm = bFrom.errors
                     messages.success(request, 'Invalid Details Provided.')
-                    return render(request, 'updateBroker.html', {'Broker': bFrom, 'BrokerID': brID})
+                    return render(request, 'updateBroker.html', {'Broker': bFrom, 'BrokerID': brID, 'errors':errorsForm})
 
             except Exception as e:
                 print(e)
@@ -1336,218 +1340,6 @@ def updateBuyer(request):
 
     return redirect('all_buyers')
 
-@login_required(login_url='login')
-def addNewBuyer(request):
-
-    form = AddBuyerForm()
-
-    if request.method == 'POST':
-        form = AddBuyerForm(request.POST)
-
-        if form.is_valid():
-            try:
-                #vatNo = form.cleaned_data.get('vat_regno')
-                #print("VAT REG NO:",vatNo)
-                form.save()
-                messages.success(request, 'Sucessfully Added Buyer Details')
-                return redirect('all_buyers')
-
-            except Exception as e:
-                # pass
-                print(e)
-                messages.error(request, 'Exception')
-                return redirect('add_buyer')
-        else:
-            #form method is not valid
-            print(form.errors)
-            messages.error(request, 'Invalid Details')
-            pass
-
-    #poss form to add buyer
-    var = {'form': form}
-    return render(request, 'addBuyer.html', var)
-
-
-@login_required(login_url='login')
-def showBuyerDetails(request):
-
-    try:
-        buyersArr = Buyer.objects.all()
-        return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
-
-    except Exception as e:
-        print(e)
-        messages.error(request, 'Exception')
-        return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def showBuyer(request):
-
-    if request.method == 'POST':
-        buyerID = request.POST.get('buyerID')
-
-        if buyerID is not None:
-            try:
-                buyer = Buyer.objects.get(pk=buyerID)
-                buyerform = AddBuyerForm(instance=buyer)
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerID})
-
-            except Exception as e:
-                print(e)
-                messages.error(request, 'Exception')
-
-    return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def updateBuyer(request):
-
-    if request.method == "POST":
-
-        try:
-            buyerform = AddBuyerForm(request.POST)
-            buyerid = request.POST.get('bID')
-
-            if buyerform.is_valid():
-
-                    buyer = Buyer.objects.get(pk=buyerid)
-
-                    if buyer is not None:
-                        buyer_form = AddBuyerForm(request.POST, instance=buyer)
-                        buyer_form.save()
-                        messages.success(request, 'Sucessfully updated Buyer Details')
-                        return redirect('all_buyers')
-
-                    else:
-                        #if buyer not found in db
-                        messages.error(request, 'Buyer details not found in database')
-
-            #form is not valid
-            else:
-                print(buyerform.errors)
-                messages.success(request, 'Invalid Details')
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
-
-        except Exception as e:
-            print(e)
-            messages.error(request, 'Exception')
-
-    else:
-        #form method is not
-        messages.error(request, 'Form method is invalid')
-        return redirect('all_buyers')
-
-    return redirect('all_buyers')
-
-
-#Buyer---------------------------------------------------------------------------------------------------------
-
-
-@login_required(login_url='login')
-def addNewBuyer(request):
-
-    form = AddBuyerForm()
-
-    if request.method == 'POST':
-        form = AddBuyerForm(request.POST)
-
-        if form.is_valid():
-            try:
-                #vatNo = form.cleaned_data.get('vat_regno')
-                #print("VAT REG NO:",vatNo)
-                form.save()
-                messages.success(request, 'Sucessfully Added Buyer Details')
-                return redirect('all_buyers')
-
-            except Exception as e:
-                # pass
-                print(e)
-                messages.error(request, 'Exception')
-                return redirect('add_buyer')
-        else:
-            #form method is not valid
-            print(form.errors)
-            messages.error(request, 'Invalid Details')
-            pass
-
-    #poss form to add buyer
-    var = {'form': form}
-    return render(request, 'addBuyer.html', var)
-
-
-@login_required(login_url='login')
-def showBuyerDetails(request):
-
-    try:
-        buyersArr = Buyer.objects.all()
-        return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
-
-    except Exception as e:
-        print(e)
-        messages.error(request, 'Exception')
-        return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def showBuyer(request):
-
-    if request.method == 'POST':
-        buyerID = request.POST.get('buyerID')
-
-        if buyerID is not None:
-            try:
-                buyer = Buyer.objects.get(pk=buyerID)
-                buyerform = AddBuyerForm(instance=buyer)
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerID})
-
-            except Exception as e:
-                print(e)
-                messages.error(request, 'Exception')
-
-    return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def updateBuyer(request):
-
-    if request.method == "POST":
-
-        try:
-            buyerform = AddBuyerForm(request.POST)
-            buyerid = request.POST.get('bID')
-
-            if buyerform.is_valid():
-
-                    buyer = Buyer.objects.get(pk=buyerid)
-
-                    if buyer is not None:
-                        buyer_form = AddBuyerForm(request.POST, instance=buyer)
-                        buyer_form.save()
-                        messages.success(request, 'Sucessfully updated Buyer Details')
-                        return redirect('all_buyers')
-
-                    else:
-                        #if buyer not found in db
-                        messages.error(request, 'Buyer details not found in database')
-
-            #form is not valid
-            else:
-                print(buyerform.errors)
-                messages.success(request, 'Invalid Details')
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
-
-        except Exception as e:
-            print(e)
-            messages.error(request, 'Exception')
-
-    else:
-        #form method is not
-        messages.error(request, 'Form method is invalid')
-        return redirect('all_buyers')
-
-    return redirect('all_buyers')
-
 
 @login_required(login_url='login')
 def deleteBuyer(request):
@@ -1581,4 +1373,6 @@ def deleteBuyer(request):
         messages.error(request, 'Form method is invalid')
 
     return redirect('all_buyers')
+
+
 

@@ -10,19 +10,7 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
-class FundFrom(forms.ModelForm):
-    class Meta:
-        model = Funds
-        fields = '__all__'
-
-
-class AllowanceForm(forms.ModelForm):
-    class Meta:
-        model = Allowance
-        fields = '__all__'
-
-
-#final production management - Auction Stock - Sandun
+#final production management - Auction Stock - Sandun ---------------------------------------------------------------
 
 class AddBrokerForm(forms.ModelForm):
     class Meta:

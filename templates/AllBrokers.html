@@ -3,6 +3,14 @@
 <!------------------------------------Title-------------------------------------->
 {% block title %}All Brokers{% endblock title %}
 
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+ <script src="https://kit.fontawesome.com/f78ce457b0.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
 <!------------------------------------Styles-------------------------------------->
 
 {% block moreStyles %}
@@ -71,15 +79,14 @@ tr:nth-child(even) {
     background-color: #244ee9;
     border: none;
     color: white;
+    padding: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width: 150px;
-    height: 25px;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    float: right;
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
     text-decoration: none;
 }
 
@@ -87,6 +94,20 @@ tr:nth-child(even) {
 {
     background-color: #fdef5b;
     color: #0f0f0f;
+}
+
+.headerAndButtonContainer
+{
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.headerAndButtonContainer .addBtn
+{
+    margin-top: 20px;
+    position: absolute;
+    right: 0;
 }
 
 {% endblock moreStyles %}
@@ -104,7 +125,7 @@ tr:nth-child(even) {
 
 
 <!----------------------------------Header2--------------------------------------->
-{% block pageContentHeader2 %}Auction Stock | Brokers{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Auction Stock | Brokers <i class="fas fa-people-arrows"></i>{% endblock pageContentHeader2 %}
 
 
 <!---------------------------------Messages-------------------------------------->
@@ -128,11 +149,13 @@ Display Message
 
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
+<div class="headerAndButtonContainer">
 
-<h1>Broker Details</h1>
+    <h1>Broker Details</h1>
 
-<div class="addBtn">
-    <a href="{% url 'add_broker' %}">Add New Broker</a>
+    <div class="addBtn">
+        <a href="{% url 'add_broker' %}"><i class="fas fa-plus-square"></i>&ensp;Add New Broker</a>
+    </div>
 </div>
 
 <div style="overflow-x:auto;">
@@ -171,6 +194,9 @@ Display Message
       {% endfor %}
 
  </table>
+
 </div>
+
+<br><br>
 
 {% endblock content %}

@@ -110,12 +110,16 @@
 
     </form>
 
-    {% if form.errors %}
+<br>
+
+    {% if errors %}
 
         <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
-            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+            <h3 style="font-weight: bold">{{ errors }}</h3>
         </div>
 
    {% endif %}
+
+    <br><br>
 
 {% endblock content %}

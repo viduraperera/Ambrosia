@@ -3,6 +3,15 @@
 <!------------------------------------Title-------------------------------------->
 {% block title %}All Auction Stocks{% endblock title %}
 
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+ <script src="https://kit.fontawesome.com/f78ce457b0.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+
 <!------------------------------------Styles--------------------------------------->
 
 {% block moreStyles %}
@@ -49,6 +58,15 @@ td {
 
 tr:nth-child(even) {
     background-color: #f8f5f5;
+    }
+
+.searchBtn{
+    background-color:#ff0;
+    }
+
+.searchBtn:hover {
+    background-color:#27F5F7;
+    font-weight: bold;
     }
 
 {% endblock moreStyles %}
@@ -108,7 +126,7 @@ Display Message
             <option value="subStockID">By Substock by MainID</option>
         </select>
 
-        <input type="submit" value="Search">
+        <button type="submit" class="searchBtn">Search&nbsp;<i class="fas fa-search"></i></button>
             <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: MM-DD </p>
 
     </form>
