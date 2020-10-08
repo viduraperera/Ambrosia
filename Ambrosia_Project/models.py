@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class CategoryProduct(models.Model):
@@ -17,7 +18,7 @@ class CategoryProduct(models.Model):
 class AddPackets(models.Model):
 
     date = models.DateField()
-    noOfPackets = models.IntegerField()
+    noOfPackets = models.IntegerField(validators=[MinValueValidator(1)])
     categoryProductID = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE)
 
 

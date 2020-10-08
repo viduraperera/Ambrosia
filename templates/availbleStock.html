@@ -24,43 +24,13 @@
     <th>Weight</th>
 	<th>Available Stock</th>
   </tr>
-    {% for plevel in Bopf %}
+
+    {% for st in stock %}
   <tr>
 
-    <td>{{ plevel.category }}</td>
-    <td>{{ plevel.weight }}</td>
-	<td>{{ plevel.preorder_level }}</td>
-
-  </tr>
-    {% endfor %}
-
-
-    {% for plevel in DUST1 %}
-  <tr>
-
-    <td>{{ plevel.category }}</td>
-    <td>{{ plevel.weight }}</td>
-	<td>{{ plevel.preorder_level }}</td>
-
-  </tr>
-    {% endfor %}
-
-    {% for plevel in DUST2 %}
-  <tr>
-
-    <td>{{ plevel.category }}</td>
-    <td>{{ plevel.weight }}</td>
-	<td>{{ plevel.preorder_level }}</td>
-
-  </tr>
-    {% endfor %}
-
-    {% for plevel in FGS %}
-  <tr>
-
-    <td>{{ plevel.category }}</td>
-    <td>{{ plevel.weight }}</td>
-	<td>{{ plevel.preorder_level }}</td>
+    <td>{{ st.category }}</td>
+    <td>{{ st.weight }}</td>
+	<td>{{ st.available_stock }}</td>
 
   </tr>
     {% endfor %}

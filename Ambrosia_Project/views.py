@@ -252,8 +252,9 @@ def deleteCategoryProduct(request):
 def viewpackets(request):
 
     packets = AddPackets.objects.all()
+    prodCat = CategoryProduct.objects.all()
 
-    return render(request, 'viewpackets.html', {'Packets': packets})
+    return render(request, 'viewpackets.html', {'Packets': packets, 'prod': prodCat })
 
 
 @login_required(login_url='login')
@@ -266,20 +267,49 @@ def addteapackets (request):
         formA = AddTeaPacketsForm(request.POST)
 
         if formA.is_valid():
+
             try:
+                categoryID = formA.cleaned_data['categoryProductID'].id
+                packets = formA.cleaned_data['noOfPackets']
+
+                # savepacket details
                 formA.save()
-                messages.success(request, 'Successfullly added')
-                return redirect('viewpackets')
+
+                categoryProduct = CategoryProduct.objects.get(id=categoryID)
+                weight = categoryProduct.weight
+                category = categoryProduct.category
+
+                stock = Stock.objects.filter(weight=weight, category=category)
+
+                if len(stock) < 1 :
+
+                    # savae stock details
+                    stock = Stock()
+                    stock.category = category
+                    stock.weight = weight
+                    stock.available_stock = packets
+                    stock.save()
+
+                    messages.success(request, 'Successfullly added')
+                    return redirect('viewpackets')
+
+                else:
+                    # update stock details
+                    stock = Stock.objects.get(weight=weight, category=category)
+                    prevPkts = stock.available_stock
+                    stock.available_stock = prevPkts + packets
+
+                    stock.save()
+
+                    messages.success(request, 'Successfullly added')
+                    return redirect('viewpackets')
+
+
             except Exception as e:
-                #pass
                 print(e)
-                messages.success(request, 'Exception:'+e)
-                # return redirect('viewpackets')
+
         else:
-            # form method is not valid
-            # print(formA.errors)
-            # messages.success(request, 'Invalid Details')
-            pass
+            messages.error(request, 'Invalid Details')
 
     return render(request, 'addteapackets.html', {'form': formA})
 
@@ -334,19 +364,47 @@ def updatePackets(request):
 
 @login_required(login_url='login')
 def deletepackets(request):
+
     packetsid = request.POST.get('deleteid')
 
     if request.method == 'POST' and packetsid is not None:
-        packets = AddPackets.objects.get(id=packetsid)
-        packets.delete()
-        messages.success(request, 'Deleted Successfully')
-    return redirect('viewpackets')
 
+        try:
+            packets = AddPackets.objects.get(id=packetsid)
+
+            noOfPkts = packets.noOfPackets
+
+            catID = packets.categoryProductID_id
+            category_Product = CategoryProduct.objects.get(id=catID)
+
+            weight = category_Product.weight
+            category = category_Product.category
+
+            stock = Stock.objects.get(weight=weight, category=category)
+            prevpkts = stock.available_stock
+
+            if stock is not None:
+                stock.available_stock = prevpkts - noOfPkts
+                stock.save()
+
+                packets.delete()
+                messages.success(request, 'Deleted Successfully')
+
+            else:
+                messages.error(request, 'Error')
+
+        except Exception as e:
+            print(e)
+
+    return redirect('viewpackets')
 
 
 @login_required(login_url='login')
 def availableStock (request):
-    return render(request, 'availbleStock.html')
+
+    stock = Stock.objects.all()
+
+    return render(request, 'availbleStock.html', {'stock': stock})
 
 
 @login_required(login_url='login')

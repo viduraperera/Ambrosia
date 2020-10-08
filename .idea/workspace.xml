@@ -19,17 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="podi nethmi mokakda me workplace redda">
+    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="completed category product - Nethmi s">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0001_initial.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/addteapackets.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/addteapackets.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/editlevel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/viewCategoryProduct.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/preorderlevel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/addCategoryProduct.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/shopInventoryBase.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shopInventoryBase.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/availbleStock.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/availbleStock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/viewpackets.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/viewpackets.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +139,8 @@
       <workItem from="1600583918609" duration="19020000" />
       <workItem from="1601969215879" duration="6676000" />
       <workItem from="1602046290508" duration="6904000" />
-      <workItem from="1602166986750" duration="8064000" />
+      <workItem from="1602166986750" duration="11935000" />
+      <workItem from="1602185303888" duration="2081000" />
     </task>
     <task id="LOCAL-00001" summary="podi nethmi edited">
       <created>1599515618856</created>
@@ -187,7 +184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602080078621</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="completed category product - Nethmi s">
+      <created>1602181558264</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1602181558264</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,7 +214,8 @@
     <MESSAGE value="podi nethmi added available stock and added composite key" />
     <MESSAGE value="podi nethmi edited3" />
     <MESSAGE value="podi nethmi mokakda me workplace redda" />
-    <option name="LAST_COMMIT_MESSAGE" value="podi nethmi mokakda me workplace redda" />
+    <MESSAGE value="completed category product - Nethmi s" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed category product - Nethmi s" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599537309045">
