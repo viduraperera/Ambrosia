@@ -27,11 +27,11 @@ urlpatterns = [
 
     path('Home/', include('Ambrosia_Project.urls')),
 
-    path('emp_fund_view/', views.emp_fund_view, name="emp_fund_view"),
-    path('emp_funds_add/', views.emp_funds_add, name="emp_funds_add"),
-    path('emp_funds_delete<int:id>/', views.emp_funds_delete),
-    path('emp_allowance/', views.emp_allowance, name="emp_allowance"),
-    path('emp_allowance_add/', views.emp_allowance_add, name="emp_allowance_add"),
+    # path('emp_fund_view/', views.emp_fund_view, name="emp_fund_view"),
+    # path('emp_funds_add/', views.emp_funds_add, name="emp_funds_add"),
+    # path('emp_funds_delete<int:id>/', views.emp_funds_delete),
+    # path('emp_allowance/', views.emp_allowance, name="emp_allowance"),
+    # path('emp_allowance_add/', views.emp_allowance_add, name="emp_allowance_add"),
 
 
 ]
