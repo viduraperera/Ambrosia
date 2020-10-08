@@ -1,8 +1,12 @@
+from django.conf.urls import url
 from django.urls import path
 from . import views
+from .views import *
 
 urlpatterns = [
     path('', views.home, name="home"),
+
+
 
     path('ViewAllUsers', views.view_AllUsers, name="view_all_users"),
     path('ViewAllUsers/EditUser', views.ShowUser, name="update_user"),
@@ -39,8 +43,11 @@ urlpatterns = [
     path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableEdit', views.ShopPriceTableEdit, name="ShopPriceTableEdit"),
     path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableUpdate', views.ShopPriceTableUpdate, name="ShopPriceTableUpdate"),
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
+    path('Shop/SalesHomeIncome/SalesWeeklyReport', views.SalesWeeklyReport, name="SalesWeeklyReport"),
     path('Shop/SalesHomeIncome/SalesHomeMonthlyIncome', views.SalesHomeMonthlyIncome, name="SalesHomeMonthlyIncome"),
     path('Shop/SalesHomeIncome/SalesHomeAnnuallyIncome', views.SalesHomeAnnuallyIncome, name="SalesHomeAnnuallyIncome"),
+    path('Shop/SalesHomeIncome/IncomeGeneratePDF', GeneratePDFInvoiceMonthly.as_view(), name="generateIncomePdfMonthly"),
+
 
 
 

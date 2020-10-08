@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic import View
+from django.template.loader import get_template
 from Ambrosia_Project.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -8,6 +10,7 @@ from django.contrib.auth.models import User
 from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
 from Ambrosia_Project.salesutills import *
+from Ambrosia_Project.SalesIncomeReports import render_to_pdf
 
 
 # Create your views here.
@@ -75,6 +78,7 @@ def factoryHomepage(request):
 @login_required(login_url='login')
 def teashopHomepage(request):
     return render(request, 'teashophome.html')
+
 
 #
 # @login_required(login_url='login')
@@ -196,6 +200,11 @@ def SalesHomeIncome(request):
 
 
 @login_required(login_url='login')
+def SalesWeeklyReport(request):
+    return render(request, 'SalesWeeklyReport.html')
+
+
+@login_required(login_url='login')
 def SalesHomeMonthlyIncome(request):
     return render(request, 'SalesHomeMonthlyIncome.html')
 
@@ -208,10 +217,8 @@ def SalesHomeAnnuallyIncome(request):
 # add
 @login_required(login_url='login')
 def SalesCreateInvoice(request):
-
     form = billItemsForm()
     bid = generateinvoiceid()
-
 
     if request.method == "POST":
         form = billItemsForm(request.POST)
@@ -249,7 +256,6 @@ def SalesCreateInvoice(request):
             messages.success(request, 'Exception:')
             return redirect('SalesCreateInvoice')
 
-
     # transactiontotalcal
     invoicelist = BillItems.objects.filter(invoice_id=bid)
 
@@ -278,13 +284,18 @@ def BillRowDelete(request):
 @login_required(login_url='login')
 def SalesViewBill(request):
 
-    return render(request, 'SalesViewBill')
+    if request.method == 'POST':
 
+        invId = request.POST.get('invID')
+        tID = request.POST.get('trID')
 
+        bills = BillItems.objects.filter(invoice_id=invId)
+        trancsaction = Transactions.objects.get(id=tID)
 
+        return render(request, 'SalesViewBill.html', {'billItems': bills , 'viewT': trancsaction})
 
-
-    # return render(request, 'SalesViewBill.html', {'saleInvoice': arr,'viewT': var, })
+    else:
+        return redirect('SalesTransaction')
 
 
 # delete
@@ -300,8 +311,6 @@ def Vdelete(request):
 
 @login_required(login_url='login')
 def SalesTransaction(request):
-
-
     if request.method == 'POST':
         transactionID = request.POST.get('bid')
 
@@ -423,3 +432,24 @@ def ShopPriceTableUpdate(request):
     else:
         pass
 
+class GeneratePDFInvoiceMonthly(View):
+    def get(self, request, *args, **kwargs):
+
+        # template = get_template(('SalesWeeklyReport.html'))
+
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+
+        if len(month) == 2 and len(year) == 4:
+
+            transaction = Transactions.objects.filter(dateTime__month=month, dateTime__year=year)
+
+            data = {
+                'trans': transaction,
+            }
+            pdf = render_to_pdf('SalesWeeklyReport.html', data)
+
+            return HttpResponse(pdf, content_type='application/pdf')
+
+        else:
+            return redirect('SalesHomeIncome')

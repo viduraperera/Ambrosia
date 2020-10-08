@@ -16,7 +16,7 @@
 {% block pageContentHeader1 %}Ambrosia Tea Factory Outlet Management{% endblock pageContentHeader1 %}
 {% block pageContentHeader2 %}View Bill{% endblock pageContentHeader2 %}
 
-
+{% block TransactionsBtn %}ClassActive{% endblock TransactionsBtn %}
 
 {%  block content %}
 
@@ -26,21 +26,20 @@
     </div>
     <hr>
     <div>
-{#        {% for invoice in viewT %}#}
-{#            <table>#}
-{##}
-{#            <tr>#}
-{#                <td>Transaction ID:</td>#}
-{#                <td>{{ invoice.invoice_id }}</td>#}
-{#                <td>Date : </td>#}
-{#                <td>{{ invoice.dateTime }}</td>#}
-{#                <td>Total Price : </td>#}
-{#                <td>{{ invoice.total_Price }}</td>#}
-{##}
-{#            </tr>#}
-{##}
-{#        {% endfor %}#}
-{#        </table>#}
+
+            <table>
+
+            <tr>
+                <td>Transaction ID:</td>
+                <td>{{ viewT.invoice_id }}</td>
+                <td>Date : </td>
+                <td>{{ viewT.dateTime }}</td>
+                <td>Total Price : </td>
+                <td>{{ viewT.total_Price }}</td>
+
+            </tr>
+
+        </table>
 
         <table>
         <br>
@@ -56,7 +55,7 @@
                 <th>Delete</th>
 
             </tr>
-                {% for item in tfrom %}
+                {% for item in billItems %}
                     <tr>
 
 
@@ -76,15 +75,10 @@
                     </tr>
 
                 {% endfor %}
-{#            {% endif %}#}
-
-
-
 
 
         </table>
 
-        Total Price<input type="text" value=""><br>
 
     </div>
 

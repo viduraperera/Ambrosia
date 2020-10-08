@@ -84,6 +84,8 @@
         <br>
     </div>
 
+    {% if Invoicelist %}
+
     <table style="width: 100%">
         <th>bid</th>
         <th>id</th>
@@ -95,7 +97,7 @@
         <th>Price</th>
         <th>Delete</th>
 
-    {% if Invoicelist %}
+
         {% for item in Invoicelist %}
             <tr>
                 <td>{{ bid }}</td>
@@ -116,7 +118,7 @@
                 </td>
             </tr>
         {% endfor %}
-    {% endif %}
+
     </table>
 
     <form method="POST" action="{% url 'SalesTransaction' %}">
@@ -125,6 +127,10 @@
 
     <input type="submit" value="Calulate" class="btn">
     </form>
+
+    {% endif %}
+
+    <br><br>
 
 {% endblock content %}
 <!-- End page content -->
