@@ -138,11 +138,6 @@ def emp_salary_main(request):
 
 
 @login_required(login_url='login')
-def emp_final_salary_view(request):
-    return render(request, 'final_salary.html')
-
-
-@login_required(login_url='login')
 def emp_etf_view(request):
     return render(request, 'etf_table_view.html')
 
@@ -186,9 +181,9 @@ def emp_add_salary_view(request):
         month = request.POST.get("month")
         employee_id = request.POST.get("employee_id")
 
-        salary_obj = EmployeeSalary.objects.get(emp_id=employee_id, year=year, month=month)
+        salary_obj = EmployeeSalary.objects.filter(emp_id=employee_id, year=year, month=month)
 
-        if salary_obj is None:
+        if len(salary_obj) < 1:
 
             basic_salary = request.POST.get("basic_salary")
             monthly_attendance = request.POST.get("monthly_attendance")
@@ -216,3 +211,109 @@ def emp_add_salary_view(request):
             return redirect('emp_salary_main')
 
     return None
+
+
+@login_required(login_url='login')
+def emp_final_salary_view(request):
+
+    emp_salary = EmployeeSalary.objects.all()
+    emp_all = Employee.objects.all()
+    var = {
+        'emp_salary': emp_salary,
+        'emp_all': emp_all,
+    }
+    return render(request, 'final_salary.html', var)
+
+
+@login_required(login_url='login')
+def emp_final_salary_single_view(request):
+
+    if request.method == 'POST':
+        emp_salary_id = request.POST.get("s_id")
+
+        emp_allowance_id = request.POST.get("allowance_id")
+
+        if emp_allowance_id is not None:
+
+            emp_advance = request.POST.get("advance")
+            emp_tea_advance = request.POST.get("tea_advance")
+            emp_loan = request.POST.get("loan")
+            emp_ot_hours = request.POST.get("ot_hours")
+
+            details = {
+                'emp_salary_id': emp_salary_id,
+                'emp_advance': emp_advance,
+                'emp_tea_advance': emp_tea_advance,
+                'emp_ot_hours': emp_ot_hours,
+                'emp_loan': emp_loan,
+                'emp_allowance_id': emp_allowance_id,
+            }
+
+            final_calculation = calcuate_final(details)
+
+            emp_salary = EmployeeSalary.objects.get(id=emp_salary_id)
+            allowance = Allowance.objects.all()
+            var = {
+                'emp_salary': emp_salary,
+                'allowance': allowance,
+                'final_calculation': final_calculation,
+            }
+
+            return render(request, 'final_salary_single_view.html', var)
+
+        emp_salary = EmployeeSalary.objects.get(id=emp_salary_id)
+        allowance = Allowance.objects.all()
+
+        var = {
+            'emp_salary': emp_salary,
+            'allowance': allowance,
+        }
+
+    return render(request, 'final_salary_single_view.html', var)
+
+
+@login_required(login_url='login')
+def emp_final_total_salary_view(request):
+
+    if request.method == "POST":
+        salary_id = request.POST.get("s_id")
+        employee_salary = request.POST.get("total_salary")
+        salary_record = EmployeeSalary.objects.get(id=salary_id)
+
+        chk_all_b_price = salary_record.allowance_b_price
+
+        if chk_all_b_price is None:
+
+            final_salary = float(employee_salary) - salary_record.epf_employee_month
+
+            salary_record.allowance_b_price = request.POST.get("all_b_price")
+            salary_record.incentive_1 = request.POST.get("incen_1")
+            salary_record.incentive_2 = request.POST.get("incen_2")
+            salary_record.ot_hours = request.POST.get("employee_ot_hours")
+            salary_record.ot_amount_for_month = request.POST.get("ot_amount")
+            salary_record.loan = request.POST.get("employee_loan")
+            salary_record.advance = request.POST.get("employee_advance")
+            salary_record.tea_advance = request.POST.get("employee_tea_advance")
+            salary_record.total_deduction = request.POST.get("total_deduction")
+            salary_record.total_salary = employee_salary
+            salary_record.remaining_salary = final_salary
+
+            salary_record.save()
+            return redirect('emp_final_salary_view')
+
+        else:
+            messages.error(request, "this employee salary already calculated")
+            return redirect('emp_final_salary_view')
+
+    return None
+
+@login_required(login_url='login')
+def delete_total_salary(request):
+
+    if request.method == "POST":
+        salary_id = request.POST.get("salary_id")
+        salary = EmployeeSalary.objects.get(id=salary_id)
+
+        salary.delete()
+
+        return redirect('emp_final_salary_view')

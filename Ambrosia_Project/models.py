@@ -89,33 +89,71 @@ class EmployeeSalary(models.Model):
     attendance_on_month = models.FloatField()
     year = models.CharField(max_length=4)
     month = models.CharField(max_length=20)
+
+    allowance_b_price = models.FloatField(null=True)
+    incentive_1 = models.FloatField(null=True)
+    incentive_2 = models.FloatField(null=True)
+
     basic_salary_of_day = models.FloatField()
     basic_salary_of_month = models.FloatField()
+
     etf_of_month = models.FloatField()
     epf_employee_month = models.FloatField()
     epf_employer_month = models.FloatField()
+
+    ot_hours = models.IntegerField(null=True)
+
+    loan = models.FloatField(null=True)
+
+    advance = models.FloatField(null=True)
+    tea_advance = models.FloatField(null=True)
+    ot_amount_for_month = models.FloatField(null=True)
+
     total_salary = models.FloatField(null=True)
+    total_deduction = models.FloatField(null=True)
     remaining_salary = models.FloatField(null=True)
 
     class Meta:
         db_table = 'Employee_salary'
 
 
+class OverTime(models.Model):
+    emp_id = models.IntegerField()
+    data = models.DateField(default=datetime.now)
+    ot_hours = models.FloatField()
 
-# class EmployeeSalaryView(models.Model):
-#     name = models.ForeignKey(Employee, from_fields='name', on_delete=models.CASCADE, null=True)
-#     epf_no = models.ForeignKey(Employee, from_fields='epfNo', on_delete=models.CASCADE, null=True)
-#     working_days = models.ForeignKey(attendance, on_delete=models.CASCADE, null=True)
-#
-#     year_of_salary = models.DateTimeField(auto_now_add=True)
-#
-#     def salary_year(self):
-#         return self.year_of_salary.strftime('%Y')
-#
-#     month_of_salary = models.DateField(auto_now_add=True)
-#
-#     def salary_month(self):
-#         return self.month_of_salary.strftime('%B')
-#
-#     class Meta:
-#         db_table = 'employee_salary_view'
+    class Meta:
+        db_table = 'Over_Time'
+
+
+class Advance(models.Model):
+    emp_id = models.IntegerField()
+    date = models.DateField(default=datetime.now)
+    amount = models.FloatField()
+
+    class Meta:
+        db_table = 'advance'
+
+
+class TeaAdvance(models.Model):
+    emp_id = models.IntegerField()
+    date = models.DateField(default=datetime.now)
+    amount = models.FloatField()
+
+    class Meta:
+        db_table = 'tea_advance'
+
+
+class Loan(models.Model):
+    emp_id = models.IntegerField()
+    date_of_loan_request = models.DateField(default=datetime.now)
+    amount_loan = models.FloatField()
+    time_duration = models.IntegerField()
+    remaining_loan_amount = models.FloatField()
+    loan_status = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'loan'
+
+
+

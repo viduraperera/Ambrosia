@@ -1,0 +1,103 @@
+{% extends 'employeeBase.html' %}
+<!-------------------------Title------------------------->
+{% block title %}Employee Salary Single View{% endblock title %}
+
+
+{% block headImport %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock headImport %}
+
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'emp_salary_main' %}">Calculating salary</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Final Salary View</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'emp_epf_view' %}">EPF view</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'emp_etf_view' %}">ETF view</a>
+    </li>
+  </ul>
+</nav>
+<br>
+
+     <div>
+     <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+         <tr>
+             <th>Allowance ID</th>
+             <th>Allowance by Price</th>
+             <th>Incentive_1</th>
+             <th>Incentive_2</th>
+         </tr>
+        </thead>
+        {% for all in allowance%}
+                    <tr>
+                        <td>{{ all.id }}</td>
+                        <td>{{ all.allowance_by_price }}</td>
+                        <td>{{ all.incentive_1 }}</td>
+                        <td>{{ all.incentive_2 }}</td>
+                    </tr>
+    {% endfor %}
+    </table>
+ </div>
+
+<h5>Basic Salary : {{ emp_salary.basic_salary_of_month }}</h5>
+<h5>ETF of the month: {{ emp_salary.etf_of_month }}</h5>
+<h5>EPF of employee: {{ emp_salary.epf_employee_month }}</h5>
+<h5>EPF of the employer: {{ emp_salary.epf_employer_month }}</h5>
+<h5>year: {{ emp_salary.year }}</h5>
+<h5>month: {{ emp_salary.month }}</h5>
+
+    <form method="post" action="{% url 'emp_final_salary_single_view' %}">
+        {% csrf_token %}
+        <input type="hidden" name="s_id" value="{{ emp_salary.id }}">
+        allowance_id
+        <input type="number" name="allowance_id" required>
+        ot_hours
+        <input type="number" name="ot_hours" required>
+        loan
+        <input type="number" name="loan" required>
+        advance
+        <input type="number" name="advance" required>
+        tea_advance
+        <input type="number" name="tea_advance" required>
+
+    <input type="submit" value="calculate">
+    </form>
+<hr>
+    <br>
+        <form method="post" action="{% url 'emp_final_total_salary_view' %}">
+        {% csrf_token %}
+        <input type="hidden" name="s_id" value="{{ emp_salary.id }}">
+            all_b_price
+        <input type="number" name="all_b_price" value="{{ final_calculation.all_b_price}}" required>
+            incen_1
+        <input type="number" name="incen_1" value="{{ final_calculation.incen_1}}" required>
+            incen_2
+        <input type="number" name="incen_2" value="{{ final_calculation.incen_2}}" required>
+            employee_ot_hours
+        <input type="number" name="employee_ot_hours" value="{{ final_calculation.employee_ot_hours}}" required>
+            ot_amount
+        <input type="number" name="ot_amount" value="{{ final_calculation.ot_amount}}" required>
+            employee_loan
+        <input type="number" name="employee_loan" value="{{ final_calculation.employee_loan}}" required>
+            employee_advance
+        <input type="number" name="employee_advance" value="{{ final_calculation.employee_advance}}" required>
+            employee_tea_advance
+        <input type="number" name="employee_tea_advance" value="{{ final_calculation.employee_tea_advance}}" required>
+            total_deduction
+        <input type="number" name="total_deduction" value="{{ final_calculation.total_deduction}}" required>
+            total_salary
+        <input type="number" name="total_salary" value="{{ final_calculation.total_salary}}" required>
+
+    <input type="submit" value="calculate">
+    </form>
+
+{% endblock content %}

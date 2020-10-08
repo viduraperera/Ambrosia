@@ -26,6 +26,11 @@ urlpatterns = [
     path('emp_etf_view', salary_management_views.emp_etf_view, name='emp_etf_view'),
     path('emp_salary_single_view', salary_management_views.emp_salary_single_view, name='emp_salary_single_view'),
     path('emp_add_salary_view', salary_management_views.emp_add_salary_view, name='emp_add_salary_view'),
+    path('emp_final_salary_view', salary_management_views.emp_final_salary_view, name='emp_final_salary_view'),
+    path('emp_final_salary_single_view', salary_management_views.emp_final_salary_single_view, name='emp_final_salary_single_view'),
+    path('emp_final_total_salary_view', salary_management_views.emp_final_total_salary_view, name='emp_final_total_salary_view'),
+    path('delete_total_salary', salary_management_views.delete_total_salary, name='delete_total_salary'),
+
 
 
 ]
