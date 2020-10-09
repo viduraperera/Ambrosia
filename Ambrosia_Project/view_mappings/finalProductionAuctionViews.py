@@ -803,7 +803,7 @@ def searchAuctionCurrentSubStock(request):
 
                 if chk:
                     stockSub = Auction_SubStock.objects.filter(pk=sID, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(pk=sID).count()
+                    result = Auction_SubStock.objects.filter(pk=sID, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
                     return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
@@ -817,7 +817,7 @@ def searchAuctionCurrentSubStock(request):
 
                 if chk:
                     stockSub = Auction_SubStock.objects.filter(SubID=sID, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(SubID=sID).count()
+                    result = Auction_SubStock.objects.filter(SubID=sID, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
                     return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
@@ -832,7 +832,7 @@ def searchAuctionCurrentSubStock(request):
 
                 if chk:
                     stockSub = Auction_SubStock.objects.filter(date_prepared=text, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(date_prepared=text).count()
+                    result = Auction_SubStock.objects.filter(date_prepared=text, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
                     return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
