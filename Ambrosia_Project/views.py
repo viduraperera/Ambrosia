@@ -111,10 +111,69 @@ def showAttendance(request):
 
 
 @login_required(login_url='login')
-def markAttendance(request):
-    arr = Employee.objects.filter(empGroup='factory_Worker')
+def selectAttendence(request):
 
-    return render(request, 'mark_attendance.html', {'Employee': arr})
+    return render(request, 'attendance_date.html')
+
+
+@login_required(login_url='login')
+def viewMarkAttendance(request):
+
+    if request.method == 'POST':
+
+        date = request.POST.get('currDate')
+
+        arr = Employee.objects.filter(empGroup='factory_Worker')
+        attend = attendance.objects.all()
+
+        return render(request, 'mark_attendance.html', {'Employee': arr, 'date': date, 'attend': attend})
+
+    return redirect('attendance_date')
+
+
+
+@login_required(login_url='login')
+def markAttendance(request):
+
+    if request.method == 'POST':
+        empID = request.POST.get('workersid')
+        dayType = request.POST.get('dayType')
+        date = request.POST.get('date')
+
+        arrEmp = Employee.objects.filter(empGroup='factory_Worker')
+
+        try:
+
+            if dayType is not None:
+
+                dayt = 'FullDay'
+
+                if dayType == 'halfDay':
+                    dayt = 'HalfDay'
+
+                #present
+                attend = attendance()
+                attend.date = date
+                attend.empID = empID
+                attend.attendaceStatus = "Present"
+                attend.daytype = dayt
+                attend.save()
+
+            else:
+                 # absent
+                 attend = attendance()
+                 attend.date = date
+                 attend.empID = empID
+                 attend.attendaceStatus = "Absent"
+                 attend.save()
+
+            messages.success(request, 'Successfully Added Details')
+            return render(request, 'mark_attendance.html', {'Employee': arrEmp, 'date': date})
+
+        except Exception as e:
+            print(e)
+
+    return redirect('attendance_date')
 
 
 @login_required(login_url='login')
@@ -207,7 +266,7 @@ def employee_registration(request):
 
         else:
             print(form.errors)
-            messages.success(request, 'Invalid Details')
+            messages.error(request, 'Invalid Details')
             pass
 
     var = {'form': form}
@@ -251,7 +310,3 @@ def NavigateToInventory(request):
 @login_required(login_url='login')
 def NavigateToProduction(request):
     return render(request, 'Add_daily_product.html')
-
-
-
-

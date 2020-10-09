@@ -11,8 +11,12 @@ urlpatterns = [
     path('Factory', views.factoryHomepage, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-    path('Factory/EmployeeHome', views.EmployeeHome, name="attendance_date"),
+    path('Factory/EmployeeHome/selectAttendence', views.selectAttendence, name="attendance_date"),
+    path('Factory/EmployeeHome/viewMarkAttendance', views.viewMarkAttendance, name="viewMarkAttendance"),
+
     path('Factory/EmployeeHome/markAttendance', views.markAttendance, name="mark_attendance"),
+
+
     path('Factory/EmployeeHome/attendance_management', views.attendance_management, name="attendance_management"),
     path('Factory/EmployeeHome/staff_management', views.staff_management, name="staff_management"),
     path('Factory/EmployeeHome/factoryworkers_management', views.factoryworkers_management, name="factoryworkers_management"),

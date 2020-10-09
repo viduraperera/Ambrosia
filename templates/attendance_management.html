@@ -181,26 +181,70 @@ tr:nth-child(even) {
             <th style="text-align: center;">date</th>
           </tr>
         </table>
-        <table class = "table table-striped table-bordered table-sm">
-            <tr>
-              <th>NIC</th>
-              <th>EPF No</th>
-              <th>Name</th>
-              <th>Working Days</th>
-            </tr>
+        < <h1>{{ date }}</h1>
 
-            {% for workers in Employee %}
-                {% for days in attendance %}
-            <tr>
-              <td>{{ workers.epfNO }}</td>
-              <td>{{ workers.nic }}</td>
-              <td>{{ workers.name }}</td>
-              <td>{{ days.workingDays }}</td>
-            </tr>
-                    {% endfor %}
-            {% endfor %}
-        </table>
-    </div>
+            <table class = "table table-striped table-bordered table-sm">
+                <tr>
+                    <th>EPF No</th>
+                    <th>NIC</th>
+                    <th>Name</th>
+                    <th>Day Type</th>
+                    <th>Attendance</th>
 
+                </tr>
+
+               {% for workers in Employee %}
+
+{#                   {% for att in attend %}#}
+
+
+                   <tr>
+
+                        <td>{{ workers.epfNo }}</td>
+                        <td>{{ workers.nic }}</td>
+                        <td>{{ workers.name }}</td>
+
+
+                            <form method="post" action="{% url 'mark_attendance' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="workersid" value="{{ workers.id }}">
+                                <input type="hidden" name="date" value="{{ date }}">
+
+                                <td>
+                                     <select name="dayType" required>
+                                        <option value="fullDay">Full Day</option>
+                                        <option value="halfDay">Half Day</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input type="submit" value="Present" class="addButton">
+                                </td>
+
+
+                            </form>
+
+
+                               <td>
+                                    <form method="post" action="{% url 'mark_attendance' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="workersid" value="{{ workers.id }}">
+                                        <input type="hidden" name="date" value="{{ date }}">
+
+                                        <input type="submit" value="Absent" class="deleteButton" >
+                                    </form>
+
+                                </td>
+
+
+
+                        </tr>
+
+
+{#                       {% endfor %}#}
+
+                {% endfor %}
+
+            </table>
 
 {% endblock content %}

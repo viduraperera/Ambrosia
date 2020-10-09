@@ -160,6 +160,17 @@ tr:nth-child(even) {
 
 {% block attendanceBtn %}ClassActive{% endblock attendanceBtn %}
 
+{% block displayMessage %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
 {% block content %}
 
 
@@ -167,19 +178,18 @@ tr:nth-child(even) {
 
     <div>
         <h2> Select Date </h2>
-        <form method="post" action="{% url 'attendance_date' %}">
-            <label>Date</label>
-            <input type="text">
-            <label>Month</label>
-            <input type="text">
-            <label>Year</label>
-            <input type="text">
-        </form>
-        <br><br>
-         <form method="post" action="{% url 'mark_attendance' %}">
+
+        <form method="post" action="{% url 'viewMarkAttendance' %}">
             {% csrf_token %}
-            <input type="hidden" name="workersid" value="{{ workers.id }}">
+
+            <label>Date</label>
+
+            <input type="date" name="currDate" required>
+
+        <br><br>
+
             <input type="submit" value="Mark Attendance" class="addButton">
+
         </form>
 
 
