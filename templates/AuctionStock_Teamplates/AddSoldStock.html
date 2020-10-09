@@ -1,7 +1,7 @@
-{% extends 'FinalPrductionBase.html' %}
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
 
 <!------------------------------------Title-------------------------------------->
-{% block title %}Update Sold Stock{% endblock title %}
+{% block title %}Add Sold Stock{% endblock title %}
 
 <!------------------------------------Styles-------------------------------------->
 
@@ -47,26 +47,7 @@
     }
 
 .buttonAdd:hover{
-    background: #40FC2C ;
-    }
-
-.buttonDelete{
-    margin-top: 15px;
-    background-color: #E41010;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    padding: 10px;
-    width: 40%;
-    border-radius: 5px;
-    }
-
-.buttonDelete:hover{
-    background: #F8FF09;
-    color: black;
+    background: red;
     }
 
 .formTable td {
@@ -84,7 +65,7 @@
 
 
 <!-------------------------Body Sub Menue------------------------->
-{% block soldStockBtn %}ClassActive1{% endblock soldStockBtn %}
+{% block currentStockBtn %}ClassActive1{% endblock currentStockBtn %}
 
 
 <!-----------------------------------Header1-------------------------------------->
@@ -92,7 +73,7 @@
 
 
 <!----------------------------------Header2--------------------------------------->
-{% block pageContentHeader2 %}Stock Sales | Update Sold Stock{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Stock Sales | Add Sold Stock{% endblock pageContentHeader2 %}
 
 
 <!---------------------------------Messages-------------------------------------->
@@ -118,7 +99,7 @@
 {% block content %}
 
 <!-- Table -->
-<h1>Sold Stock Details</h1>
+<h1>Stock Details</h1>
 
 <div style="overflow-x:auto;">
     <table border="1 px solid black" class="detailsTable">
@@ -151,52 +132,30 @@
 </div>
 <br>
 
-<!-- Delete Button -->
-<h1>Move Stock to Not Sold</h1>
-    <form method="post" action="{% url 'moveto_NotsoldStock' %}">
-        {% csrf_token %}
-        <input type="hidden" name="soldID" value="{{ soldStockId }}"/>
-        <input type="hidden" name="mID" value="{{ stk.id }}"/>
-        <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
-        <input type="submit" value="Move Sold Stock to Not Sold" class="buttonDelete" onclick="if (!confirm('Are you sure You Want Move to Not Sold?.Press Ok To Confirm.')) { return false }">
-    </form>
-<br>
-
 <!-- Form -->
-<h1>Update Details Form</h1>
+<h1>Details Form</h1>
 
-    <form method="post" action="{% url 'update_soldStock' %}">
+    <form method="post" action="{% url 'add_SoldStock' %}">
 
         {% csrf_token %}
-        <input type="hidden" name="soldStockID" value="{{ soldStockId }}"/>
         <input type="hidden" name="mID" value="{{ stk.id }}"/>
         <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
 
         <table class="formTable">
 
             <tr>
-                <td>Sold-Stock MainID</td>
-                <td>{{ soldStockId }}</td>
-            </tr>
-
-            <tr>
-                <td>Sub-Stock MainID</td>
+                <td>SubStock MainID</td>
                 <td>{{ stk.id }}</td>
             </tr>
 
             <tr>
-                <td>Sub-Stock SubID</td>
+                <td>SubStock SubID</td>
                 <td>{{ stk.SubID }}</td>
             </tr>
 
             <tr>
-                <td>Price</td>
+                <td>Price(1kg)</td>
                 <td>{{ form.price }}</td>
-            </tr>
-
-            <tr>
-                <td>Total Price</td>
-                <td>{{ totalPrice }}</td>
             </tr>
 
             <tr>
@@ -211,15 +170,15 @@
 
         </table>
 
-        <input type="submit" value="Update Sold Stock" class="buttonAdd">
+        <input type="submit" value="Add Sold Stock" class="buttonAdd">
 
     </form>
-
+<br><br>
     <!--------------Errors--------------------------------------->
-    {% if form.errors %}
+    {% if errors %}
 
         <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
-            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+            <h3 style="font-weight: bold">{{ errors }}</h3>
         </div>
 
    {% endif %}

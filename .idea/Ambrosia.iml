@@ -27,6 +27,8 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/templates/common_templates" />
+        <option value="$MODULE_DIR$/templates/AuctionStock_Teamplates" />
       </list>
     </option>
   </component>

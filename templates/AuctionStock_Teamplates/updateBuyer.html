@@ -1,7 +1,7 @@
-{% extends 'FinalPrductionBase.html' %}
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
 
 <!------------------------------------Title-------------------------------------->
-{% block title %}Add Buyer{% endblock title %}
+{% block title %}Update Buyer{% endblock title %}
 
 
 <!------------------------------------Scripts-------------------------------------->
@@ -19,46 +19,44 @@
 
 .buttonEdit
 {
-    background-color: #00BC02;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    width: 200px;
-    height: 50px;
-    border-radius: 15px;
-    margin-top: 30px;
-    margin-left:30%;
+  margin-top:15px;
+  background-color: #DF1804;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 30%;
+  height: 50px;
+  border-radius: 15px;
 }
 
 
-.buttonEdit:hover
-{
+.buttonEdit:hover {
     background: #e9e444;
     color: #000;
 }
 
-.addBuyerformCont h1
-{
-    text-align: center;
-    background-color: #0002A1;
-    color: white;
-    font-family: 'Berkshire Swash';
-}
-
-.addBuyerformCont table
+.formContainer table
 {
     margin-left:10%;
 }
 
-.addBuyerformCont
+.formContainer
 {
-    margin-top:30px;
-    background-color:#D9E4FF;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #FFD3FB;
     width: 60%;
     min-width: 450px;
+}
+
+.formContainer h1
+{
+    background-color: #65058C;
+    color: white;
+    font-family: 'Berkshire Swash';
 }
 
 {% endblock moreStyles %}
@@ -89,7 +87,7 @@
 
 
 <!----------------------------------Header2--------------------------------------->
-{% block pageContentHeader2 %}Auction Stock | Add Buyer <i class="fas fa-people-carry"></i> <i class="fas fa-user-plus"></i>{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Auction Stock | Update Buyer <i class="fas fa-wrench"></i>{% endblock pageContentHeader2 %}
 
 <!----------------------------------Hide Menues--------------------------------------->
 
@@ -100,47 +98,49 @@
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
-<div class="addBuyerformCont">
+<div class="formContainer">
 
-    <h1>Add New Buyer <i class="fas fa-user-plus"></i></h1>
-<!-- Form -->
-       <form method="POST" action="{% url 'add_buyer' %}">
+    <h1>Update Buyer <i class="fas fa-users-cog"></i></h1>
+
+    <br>
+
+    <!-- Form -->
+       <form method="post" action="{% url 'update_buyer' %}">
 
         {% csrf_token %}
+
+          <input type="hidden" value="{{ BId }}" name="bID" class="w3-input w3-border">
 
            <div class="sectionform">
 
            <table>
-
                <tr>
                    <td><label><b>Buyer Company Name</b></label></td>
-                   <td>{{ form.name }}</td>
-               </tr>
+                   <td>{{ BuyerForm.name }}</td>
 
-               <br>
+               </tr>
 
                <tr>
                    <td><label><b>Vat Reg.No</b></label></td>
-                   <td>{{ form.vat_regno }}</td>
+                   <td>{{ BuyerForm.vat_regno }}</td>
                </tr>
 
            </table>
 
+            <br>
+            <button type="submit" class="buttonEdit">Update <i class="fas fa-users-cog fa-x"></i></button>
+
          </div>
-
-           <button type="submit" class="buttonEdit">Add Buyer <i class="fas fa-plus-circle"></i></button>
-
         </form>
-
         <br>
 </div>
 
-{% if form.errors %}
+    {% if BuyerForm.errors %}
 
-    <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
-        <h3 style="font-weight: bold">{{ form.errors }}</h3>
-    </div>
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ BuyerForm.errors }}</h3>
+        </div>
 
-{% endif %}
+    {% endif %}
 
 {% endblock content %}
