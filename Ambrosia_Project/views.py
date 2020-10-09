@@ -477,8 +477,10 @@ def NavigateToPrevInv(request):
 
 @login_required(login_url='login')
 def NavigateToInvReport(request):
-    leaf = LeafInventory.objects.all()
-    return render(request,'inventoryPDF.html',{'leafPDF':leaf})
+    if request.method=="POST":
+        leafid=request.POST.get("leafPDF")
+        leaf = LeafInventory.objects.get(id=leafid)
+        return render(request,'inventoryPDF.html',{'leafPDF':leaf})
 
 @login_required(login_url='login')
 def NavigateToUpdateInv(request):
