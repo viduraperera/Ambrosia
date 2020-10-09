@@ -43,7 +43,6 @@ class Broker(models.Model):
         )
     ])
 
-    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Broker'
@@ -62,7 +61,6 @@ class Buyer(models.Model):
         )
     ])
     name = models.CharField(max_length=50)
-    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Buyer'
@@ -80,10 +78,10 @@ class Auction_SubStock(models.Model):
     )
 
     SubID = models.IntegerField(blank=True)
-    invoice = models.IntegerField(null=True)
-    no_of_packets = models.IntegerField(validators=[MinValueValidator(0)])
-    net_weight = models.FloatField(validators=[MinValueValidator(0.0)])
-    total_weight = models.FloatField(validators=[MinValueValidator(0.0)])
+    invoice = models.IntegerField(null=True, validators=[MinValueValidator(1)])
+    no_of_packets = models.IntegerField(validators=[MinValueValidator(1)])
+    net_weight = models.FloatField(validators=[MinValueValidator(1)])
+    total_weight = models.FloatField(validators=[MinValueValidator(1)])
     grade = models.ForeignKey(TeaGrades, to_field='teaGrade', on_delete=models.CASCADE, blank=True)
     packetType = models.CharField(max_length=10, choices=packets, blank=True)
     date_prepared = models.DateField(default=datetime.now , blank=True)
@@ -97,13 +95,12 @@ class Auction_SubStock(models.Model):
 #Auction MainStock Model - Sandun
 class Auction_MainStock(models.Model):
 
-    SubID = models.IntegerField(blank=True)
+    SubID = models.IntegerField(primary_key= True, blank=True)
     Date = models.DateField(default=datetime.now , blank=True)
     Broker = models.ForeignKey(Broker, on_delete=models.CASCADE)
     total_netWeight = models.FloatField(blank=True)
     total_grossWeight = models.FloatField(blank=True)
     total_packets = models.IntegerField(blank=True)
-    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Auction_MainStock'
@@ -114,8 +111,8 @@ class Auction_SoldStocks(models.Model):
 
     MainID = models.IntegerField(blank=True)
     SubID = models.IntegerField(blank=True)
-    price = models.FloatField(validators=[MinValueValidator(0.0)])
-    total_price = models.FloatField(validators=[MinValueValidator(0.0)], blank=True)
+    price = models.FloatField(validators=[MinValueValidator(1)])
+    total_price = models.FloatField(validators=[MinValueValidator(1)], blank=True)
     Buyer = models.ForeignKey('Buyer', on_delete = models.CASCADE, null=True, blank=True)
     sold_Date = models.DateField()
     active = models.IntegerField(blank=True, default=1)
@@ -143,6 +140,7 @@ class Auction_NotSoldStocksLog(models.Model):
 
     class Meta:
         db_table = 'Auction_NotSoldStockLog'
+
 
 #Auction Not Sold Stock Details Model - Sandun
 class Auction_RePreparedNotSoldStocksDetails(models.Model):

@@ -17,18 +17,17 @@ from Ambrosia_Project.models import *
 @login_required(login_url='login')
 def home(request):
 
-    return render(request, 'home.html')
+    return render(request, 'common_templates/home.html')
 
 @login_required(login_url='login')
 def factoryhome(request):
-
-    return render(request, 'factoryhome.html')
+    return render(request, 'common_templates/factoryhome.html')
 
 
 @login_required(login_url='login')
 def teashopHomepage (request):
 
-    return render(request, 'teashophome.html')
+    return render(request, 'common_templates/teashophome.html')
 
 #User Profile-----------------------------------------------------------------------------------------
 
@@ -54,7 +53,7 @@ def registration(request):
             return redirect('view_all_users')
 
     context = {'form': form}
-    return render(request, 'registration.html', context)
+    return render(request, 'common_templates/registration.html', context)
 
 
 def login_user(request):
@@ -74,16 +73,16 @@ def login_user(request):
                 return redirect('home')
             else:
                 messages.info(request, 'Username or Password is incorrect')
-                return render(request, 'login.html')
+                return render(request, 'common_templates/login.html')
 
-    return render(request, 'login.html')
+    return render(request, 'common_templates/login.html')
 
 
 @login_required(login_url='login')
 def view_AllUsers(request):
 
     array = User.objects.all()
-    return render(request, 'ViewAllUsers.html', {'Users': array})
+    return render(request, 'common_templates/ViewAllUsers.html', {'Users': array})
 
 
 @login_required(login_url='login')
@@ -95,13 +94,13 @@ def ShowUser(request):
     form = UserCreationForm(instance=user)
 
     if user is not None:
-        return render(request, 'updateUser.html', {'UserDetails': user, 'form': form })
+        return render(request, 'common_templates/updateUser.html', {'UserDetails': user, 'form': form})
 
     else:
         #user not found
         pass
 
-    return render(request, 'ViewAllUsers.html')
+    return render(request, 'common_templates/ViewAllUsers.html')
 
 
 @login_required(login_url='login')
@@ -160,34 +159,11 @@ def DeleteUser(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-#Employee Management-----------------------------------------------------------------------------------------
-
-@login_required(login_url='login')
-def EmployeeHome (request):
-
-    return render(request, 'attendance_management.html')
 
 
-#Navigate from Admin home to Registered Suppliers List
-@login_required(login_url='login')
-def to_reg_suppliers(request):
+#Final production -------------------------------------------------------------------------------------------
 
-    return render(request, 'AllRegisteredSuppliers.html')
-
-
-
-#Leaf Inventory-------------------------------------------------------------------------------------------
-
-@login_required(login_url='login')
-def NavigateToInventory(request):
-    return render(request, 'add_inventory.html')
-
-
-#Final production - Daily Production------------------------------------------------------------------------------------------
-
-@login_required(login_url='login')
-def finalProductionHome(request):
-    return render(request, 'finalproductionhome.html')
+#Daily Production------------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')

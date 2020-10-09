@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Log Not Sold</title>
+
+</head>
+
+<body>
+    <h1>Not Sold Stocks Log</h1>
+
+<div style="overflow-x:auto;">
+
+    <table border="1 px solid black">
+
+        <th>Time</th>
+        <th>Description</th>
+
+        {% for log in Alllog %}
+        <tr>
+            <td>{{ log.LastUpdated }}</td>
+            <td>{{ log.Description }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>

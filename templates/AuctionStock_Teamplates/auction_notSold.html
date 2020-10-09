@@ -1,0 +1,215 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Not Sold Stock{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px;
+    background: #fff9d2;
+    }
+
+td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    }
+
+tr:nth-child(even) {
+    background-color: #f3f2ee;
+    }
+
+.substockHeader {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px;
+    background: #CAFFC4;
+    }
+
+.substockColumn {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    background: #DAFFF6;
+    }
+
+.buttonEdit
+    {
+      background-color: #FF3E1C;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 90%;
+      border-radius: 15px;
+    }
+
+.buttonEdit:hover {
+    background: #FFED1C;
+    }
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block stockSalesBtn %}ClassActive{% endblock stockSalesBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block notSoldStockBtn %}ClassActive1{% endblock notSoldStockBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Stock Sales | Not Sold Stock{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<h1>Not Sold Stocks (Active)</h1>
+
+<div style="overflow-x:auto;">
+
+    <table border="1 px solid black">
+
+        <th>Not-Sold.St.Id</th>
+        <th>St.MainID</th>
+        <th>St.SubID</th>
+        <th class="substockHeader">Invoice</th>
+        <th class="substockHeader">Grade</th>
+        <th class="substockHeader">Date Pre.</th>
+        <th class="substockHeader">Status</th>
+        <th class="substockHeader">Net.W(kg)</th>
+        <th class="substockHeader">Tot.W(kg)</th>
+        <th class="substockHeader">No.Pkts</th>
+        <th>Edit</th>
+
+        {% for ns in nStock %}
+
+            {% for sub in subStock %}
+
+                {% if sub.id == ns.MainID %}
+
+                    <tr>
+                        <td>{{ ns.id }}</td>
+                        <td>{{ ns.MainID }}</td>
+                        <td>{{ ns.SubID }}</td>
+                        <td class="substockColumn">{{ sub.invoice }}</td>
+                        <td class="substockColumn">{{ sub.grade }}</td>
+                        <td class="substockColumn">{{ sub.date_prepared }}</td>
+                        <td class="substockColumn">{{ sub.status }}</td>
+                        <td class="substockColumn">{{ sub.net_weight }}</td>
+                        <td class="substockColumn">{{ sub.total_weight }}</td>
+                        <td class="substockColumn">{{ sub.no_of_packets }}</td>
+
+                        <td>
+                            <form method="post" action="{% url 'delete_NotSoldStock' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="nID" value="{{ ns.id }}"/>
+                                <input type="hidden" name="mID" value="{{ ns.MainID }}"/>
+                                <input type="submit" value="Delete" class="buttonEdit" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                            </form>
+
+                        </td>
+                    </tr>
+
+                 {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<!---------------------------------------------------------------------------------->
+<h1>Previous Not Sold Stocks</h1>
+
+<div style="overflow-x:auto;">
+
+    <table border="1 px solid black">
+
+        <th>Not-Sold.St.Id</th>
+        <th>St.MainID</th>
+        <th>St.SubID</th>
+        <th class="substockHeader">Invoice</th>
+        <th class="substockHeader">Grade</th>
+        <th class="substockHeader">Date Pre.</th>
+        <th class="substockHeader">Status</th>
+        <th class="substockHeader">Net.W(kg)</th>
+        <th class="substockHeader">Tot.W(kg)</th>
+        <th class="substockHeader">No.Pkts</th>
+
+        {% for ns in nStock %}
+
+            {% for sub in subStockAll %}
+
+                {% if sub.id == ns.MainID and ns.active == 0 %}
+
+                    <tr>
+                        <td>{{ ns.id }}</td>
+                        <td>{{ ns.MainID }}</td>
+                        <td>{{ ns.SubID }}</td>
+                        <td class="substockColumn">{{ sub.invoice }}</td>
+                        <td class="substockColumn">{{ sub.grade }}</td>
+                        <td class="substockColumn">{{ sub.date_prepared }}</td>
+                        <td class="substockColumn">{{ sub.status }}</td>
+                        <td class="substockColumn">{{ sub.net_weight }}</td>
+                        <td class="substockColumn">{{ sub.total_weight }}</td>
+                        <td class="substockColumn">{{ sub.no_of_packets }}</td>
+
+                    </tr>
+
+                 {% endif %}
+
+            {% endfor %}
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+<br><br>
+
+{% endblock content %}

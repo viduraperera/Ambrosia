@@ -1,0 +1,229 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Update Sold Stock{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+.detailsTable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+.detailsTable th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 20px;
+    padding: 12px;
+    background: #fff9d2;
+    }
+
+.detailsTable td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 16px;
+    padding: 15px;
+    }
+
+.detailsTable tr:nth-child(even) {
+    background-color: #f3f2ee;
+    }
+
+.buttonAdd{
+    margin-top: 15px;
+    background-color: #ff6d00;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px;
+    width: 40%;
+    border-radius: 5px;
+    }
+
+.buttonAdd:hover{
+    background: #40FC2C ;
+    }
+
+.buttonDelete{
+    margin-top: 15px;
+    background-color: #E41010;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 10px;
+    width: 40%;
+    border-radius: 5px;
+    }
+
+.buttonDelete:hover{
+    background: #F8FF09;
+    color: black;
+    }
+
+.formTable td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 20px;
+    padding: 15px;
+    font-weight: bold;
+    }
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block stockSalesBtn %}ClassActive{% endblock stockSalesBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block soldStockBtn %}ClassActive1{% endblock soldStockBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Stock Sales | Update Sold Stock{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<!-- Table -->
+<h1>Sold Stock Details</h1>
+
+<div style="overflow-x:auto;">
+    <table border="1 px solid black" class="detailsTable">
+
+    <th>MainID</th>
+    <th>SubId</th>
+    <th>Invoice</th>
+    <th>No of Packeges</th>
+    <th>Net Weight</th>
+    <th>Total Weight</th>
+    <th>Grade</th>
+    <th>Packet Type</th>
+    <th>Date Prepared</th>
+    <th>Current Status</th>
+
+        <tr>
+            <td>{{ stk.id }}</td>
+            <td>{{ stk.SubID }}</td>
+            <td>{{ stk.invoice }}</td>
+            <td>{{ stk.no_of_packets }}</td>
+            <td>{{ stk.net_weight }}</td>
+            <td>{{ stk.total_weight }}</td>
+            <td>{{ stk.grade }}</td>
+            <td>{{ stk.packetType }}</td>
+            <td>{{ stk.date_prepared }}</td>
+            <td>{{ stk.status }}</td>
+        </tr>
+
+</table>
+</div>
+<br>
+
+<!-- Delete Button -->
+<h1>Move Stock to Not Sold</h1>
+    <form method="post" action="{% url 'moveto_NotsoldStock' %}">
+        {% csrf_token %}
+        <input type="hidden" name="soldID" value="{{ soldStockId }}"/>
+        <input type="hidden" name="mID" value="{{ stk.id }}"/>
+        <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
+        <input type="submit" value="Move Sold Stock to Not Sold" class="buttonDelete" onclick="if (!confirm('Are you sure You Want Move to Not Sold?.Press Ok To Confirm.')) { return false }">
+    </form>
+<br>
+
+<!-- Form -->
+<h1>Update Details Form</h1>
+
+    <form method="post" action="{% url 'update_soldStock' %}">
+
+        {% csrf_token %}
+        <input type="hidden" name="soldStockID" value="{{ soldStockId }}"/>
+        <input type="hidden" name="mID" value="{{ stk.id }}"/>
+        <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
+
+        <table class="formTable">
+
+            <tr>
+                <td>Sold-Stock MainID</td>
+                <td>{{ soldStockId }}</td>
+            </tr>
+
+            <tr>
+                <td>Sub-Stock MainID</td>
+                <td>{{ stk.id }}</td>
+            </tr>
+
+            <tr>
+                <td>Sub-Stock SubID</td>
+                <td>{{ stk.SubID }}</td>
+            </tr>
+
+            <tr>
+                <td>Price</td>
+                <td>{{ form.price }}</td>
+            </tr>
+
+            <tr>
+                <td>Total Price</td>
+                <td>{{ totalPrice }}</td>
+            </tr>
+
+            <tr>
+                <td>Buyer</td>
+                <td>{{ form.Buyer }}</td>
+            </tr>
+
+            <tr>
+                <td>Sold Date</td>
+                <td>{{ form.sold_Date }}</td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Update Sold Stock" class="buttonAdd">
+
+    </form>
+
+    <!--------------Errors--------------------------------------->
+    {% if form.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
+
+<br><br>
+
+{% endblock content %}

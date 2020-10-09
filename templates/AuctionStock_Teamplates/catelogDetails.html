@@ -1,0 +1,172 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}All Auction Stocks{% endblock title %}
+
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+ <script src="https://kit.fontawesome.com/f78ce457b0.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+
+<!------------------------------------Styles--------------------------------------->
+
+{% block moreStyles %}
+
+.buttonEdit
+    {
+      background-color: #2f960a;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      width: 90%;
+      padding: 5px;
+      border-radius: 15px;
+    }
+
+.buttonEdit:hover {
+    background: #F7A558;
+    color: black;
+    }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 18px;
+    padding: 18px;
+    background: #FFD9E1;
+    }
+
+td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 20px;
+    padding: 15px;
+    }
+
+tr:nth-child(even) {
+    background-color: #f8f5f5;
+    }
+
+.searchBtn{
+    background-color:#ff0;
+    }
+
+.searchBtn:hover {
+    background-color:#27F5F7;
+    font-weight: bold;
+    }
+
+{% endblock moreStyles %}
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Auction Stock | All Catelogs{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!-------------------------Body Menue------------------------->
+{% block auctionStockBtn %}ClassActive{% endblock auctionStockBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block showCatelogBtn %}ClassActive1{% endblock showCatelogBtn %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<!---------------------------------Search--------------------------------------->
+<h3>Search Main Stock(Catelog)</h3>
+
+    <form method="get" action="{% url 'search_mainStock' %}">
+
+    <input type="text" name="sText" placeholder="Search MainStock" required>
+
+        <select name="type" required>
+            <option value="">----</option>
+            <option value="date">By Date</option>
+            <option value="month">By Month</option>
+            <option value="year">By Year</option>
+            <option value="broker">By Broker</option>
+            <option value="subID">By Catelog ID</option>
+            <option value="subStockID">By Substock ID</option>
+        </select>
+
+        <button type="submit" class="searchBtn">Search&nbsp;<i class="fas fa-search"></i></button>
+            <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: YYYY-MM </p>
+
+    </form>
+
+<!-- Table -->
+<h1>Main Stock Details(Catelog)</h1>
+    <div style="overflow-x:auto;">
+
+     <table>
+
+        <th>Catelog ID</th>
+        <th>Total Net Weight</th>
+        <th>Total Gross Weight</th>
+        <th>Total No of Packeges</th>
+        <th>Date</th>
+        <th>Broker</th>
+        <th>View</th>
+
+         {% for st in MainStocks %}
+            <tr>
+                <td>{{ st.SubID }}</td>
+                <td>{{ st.total_netWeight }}</td>
+                <td>{{ st.total_grossWeight }}</td>
+                <td>{{ st.total_packets }}</td>
+                <td>{{ st.Date }}</td>
+                <td>{{ st.Broker }}</td>
+
+                <td>
+                    <form method="post" action="{% url 'view_mainStock' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="sid" value="{{ st.SubID }}"/>
+                        <input type="submit" value="View" class="buttonEdit">
+                    </form>
+
+            </tr>
+        {% endfor %}
+
+     </table>
+    </div>
+
+    <br><br>
+
+{% endblock content %}

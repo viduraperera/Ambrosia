@@ -1,0 +1,164 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Analysis{% endblock title %}
+
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+th {
+    border: 1px solid #000;
+    text-align: center;
+    font-size: 20px;
+    padding: 14px;
+    background: #F5D9FF;
+    }
+
+td {
+    border: 1px solid black;
+    text-align: left;
+    font-size: 20px;
+    padding: 10px;
+    font_weight: bold;
+    }
+
+.buttonEdit
+    {
+    background-color: #2f960a;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    }
+
+.buttonEdit:hover {
+    background: #AB0909;
+    }
+
+{% endblock moreStyles %}
+
+
+<!-------------------------Body Menue------------------------->
+{% block analysisBtn %}ClassActive{% endblock analysisBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{#{% block notSoldStockBtn %}ClassActive1{% endblock notSoldStockBtn %}#}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Reports & Analysis{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<!------------------------------------Horizontal Line------------------------------------------->
+<hr style="border:5px solid black" class="w3-round">
+
+
+<!---------------------------------Chart1--------------------------------------------------->
+
+<h1>Generate Reports</h1>
+
+    <table>
+    <tr>
+        <th>Report</th>
+        <th>Type</th>
+        <th>Input</th>
+        <th>Generate</th>
+    </tr>
+
+        <tr>
+            <td>Sold Stock Report</td>
+
+            <form method="get" action="{% url 'generateSoldStockReport' %}">
+                <td>
+                    <label>Select :
+                        <select name="type" required>
+                            <option value="">----</option>
+                            <option value="date">By Date Sold</option>
+                            <option value="month">By Sold in searched Month</option>
+                            <option value="year">By Sold in searched Year</option>
+                        </select>
+                    </label>
+                </td>
+
+                <td>
+                    <input type="text" name="input" placeholder="Search Details" required>
+                </td>
+
+                <td><button type="submit" class="buttonEdit">Generate</button></td>
+
+            </form>
+
+        </tr>
+
+        <tr>
+            <td>Catelog Preparation Report</td>
+
+            <form method="get" action="{% url 'GenerateCatelogReport' %}">
+                <td>
+                    <label>Select :
+                        <select name="type" required>
+                            <option value="">----</option>
+                            <option value="year">By Prepared Year</option>
+                            <option value="month">By Prepared Month</option>
+                        </select>
+                    </label>
+                </td>
+
+                <td>
+                    <input type="text" name="input" placeholder="Search Details" required>
+                </td>
+
+                <td>
+                    <input type="submit" value="Generate" class="buttonEdit">
+
+                </td>
+            </form>
+        </tr>
+
+    </table>
+
+    <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: YYYY-MM </p>
+
+
+{% endblock content %}

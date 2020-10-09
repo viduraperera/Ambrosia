@@ -1,0 +1,158 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Update Broker{% endblock title %}
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan Script">
+ <script src="https://kit.fontawesome.com/f78ce457b0.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+.buttonEdit
+{
+    margin-top: 20px;
+    background-color: #650077;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    height: 50px;
+    border-radius: 15px;
+    margin-left:30%;
+    }
+
+
+.buttonEdit:hover {
+    background: #e9e444;
+    color: #000;
+    }
+
+.updateBrokerformCont
+{
+    margin-top:30px;
+    background-color:#D9E4FF;
+    width: 60%;
+    min-width: 550px;
+}
+
+.updateBrokerformCont h1
+{
+    text-align: center;
+    background-color: #0002A1;
+    color: white;
+    font-family: 'Kaushan Script';
+}
+
+.updateBrokerformCont table
+{
+    margin-left:10%;
+}
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block auctionStockBtn %}ClassActive{% endblock auctionStockBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block allBrokersBtn %}ClassActive1{% endblock allBrokersBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Auction Stock | Update Broker{% endblock pageContentHeader2 %}
+
+
+<!-----------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<div class="updateBrokerformCont">
+
+<h1>Update Broker <i class="fas fa-cogs"></i></h1>
+
+<!-- Form -->
+   <form method="post" action="{% url 'update_broker' %}">
+
+    {% csrf_token %}
+
+       <input type="hidden" value="{{ BrokerID }}" name="bId">
+
+       <div class="sectionform">
+
+       <table>
+           <tr>
+               <td><label><b>Broker Company Name</b></label></td>
+               <td>{{ Broker.name }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Address</b></label></td>
+               <td>{{ Broker.address }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Phone</b></label></td>
+               <td>{{ Broker.phone }}</td>
+           </tr>
+
+          <tr>
+               <td><label><b>Vat Reg. Number</b></label></td>
+               <td>{{ Broker.vat_regno }}</td>
+           </tr>
+
+           <br>
+
+       </table>
+
+     </div>
+
+        <button type="submit" class="buttonEdit">Update <i class="fas fa-recycle"></i></button>
+
+    </form>
+<br>
+</div>
+<br>
+
+    {% if errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ errors }}</h3>
+        </div>
+
+   {% endif %}
+
+    <br><br>
+
+{% endblock content %}

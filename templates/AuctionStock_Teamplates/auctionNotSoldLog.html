@@ -1,0 +1,206 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Not Sold Stock Log{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 16px;
+    padding: 14px;
+    background: #fff9d2;
+    }
+
+td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px;
+    }
+
+tr:nth-child(even) {
+    background-color: #f3f2ee;
+    }
+
+.btnView{
+    background-color: #CE272D;
+    color: white;
+    padding: 5px;
+    overflow:none;
+    border:none;
+    border-radius: 5px;
+    }
+
+.btnView:hover{
+    background-color: #84EB7D;
+    color: black;
+    }
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block stockSalesBtn %}ClassActive{% endblock stockSalesBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block notSoldStockLogBtn %}ClassActive1{% endblock notSoldStockLogBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Stock Sales | Not Sold Stock Log{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+    <h1>Not Sold Stocks Re-Added Details</h1>
+
+    <div style="overflow-x:auto;">
+
+        <table border="1 px solid black">
+
+            <th>Prev Not Sold Stock ID</th>
+            <th>Prev Sub Stock Main ID</th>
+            <th>New Sub Stock Main ID</th>
+            <th>Date Re-Added To New Sub Stock</th>
+
+            {% for det in Details %}
+            <tr>
+                <td>{{ det.NotSoldStockID }}</td>
+                <td>{{ det.PreviousSubStockMainID }}</td>
+                <td>{{ det.NewSubStockMainID }}</td>
+                <td>{{ det.LastUpdated }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+<br>
+
+<h3>Search Not SoldStock Details</h3>
+
+     <form method="get" action="{% url 'findNotSoldStockDetails' %}">
+
+    <input type="text" name="txt" placeholder="Search Not Sold Stock Details" required>
+
+        <select name="type" required>
+            <option value="mainID">From First Sub Stock Main ID</option>
+        </select>
+
+        <input type="submit" value="Search Details">
+
+    </form>
+
+    <br>
+
+    {% if oStock and nStock %}
+        <h2 style="color: #CE272D;">First Sub Stock(old Stock)</h2>
+        <table>
+            <tr>
+                <th>MainId</th>
+                <th>SubStockId</th>
+                <th>Invoice</th>
+                <th>No of Packets</th>
+                <th>Net Weight(kg)</th>
+                <th>Total Weight(kg)</th>
+                <th>Grade</th>
+                <th>Packet Type</th>
+                <th>Date Prepared</th>
+            </tr>
+
+            <tr>
+                <td>{{ oStock.id }}</td>
+                <td>{{ oStock.SubID }}</td>
+                <td>{{ oStock.invoice }}</td>
+                <td>{{ oStock.no_of_packets }}</td>
+                <td>{{ oStock.net_weight }}</td>
+                <td>{{ oStock.total_weight }}</td>
+                <td>{{ oStock.grade }}</td>
+                <td>{{ oStock.packetType }}</td>
+                <td>{{ oStock.date_prepared }}</td>
+            </tr>
+
+        </table>
+
+        <h2 style="color: #CE272D;">New Sub Stock</h2>
+        <table>
+            <tr>
+                <th>MainId</th>
+                <th>SubStockId</th>
+                <th>Invoice</th>
+                <th>No of Packets</th>
+                <th>Net Weight(kg)</th>
+                <th>Total Weight(kg)</th>
+                <th>Grade</th>
+                <th>Packet Type</th>
+                <th>Date Prepared</th>
+            </tr>
+
+            <tr>
+                <td>{{ nStock.id }}</td>
+                <td>{{ nStock.SubID }}</td>
+                <td>{{ nStock.invoice }}</td>
+                <td>{{ nStock.no_of_packets }}</td>
+                <td>{{ nStock.net_weight }}</td>
+                <td>{{ nStock.total_weight }}</td>
+                <td>{{ nStock.grade }}</td>
+                <td>{{ nStock.packetType }}</td>
+                <td>{{ nStock.date_prepared }}</td>
+            </tr>
+
+        </table>
+
+    <hr>
+        <h2 style="color: #CE272D">Total Gross Weight Loss: {{ wLoss }} kg</h2>
+        <h2 style="color: #CE272D">Total Net Weight Loss: {{ wNLoss }} kg</h2>
+    <hr>
+
+    {% endif %}
+
+<button onclick="Open()" class="btnView">View all not sold Log</button>
+
+       <script>
+            function Open() {
+                window.open("{% url 'viewNotSoldLog' %}");
+            }
+        </script>
+
+
+<br><br>
+
+{% endblock content %}

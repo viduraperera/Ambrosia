@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from django.core.exceptions import ValidationError
+
 from Ambrosia_Project.models import *
 
 
@@ -10,7 +12,7 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
-#final production management - Auction Stock - Sandun
+#final production management - Auction Stock - Sandun ---------------------------------------------------------------
 
 class AddBrokerForm(forms.ModelForm):
     class Meta:
@@ -29,6 +31,13 @@ class AddSubAuctionStockForm(forms.ModelForm):
     class Meta:
         model = Auction_SubStock
         fields = '__all__'
+
+    def clean(self):
+        netW = self.cleaned_data['net_weight']
+        totW = self.cleaned_data['total_weight']
+
+        if netW > totW:
+            raise ValidationError('Total Weight Must grate than Net Weight')
 
 
 class AddMainAuctionStockForm(forms.ModelForm):

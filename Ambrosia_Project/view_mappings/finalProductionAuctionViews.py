@@ -2,11 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.forms import *
-from Ambrosia_Project.commonUtills import *
+from Ambrosia_Project.common_utills.auctionStockUtills import *
 from django.views.generic import View
 
 #Auction stock--------------------------------------------------------------------------------------------
-
 
 @login_required(login_url='login')
 def addAuctionSubStock(request):
@@ -51,7 +50,7 @@ def addAuctionSubStock(request):
             'nAddForm': nAddFrom,
             }
 
-    return render(request, 'addAuction_stock.html', var)
+    return render(request, 'AuctionStock_Teamplates/addAuction_stock.html', var)
 
 
 @login_required(login_url='login')
@@ -64,22 +63,32 @@ def deleteAuctionSubStock(request):
         try:
             if mid is not None:
                 stock = Auction_SubStock.objects.get(pk=mid)
-                mainStock = Auction_MainStock.objects.filter(SubID=sid)
                 chk = Auction_MainStock.objects.filter(SubID=sid).exists()
 
                 if stock is not None:
+                    #delete sub stock
                     stock.delete()
 
                     if chk:
-                        # All calculations
-                        mStock = Auction_MainStock.objects.get(SubID=sid)
-                        subSt = calculaionsAuctionSubStock(sid)
-                        mStock.total_netWeight = subSt['tne']
-                        mStock.total_grossWeight = subSt['tgr']
-                        mStock.total_packets = subSt['tpk']
-                        mStock.save()
-                        messages.success(request, 'Successfully Deleted')
-                        return redirect('view_mainStock')
+                        #check the catelog has another stock
+                        subCount = Auction_SubStock.objects.filter(SubID=sid).count()
+
+                        if subCount == 0:
+                            mainStock = Auction_MainStock.objects.get(SubID=sid)
+                            mainStock.delete()
+                            messages.success(request, 'Successfully Deleted Main and Sub Stocks')
+                            return redirect('view_mainStock')
+
+                        else:
+                            # All calculations - update main stock data
+                            mStock = Auction_MainStock.objects.get(SubID=sid)
+                            subSt = calculaionsAuctionSubStock(sid)
+                            mStock.total_netWeight = subSt['tne']
+                            mStock.total_grossWeight = subSt['tgr']
+                            mStock.total_packets = subSt['tpk']
+                            mStock.save()
+                            messages.success(request, 'Successfully Deleted')
+                            return redirect('view_mainStock')
 
                     else:
                         messages.success(request, 'Successfully Deleted')
@@ -96,7 +105,7 @@ def deleteAuctionSubStock(request):
             print(e)
             messages.error(request, 'Exception ')
 
-        return redirect('prepare_auction_stock')
+        return redirect('view_mainStock')
 
 
 @login_required(login_url='login')
@@ -141,7 +150,7 @@ def showAuctionMainStocks(request):
 
     try:
         allCatelogs = Auction_MainStock.objects.all()
-        return render(request, 'catelogDetails.html', {'MainStocks':allCatelogs})
+        return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks':allCatelogs})
 
     except Exception as e:
         print(e)
@@ -167,7 +176,7 @@ def showMainAuctionStock(request):
             }
 
             if stocks is not None:
-                return render(request, 'viewCatelog.html',var)
+                return render(request, 'AuctionStock_Teamplates/viewCatelog.html', var)
 
             else:
                 return redirect('all_catelog')
@@ -215,7 +224,7 @@ def afterAddAuctionSubStock(request):
             return redirect('view_mainStock')
 
 
-    return render(request, 'catelogDetails.html')
+    return render(request, 'AuctionStock_Teamplates/catelogDetails.html')
 
 
 @login_required(login_url='login')
@@ -233,7 +242,7 @@ def viewAuctionSubStock(request):
                     'form': form,
                     'stock':stock,
                 }
-                return render(request, 'viewAuctionSubStock.html', var)
+                return render(request, 'AuctionStock_Teamplates/viewAuctionSubStock.html', var)
 
             except Exception as e:
                 print(e)
@@ -251,7 +260,7 @@ def updateAuctionSubStock(request):
         try:
 
             stock = Auction_SubStock.objects.get(pk=mainID)
-            sid =stock.SubID
+            sid = stock.SubID
             form = AddSubAuctionStockForm(request.POST, instance=stock)
 
             if form.is_valid():
@@ -259,6 +268,16 @@ def updateAuctionSubStock(request):
                 subObject.SubID = sid
                 subObject.status = 'Pending'
                 subObject.save()
+
+                #update main stock All calculations
+                subStockcal = calculaionsAuctionSubStock(sid)
+
+                mainStock = Auction_MainStock.objects.get(SubID=sid)
+                mainStock.total_netWeight = subStockcal['tne']
+                mainStock.total_grossWeight = subStockcal['tgr']
+                mainStock.total_packets = subStockcal['tpk']
+                mainStock.save()
+
                 messages.success(request, 'Successfully Updated')
                 return redirect('all_catelog')
 
@@ -335,7 +354,6 @@ def addNotSoldToCurrentCatelog(request):
         else:
             messages.error(request,'Id is null')
 
-
     return redirect('prepare_auction_stock')
 
 
@@ -347,7 +365,8 @@ def stockSalesHome(request):
 
     try:
         curStocks = Auction_SubStock.objects.filter(status='Pending', active=1)
-        return render(request, 'auctionStock_current.html', {'stock': curStocks})
+        curMainStocks = Auction_MainStock.objects.all()
+        return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': curStocks, 'mStock': curMainStocks})
 
     except Exception as e:
         messages.error(request, 'Exception')
@@ -371,7 +390,10 @@ def viewAddSoldStock(request):
                 'form': mForm
             }
 
-            return render(request, 'AddSoldStock.html', var)
+            return render(request, 'AuctionStock_Teamplates/AddSoldStock.html', var)
+
+    else:
+        return redirect('StockSales')
 
 
 @login_required(login_url='login')
@@ -406,15 +428,17 @@ def AddSoldStock(request):
                     return redirect('stock_sold')
 
                 else:
+                    formErrors = soldForm.errors
                     messages.error(request, 'Invalid Details')
                     mStock = Auction_SubStock.objects.get(pk=mainid)
                     mForm = AddAuctionSoldStockForm()
 
                     var = {
                         'stk': mStock,
-                        'form': mForm
+                        'form': mForm,
+                        'errors':formErrors,
                     }
-                    return render(request, 'AddSoldStock.html', var)
+                    return render(request, 'AuctionStock_Teamplates/AddSoldStock.html', var)
 
             else:
                 messages.error(request, 'Error Main/Sub ID is null')
@@ -434,12 +458,12 @@ def soldStock(request):
     try:
         sold = Auction_SoldStocks.objects.filter(active=1)
         substocks = Auction_SubStock.objects.filter(status='Sold', active=1)
-        return render(request, 'auction_soldStock.html', {'soldStocks': sold , 'subStocks':substocks })
+        return render(request, 'AuctionStock_Teamplates/auction_soldStock.html', {'soldStocks': sold , 'subStocks':substocks})
 
     except Exception as e:
         print(e)
         messages.error(request, 'Exception')
-        return render(request, 'auction_soldStock.html')
+        return render(request, 'AuctionStock_Teamplates/auction_soldStock.html')
 
 
 @login_required(login_url='login')
@@ -462,7 +486,7 @@ def showSoldAuctionSubStock(request):
                 'soldStockId': soldId,
                 'totalPrice':totPrice
             }
-            return render(request, 'updateSoldStock.html', var)
+            return render(request, 'AuctionStock_Teamplates/updateSoldStock.html', var)
 
         else:
             messages.error(request, 'Error mid/soldId is null')
@@ -606,12 +630,12 @@ def notSoldStock(request):
         substocks = Auction_SubStock.objects.filter(status='Not Sold', active=1)
         substockAll = Auction_SubStock.objects.all()
 
-        return render(request, 'auction_notSold.html', {'nStock': notSold, 'subStock':substocks, 'subStockAll':substockAll })
+        return render(request, 'AuctionStock_Teamplates/auction_notSold.html', {'nStock': notSold, 'subStock':substocks, 'subStockAll':substockAll})
 
     except Exception as e:
         print(e)
         messages.error(request, 'Exception')
-        return render(request, 'auction_notSold.html')
+        return render(request, 'AuctionStock_Teamplates/auction_notSold.html')
 
 
 @login_required(login_url='login')
@@ -658,7 +682,7 @@ def viewNotSoldLog(request):
     context = {
         'log': log,
     }
-    pdf = finalProductionAuction_render_topdf('auctionNotSoldLogEntriesPDF.html', context)
+    pdf = finalProductionAuction_render_topdf('AuctionStock_Teamplates/auctionNotSoldLogEntriesPDF.html', context)
 
     if pdf:
         return pdf
@@ -672,7 +696,7 @@ def showAuctionNotSoldLog(request):
 
     detailsSt = Auction_RePreparedNotSoldStocksDetails.objects.all()
 
-    return render(request, 'auctionNotSoldLog.html', {'Details': detailsSt })
+    return render(request, 'AuctionStock_Teamplates/auctionNotSoldLog.html', {'Details': detailsSt})
 
 
 @login_required(login_url='login')
@@ -690,7 +714,7 @@ def searchAuctionMainStock(request):
                 result = Auction_MainStock.objects.filter(Date=text).count()
 
                 messages.success(request, str(result) + ' Results Found')
-                return render(request, 'catelogDetails.html', {'MainStocks': allCatelogs})
+                return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks': allCatelogs})
 
             elif type == 'month':
                 arr = text.split('-',1)
@@ -700,7 +724,7 @@ def searchAuctionMainStock(request):
                 result = Auction_MainStock.objects.filter(Date__year=year, Date__month=month).count()
 
                 messages.success(request, str(result) + ' Results Found')
-                return render(request, 'catelogDetails.html', {'MainStocks': allCatelogs})
+                return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks': allCatelogs})
 
             elif type == 'year':
 
@@ -708,7 +732,7 @@ def searchAuctionMainStock(request):
                 result = Auction_MainStock.objects.filter(Date__year=text).count()
 
                 messages.success(request, str(result) + ' Results Found')
-                return render(request, 'catelogDetails.html', {'MainStocks': allCatelogs})
+                return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks': allCatelogs})
 
 
             elif type == 'subID':
@@ -717,7 +741,7 @@ def searchAuctionMainStock(request):
                 result = Auction_MainStock.objects.filter(SubID=sid).count()
 
                 messages.success(request, str(result) + ' Results Found')
-                return render(request, 'catelogDetails.html', {'MainStocks': allCatelogs})
+                return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks': allCatelogs})
 
 
             elif type == 'subStockID':
@@ -732,7 +756,7 @@ def searchAuctionMainStock(request):
                     result = Auction_MainStock.objects.filter(SubID=subID).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'catelogDetails.html', {'MainStocks': allCatelogs})
+                    return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks': allCatelogs})
 
                 else:
                     messages.success(request,'No Results Found')
@@ -747,7 +771,7 @@ def searchAuctionMainStock(request):
                     result = Auction_MainStock.objects.filter(Broker_id=id).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'catelogDetails.html', {'MainStocks': allCatelogs})
+                    return render(request, 'AuctionStock_Teamplates/catelogDetails.html', {'MainStocks': allCatelogs})
 
                 else:
                     messages.error(request, 'Broker not found')
@@ -780,10 +804,10 @@ def searchAuctionCurrentSubStock(request):
 
                 if chk:
                     stockSub = Auction_SubStock.objects.filter(pk=sID, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(pk=sID).count()
+                    result = Auction_SubStock.objects.filter(pk=sID, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'auctionStock_current.html', {'stock': stockSub })
+                    return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
 
                 else:
                     messages.error(request, 'No Data Found')
@@ -794,10 +818,10 @@ def searchAuctionCurrentSubStock(request):
 
                 if chk:
                     stockSub = Auction_SubStock.objects.filter(SubID=sID, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(SubID=sID).count()
+                    result = Auction_SubStock.objects.filter(SubID=sID, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'auctionStock_current.html', {'stock': stockSub })
+                    return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
 
                 else:
                     messages.error(request, 'No Data Found')
@@ -809,10 +833,10 @@ def searchAuctionCurrentSubStock(request):
 
                 if chk:
                     stockSub = Auction_SubStock.objects.filter(date_prepared=text, status='Pending', active=1)
-                    result = Auction_SubStock.objects.filter(date_prepared=text).count()
+                    result = Auction_SubStock.objects.filter(date_prepared=text, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'auctionStock_current.html', {'stock': stockSub})
+                    return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
 
                 else:
                     messages.error(request, 'No Data Found')
@@ -830,7 +854,7 @@ def searchAuctionCurrentSubStock(request):
                     result = Auction_SubStock.objects.filter(date_prepared__year=year, date_prepared__month=month, status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'auctionStock_current.html', {'stock': stockSub})
+                    return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
 
                 else:
                     messages.error(request, 'No Data Found')
@@ -843,7 +867,7 @@ def searchAuctionCurrentSubStock(request):
                     result = Auction_SubStock.objects.filter(date_prepared__year=text,status='Pending', active=1).count()
 
                     messages.success(request, str(result) + ' Results Found')
-                    return render(request, 'auctionStock_current.html', {'stock': stockSub})
+                    return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': stockSub})
 
                 else:
                     messages.error(request, 'No Data Found')
@@ -877,7 +901,7 @@ def searchAuctionSoldStock(request):
                     count = Auction_SoldStocks.objects.filter(MainID=sID,active=1).count()
 
                     messages.success(request, str(count) + ' Results found')
-                    return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
+                    return render(request, 'AuctionStock_Teamplates/auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
 
                 else:
                     messages.error(request, 'No result found')
@@ -891,7 +915,7 @@ def searchAuctionSoldStock(request):
                     count = Auction_SoldStocks.objects.filter(SubID=sID, active=1).count()
 
                     messages.success(request, str(count)+' Results found')
-                    return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
+                    return render(request, 'AuctionStock_Teamplates/auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
 
                 else:
                     messages.error(request, 'No result found')
@@ -904,7 +928,7 @@ def searchAuctionSoldStock(request):
                     count = Auction_SoldStocks.objects.filter(sold_Date=text, active=1).count()
 
                     messages.success(request, str(count)+' Results found')
-                    return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
+                    return render(request, 'AuctionStock_Teamplates/auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
 
                 else:
                     messages.error(request, 'No result found')
@@ -921,7 +945,7 @@ def searchAuctionSoldStock(request):
                     count = Auction_SoldStocks.objects.filter(sold_Date__year=year, sold_Date__month=month, active=1).count()
 
                     messages.success(request, str(count)+' Results found')
-                    return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
+                    return render(request, 'AuctionStock_Teamplates/auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
 
                 else:
                     messages.error(request, 'No result found')
@@ -935,7 +959,7 @@ def searchAuctionSoldStock(request):
                     count = Auction_SoldStocks.objects.filter(sold_Date__year=text, active=1).count()
 
                     messages.success(request, str(count) + ' Results found')
-                    return render(request, 'auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
+                    return render(request, 'AuctionStock_Teamplates/auction_soldStock.html', {'soldStocks': sold, 'subStocks': substocks})
 
                 else:
                     messages.error(request, 'No result found')
@@ -990,7 +1014,7 @@ def searchAuctionNotSoldStockDetails(request):
                     'Details': detailsSt,
                 }
                 print(det)
-                return render(request, 'auctionNotSoldLog.html', det)
+                return render(request, 'AuctionStock_Teamplates/auctionNotSoldLog.html', det)
 
             else:
                 messages.error(request, 'Stock Not Found in db')
@@ -1009,7 +1033,7 @@ def searchAuctionNotSoldStockDetails(request):
 @login_required(login_url='login')
 def productionAnalysisHome(request):
 
-    return render(request, 'finalProductAnalysis.html')
+    return render(request, 'AuctionStock_Teamplates/finalProductAnalysis.html')
 
 
 class ReportAuctionSoldStock(View):
@@ -1049,7 +1073,7 @@ class ReportAuctionSoldStock(View):
                 'text': text,
                }
 
-            pdf = finalProductionAuction_render_topdf('AuctionStockSoldStockReoprt.html', context)
+            pdf = finalProductionAuction_render_topdf('AuctionStock_Teamplates/AuctionStockSoldStockReoprt.html', context)
 
             if pdf:
                 response = HttpResponse(pdf, content_type='application/pdf')
@@ -1061,25 +1085,69 @@ class ReportAuctionSoldStock(View):
 
 
 
-# class ReportAuctionNotSoldStock(View):
-#     def get(self, request , *args, **kwargs):
-#         return None
-
-
-#Broker-----------------------------------------------------------------------------------------------------
-
-
 @login_required(login_url='login')
-def showBrokerDetails(request):
+def GenerateCatelogReport(request):
+
+    text = request.GET.get('input')
+    type = request.GET.get('type')
 
     try:
-        arr = Broker.objects.all()
-        return render(request, 'AllBrokers.html', {'Brokers': arr})
+        if type == 'year':
+
+            subStock = Auction_SubStock.objects.filter(date_prepared__year=text)
+
+            if len(subStock) > 0:
+                context = {
+                    'subStock': subStock,
+                }
+                pdf = finalProductionAuction_render_topdf('AuctionStock_Teamplates/AuctionCatelogPreparationPDF.html',
+                                                          context)
+
+                if pdf:
+                    return pdf
+                else:
+                    messages.error(request, 'Error in pdf')
+                    return redirect('production_analysis')
+
+            else:
+                messages.error(request, 'No Details Found')
+                return redirect('production_analysis')
+
+        elif type == 'month':
+
+            arr = text.split('-', 1)
+            year = arr[0]
+            month = arr[1]
+
+            subStock = Auction_SubStock.objects.filter(date_prepared__year=year, date_prepared__month=month)
+
+            if len(subStock) > 0:
+
+                context = {
+                    'subStock': subStock,
+                }
+                pdf = finalProductionAuction_render_topdf('AuctionStock_Teamplates/AuctionCatelogPreparationPDF.html',
+                                                          context)
+
+                if pdf:
+                    return pdf
+                else:
+                    messages.error(request, 'Error in pdf')
+                    return redirect('production_analysis')
+
+            else:
+                messages.error(request, 'No Details Found')
+                return redirect('production_analysis')
+
 
     except Exception as e:
         print(e)
-        messages.error(request, "Exception")
-        return render(request, 'AllBrokers.html')
+        messages.error(request, 'Invalid Details')
+        return redirect('production_analysis')
+
+    return redirect('production_analysis')
+
+#Broker-----------------------------------------------------------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -1107,7 +1175,20 @@ def addNewBroker(request):
        pass
 
     var = {'form': form}
-    return render(request, 'addBroker.html', var)
+    return render(request, 'AuctionStock_Teamplates/addBroker.html', var)
+
+
+@login_required(login_url='login')
+def showBrokerDetails(request):
+
+    try:
+        arr = Broker.objects.all()
+        return render(request, 'AuctionStock_Teamplates/AllBrokers.html', {'Brokers': arr})
+
+    except Exception as e:
+        print(e)
+        messages.error(request, "Exception")
+        return render(request, 'AuctionStock_Teamplates/AllBrokers.html')
 
 
 @login_required(login_url='login')
@@ -1123,7 +1204,7 @@ def showBroker(request):
                 brokerForm = AddBrokerForm(instance=broker)
 
                 if broker is not None:
-                    return render(request, 'updateBroker.html', {'Broker': brokerForm, 'BrokerID' : brID})
+                    return render(request, 'AuctionStock_Teamplates/updateBroker.html', {'Broker': brokerForm, 'BrokerID' : brID})
 
                 else:
                     messages.error(request, 'Broker not found in Database')
@@ -1162,8 +1243,9 @@ def updateBroker(request):
 
                 else:
                     #Not Valid
+                    errorsForm = bFrom.errors
                     messages.success(request, 'Invalid Details Provided.')
-                    return render(request, 'updateBroker.html', {'Broker': bFrom, 'BrokerID': brID})
+                    return render(request, 'AuctionStock_Teamplates/updateBroker.html', {'Broker': bFrom, 'BrokerID': brID, 'errors':errorsForm})
 
             except Exception as e:
                 print(e)
@@ -1241,7 +1323,7 @@ def addNewBuyer(request):
 
     #poss form to add buyer
     var = {'form': form}
-    return render(request, 'addBuyer.html', var)
+    return render(request, 'AuctionStock_Teamplates/addBuyer.html', var)
 
 
 @login_required(login_url='login')
@@ -1249,12 +1331,12 @@ def showBuyerDetails(request):
 
     try:
         buyersArr = Buyer.objects.all()
-        return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
+        return render(request, 'AuctionStock_Teamplates/AllBuyer.html', {'Buyers': buyersArr})
 
     except Exception as e:
         print(e)
         messages.error(request, 'Exception')
-        return render(request, 'AllBuyer.html')
+        return render(request, 'AuctionStock_Teamplates/AllBuyer.html')
 
 
 @login_required(login_url='login')
@@ -1267,13 +1349,13 @@ def showBuyer(request):
             try:
                 buyer = Buyer.objects.get(pk=buyerID)
                 buyerform = AddBuyerForm(instance=buyer)
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerID})
+                return render(request, 'AuctionStock_Teamplates/updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerID})
 
             except Exception as e:
                 print(e)
                 messages.error(request, 'Exception')
 
-    return render(request, 'AllBuyer.html')
+    return render(request, 'AuctionStock_Teamplates/AllBuyer.html')
 
 
 @login_required(login_url='login')
@@ -1303,219 +1385,7 @@ def updateBuyer(request):
             else:
                 print(buyerform.errors)
                 messages.success(request, 'Invalid Details')
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
-
-        except Exception as e:
-            print(e)
-            messages.error(request, 'Exception')
-
-    else:
-        #form method is not
-        messages.error(request, 'Form method is invalid')
-        return redirect('all_buyers')
-
-    return redirect('all_buyers')
-
-@login_required(login_url='login')
-def addNewBuyer(request):
-
-    form = AddBuyerForm()
-
-    if request.method == 'POST':
-        form = AddBuyerForm(request.POST)
-
-        if form.is_valid():
-            try:
-                #vatNo = form.cleaned_data.get('vat_regno')
-                #print("VAT REG NO:",vatNo)
-                form.save()
-                messages.success(request, 'Sucessfully Added Buyer Details')
-                return redirect('all_buyers')
-
-            except Exception as e:
-                # pass
-                print(e)
-                messages.error(request, 'Exception')
-                return redirect('add_buyer')
-        else:
-            #form method is not valid
-            print(form.errors)
-            messages.error(request, 'Invalid Details')
-            pass
-
-    #poss form to add buyer
-    var = {'form': form}
-    return render(request, 'addBuyer.html', var)
-
-
-@login_required(login_url='login')
-def showBuyerDetails(request):
-
-    try:
-        buyersArr = Buyer.objects.all()
-        return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
-
-    except Exception as e:
-        print(e)
-        messages.error(request, 'Exception')
-        return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def showBuyer(request):
-
-    if request.method == 'POST':
-        buyerID = request.POST.get('buyerID')
-
-        if buyerID is not None:
-            try:
-                buyer = Buyer.objects.get(pk=buyerID)
-                buyerform = AddBuyerForm(instance=buyer)
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerID})
-
-            except Exception as e:
-                print(e)
-                messages.error(request, 'Exception')
-
-    return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def updateBuyer(request):
-
-    if request.method == "POST":
-
-        try:
-            buyerform = AddBuyerForm(request.POST)
-            buyerid = request.POST.get('bID')
-
-            if buyerform.is_valid():
-
-                    buyer = Buyer.objects.get(pk=buyerid)
-
-                    if buyer is not None:
-                        buyer_form = AddBuyerForm(request.POST, instance=buyer)
-                        buyer_form.save()
-                        messages.success(request, 'Sucessfully updated Buyer Details')
-                        return redirect('all_buyers')
-
-                    else:
-                        #if buyer not found in db
-                        messages.error(request, 'Buyer details not found in database')
-
-            #form is not valid
-            else:
-                print(buyerform.errors)
-                messages.success(request, 'Invalid Details')
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
-
-        except Exception as e:
-            print(e)
-            messages.error(request, 'Exception')
-
-    else:
-        #form method is not
-        messages.error(request, 'Form method is invalid')
-        return redirect('all_buyers')
-
-    return redirect('all_buyers')
-
-
-#Buyer---------------------------------------------------------------------------------------------------------
-
-
-@login_required(login_url='login')
-def addNewBuyer(request):
-
-    form = AddBuyerForm()
-
-    if request.method == 'POST':
-        form = AddBuyerForm(request.POST)
-
-        if form.is_valid():
-            try:
-                #vatNo = form.cleaned_data.get('vat_regno')
-                #print("VAT REG NO:",vatNo)
-                form.save()
-                messages.success(request, 'Sucessfully Added Buyer Details')
-                return redirect('all_buyers')
-
-            except Exception as e:
-                # pass
-                print(e)
-                messages.error(request, 'Exception')
-                return redirect('add_buyer')
-        else:
-            #form method is not valid
-            print(form.errors)
-            messages.error(request, 'Invalid Details')
-            pass
-
-    #poss form to add buyer
-    var = {'form': form}
-    return render(request, 'addBuyer.html', var)
-
-
-@login_required(login_url='login')
-def showBuyerDetails(request):
-
-    try:
-        buyersArr = Buyer.objects.all()
-        return render(request, 'AllBuyer.html', {'Buyers': buyersArr})
-
-    except Exception as e:
-        print(e)
-        messages.error(request, 'Exception')
-        return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def showBuyer(request):
-
-    if request.method == 'POST':
-        buyerID = request.POST.get('buyerID')
-
-        if buyerID is not None:
-            try:
-                buyer = Buyer.objects.get(pk=buyerID)
-                buyerform = AddBuyerForm(instance=buyer)
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerID})
-
-            except Exception as e:
-                print(e)
-                messages.error(request, 'Exception')
-
-    return render(request, 'AllBuyer.html')
-
-
-@login_required(login_url='login')
-def updateBuyer(request):
-
-    if request.method == "POST":
-
-        try:
-            buyerform = AddBuyerForm(request.POST)
-            buyerid = request.POST.get('bID')
-
-            if buyerform.is_valid():
-
-                    buyer = Buyer.objects.get(pk=buyerid)
-
-                    if buyer is not None:
-                        buyer_form = AddBuyerForm(request.POST, instance=buyer)
-                        buyer_form.save()
-                        messages.success(request, 'Sucessfully updated Buyer Details')
-                        return redirect('all_buyers')
-
-                    else:
-                        #if buyer not found in db
-                        messages.error(request, 'Buyer details not found in database')
-
-            #form is not valid
-            else:
-                print(buyerform.errors)
-                messages.success(request, 'Invalid Details')
-                return render(request, 'updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
+                return render(request, 'AuctionStock_Teamplates/updateBuyer.html', {'BuyerForm': buyerform, 'BId': buyerid})
 
         except Exception as e:
             print(e)
@@ -1561,4 +1431,6 @@ def deleteBuyer(request):
         messages.error(request, 'Form method is invalid')
 
     return redirect('all_buyers')
+
+
 

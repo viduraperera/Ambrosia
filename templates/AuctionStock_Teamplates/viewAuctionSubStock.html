@@ -1,0 +1,230 @@
+{% extends 'AuctionStock_Teamplates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title--------------------------------------->
+{% block title %}View Auction Sub Stock{% endblock title %}
+
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+.formTable{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    }
+
+.formTable td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    }
+
+.buttonEdit
+{
+    background-color: #DC0175;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 250px;
+    height: 50px;
+    border-radius: 15px;
+    margin-left: 30%;
+}
+
+.buttonEdit:hover {
+    background: #e9e444;
+    color: #000;
+    }
+
+.showTable{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+.showTable th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    background: #fff9d2;
+    }
+
+.showTable td {
+    border: 1px solid #e7e5e5;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px;
+    }
+
+.showTable tr:nth-child(even) {
+    background-color: #f8f5f5;
+    }
+
+.containerForm
+{
+    margin-top:20px;
+    background-color:#D9E4FF;
+    width: 60%;
+    min-width: 550px;
+}
+
+.containerForm h1
+{
+    text-align: center;
+    background-color:#020077 ;
+    color: white;
+}
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block auctionStockBtn %}ClassActive{% endblock auctionStockBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block showCatelogBtn %}ClassActive1{% endblock showCatelogBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Auction Stock | View Sub Stock{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<!--------------Details Table------------------------------------>
+<h1>Current Sub Stock Details</h1>
+
+    <div style="overflow-x:auto;">
+
+     <table class="showTable">
+    <tr>
+        <th>MainId</th>
+        <th>SubStockId</th>
+        <th>Invoice</th>
+        <th>No of Packets</th>
+        <th>Net Weight(kg)</th>
+        <th>Total Weight(kg)</th>
+        <th>Grade</th>
+        <th>Packet Type</th>
+        <th>Date Prepared</th>
+    </tr>
+
+        <tr>
+            <td>{{ stock.id }}</td>
+            <td>{{ stock.SubID }}</td>
+            <td>{{ stock.invoice }}</td>
+            <td>{{ stock.no_of_packets }}</td>
+            <td>{{ stock.net_weight }}</td>
+            <td>{{ stock.total_weight }}</td>
+            <td>{{ stock.grade }}</td>
+            <td>{{ stock.packetType }}</td>
+            <td>{{ stock.date_prepared }}</td>
+
+        </tr>
+
+
+     </table>
+    </div>
+
+    <br><br>
+
+<div class="containerForm">
+    <h1>Update Sub Stock</h1>
+
+<!-- Form -->
+   <form method="post" action="{% url 'update_subStock' %}">
+
+    {% csrf_token %}
+
+       <input type="hidden" name="mID" value="{{ stock.id }}">
+
+       <table class="formTable">
+          <tr>
+               <td><label><b>Sub Stock Main ID</b></label></td>
+               <td>{{ stock.id }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Invoice No</b></label></td>
+               <td>{{ form.invoice }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Tea Category</b></label></td>
+               <td>{{ form.grade }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Net Weight(kg)</b></label></td>
+               <td>{{ form.net_weight }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Total Weight(kg)</b></label></td>
+               <td>{{ form.total_weight }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>No of Packeges</b></label></td>
+               <td>{{ form.no_of_packets }}</td>
+           </tr>
+
+          <tr>
+               <td><label><b>Packet Type </b></label></td>
+               <td>{{ form.packetType }}</td>
+           </tr>
+
+           <tr>
+               <td><label><b>Date Prepared </b></label></td>
+               <td>{{ form.date_prepared }}</td>
+           </tr>
+
+       </table>
+        <br>
+          <button type="submit" class="buttonEdit">Update Sub Stock</button>
+    </form>
+    <br>
+
+    <!--------------Errors--------------------------------------->
+    {% if form.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
+
+</div>
+    <br><br>
+
+{% endblock content %}
