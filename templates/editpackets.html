@@ -21,30 +21,31 @@
     <form method="post" action="{% url 'updatepackets' %}">
     {% csrf_token %}
 
-        <input type="hidden" name="pktid" value="{{ PID }}">
-
 	<div class="form-group">
-		<label for="email">Date:</label>
-        {{ pForm.date }}
+		<label>Date:</label>
+        {{ packet.date }}
 	</div>
 	<br>
 	<div class="form-group">
-		<label for="email">category:</label>
-		{{ pForm.category }}
+		<label>Tea Category:</label>
+		{{ category }}
 	</div>
 	<br>
 	<div class="form-group">
-		<label for="email">Category Weight:</label>
-		{{ pForm.weight }}
+		<label>Category Weight:</label>
+		{{ weight }}
 	</div>
 	<br><br>
 		<div class="form-group">
-		<label for="email">Number of packets:</label>
-		{{ pForm.noOfPackets }}
+		<label >Number of packets:</label>
+		<input type="number" name="noPkts" value="{{ packet.noOfPackets }}">
 	</div>
 	<br>
 	<div class="form-group">
-        <input type="submit" class="btn1" value="SAVE">
+
+        <input type="hidden" name="packetID" value="{{ packet.id }}">
+
+        <input type="submit" class="btn1" value="Update">
 	</div>
 	<br>
 </form>

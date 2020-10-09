@@ -324,9 +324,18 @@ def editpackets (request):
 
             try:
                 packet = AddPackets.objects.get(pk=packetId)
-                form = AddTeaPacketsForm(instance=packet)
+                pktID = packet.categoryProductID.id
+                categoryProd = CategoryProduct.objects.get(id=pktID)
+                category = categoryProd.category
+                weight = categoryProd.weight
 
-                return render(request, 'editpackets.html', {'pForm': form, 'PID': packetId})
+                det = {
+                    'category': category,
+                    'weight': weight,
+                    'packet': packet
+                }
+
+                return render(request, 'editpackets.html', det )
 
             except Exception as e:
                 print(e)
@@ -341,25 +350,50 @@ def editpackets (request):
 def updatePackets(request):
 
     if request.method == 'POST':
-        pktId = request.POST.get('pktid')
+        pktId = request.POST.get('packetID')
+        pktsNew = int(request.POST.get('noPkts'))
 
         if pktId is not None:
-            packet = AddPackets.objects.get(pk=pktId)
-            pform = AddTeaPacketsForm(request.POST, instance=packet)
+            try:
 
-            if pform.is_valid():
-                pform.save()
-                messages.success(request, 'Edited Successfully')
-                return redirect('viewpackets')
+                if pktsNew > 0:
 
-            else:
-                #invalid
-                return render(request, 'editpackets.html', {'pForm': pform, 'PID': pktId})
+                    #calculations
+                    packet = AddPackets.objects.get(pk=pktId)
+                    oldNoPkts = packet.noOfPackets
+
+                    cpID = packet.categoryProductID.id
+                    catProduct = CategoryProduct.objects.get(id=cpID)
+
+                    stock = Stock.objects.get(category=catProduct.category, weight=catProduct.weight)
+                    currentPkts = stock.available_stock
+
+                    newStock = currentPkts + pktsNew - oldNoPkts
+
+                    #db
+                    #update packet table
+                    packet.noOfPackets = pktsNew
+                    packet.save()
+
+                    #update stock
+                    stock.available_stock = newStock
+                    stock.save()
+
+                    messages.success(request, 'Successfully Updated')
+                    return redirect('viewpackets')
+
+
+                else:
+                    #invalid
+                    messages.error(request, 'Invalid No of Packets')
+
+            except Exception as e:
+                print(e)
 
         else:
             pass
 
-    return render(request, 'viewpackets.html')
+    return redirect('viewpackets')
 
 
 @login_required(login_url='login')
