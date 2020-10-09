@@ -14,22 +14,22 @@
 }
 
 table {
-  font-family: arial, sans-serif;
+  //font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 70%;
 }
 
 td, th {
-  border: 1px solid #000000;
+  border: 1px solid #d9d9d9;
   text-align: center;
   padding: 5px;
 }
 
 tr:nth-child(odd) {
-  background-color: #9e9696d2;
+  background-color: #99ffbb;
 }
 tr:nth-child(even) {
-  background-color: #ddddddd2;
+  background-color: #ccffdd;
 }
 
 .regButton {
@@ -45,7 +45,7 @@ tr:nth-child(even) {
   }
 
   .remvButton {
-    background-color: #FF0000; /* Reg */
+    background-color: #ff3333; /* Reg */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -71,7 +71,7 @@ tr:nth-child(even) {
   <div style="padding-left: 20px;"><br>
     <table>
       <tr>
-        <th>Supplier ID</th>
+        <th>Supplier NIC</th>
         <th>Payment ID</th>
         <th>Weight</th>
         <th>Date</th>
@@ -80,7 +80,7 @@ tr:nth-child(even) {
       </tr>
         {% for form in form %}
       <tr>
-        <td>{{ form.supplier_id }}</td>
+        <td>{{ form.nic }}</td>
         <td>{{ form.id }}</td>
         <td>{{ form.tot_weight }}</td>
         <td>{{ form.pay_Date }}</td>

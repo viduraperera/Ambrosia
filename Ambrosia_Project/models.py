@@ -12,7 +12,8 @@ from django.forms import ModelForm, Textarea
 #This class is for registration form
 class Registration(models.Model):
     Sup_Name = models.CharField(max_length=50)
-    nicNo = models.CharField(max_length=10)
+    proPic = models.ImageField(null=True, blank=True, upload_to="images/")
+    nicNo = models.CharField(max_length=10, unique=True)
     address = models.CharField(max_length=200)
     phone = models.CharField(max_length=10, null=True)
     email = models.CharField(max_length=100, null=True)
@@ -48,15 +49,19 @@ class Registration(models.Model):
     class Meta:
         db_table = "ambrosia_project_register"
 
-    def __int__(self):
-        return self.id
+    def __str__(self):
+        return self.nicNo
+
+    # def __str__(self):
+    #     return self.Sup_Name
 
 
 class LeafStock(models.Model):
     weight = models.FloatField()
     rec_Date = models.DateField(default=datetime.now)
     rec_Time = models.TimeField(default=datetime.now)
-    supplier = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    # supplier = models.ForeignKey(Registration, related_name="supplier", on_delete=models.CASCADE, null=True)
+    nic = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = "ambrosia_project_leafstock"
@@ -74,7 +79,8 @@ class Payment(models.Model):
     other_costs = models.FloatField()
     tot_weight = models.FloatField()
     per_kilo_price = models.FloatField()
-    supplier = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    # supplier = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    nic = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = "ambrosia_project_payment"

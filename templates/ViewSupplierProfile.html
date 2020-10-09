@@ -20,7 +20,7 @@
   }
 
   .remvButton {
-    background-color: #FF0000; /* Reg */
+    background-color: #ff3333; /* Reg */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -48,7 +48,7 @@
 
       <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
 
-        <form method="post" action="{% url 'S_EditSupplier' %}">
+        <form method="post" action="{% url 'S_EditSupplier' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
       <tr>
@@ -59,6 +59,10 @@
       <td style="padding-bottom: 10px;"><label for="supid" style="font-size: 20px;">Supplier ID</label></td>
       <td><input type="hidden" name="SID" value="{{ SupId }}">
       <input type="text" value="{{ SupId }}" disabled> </td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Profile Photo</label></td>
+      <td><img src="{{ img.proPic.url }}" width="200" height="200"></td>
       </tr>
       <tr>
       <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Name</label></td>
@@ -112,24 +116,14 @@
       <td style="padding-bottom: 5px;"><label for="accno" style="font-size: 20px;">Account No</label></td>
       <td>{{ sFrom.acc_No }}</td>
       </tr>
-
-        <input class="regButton" type="submit" value="Update">
-
-    </form>
-
       <tr>
-
       <td></td>
-
-      <td><br>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;&ensp;&ensp;
-          <form method="post" action="{% url 'S_EditSupplier' %}">
-              {% csrf_token %}
-              <input type="hidden" name="formid" value="{{ sup.id }}">
-          </form>
+      <td><br>
+          <input class="regButton" type="submit" value="Update">
           <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="remvButton" type="submit" value="Cancel"></a>
-
       </td>
       </tr>
+    </form>
     </table>
 
 

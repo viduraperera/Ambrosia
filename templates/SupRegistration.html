@@ -58,12 +58,17 @@
 
   <!--Supplier Registration Form-->
   <div style="padding-left: 20px;">
-     <form method="POST" action="#">
+     <form method="POST" action="#" enctype="multipart/form-data">
          {% csrf_token %}
      <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
       <tr>
         <th></th>
         <th></th>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Insert a Photo</label></td>
+      <td>{{ sup.proPic }}</td>
+{#      <td><input type="file" id="propic" name="propic" accept="images/"></td>#}
       </tr>
       <tr>
       <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Name</label></td>
@@ -99,15 +104,15 @@
       </tr>
       <tr>
       <td style="padding-bottom: 5px;"><label for="route" style="font-size: 20px;">Route</label></td>
-      <td><select {{ sup.route }}></select></td>
+      <td>{{ sup.route }}</td>
       </tr>
       <tr>
       <td style="padding-bottom: 5px;"><label for="ss" style="font-size: 20px;">Supply Scale</label></td>
-      <td><select {{ sup.sup_scale }}></select></td>
+      <td>{{ sup.sup_scale }}</td>
       </tr>
       <tr>
       <td style="padding-bottom: 5px;"><label for="paytyme" style="font-size: 20px;">Payment Type</label></td>
-      <td><select {{ sup.pay_Type }}></select></td>
+      <td>{{ sup.pay_Type }}</td>
       </tr>
       <tr>
       <td style="padding-bottom: 5px;"><label for="bank" style="font-size: 20px;">Bank</label></td>
@@ -123,7 +128,7 @@
           <form method="post" action="{% url 'S_AddSupplier' %}">
               {% csrf_token %}
               <input type="hidden" name="supnic" value="{{ form.nicNo }}">
-              <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="regButton" type="submit" value="Submit"></a>
+              <input class="regButton" type="submit" value="Submit">
           </form>
       </td>
       </tr>

@@ -19,7 +19,7 @@
   }
 
   .remvButton {
-    background-color: #FF0000; /* Reg */
+    background-color: #ff3333; /* Reg */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -48,14 +48,14 @@
         <th></th>
         <th></th>
       </tr>
-    <!--<tr>
-      <td style="padding-bottom: 10px;"><label for="id" style="font-size: 20px;">Stock ID</label></td>
-      <td></td>
-      </tr> -->
       <tr>
-      <td style="padding-bottom: 10px;"><label for="supid" style="font-size: 20px;">Supplier ID</label></td>
-      <td>{{ form.supplier }}</td>
+      <td style="padding-bottom: 10px;"><label for="supid" style="font-size: 20px;">Supplier NIC</label></td>
+      <td>{{ form.nic }}</td>
       </tr>
+{#      <tr>#}
+{#      <td style="padding-bottom: 10px;"><label for="supname" style="font-size: 20px;">Supplier Name</label></td>#}
+{#      <td>{{ form.name }}</td>#}
+{#      </tr>#}
       <tr>
       <td style="padding-bottom: 10px;"><label for="weight" style="font-size: 20px;">Total Weight</label></td>
       <td>{{ form.weight }}</td>
@@ -71,9 +71,9 @@
       <tr>
       <td></td>
       <td>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;
-          <form method="post" action="{% url 'S_LeafStockAdd' %}">
+          <form method="POST" action="{% url 'S_LeafStockAdd' %}">
               {% csrf_token %}
-              <input type="hidden" name="formtime" value="{{ form.rec_Time }}">
+{#              <input type="hidden" name="formtime" value="{{ form.rec_Time }}">#}
               <a href="{% url 'S_StockDetails' %}"><input class="regButton" type="submit" value="Submit"></a>
           </form>
               <input class="remvButton" type="submit" value="Cancel">

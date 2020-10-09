@@ -2,15 +2,17 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from Ambrosia_Project.forms import CreateUserForm
 from Ambrosia_Project.forms import RegistrationForm
-#from Ambrosia_Project.forms import SupplierForm
+# from Ambrosia_Project.forms import SupplierForm
 from Ambrosia_Project.forms import LeafStockForm
-#from Ambrosia_Project.forms import EstateForm
+# from Ambrosia_Project.forms import EstateForm
 from Ambrosia_Project.forms import PaymentForm
 from Ambrosia_Project.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -145,7 +147,6 @@ def DeleteUser(request):
 # Navigate from Admin home to Registered Suppliers List
 @login_required(login_url='login')
 def to_reg_suppliers(request):
-
     suppliers = Registration.objects.all()
 
     return render(request, 'AllRegisteredSuppliers.html', {'Sup': suppliers})
@@ -156,21 +157,22 @@ def to_reg_suppliers(request):
 def to_sup_registration(request):
     sup = RegistrationForm()
     if request.method == "POST":
-        sup = RegistrationForm(request.POST)
+        sup = RegistrationForm(request.POST, request.FILES)
         if sup.is_valid():
             try:
                 sup.save()
                 return redirect('S_AllRegisteredSuppliers')
             except:
                 pass
+    else:
+        sup = RegistrationForm()
     var = {'sup': sup}
     return render(request, 'SupRegistration.html', var)
 
 
-#Registration with validations
+# Registration with validations
 @login_required(login_url='login')
 def add_supplier(request):
-
     supnic = request.POST.get('supnic')
 
     if request.method == 'POST' and supnic is not None:
@@ -179,17 +181,17 @@ def add_supplier(request):
         if sup.is_valid():
             try:
                 sup.save()
-                messages.success(request, "Supplier Added Successfully!") #validations
+                messages.success(request, "Supplier Added Successfully!")  # validations
                 return redirect('S_AllRegisteredSuppliers')
 
             except Exception as e:
-                #pass
+                # pass
                 print(e)
-                messages.success(request, "Exception : " +e)
+                messages.success(request, "Exception : " + e)
                 return redirect('S_SupRegistration')
 
         else:
-            #method invalid
+            # method invalid
             print(sup.errors)
             messages.success(request, "Added Failed! Check inputs and try again!")
             pass
@@ -197,13 +199,11 @@ def add_supplier(request):
     return render(request, 'S_AllRegisteredSuppliers.html')
 
 
-#Navigate from Registered Suppliers List to View Supplier Profile
+# Navigate from Registered Suppliers List to View Supplier Profile
 @login_required(login_url='login')
 def to_sup_profile(request):
-
     if request.method == 'POST':
         supid = request.POST.get('supid')
-
 
         if supid is not None:
 
@@ -212,7 +212,9 @@ def to_sup_profile(request):
 
                 form = RegistrationForm(instance=supplier)
 
-                return render(request, 'ViewSupplierProfile.html', {'sFrom':form, 'SupId':supid})
+                img = form.instance
+
+                return render(request, 'ViewSupplierProfile.html', {'sFrom': form, 'SupId': supid, 'img': img})
 
             except Exception as e:
                 print(e)
@@ -224,9 +226,9 @@ def to_sup_profile(request):
 
 
 # Navigate from Supplier Profile to Edit Supplier
-#@login_required(login_url='login')
-#def to_edit_profile(request):
- #   return render(request, 'EditSupplier.html')
+# @login_required(login_url='login')
+# def to_edit_profile(request):
+#   return render(request, 'EditSupplier.html')
 
 
 # Navigate from Registered Suppliers List to Stock Details
@@ -236,10 +238,9 @@ def to_stock_details(request):
     return render(request, 'StockDetails.html', {'form': form})
 
 
-#delete Stock Details
+# delete Stock Details
 @login_required(login_url='login')
 def leaf_stock_delete(request):
-
     formid = request.POST.get('formid')
 
     if request.method == 'POST' and formid is not None:
@@ -249,10 +250,9 @@ def leaf_stock_delete(request):
     return redirect('S_StockDetails')
 
 
-#add Stock Details
+# add Stock Details
 @login_required(login_url='login')
 def leaf_stock_add(request):
-
     formtime = request.POST.get('formtime')
 
     if request.method == 'POST' and formtime is not None:
@@ -262,10 +262,9 @@ def leaf_stock_add(request):
     return render(request, 'StockDetails.html')
 
 
-#editLeafStock(Temporary)
+# editLeafStock(Temporary)
 @login_required(login_url='login')
 def to_edit_stock_details(request):
-
     formid = request.POST.get('formid')
 
     form = LeafStock.objects.get(id=formid)
@@ -273,25 +272,27 @@ def to_edit_stock_details(request):
     return render(request, 'EditStockDetails.html', {'form': form})
 
 
-#edit Supplier
+# edit Supplier
 @login_required(login_url='login')
 def to_edit_supplier(request):
-
     if request.method == 'POST':
         sid = request.POST.get('SID')
+        # Registration.objects.all()
 
         if sid is not None:
 
             try:
                 supplier = Registration.objects.get(pk=sid)
-                form = RegistrationForm(request.POST, instance = supplier)
+                form = RegistrationForm(request.POST, instance=supplier)
 
                 if form.is_valid():
                     form.save()
-                    return redirect('S_AllRegisteredSuppliers')
+                    img = form.instance
+                    return render(request, 'AllRegisteredSuppliers.html', {'sFrom': form, 'SupId': sid, 'img': img})
+                    # return redirect('S_AllRegisteredSuppliers')
 
                 else:
-                    #invalid
+                    # invalid
                     return render(request, 'ViewSupplierProfile.html', {'sFrom': form, 'SupId': sid})
                     pass
 
@@ -303,10 +304,10 @@ def to_edit_supplier(request):
 
     return render(request, 'AllRegisteredSuppliers.html')
 
-#editLeafStockSubmit(Temporary)
+
+# editLeafStockSubmit(Temporary)
 @login_required(login_url='login')
 def updated_leaf_stock(request):
-
     formid = request.POST.get('formid')
 
     if request.method == 'POST' and formid is not None:
@@ -316,10 +317,9 @@ def updated_leaf_stock(request):
     return render(request, 'StockDetails.html', {'form': form})
 
 
-#edit Supplier Details
+# edit Supplier Details
 @login_required(login_url='login')
 def update_sup_details(request):
-
     supid = request.POST.get('supid')
 
     if request.method == 'POST' and supid is not None:
@@ -349,7 +349,6 @@ def to_leaf_stock(request):
 # Navigate from Registered Suppliers List to Payments Details
 @login_required(login_url='login')
 def to_sup_payments(request):
-
     form2 = PaymentForm()
 
     if request.method == "POST":
@@ -371,16 +370,14 @@ def to_sup_payments(request):
 # Navigate from Payments to Payment Details Table
 @login_required(login_url='login')
 def to_pay_details(request):
-
     form = Payment.objects.all()
 
-    return render(request, 'PaymentDetails.html', {'form' : form})
+    return render(request, 'PaymentDetails.html', {'form': form})
 
 
 # Navigate from Payments to Payment Details Table
 @login_required(login_url='login')
 def calc_payment(request):
-
     paytime = request.POST.get('paytime')
 
     if request.method == 'POST' and paytime is not None:
@@ -390,10 +387,9 @@ def calc_payment(request):
     return render(request, 'PaymentDetails.html')
 
 
-#delete Payment Table Details
+# delete Payment Table Details
 @login_required(login_url='login')
 def payment_delete(request):
-
     formid = request.POST.get('formid')
 
     if request.method == 'POST' and formid is not None:
@@ -404,7 +400,6 @@ def payment_delete(request):
 
 
 def delete_supplier(request):
-
     if request.method == 'POST':
         supID = request.POST.get('supid')
 

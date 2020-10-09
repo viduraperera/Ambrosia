@@ -12,22 +12,22 @@
 }
 
 table {
-  font-family: arial, sans-serif;
+  //font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 60%;
 }
 
 td, th {
-  border: 1px solid #000000;
+  border: 1px solid #d9d9d9;
   text-align: center;
   padding: 5px;
 }
 
 tr:nth-child(odd) {
-  background-color: #9e9696d2;
+  background-color: #99ffbb;
 }
 tr:nth-child(even) {
-  background-color: #ddddddd2;
+  background-color: #ccffdd;
 }
 
 .regButton {
@@ -43,7 +43,7 @@ tr:nth-child(even) {
   }
 
   .remvButton {
-    background-color: #FF0000; /* Reg */
+    background-color: #ff3333; /* Reg */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -75,6 +75,7 @@ tr:nth-child(even) {
     <table>
       <tr>
         <th>Supplier ID</th>
+        <th>ProPic</th>
         <th>NIC</th>
         <th>Supplier Name</th>
         <th>Contact No</th>
@@ -84,6 +85,7 @@ tr:nth-child(even) {
         {% for sup in Sup %}
       <tr>
         <td>{{ sup.id }}</td>
+        <td><img src="{{ sup.proPic.url }}" style="width: 100%; float: left; margin-right: 10px;"></td>
         <td>{{ sup.nicNo }}</td>
         <td>{{ sup.Sup_Name }}</td>
         <td>{{ sup.phone }}</td>
