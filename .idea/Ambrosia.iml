@@ -32,6 +32,8 @@
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/templates/LeafInventory_templates" />
         <option value="$MODULE_DIR$/templates/DailyProduction_templates" />
+        <option value="$MODULE_DIR$/templates/AuctionStock_Teamplates" />
+        <option value="$MODULE_DIR$/templates/common_templates" />
       </list>
     </option>
   </component>

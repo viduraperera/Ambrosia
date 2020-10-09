@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 
 from Ambrosia_Project.models import *
 
-
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
@@ -66,7 +65,7 @@ class AuctionNotSoldStockLogForm(forms.ModelForm):
         fields = '__all__'
 
 
-#----leaf inventory & daily Production - Ravija
+#----leaf inventory & daily Production - Ravija------------------------------------------------------------------------
 
 class AddInventoryForm(forms.ModelForm):
     class Meta:

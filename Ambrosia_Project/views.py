@@ -1,21 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from xhtml2pdf import pisa
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from Ambrosia_Project.forms import *
-
-from Ambrosia_Project.forms import CreateUserForm
-from django.contrib.auth.models import User
-from Ambrosia_Project.models import *
 
 from Ambrosia_Project.forms import *
+
 from django.http import HttpResponse
-from django.views.generic import View
-from io import BytesIO
-from django.http import HttpResponse
-from django.template.loader import get_template
 
 from Ambrosia_Project.utils import render_to_pdf
 
