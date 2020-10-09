@@ -69,9 +69,16 @@ tr:nth-child(even) {
 
 
   <a id="tablepad" href="{% url 'S_SupRegistration' %}"><input class="regButton" type="submit" value="+  Add New Supplier" onclick="w3_close()"></a>
+  <br>
+  <form method="post">
+  {% csrf_token %}
+
+  <a style="padding: 20px">{{ supFilter.form }}</a>
+  <a style="padding: 20px"><input class="regButton" type="submit" value="Search"></a>
+  </form>
 
   <!--View DailyStock Details Table-->
-  <div id="tablepad"><br>
+  <div id="tablepad" style="padding-left: 20px"><br>
     <table>
       <tr>
         <th>Supplier ID</th>

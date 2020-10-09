@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .filters import OrderFilter, OrderFilterSup
 
 from django.core.files.storage import FileSystemStorage
 
@@ -149,7 +150,12 @@ def DeleteUser(request):
 def to_reg_suppliers(request):
     suppliers = Registration.objects.all()
 
-    return render(request, 'AllRegisteredSuppliers.html', {'Sup': suppliers})
+    sup_count = suppliers.count()
+
+    supFilter = OrderFilterSup(request.POST, queryset=suppliers)
+    suppliers = supFilter.qs
+
+    return render(request, 'AllRegisteredSuppliers.html', {'Sup': suppliers, 'supFilter': supFilter})
 
 
 # Navigate from All Registered Suppliers List to Registration Form
@@ -232,10 +238,17 @@ def to_sup_profile(request):
 
 
 # Navigate from Registered Suppliers List to Stock Details
+#Edited 2020-10-9 for add order by function
 @login_required(login_url='login')
 def to_stock_details(request):
     form = LeafStock.objects.all()
-    return render(request, 'StockDetails.html', {'form': form})
+
+    order_count = form.count()
+
+    myFilter = OrderFilter(request.POST, queryset=form)
+    form = myFilter.qs
+
+    return render(request, 'StockDetails.html', {'form': form, 'myFilter': myFilter})
 
 
 # delete Stock Details

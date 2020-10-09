@@ -70,8 +70,14 @@ tr:nth-child(even) {
 {% block content %}
     <a id="tablepad" href="{% url 'S_LeafStock' %}"><input class="regButton" type="submit" value="+  Add New Stock" onclick="w3_close()"></a>
 
+  <form method="post">
+  {% csrf_token %}
 
-  <!--View DailyvStock Details Table-->
+  <a style="padding: 20px">{{ myFilter.form }}</a>
+  <input class="regButton" type="submit" value="Search">
+  </form>
+
+  <!--View DailyStock Details Table-->
   <div style="padding-left: 20px;"><br>
     <table>
       <tr>

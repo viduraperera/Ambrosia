@@ -6,8 +6,6 @@ from django.forms import ModelForm, Textarea
 
 
 # Create your models here.
-# Create your models here.
-
 
 #This class is for registration form
 class Registration(models.Model):
@@ -52,16 +50,15 @@ class Registration(models.Model):
     def __str__(self):
         return self.nicNo
 
-    # def __str__(self):
-    #     return self.Sup_Name
-
 
 class LeafStock(models.Model):
     weight = models.FloatField()
     rec_Date = models.DateField(default=datetime.now)
     rec_Time = models.TimeField(default=datetime.now)
     # supplier = models.ForeignKey(Registration, related_name="supplier", on_delete=models.CASCADE, null=True)
-    nic = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    nic = models.ForeignKey(
+        Registration, on_delete=models.CASCADE, null=True, related_name="leaf_stock", to_field="nicNo"
+    )
 
     class Meta:
         db_table = "ambrosia_project_leafstock"
