@@ -31,7 +31,6 @@ urlpatterns = [
     path('Factory/FinalProduction/DailyProduction/deleteSubProdAll', views.deleteSubProd, name="deleteSubProdAll"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction', views.NavigateToCustomDailyProd, name="NavigateToCustomDailyProd"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/subDel', views.NavigateToDelSubPr, name="delete_sub"),
-    path('Factory/FinalProduction/DailyProduction/CurrentDailyProduction', views.NavigateToCurrentProduct, name="NavigateToCurrentProd"),
     path('Factory/FinalProduction/DailyProduction/CustomDailyProduction/ViewProduct', views.NavigateToViewProduct, name="NavigateToViewProd"),
     path('Factory/FinalProduction/DailyProduction/TeaGrades', views.NavigateToTeaGrades, name="NavigateToTeaGrades"),
     path('Factory/FinalProduction/DailyProduction/TeaGrades/Delete', views.DeleteGrade, name="deleteGrade"),

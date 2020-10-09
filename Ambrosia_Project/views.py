@@ -411,11 +411,6 @@ def NavigateToCustomDailyProd(request):
 
 
 @login_required(login_url='login')
-def NavigateToCurrentProduct(request):
-    return render(request, 'DailyProduction_templates/Current_product.html')
-
-
-@login_required(login_url='login')
 def NavigateToViewProduct(request):
 
     if request.method == 'POST':
