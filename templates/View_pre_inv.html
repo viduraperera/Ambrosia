@@ -1,13 +1,11 @@
 {% extends 'leafInventoryBase.html' %}
-<!DOCTYPE html>
-<html lang="en">
+
 <!-----title------>
 {% block title %}Previous Inventories{% endblock title %}
 {#<title>Previous Inventories</title>#}
 
 
 <!-------style-------->
-<!------style-------->
 
 {% block moreStyles %}
       body {
@@ -171,6 +169,16 @@ tr:nth-child(even) {
 <!---------active class------>
 {% block prevInventoryBtn %}ClassActive{% endblock prevInventoryBtn %}
 
+<!-----------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
 
 
 
@@ -214,7 +222,7 @@ tr:nth-child(even) {
 
         <form method="post" action="{% url 'NavigateToInvReport' %}">
         {% csrf_token %}
-                    <input type="hidden" name="leafPDF" value="{{ leafPDF.id }}"/>
+                    <input type="hidden" name="leafID" value="{{ leaf.id }}"/>
                     <input type="submit" value="report" class="actionbtn" >
         </form>
 

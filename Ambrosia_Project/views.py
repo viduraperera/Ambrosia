@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from xhtml2pdf import pisa
+
 from Ambrosia_Project.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -9,15 +11,25 @@ from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
 from django.http import HttpResponse
 from django.views.generic import View
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
 
 from Ambrosia_Project.utils import render_to_pdf
 
 
 # Create your views here.
 
+@login_required(login_url='login')
+def logout_user(request):
+
+    logout(request)
+    return redirect('login')
+
 
 @login_required(login_url='login')
 def registration(request):
+
     form = CreateUserForm()
 
     if request.method == 'POST':
@@ -25,7 +37,7 @@ def registration(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-            messages.success(request, 'User Account ' + user + ' Created Successfully.')
+            messages.success(request, 'User Account '+user+' Created Successfully.')
             return redirect('view_all_users')
 
     context = {'form': form}
@@ -33,6 +45,7 @@ def registration(request):
 
 
 def login_user(request):
+
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -54,97 +67,50 @@ def login_user(request):
 
 
 @login_required(login_url='login')
-def home(request):
-    return render(request, 'home.html')
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('login')
-
-
-@login_required(login_url='login')
 def view_AllUsers(request):
-    array = User.objects.all();
-    print(array);
+
+    array = User.objects.all()
     return render(request, 'ViewAllUsers.html', {'Users': array})
 
 
 @login_required(login_url='login')
-def factoryHomepage(request):
-    return render(request, 'factoryhome.html')
-
-
-@login_required(login_url='login')
-def teashopHomepage(request):
-    return render(request, 'teashophome.html')
-
-
-@login_required(login_url='login')
-def EmployeeHome(request):
-    return render(request, 'attendance_management.html')
-
-
-@login_required(login_url='login')
-def staff_management(request):
-    return render(request, 'staff_management.html')
-
-
-@login_required(login_url='login')
-def factoryworkers_management(request):
-    return render(request, 'factoryworkers_management.html')
-
-
-@login_required(login_url='login')
-def markAttendance(request):
-    return render(request, 'mark_attendance.html')
-
-
-@login_required(login_url='login')
-def edit_employee(request):
-    return render(request, 'edit_employee.html')
-
-
-@login_required(login_url='login')
-def view_employee(request):
-    return render(request, 'view_employee.html')
-
-
-@login_required(login_url='login')
-def employee_registration(request):
-    return render(request, 'employee_registration.html')
-
-
-# @login_required(login_url='login')
-# def AddUser(request):
-
-
-@login_required(login_url='login')
 def ShowUser(request):
+
     uname = request.POST.get("uname")
 
-    users = User.objects.all();
+    user = User.objects.get(username=uname);
+    form = UserCreationForm(instance=user)
 
-    for user in users:
-        if user.username == uname:
-            arrUser = user
-            return render(request, 'updateUser.html', {'UserDetails': arrUser})
+    if user is not None:
+        return render(request, 'updateUser.html', {'UserDetails': user, 'form': form})
+
+    else:
+        #user not found
+        pass
 
     return render(request, 'ViewAllUsers.html')
 
 
 @login_required(login_url='login')
 def UpdateUser(request):
+
     if request.method == 'POST':
         uname = request.POST.get('un')
-        pword = request.POST.get('pwd')
 
-        if uname != None and pword != None:
+        if uname is not None:
             user = User.objects.get(username=uname)
-            user.password = pword
-            user.save();
-            messages.success(request, "User Details Updated Successfully")
-            return redirect('view_all_users')
+            userFrom = CreateUserForm(request.POST, instance=user)
+
+            if userFrom.is_valid():
+                objUser = userFrom.save(commit=False)
+                objUser.username = uname
+                objUser.save()
+                messages.success(request, "User Details Updated Successfully")
+                return redirect('view_all_users')
+
+            else:
+                messages.error(request, "Invalid Details.")
+                return redirect('update_user')
 
         else:
             messages.error(request, "Can't Update Details.")
@@ -160,13 +126,19 @@ def UpdateUser(request):
 
 @login_required(login_url='login')
 def DeleteUser(request):
-    uname = request.POST.get('uname')
 
-    if request.method == 'POST' and uname != None:
-        user = User.objects.get(username=uname)
-        user.delete()
-        messages.success(request, "User Deleted Successfully")
-        return redirect('view_all_users')
+    if request.method == 'POST':
+        uname = request.POST.get('uname')
+
+        if uname is not None:
+            user = User.objects.get(username=uname)
+            user.delete()
+            messages.success(request, "User Deleted Successfully")
+            return redirect('view_all_users')
+
+        else:
+            #user not found
+            pass
 
     else:
         messages.error(request, "Can't Delete User.")
@@ -177,208 +149,18 @@ def DeleteUser(request):
 
 
 @login_required(login_url='login')
-def inventoryhome(request):
-    return render(request, 'inventoryhome.html')
-
-
-@login_required(login_url='login')
-def addteapackets(request):
-    return render(request, 'addteapackets.html')
-
-
-@login_required(login_url='login')
-def preorderlevel(request):
-    return render(request, 'preorderlevel.html')
-    # messages.error(request, "Error.Can't Delete User.")
-    # return redirect('view_all_users')
-
-
-@login_required(login_url='login')
-def emp_fund_view(request):
-    funds = Funds.objects.all()
-    return render(request, "funds_table.html", {'funds': funds})
-
-
-@login_required(login_url='login')
-def emp_funds_add(request):
-    form = FundFrom()
-
-    if request.method == 'POST':
-        form = FundFrom(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('emp_fund_view')
-            except:
-                pass
-    var = {'forms': form}
-    return render(request, 'add_funds.html', var)
-
-
-@login_required(login_url='login')
-def SalesHomeIncome(request):
-    return render(request, 'SalesHomeIncome.html')
-
-
-@login_required(login_url='login')
-def SalesHomeMonthlyIncome(request):
-    return render(request, 'SalesHomeMonthlyIncome.html')
-
-
-@login_required(login_url='login')
-def SalesHomeAnnuallyIncome(request):
-    return render(request, 'SalesHomeAnnuallyIncome.html')
-
-
-@login_required(login_url='login')
-def SalesCreateInvoice(request):
-    return render(request, 'SalesCreateInvoice.html')
-
-
-@login_required(login_url='login')
-def SalesTransaction(request):
-    return render(request, 'SalesTransaction.html')
-
-
-@login_required(login_url='login')
-def SalesViewBill(request):
-    return render(request, 'SalesViewBill.html')
-
-
-@login_required(login_url='login')
-def SalesPriceTable(request):
-    return render(request, 'SalesPriceTable.html')
-
-
-@login_required(login_url='login')
-def SalesPriceTableDUST1(request):
-    return render(request, 'SalesPriceTableDUST1.html')
-
-
-@login_required(login_url='login')
-def SalesPriceTableDUST2(request):
-    return render(request, 'SalesPriceTableDUST2.html')
-
-
-@login_required(login_url='login')
-def SalesPriceTableDUST3(request):
-    return render(request, 'SalesPriceTableDUST3.html')
-
-
-@login_required(login_url='login')
-def SalesPriceTableFGS(request):
-    return render(request, 'SalesPriceTableFGS.html')
-
-
-
-@login_required(login_url='login')
-def emp_funds_delete(request, id):
-    funds = Funds.objects.get(pk=id)
-    funds.delete()
-    return redirect('emp_fund_view')
-
-
-@login_required(login_url='login')
-def emp_allowance(request):
-    allowance = Allowance.objects.all()
-    return render(request, "allowance.html", {'allowance': allowance})
-
-
-
-@login_required(login_url='login')
-def emp_allowance_add(request):
-    allowance = AllowanceForm()
-    if request.method == 'POST':
-        allowance = AllowanceForm(request.POST)
-        if allowance.is_valid():
-            try:
-                allowance.save()
-                return redirect('emp_allowance')
-            except:
-                pass
-    var = {'allowance': allowance}
-    return render(request, 'add_allowance.html', var)
-
-
-# Navigate from Admin home to Registered Suppliers List
-@login_required(login_url='login')
-def to_reg_suppliers(request):
-    return render(request, 'AllRegisteredSuppliers.html')
-
-
-# Navigate from Registered Suppliers List to Registration Form
-@login_required(login_url='login')
-def to_sup_registration(request):
-    return render(request, 'SupRegistration.html')
-
-
-# Navigate from Registered Suppliers List to View Supplier Profile
-@login_required(login_url='login')
-def to_sup_profile(request):
-    return render(request, 'ViewSupplierProfile.html')
-
-
-# Navigate from Supplier Profile to Edit Supplier
-@login_required(login_url='login')
-def to_edit_profile(request):
-    return render(request, 'EditSupplier.html')
-
-
-# Navigate from Registered Suppliers List to Stock Details
-@login_required(login_url='login')
-def to_stock_details(request):
-    return render(request, 'StockDetails.html')
-
-
-# Navigate from Stock Details to Add Leaf Stock
-@login_required(login_url='login')
-def to_leaf_stock(request):
-    return render(request, 'LeafStock.html')
-
-
-# Navigate from Stock Details to View Stock Details
-@login_required(login_url='login')
-def to_view_stock_details(request):
-    # var = LeafStock.objects.select_related('supplier_id').get(pk=1)
-    return render(request, 'ViewLeafStock.html')
-
-
-# Navigate from Registered Suppliers List to Payments
-@login_required(login_url='login')
-def to_payments(request):
-    return render(request, 'SupPayments.html')
-
-
-@login_required(login_url='login')
-def inventoryreports(request):
-    return render(request, 'inventoryreports.html')
-
-
-@login_required(login_url='login')
-def iweekly(request):
-    return render(request, 'iweekly.html')
-
-
-@login_required(login_url='login')
-def inventorymonthlyreport(request):
-    return render(request, 'inventorymonthlyreport.html')
-
-
-@login_required(login_url='login')
-def inventoryannualreport(request):
-    return render(request, 'inventoryannualreport.html')
-
-
-@login_required(login_url='login')
-def editpackets(request):
-    return render(request, 'editpackets.html')
-    messages.error(request, "Error.Can't Delete User.")
-    return redirect('view_all_users')
+def home(request):
+    return render(request, 'home.html')
 
 
 @login_required(login_url='login')
 def factoryhome(request):
     return render(request, 'factoryhome.html')
+
+
+@login_required(login_url='login')
+def teashopHomepage (request):
+    return render(request, 'teashophome.html')
 
 
 @login_required(login_url='login')
@@ -448,6 +230,7 @@ def NotSoldStock(request):
 def SoldStock(request):
     return render(request, 'auction_soldStock.html')
 
+#------------Ravija------------------------------------------------------------------------------------------------------------
 
 @login_required(login_url='login')
 def NavigateToInventory(request):
@@ -457,7 +240,7 @@ def NavigateToInventory(request):
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, 'Inventory details updated successfully')
+                messages.success(request, 'Inventory details saved successfully')
                 return redirect('NavigateToPreInv')
             except:
                 pass
@@ -475,12 +258,6 @@ def NavigateToPrevInv(request):
     leaf = LeafInventory.objects.all()
     return render(request, 'View_pre_inv.html', {'leaf': leaf})
 
-@login_required(login_url='login')
-def NavigateToInvReport(request):
-    if request.method=="POST":
-        leafid=request.POST.get("leafPDF")
-        leaf = LeafInventory.objects.get(id=leafid)
-        return render(request,'inventoryPDF.html',{'leafPDF':leaf})
 
 @login_required(login_url='login')
 def NavigateToUpdateInv(request):
@@ -498,8 +275,8 @@ def NavigateToUpdateInv(request):
                 print(e)
 
         else:
-            #id is null
-            pass
+            messages.error(request, "Inv id is null")
+
     else:
         #method is not post
         pass
@@ -587,12 +364,50 @@ def addMainFinalProduction(request):
             mainObj.totalWeight = total
             mainObj.save()
 
+            messages.success(request, "Successfully Saved Data")
+            return redirect('NavigateToCustomDailyProd')
+
         else:
             messages.error(request, "invalid")
 
 
-    return  redirect('final_production_home')
+    return redirect('final_production_home')
 
+
+@login_required(login_url='login')
+def deleteSubProd(request):
+
+    if request.method == 'POST':
+        sID = request.POST.get('id')
+
+        if sID is not None:
+
+            try:
+                subProd = Final_product_sub.objects.get(id=sID)
+
+                #update main prod
+                mainProdID = subProd.subID
+                mainProd = Final_product_Main.objects.get(id=mainProdID)
+
+                mainProd.totalWeight = mainProd.totalWeight - subProd.gradeWeight
+                mainProd.save()
+
+                #delete sub prod
+                subProd.delete()
+
+                subProuctChk = Final_product_sub.objects.filter(subID=mainProdID)
+
+                if len(subProuctChk) < 1:
+                    mainProd.delete()
+
+
+                messages.success(request, 'Successfully Deleted')
+                return redirect('NavigateToCustomDailyProd')
+
+            except Exception as e:
+                print(e)
+
+    return redirect('NavigateToCustomDailyProd')
 
 
 @login_required(login_url='login')
@@ -660,8 +475,7 @@ def updateLeaf(request):
                     return redirect('NavigateToPreInv')
 
                 else:
-                    #validate
-                    pass
+                    messages.error(request, "Invalid Details")
 
             except Exception as e:
                 print(e)
@@ -692,16 +506,15 @@ def NavigateToTeaGrades(request):
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, 'Tea grade updated successfully')
+                messages.success(request, 'Tea grade Saved successfully')
                 return redirect('NavigateToTeaGrades')
             except:
                 pass
+
     grade = TeaGrades.objects.all()
 
     var = {'form': form,
            'grade': grade}
-
-
 
     return render(request, 'TeaGrades.html',var)
 
@@ -715,13 +528,22 @@ def DeleteGrade(request):
 
     return redirect('NavigateToTeaGrades')
 
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-        # data = {
-        #      'today': datetime.date.today(),
-        #      'amount': 39.99,
-        #     'customer_name': 'Cooper Mann',
-        #     'order_id': 1233434,
-        # }
-        pdf = render_to_pdf('pdf/invoice.html')
+
+@login_required(login_url='login')
+def NavigateToInvReport(request):
+
+    if request.method == 'POST':
+        leafID = request.POST.get('leafID')
+
+        leaf = LeafInventory.objects.get(id=leafID)
+
+        context = {
+           'leaf':leaf,
+        }
+
+        pdf = render_to_pdf('inventoryPDF.html', context)
+
         return HttpResponse(pdf, content_type='application/pdf')
+
+
+    return redirect('NavigateToPreInv')

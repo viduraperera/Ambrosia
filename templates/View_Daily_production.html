@@ -89,6 +89,12 @@ li a:hover {
 </style>
 <body>
 
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
@@ -135,7 +141,6 @@ li a:hover {
 <table>
   <tr>
     <th>Daily prod. ID</th>
-    <th>Sub id</th>
     <th>Date</th>
     <th>Total Weight</th>
     <th>Action</th>
@@ -143,7 +148,6 @@ li a:hover {
     {% for prod in prod %}
     <tr>
         <td>{{ prod.id }}</td>
-        <td>{{ prod.subID }}</td>
         <td>{{ prod.date }}</td>
         <td>{{ prod.totalWeight}}</td>
         <td>

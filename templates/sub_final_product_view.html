@@ -157,9 +157,9 @@ li a:hover {
             <td>{{ pr.gradeWeight }}</td>
             <td>
 
-                <form method="post"  action="#" >
+                <form method="post"  action="{% url 'deleteSubProdAll' %}" >
                     {% csrf_token %}
-                <input type="hidden" name="id" value="{{ prod.subID }}">
+                <input type="hidden" name="id" value="{{ pr.id }}">
                 <input type="submit" value="Delete">
 
             </form>

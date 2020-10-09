@@ -82,6 +82,16 @@
   </div>
     <br>
 
+
+    {% if form.errors %}
+
+        <div class="errorDisplay" style=" color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
+
+
 {% endblock content %}
 
 
