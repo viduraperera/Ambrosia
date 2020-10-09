@@ -30,6 +30,8 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/templates/LeafInventory_templates" />
+        <option value="$MODULE_DIR$/templates/DailyProduction_templates" />
       </list>
     </option>
   </component>

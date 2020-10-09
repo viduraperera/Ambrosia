@@ -164,11 +164,6 @@ def teashopHomepage (request):
 
 
 @login_required(login_url='login')
-def finalProductionHome(request):
-    return render(request, 'finalproductionhome.html')
-
-
-@login_required(login_url='login')
 def AuctionStockHome(request):
     return render(request, 'addAuction_stock.html')
 
@@ -250,13 +245,13 @@ def NavigateToInventory(request):
 
 
     var = {'form': form}
-    return render(request, 'add_inventory.html', var)
+    return render(request, 'LeafInventory_templates/add_inventory.html', var)
 
 
 @login_required(login_url='login')
 def NavigateToPrevInv(request):
     leaf = LeafInventory.objects.all()
-    return render(request, 'View_pre_inv.html', {'leaf': leaf})
+    return render(request, 'LeafInventory_templates/View_pre_inv.html', {'leaf': leaf})
 
 
 @login_required(login_url='login')
@@ -269,7 +264,7 @@ def NavigateToUpdateInv(request):
             try:
                 leaf = LeafInventory.objects.get(id=inv_ID)
                 form = AddInventoryForm(instance=leaf)
-                return render(request, 'update_inventory.html', {'form': form, 'lid':inv_ID })
+                return render(request, 'LeafInventory_templates/update_inventory.html', {'form': form, 'lid':inv_ID})
 
             except Exception as e:
                 print(e)
@@ -282,7 +277,7 @@ def NavigateToUpdateInv(request):
         pass
 
 
-    return render(request, 'View_pre_inv.html' )
+    return render(request, 'LeafInventory_templates/View_pre_inv.html')
 
 
 
@@ -339,7 +334,7 @@ def NavigateToProduction(request):
            'finalSubProduct': subFinal
            }
 
-    return render(request, 'Add_daily_product.html', var)
+    return render(request, 'DailyProduction_templates/Add_daily_product.html', var)
 
 
 @login_required(login_url='login')
@@ -412,12 +407,12 @@ def deleteSubProd(request):
 @login_required(login_url='login')
 def NavigateToCustomDailyProd(request):
     prod = Final_product_Main.objects.all()
-    return render(request, 'View_Daily_production.html',{'prod':prod})
+    return render(request, 'DailyProduction_templates/View_Daily_production.html', {'prod':prod})
 
 
 @login_required(login_url='login')
 def NavigateToCurrentProduct(request):
-    return render(request, 'Current_product.html')
+    return render(request, 'DailyProduction_templates/Current_product.html')
 
 
 @login_required(login_url='login')
@@ -430,7 +425,7 @@ def NavigateToViewProduct(request):
         mainProd = Final_product_Main.objects.get(subID=sid)
         date = mainProd.date
 
-    return render(request, 'sub_final_product_view.html', { 'products': product, 'date': date })
+    return render(request, 'DailyProduction_templates/sub_final_product_view.html', {'products': product, 'date': date})
 
 
 @login_required(login_url='login')
@@ -453,7 +448,7 @@ def LeafInvAdd(request):
     if request.method == 'POST' and inDate is not None:
         form = LeafInventory.get(id=inDate)
         form.save()
-    return render(request, 'View_pre_inv.html')
+    return render(request, 'LeafInventory_templates/View_pre_inv.html')
 
 
 @login_required(login_url='login')
@@ -515,7 +510,7 @@ def NavigateToTeaGrades(request):
     var = {'form': form,
            'grade': grade}
 
-    return render(request, 'TeaGrades.html',var)
+    return render(request, 'DailyProduction_templates/TeaGrades.html', var)
 
 
 def DeleteGrade(request):
@@ -540,7 +535,7 @@ def NavigateToInvReport(request):
            'leaf':leaf,
         }
 
-        pdf = render_to_pdf('inventoryPDF.html', context)
+        pdf = render_to_pdf('LeafInventory_templates/inventoryPDF.html', context)
 
         return HttpResponse(pdf, content_type='application/pdf')
 
