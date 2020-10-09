@@ -1084,10 +1084,67 @@ class ReportAuctionSoldStock(View):
 
 
 
-# class ReportAuctionNotSoldStock(View):
-#     def get(self, request , *args, **kwargs):
-#         return None
+@login_required(login_url='login')
+def GenerateCatelogReport(request):
 
+    text = request.GET.get('input')
+    type = request.GET.get('type')
+
+    try:
+        if type == 'year':
+
+            subStock = Auction_SubStock.objects.filter(date_prepared__year=text)
+
+            if len(subStock) > 0:
+                context = {
+                    'subStock': subStock,
+                }
+                pdf = finalProductionAuction_render_topdf('AuctionStock_Teamplates/AuctionCatelogPreparationPDF.html',
+                                                          context)
+
+                if pdf:
+                    return pdf
+                else:
+                    messages.error(request, 'Error in pdf')
+                    return redirect('production_analysis')
+
+            else:
+                messages.error(request, 'No Details Found')
+                return redirect('production_analysis')
+
+        elif type == 'month':
+
+            arr = text.split('-', 1)
+            year = arr[0]
+            month = arr[1]
+
+            subStock = Auction_SubStock.objects.filter(date_prepared__year=year, date_prepared__month=month)
+
+            if len(subStock) > 0:
+
+                context = {
+                    'subStock': subStock,
+                }
+                pdf = finalProductionAuction_render_topdf('AuctionStock_Teamplates/AuctionCatelogPreparationPDF.html',
+                                                          context)
+
+                if pdf:
+                    return pdf
+                else:
+                    messages.error(request, 'Error in pdf')
+                    return redirect('production_analysis')
+
+            else:
+                messages.error(request, 'No Details Found')
+                return redirect('production_analysis')
+
+
+    except Exception as e:
+        print(e)
+        messages.error(request, 'Invalid Details')
+        return redirect('production_analysis')
+
+    return redirect('production_analysis')
 
 #Broker-----------------------------------------------------------------------------------------------------
 

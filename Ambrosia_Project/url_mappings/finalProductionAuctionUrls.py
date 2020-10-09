@@ -1,6 +1,6 @@
 from django.urls import path
 from Ambrosia_Project.view_mappings import finalProductionAuctionViews
-from Ambrosia_Project.view_mappings.finalProductionAuctionViews import ReportAuctionSoldStock
+from Ambrosia_Project.view_mappings.finalProductionAuctionViews import *
 
 urlpatterns = [
 
@@ -30,8 +30,8 @@ urlpatterns = [
     path('NotSoldStockAdd', finalProductionAuctionViews.NotSoldStockAdd, name="add_NotSoldStock"),
     path('NotSoldStockDelete', finalProductionAuctionViews.DeleteNotSoldStock, name="delete_NotSoldStock"),
     path('ViewAuctionNotSoldLogDetails', finalProductionAuctionViews.showAuctionNotSoldLog, name="stock_notsoldlog"),
-    path('ViewAuctionNotSoldLog', finalProductionAuctionViews.viewNotSoldLog, name="viewNotSoldLog"),
 
+    path('ViewAuctionNotSoldLog', finalProductionAuctionViews.viewNotSoldLog, name="viewNotSoldLog"),
 
     path('SearchAuctionMainStock', finalProductionAuctionViews.searchAuctionMainStock, name="search_mainStock"),
     path('SearchAuctionCurrentSubStock', finalProductionAuctionViews.searchAuctionCurrentSubStock, name="search_currentSubStock"),
@@ -55,7 +55,8 @@ urlpatterns = [
 
     path('ProductionAnalysis/', finalProductionAuctionViews.productionAnalysisHome,name="production_analysis"),
     path('ProductionAnalysis/GenerateSoldStockReport', ReportAuctionSoldStock.as_view(),name="generateSoldStockReport"),
-    # path('Factory/FinalProduction/ProductionAnalysis/GenerateNot-SoldStockReport', ReportAuctionNotSoldStock.as_view() , name="generateNotSoldStockReport"),
+    path('Factory/FinalProduction/ProductionAnalysis/GenerateCatelogReport',
+         finalProductionAuctionViews.GenerateCatelogReport , name="GenerateCatelogReport"),
 
 
 ]

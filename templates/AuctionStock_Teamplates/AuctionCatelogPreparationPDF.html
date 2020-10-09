@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Catelog Preparation</title>
+
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+    
+</head>
+
+<body>
+
+    <h1 style="color: #CE272D; ">Auction Stock - Catelog Preparation Reoprt</h1>
+<hr>
+        <table style="border: 1px solid black; padding: 3px; ">
+
+            <tr>
+                <th>MainID</th>
+                <th>SubStockId</th>
+                <th>Invoice</th>
+                <th>No of Packets</th>
+                <th>Net Weight</th>
+                <th>Total Weight</th>
+                <th>Grade</th>
+                <th>Packet Type</th>
+                <th>Date Prepared</th>
+                <th>Status</th>
+            </tr>
+
+             {% for stock in subStock %}
+
+                {% if stock.status != 'Deleted' %}
+
+                    <tr>
+                        <td>{{ stock.id }}</td>
+                        <td>{{ stock.SubID }}</td>
+                        <td>{{ stock.invoice }}</td>
+                        <td>{{ stock.no_of_packets }}</td>
+                        <td>{{ stock.net_weight }}</td>
+                        <td>{{ stock.total_weight }}</td>
+                        <td>{{ stock.grade }}</td>
+                        <td>{{ stock.packetType }}</td>
+                        <td>{{ stock.date_prepared }}</td>
+                        <td>{{ stock.status }}</td>
+
+                         {% if stock.active == 1 and stock.status == 'Pending' %}
+
+                             <td>Pending</td>
+
+                             {% elif stock.status == 'Sold'%}
+                                 <td><h5 style="color: #CE272D; font-weight: bold;">Sold</h5></td>
+
+                             {% elif stock.status == 'Not Sold'%}
+                                 <td><h5 style="color: #CE272D; font-weight: bold;">Not Sold</h5></td>
+
+
+                         {% endif %}
+
+                    </tr>
+
+                 {% endif %}
+
+            {% endfor %}
+
+         </table>
+
+</body>
+</html>

@@ -122,7 +122,7 @@ Display Message
                 </td>
 
                 <td>
-                    <input type="text" name="input" placeholder="Search" required>
+                    <input type="text" name="input" placeholder="Search Details" required>
                 </td>
 
                 <td><button type="submit" class="buttonEdit">Generate</button></td>
@@ -131,32 +131,34 @@ Display Message
 
         </tr>
 
-{#        <tr>#}
-{#            <td>Not-Sold Stock Report</td>#}
-{##}
-{#            <form method="get" action="{% url 'generateNotSoldStockReport' %}">#}
-{#                <td>#}
-{#                    <label>Select :#}
-{#                        <select name="type" required>#}
-{#                            <option value="">----</option>#}
-{#                            <option value="allTime">All Time</option>#}
-{#                        </select>#}
-{#                    </label>#}
-{#                </td>#}
-{##}
-{#                <td>#}
-{#                    <input type="text" name="input" required>#}
-{#                </td>#}
-{##}
-{#                <td>#}
-{#                    <input type="submit" value="Generate" class="buttonEdit">#}
-{#                </td>#}
-{#            </form>#}
-{#        </tr>#}
+        <tr>
+            <td>Catelog Preparation Report</td>
+
+            <form method="get" action="{% url 'GenerateCatelogReport' %}">
+                <td>
+                    <label>Select :
+                        <select name="type" required>
+                            <option value="">----</option>
+                            <option value="year">By Prepared Year</option>
+                            <option value="month">By Prepared Month</option>
+                        </select>
+                    </label>
+                </td>
+
+                <td>
+                    <input type="text" name="input" placeholder="Search Details" required>
+                </td>
+
+                <td>
+                    <input type="submit" value="Generate" class="buttonEdit">
+
+                </td>
+            </form>
+        </tr>
 
     </table>
 
-    <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: MM-DD </p>
+    <p>*Search by Date : Date Format: YYYY-MM-DD || Search by Month : Date Format: YYYY-MM </p>
 
 
 {% endblock content %}
