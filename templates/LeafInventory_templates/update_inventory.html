@@ -1,0 +1,98 @@
+{% extends 'LeafInventory_templates/leafInventoryBase.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!------title-------->
+{% block title %}Update Inventory{% endblock title %}
+
+<!------style-------->
+
+{% block moreStyles %}
+.submit{
+    border: 0px;
+    background:#66bd5a;
+    color:white;
+    width:20%;
+}
+.submit:hover{
+    color:white;
+    background:#438a42
+    }
+.formm{
+    background: #d9e3bf;
+    width:70%;
+    align:center;
+    text-align:center;
+    }
+    .note{
+    color:darkred;
+    }
+{% endblock moreStyles %}
+
+<!----header---->
+{% block pageContentHeader1 %}Leaf Inventory{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Previous Inventory.{% endblock pageContentHeader2 %}
+
+<!---------active class------>
+{% block prevInventoryBtn %}ClassActive{% endblock prevInventoryBtn %}
+
+
+<!------main content------>
+{% block content %}
+     <div>
+     <div>
+
+     </div>
+     <br>
+<center>
+    <form method="post" action="{% url 'updateLeaf' %}" class="formm">
+        {% csrf_token %}
+        <b class="note">Note : Dates must be in "yyyy-mm-dd" format</b><br><br>
+
+        <input type="hidden" name = "LID" value="{{ lid }}">
+
+      <label for="Date"> In Date:</label><br>
+        {{ form.in_Date }}
+          <br><br>
+
+          <label for="inTime">In time:</label><br>
+        {{ form.in_Time }}
+          <br><br>
+
+          <label for="Tray_ID">Tray Id:</label><br>
+        {{ form.tray_Id }}
+        <br><br>
+          <label for="Temparature">Temparature:</label><br>
+        {{ form.temp }}
+        <br><br>
+          <label for="Stock_Weight">Stock weight (in kg):</label><br>
+        {{ form.weight }}
+       <br><br>
+          <label for="Out_date">Out Date:</label><br>
+        {{ form.out_Date }}
+        <br><br>
+          <label for="outTime">Out time:</label><br>
+        {{ form.out_Time }}
+        <br><br>
+          <br><br>
+
+      <input type="submit" value="Update" name="updateInv" class="submit">
+    </form>
+</center>
+  </div>
+    <br>
+
+
+    {% if form.errors %}
+
+        <div class="errorDisplay" style=" color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ form.errors }}</h3>
+        </div>
+
+   {% endif %}
+
+
+{% endblock content %}
+
+
+

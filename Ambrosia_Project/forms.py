@@ -60,8 +60,33 @@ class AddAuctionNotSoldStockForm(forms.ModelForm):
         model = Auction_NotSoldStocks
         fields = '__all__'
 
-
 class AuctionNotSoldStockLogForm(forms.ModelForm):
     class Meta:
         model = Auction_NotSoldStocksLog
+        fields = '__all__'
+
+
+#----leaf inventory & daily Production - Ravija
+
+class AddInventoryForm(forms.ModelForm):
+    class Meta:
+        model = LeafInventory
+        fields = '__all__'
+
+
+class AddSubProductForm(forms.ModelForm):
+    class Meta:
+        model = Final_product_sub
+        fields = '__all__'
+
+
+class AddMainProductForm(forms.ModelForm):
+    class Meta:
+        model = Final_product_Main
+        fields = '__all__'
+
+
+class AddTeaGradeform(forms.ModelForm):
+    class Meta:
+        model = TeaGrades
         fields = '__all__'

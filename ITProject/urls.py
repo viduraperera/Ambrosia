@@ -18,6 +18,7 @@ from django.urls import path, include
 
 from Ambrosia_Project import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls, name="adminPannel"),
     # path('' , include('Ambrosia.urls'))
