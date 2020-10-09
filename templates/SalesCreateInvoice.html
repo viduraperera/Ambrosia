@@ -65,7 +65,7 @@
 
                 <tr>
                     <td>
-                        <input type="submit" value="Add Item" class="btn" onclick="if (!confirm('Are you sure you want to Add? Please Ok to Confirm.')) {return false}">
+                        <input type="submit" value="Add Item" class="btn" >
                     </td>
                 </tr>
 
@@ -75,7 +75,7 @@
         <br>
         {% if billForm.errors %}
 
-            <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <div class="errorDisplay" style="background-color: #e0dfdf; color:#1d1dd7; padding:5px">
                 <h3 style="font-width: bold">{{ billForm.errors}}</h3>
             </div>
         {% endif %}
@@ -106,8 +106,8 @@
                 <td>{{ item.itemname }}</td>
                 <td>{{ item.weight }}</td>
                 <td>{{ item.Quantity }}</td>
-                <td>{{ item.itemPrice }}</td>
-                <td>{{ item.price }}</td>
+                <td>Rs.{{ item.itemPrice }}</td>
+                <td>Rs.{{ item.price }}</td>
                 <td>
                     <form method="POST" action="{% url 'BillRowDelete' %}">
                         {% csrf_token %}
@@ -124,8 +124,10 @@
     <form method="POST" action="{% url 'SalesTransaction' %}">
     {% csrf_token %}
         <input type="hidden" name="bid" value="{{ bid }}">
+<br>
 
-    <input type="submit" value="Calulate" class="btn">
+    <input type="submit" value="Calulate Bill" class="btn" onclick="if (!confirm('Are you sure you want to Calculate? Please Ok to Confirm.')) {return false}">
+    <br>
     </form>
 
     {% endif %}

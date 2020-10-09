@@ -29,7 +29,7 @@
 {% block pageContentHeader1 %}Ambrosia Tea Factory Outlet Management{% endblock pageContentHeader1 %}
 {% block pageContentHeader2 %}Report{% endblock pageContentHeader2 %}
 
-{% block CreateInvoiceBtn %}ClassActive{% endblock CreateInvoiceBtn %}
+{% block SalesHomeIncomeBtn %}ClassActive{% endblock SalesHomeIncomeBtn %}
 
 {%  block content %}
 
@@ -41,13 +41,25 @@
             <input type="number"  name="month" placeholder="Input Month" required>
 
             <input type="number"  name="year" placeholder="Input Year" required>
-            <input type="submit" class="button button3" value="Monthly Report">
+            <input type="submit" class="btn" value="Monthly Report">
         </th>
         </form>
 
 
 
+
     </table>  <br>
+    <br>
+    <table>
+        <form method="get" action = "{% url 'SalesHomeAnnuallyIncome' %}"><th>
+
+            <input type="number"  name="year" placeholder="Input Year" required>
+            <input type="submit" class="btn" value="Annualy Report">
+        </th>
+        </form>
+
+    </table>
+    <br><br>
 
 
 {% endblock content %}

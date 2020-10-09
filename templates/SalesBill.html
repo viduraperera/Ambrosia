@@ -51,29 +51,52 @@
 <body>
 
 <hr>
-<h1 style="color: Green">Ambrosia Tea Factory Outlet</h1>
-<hr>
-<h2 >Transaction Monthly Income Report : {{ month }}-{{ year }}</h2>
 
 <table>
+
     <tr>
-        <th>Incoice Id</th>
-        <th>Date and Time</th>
-        <th>Income</th>
+
+        <td>Date : </td>
+        <td>{{ viewT.dateTime }}</td>
+
 
     </tr>
+    <h1 style="color: Green">Ambrosia Tea Factory Outlet</h1>
+    <hr>
+    <h2>Invoice Id : {{ viewT.invoice_id }}</h2>
+</table>
 
-    {%  for bill in trans %}
+<table>
+    <br>
+    <br>
+
+
+    <tr >
+        <th > Item Name </th>
+        <th > Weight </th>
+        <th > Quantity </th>
+        <th > Item Price </th>
+        <th > Price </th>
+
+
+    </tr>
+    {% for item in billItems %}
+
         <tr>
-            <td>{{ bill.invoice_id}}</td>
-            <td>{{ bill.dateTime}}</td>
-            <td>Rs.{{ bill.total_Price }}</td>
+
+
+            <td>{{ item.itemname }}</td>
+            <td>{{ item.weight }}</td>
+            <td>{{ item.Quantity }}</td>
+            <td>Rs.{{ item.itemPrice }}</td>
+            <td>Rs.{{ item.price }}</td>
+
         </tr>
+
     {% endfor %}
 
 </table>
-
-<h2 style="color: red">Rs.{{ total }}</h2>
-
+<h2 style="color: red">Total Bill Amount : Rs.{{ viewT.total_Price }}</h2>
 </body>
+
 </html>

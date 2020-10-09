@@ -27,7 +27,8 @@
     <hr>
     <div>
 
-            <table>
+
+        <table>
 
             <tr>
                 <td>Transaction ID:</td>
@@ -35,15 +36,15 @@
                 <td>Date : </td>
                 <td>{{ viewT.dateTime }}</td>
                 <td>Total Price : </td>
-                <td>{{ viewT.total_Price }}</td>
+                <td>Rs.{{ viewT.total_Price }}</td>
 
             </tr>
 
         </table>
 
         <table>
-        <br>
-        <br>
+            <br>
+            <br>
 
 
             <tr >
@@ -52,29 +53,34 @@
                 <th > Quantity </th>
                 <th > Item Price </th>
                 <th > Price </th>
-                <th>Delete</th>
+{#                <th>Delete</th>#}
 
             </tr>
-                {% for item in billItems %}
-                    <tr>
+            {% for item in billItems %}
+
+                <tr>
 
 
-                        <td>{{ item.itemname }}</td>
-                        <td>{{ item.weight }}</td>
-                        <td>{{ item.Quantity }}</td>
-                        <td>{{ item.itemPrice }}</td>
-                        <td>{{ item.price }}</td>
-                        <td>
+                    <td>{{ item.itemname }}</td>
+                    <td>{{ item.weight }}</td>
+                    <td>{{ item.Quantity }}</td>
+                    <td>Rs.{{ item.itemPrice }}</td>
+                    <td>Rs.{{ item.price }}</td>
+{#                    <td>#}
 
-                            <form method="POST" action="{% url 'Vdelete' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="invoiceid" value = "{{ invoice.id }}">
-                                <input type="submit" value="Delete" class="btn">
-                            </form>
-                        </td>
-                    </tr>
+{#                        <form method="POST" action="{% url 'Vdelete' %}">#}
+{#                            {% csrf_token %}#}
+{#                            <input type="hidden" name="invoiceid" value = "{{ invoice.id }}">#}
+{#                            <input type="submit" value="Delete" class="btn">#}
+{#                        </form>#}
+{#                    </td>#}
+                </tr>
 
-                {% endfor %}
+            {% endfor %}
+            <br>
+            <br>
+
+
 
 
         </table>

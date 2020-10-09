@@ -35,18 +35,19 @@ urlpatterns = [
 
     path('Shop/SalesHomeIncome/SalesTransaction', views.SalesTransaction, name="SalesTransaction"),
     path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
-    path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill/Vdelete', views.Vdelete, name="Vdelete"),
+    path('Shop/SalesHomeIncome/SalesTransaction/BillPDF', GenerateBill.as_view(), name="SalesBill"),
 
-
+    # path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill/Vdelete', views.Vdelete, name="Vdelete"),
     path('Shop/SalesHomeIncome/SalesPriceTable', views.SalesPriceTable, name="SalesPriceTable"),
 
     path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableEdit', views.ShopPriceTableEdit, name="ShopPriceTableEdit"),
     path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableUpdate', views.ShopPriceTableUpdate, name="ShopPriceTableUpdate"),
+
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
-    path('Shop/SalesHomeIncome/SalesWeeklyReport', views.SalesWeeklyReport, name="SalesWeeklyReport"),
-    path('Shop/SalesHomeIncome/SalesHomeMonthlyIncome', views.SalesHomeMonthlyIncome, name="SalesHomeMonthlyIncome"),
-    path('Shop/SalesHomeIncome/SalesHomeAnnuallyIncome', views.SalesHomeAnnuallyIncome, name="SalesHomeAnnuallyIncome"),
-    path('Shop/SalesHomeIncome/IncomeGeneratePDF', GeneratePDFInvoiceMonthly.as_view(), name="generateIncomePdfMonthly"),
+    path('Shop/SalesHomeIncome/IncomeMonthlyGeneratePDF', GeneratePDFInvoiceMonthly.as_view(), name="generateIncomePdfMonthly"),
+    path('Shop/SalesHomeIncome/AnnualIncomeGeneratePDF', GeneratePDFInvoiceAnnually.as_view(), name="SalesHomeAnnuallyIncome"),
+
+
 
 
 

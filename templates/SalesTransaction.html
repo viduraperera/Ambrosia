@@ -19,39 +19,51 @@
 {% block TransactionsBtn %}ClassActive{% endblock TransactionsBtn %}
 
 {%  block content %}
-        <div>
-            <table>
+    <div>
+        <table>
 
 
-                <tr style="height: 20px;">
-                    <th > Transaction ID</th>
-                    <th> Total </th>
-                    <th > Date and Time</th>
-                    <th >  </th>
 
-                </tr>
+            <th> Transaction ID</th>
+            <th> Total </th>
+            <th> Date and Time</th>
+            <th>  </th>
+            <th>  </th>
+
+            </tr>
             {% if tForm %}
                 {% for bill in tForm %}
 
                     <tr style="height: 15px;">
-                    <td>{{ bill.invoice_id}}</td>
-                    <td>{{ bill.total_Price }}</td>
-                    <td>{{ bill.dateTime }}</td>
+                        <td>{{ bill.invoice_id}}</td>
+                        <td>Rs.{{ bill.total_Price }}</td>
+                        <td>{{ bill.dateTime }}</td>
 
-                    <td >
-                         <form action="{% url 'SalesViewBill' %}" method="post">
-                             {% csrf_token %}
-                             <input type="hidden" name = "invID" class = "btn" value="{{ bill.invoice_id }}">
-                             <input type="hidden" name = "trID" class = "btn" value="{{ bill.id }}">
-                             <input type="submit" class = "btn" value="View">
-                              </form>
-                    </td>
+                        <td >
+                            <form action="{% url 'SalesViewBill' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name = "invID" class = "btn" value="{{ bill.invoice_id }}">
+                                <input type="hidden" name = "trID" class = "btn" value="{{ bill.id }}">
+                                <input type="submit" class = "btn" value="View">
+                            </form>
 
-                </tr>
+
+
+                        </td>
+                        <td>
+                            <form method="get" action = "{% url 'SalesBill' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name = "invID" class = "btn" value="{{ bill.invoice_id }}">
+                                <input type="hidden" name = "trID" class = "btn" value="{{ bill.id }}">
+                                <input type="submit"  class="btn" value="Print BIll">
+                            </form>
+                        </td>
+
+                    </tr>
                 {% endfor %}
             {% endif %}
-            </table>
-        </div>
+        </table>
+    </div>
 
 {% endblock content %}
 <!-- End page content -->

@@ -80,27 +80,6 @@ def teashopHomepage(request):
     return render(request, 'teashophome.html')
 
 
-#
-# @login_required(login_url='login')
-# def EmployeeHome(request):
-#     return render(request, 'attendance_management.html')
-
-#
-# @login_required(login_url='login')
-# def staff_management(request):
-#     return render(request, 'staff_management.html')
-#
-
-# @login_required(login_url='login')
-# def factoryworkers_management(request):
-#     return render(request, 'factoryworkers_management.html')
-
-#
-# @login_required(login_url='login')
-# def markAttendance(request):
-#     return render(request, 'mark_attendance.html')
-
-#
 @login_required(login_url='login')
 def edit_employee(request):
     return render(request, 'edit_employee.html')
@@ -182,36 +161,12 @@ def inventoryhome(request):
     return render(request, 'inventoryhome.html')
 
 
-@login_required(login_url='login')
-def addteapackets(request):
-    return render(request, 'addteapackets.html')
-
-
-@login_required(login_url='login')
-def preorderlevel(request):
-    return render(request, 'preorderlevel.html')
-    messages.error(request, "Error.Can't Delete User.")
-    return redirect('view_all_users')
 
 
 @login_required(login_url='login')
 def SalesHomeIncome(request):
     return render(request, 'SalesHomeIncome.html')
 
-
-@login_required(login_url='login')
-def SalesWeeklyReport(request):
-    return render(request, 'SalesWeeklyReport.html')
-
-
-@login_required(login_url='login')
-def SalesHomeMonthlyIncome(request):
-    return render(request, 'SalesHomeMonthlyIncome.html')
-
-
-@login_required(login_url='login')
-def SalesHomeAnnuallyIncome(request):
-    return render(request, 'SalesHomeAnnuallyIncome.html')
 
 
 # add
@@ -351,7 +306,7 @@ def SalesPriceTable(request):
         try:
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Sucessfully Added Bill Item Details')
+                messages.success(request, 'Sucessfully Added Price')
                 return redirect('SalesPriceTable')
 
 
@@ -391,11 +346,16 @@ def ShopPriceTableEdit(request):
                     return redirect('SalesPriceTable')
 
                 else:
-                    pass
+                    print(priceForm.errors)
+
+                    messages.success(request, 'Invalid Details')
 
 
             except Exception as e:
+
                 print(e)
+
+                messages.success(request, 'Exception:')
 
             else:
                 messages.success(request, 'Invalid Details')
@@ -444,12 +404,70 @@ class GeneratePDFInvoiceMonthly(View):
 
             transaction = Transactions.objects.filter(dateTime__month=month, dateTime__year=year)
 
+            total = 0
+
+            for tr in transaction:
+                total = total + tr.total_Price
+
             data = {
                 'trans': transaction,
+                'total': total,
+                'year': year,
+                'month': month
+
             }
+
             pdf = render_to_pdf('SalesWeeklyReport.html', data)
 
             return HttpResponse(pdf, content_type='application/pdf')
 
         else:
             return redirect('SalesHomeIncome')
+
+class GeneratePDFInvoiceAnnually(View):
+    def get(self, request, *args, **kwargs):
+
+        year = request.GET.get('year')
+
+
+
+        transaction = Transactions.objects.filter(dateTime__year=year)
+
+        total = 0
+
+        for tr in transaction:
+            total = total + tr.total_Price
+
+        data = {
+            'trans': transaction,
+            'total': total,
+                'year': year,
+
+
+            }
+
+        pdf = render_to_pdf('SalesHomeAnnuallyIncome.html', data)
+
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class GenerateBill(View):
+    def get(self, request, *args, **kwargs):
+
+        if request.method == 'GET':
+
+            invID = request.GET.get('invID')
+            tID = request.GET.get('trID')
+
+            bills = BillItems.objects.filter(invoice_id=invID)
+            trancsaction = Transactions.objects.get(id=tID)
+
+            data = {'billItems': bills,
+                    'viewT': trancsaction}
+
+            pdf = render_to_pdf('SalesBill.html', data)
+
+            if pdf:
+                return HttpResponse(pdf, content_type='application/pdf')
+            return HttpResponse("Not found ")
+
+        return redirect('SalesTransaction')
