@@ -159,32 +159,6 @@ def DeleteUser(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-#Employee Management-----------------------------------------------------------------------------------------
-
-
-@login_required(login_url='login')
-def EmployeeHome (request):
-
-    return render(request, 'attendance_management.html')
-
-
-#Supplier Management------------------------------------------------------------------------------------------
-
-
-#Navigate from Admin home to Registered Suppliers List
-@login_required(login_url='login')
-def to_reg_suppliers(request):
-
-    return render(request, 'AllRegisteredSuppliers.html')
-
-
-
-#Leaf Inventory-------------------------------------------------------------------------------------------
-
-
-@login_required(login_url='login')
-def NavigateToInventory(request):
-    return render(request, 'add_inventory.html')
 
 
 #Final production -------------------------------------------------------------------------------------------

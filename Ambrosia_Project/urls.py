@@ -21,14 +21,6 @@ urlpatterns = [
     path('Factory/FinalProduction/AuctionStock/', include('Ambrosia_Project.url_mappings.finalProductionAuctionUrls')),
 
 
-
-    path('Factory/EmployeeHome', views.EmployeeHome, name="attendance_management"),
-
-    path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
-
-    path('Factory/S_AllRegisteredSuppliers', views.to_reg_suppliers, name="S_AllRegisteredSuppliers"),
-
-
 #---------final Production Daily Production----------------------------------------------------
 
     path('Factory/FinalProduction/', views.NavigateToProduction,name="final_production_home"),
