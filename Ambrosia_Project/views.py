@@ -577,7 +577,6 @@ class GenerateVehicle_RecordsPdf(View):
 
         vehicleNoInput = request.GET.get('vehicleno')
         month = request.GET.get('month')
-        # date = request.GET.get('date')
         year = request.GET.get('year')
         vehicleNo = 0
 
@@ -605,6 +604,51 @@ class GenerateVehicle_RecordsPdf(View):
                     }
 
                 pdf = render_to_pdf('Vehicle_Reports.html', data)
+                return HttpResponse(pdf, content_type='application/pdf')
+
+            else:
+                messages.error(request, 'No Data Found')
+                return redirect('Reports')
+
+        else:
+            messages.error(request, 'Invalid Inputs')
+            return redirect('Reports')
+
+
+#generate vehicle maintenance reports
+
+class GenerateVehicle_RepairPdf(View):
+    def get(self, request, *args, **kwargs):
+
+        vehicleNoInput = request.GET.get('vehicleno')
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+        vehicleNo = 0
+
+        if len(month)== 2 and len(year)== 4:
+
+            vehicle = Vehicle.objects.filter(VehicleNo=vehicleNoInput).first()
+
+            if vehicle is not None:
+                vehicleNo = vehicle.id
+
+            records = Services.objects.filter(Service_Date__month=month, Service_Date__year=year , VehicleNo=vehicleNo)
+
+            if len(records) > 0:
+
+                total = 0
+
+                for rec in records:
+                    total = total + rec.Amount
+
+                data = {
+                    'Vrepairs': records,
+                    'year':year,
+                    'month':month,
+                    'total': total,
+                    }
+
+                pdf = render_to_pdf('Maintenance_Report.html', data)
                 return HttpResponse(pdf, content_type='application/pdf')
 
             else:

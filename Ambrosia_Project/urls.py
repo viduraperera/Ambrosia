@@ -47,9 +47,7 @@ urlpatterns = [
     #reports
     path('Factory/Transport/Analysis', views.Reports, name="Reports"),
     path('Factory/Transport/Analysis/VehicleRecordsPDF', GenerateVehicle_RecordsPdf.as_view(), name="VehicleReports"),
-
-
-
+    path('Factory/Transport/Analysis/VehicleRepairsPDF', GenerateVehicle_RepairPdf.as_view(), name="VehicleReports"),
 
 ]
 

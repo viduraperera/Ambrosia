@@ -109,6 +109,9 @@
         </form>
     </table><br><br>
         <table>
+              <form action="{% url 'VehicleReports' %}" method="get">
+
+            {% csrf_token %}
      <h2>Vehicle Maintenance Report</h2>
          <tr>
             <th>Vehicle No</th>
@@ -126,6 +129,7 @@
 
 
           <td><input class="btn" type="submit" value="Generate" ></td>
+              </form>
         </table>
     </div>
     <br><br>
