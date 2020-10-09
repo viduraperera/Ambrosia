@@ -365,7 +365,8 @@ def stockSalesHome(request):
 
     try:
         curStocks = Auction_SubStock.objects.filter(status='Pending', active=1)
-        return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': curStocks})
+        curMainStocks = Auction_MainStock.objects.all()
+        return render(request, 'AuctionStock_Teamplates/auctionStock_current.html', {'stock': curStocks, 'mStock': curMainStocks})
 
     except Exception as e:
         messages.error(request, 'Exception')

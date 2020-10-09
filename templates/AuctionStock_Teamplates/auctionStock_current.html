@@ -149,33 +149,43 @@ tr:nth-child(even) {
 
     {% for stk in stock %}
 
-        <tr>
-            <td>{{ stk.id }}</td>
-            <td>{{ stk.SubID }}</td>
-            <td>{{ stk.invoice }}</td>
-            <td>{{ stk.no_of_packets }}</td>
-            <td>{{ stk.net_weight }}</td>
-            <td>{{ stk.total_weight }}</td>
-            <td>{{ stk.grade }}</td>
-            <td>{{ stk.packetType }}</td>
-            <td>{{ stk.date_prepared }}</td>
-            <td>{{ stk.status }}</td>
+        {% for mstk in mStock %}
 
-            <td>
-                <form method="post" action="{% url 'view_addSoldStock' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="mID" value="{{ stk.id }}"/>
-                    <input type="submit" value="Sold" class="buttonEdit">
-                </form>
+            {% if stk.SubID == mstk.SubID %}
 
-                <form method="post" action="{% url 'add_NotSoldStock' %} ">
-                    {% csrf_token %}
-                    <input type="hidden" name="mID" value="{{ stk.id }}"/>
-                    <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
-                    <input type="submit" value="Not Sold" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Add to Not Sold?.Press Ok To Confirm.')) { return false }">
-                </form>
-            </td>
-        </tr>
+                 <tr>
+                    <td>{{ stk.id }}</td>
+                    <td>{{ stk.SubID }}</td>
+                    <td>{{ stk.invoice }}</td>
+                    <td>{{ stk.no_of_packets }}</td>
+                    <td>{{ stk.net_weight }}</td>
+                    <td>{{ stk.total_weight }}</td>
+                    <td>{{ stk.grade }}</td>
+                    <td>{{ stk.packetType }}</td>
+                    <td>{{ stk.date_prepared }}</td>
+                    <td>{{ stk.status }}</td>
+
+                    <td>
+                        <form method="post" action="{% url 'view_addSoldStock' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="mID" value="{{ stk.id }}"/>
+                            <input type="submit" value="Sold" class="buttonEdit">
+                        </form>
+
+                        <form method="post" action="{% url 'add_NotSoldStock' %} ">
+                            {% csrf_token %}
+                            <input type="hidden" name="mID" value="{{ stk.id }}"/>
+                            <input type="hidden" name="sID" value="{{ stk.SubID }}"/>
+                            <input type="submit" value="Not Sold" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Add to Not Sold?.Press Ok To Confirm.')) { return false }">
+                        </form>
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+        {% endfor %}
+
 
     {% endfor %}
 

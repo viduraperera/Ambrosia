@@ -43,7 +43,6 @@ class Broker(models.Model):
         )
     ])
 
-    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Broker'
@@ -62,7 +61,6 @@ class Buyer(models.Model):
         )
     ])
     name = models.CharField(max_length=50)
-    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Buyer'
@@ -103,7 +101,6 @@ class Auction_MainStock(models.Model):
     total_netWeight = models.FloatField(blank=True)
     total_grossWeight = models.FloatField(blank=True)
     total_packets = models.IntegerField(blank=True)
-    active = models.IntegerField(blank=True, default=1)
 
     class Meta:
         db_table = 'Auction_MainStock'

@@ -12,7 +12,7 @@
 
     <h1 style="color: #CE272D; ">Auction Stock - Catelog Preparation Reoprt</h1>
 <hr>
-        <table style="border: 1px solid black; padding: 3px; ">
+        <table style="border: 1px solid black; text-align: center; padding-top: 3px; ">
 
             <tr>
                 <th>MainID</th>
@@ -41,7 +41,6 @@
                         <td>{{ stock.grade }}</td>
                         <td>{{ stock.packetType }}</td>
                         <td>{{ stock.date_prepared }}</td>
-                        <td>{{ stock.status }}</td>
 
                          {% if stock.active == 1 and stock.status == 'Pending' %}
 
