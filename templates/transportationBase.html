@@ -11,7 +11,7 @@
 
     {% block moreStyles %}{% endblock moreStyles %}
 
-
+<style>
 .ClassActive {
     background-color: #8db8e0;
 }
@@ -65,6 +65,7 @@
     display: block;
     text-align: left;
   }
+</style>
 {% endblock headStyles %}
 
 <!-------------------------Import Head------------------------->
@@ -99,8 +100,7 @@ function NavBarFunction() {
   <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block homeBtn %}{% endblock homeBtn %}">Home</a>
    <a href="{% url 'Transport' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block recordsBtn %}{% endblock recordsBtn %}">Vehicle Driving Records</a>
   <a href="{% url 'VehicleRepairs' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block repairsBtn %}{% endblock repairsBtn %}">Maintenance</a>
-{#   <a href="{% url 'FuelLog' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block oilBtn %}{% endblock oilBtn %}">Fuel Log</a>#}
-{#  <a href="{% url 'Reports' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block reportBtn %}{% endblock reportBtn %}">Analysis</a>#}
+  <a href="{% url 'Reports' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block reportBtn %}{% endblock reportBtn %}">Analysis</a>
 
 
   </div>
@@ -151,19 +151,19 @@ function NavBarFunction() {
 
 {% endblock RepairMenu %}
 
-<!-------------------------Menue 3------------------------->
+{#<!-------------------------Menue 3------------------------->#}
+{##}
+{#       <!-- Sub Menu Bar -->#}
+{#     {% block OilMenu %}#}
+{# <div class="topnav" id="myTopnav">#}
+{#        <a href="{% url 'FuelLog' %}" class="{% block addOilBtn %}{% endblock addOilBtn %}" >Fuel Log</a>#}
+{#        <a href="{% url 'ViewOilTable' %}" class="{% block OilTableBtn %}{% endblock OilTableBtn %}" >Oil Table</a>#}
+{#        <a href="{% url 'Oil_Stock'%}" class="{% block oilStockBtn %}{% endblock oilStockBtn %}" >Oil Stock</a>#}
+{##}
+{#        <a href="javascript:void(0);" class="icon" onclick="NavBarFunction()">☰</a>#}
+{#    </div>#}
 
-       <!-- Sub Menu Bar -->
-     {% block OilMenu %}
- <div class="topnav" id="myTopnav">
-        <a href="{% url 'FuelLog' %}" class="{% block addOilBtn %}{% endblock addOilBtn %}" >Fuel Log</a>
-        <a href="{% url 'ViewOilTable' %}" class="{% block OilTableBtn %}{% endblock OilTableBtn %}" >Oil Table</a>
-        <a href="{% url 'Oil_Stock'%}" class="{% block oilStockBtn %}{% endblock oilStockBtn %}" >Oil Stock</a>
-
-        <a href="javascript:void(0);" class="icon" onclick="NavBarFunction()">☰</a>
-    </div>
-
-{% endblock OilMenu %}
+{#{% endblock OilMenu %}#}
 
 {% endblock pageContentHeader %}
 

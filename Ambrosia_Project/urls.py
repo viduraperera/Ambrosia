@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . views import *
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -42,6 +43,12 @@ urlpatterns = [
 
     path('Factory/Transport/UpdateVehicleRepairs', views.UpdateVehicleRepairs, name="update_repair_records"),
     path('Factory/Transport/deleteVehicleRepairs', views.delete_RepairRecords, name="delete_repair_records"),
+
+    #reports
+    path('Factory/Transport/Analysis', views.Reports, name="Reports"),
+    path('Factory/Transport/Analysis/VehicleRecordsPDF', GenerateVehicle_RecordsPdf.as_view(), name="VehicleReports"),
+
+
 
 
 ]

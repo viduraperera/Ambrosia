@@ -6,7 +6,7 @@
 <!-------------------------Styles------------------------->
     {% block moreStyles %}
 
-
+{#<style>#}
     table
     {
       font-family: arial, sans-serif;
@@ -48,32 +48,8 @@
   background-color: #000000;
   color: #77fd01;
 }
-    .btn1 {
-    background-color: #fd4201;
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: none;
-    transition-duration: 0.4s;
 
-}
-
-   .btn1:hover {
-  background-color: #000000;
-  color: #fd4201;
-}
-
-.regButton {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 8px 22px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-
+{#</style>#}
     {% endblock moreStyles %}
 
 
@@ -89,7 +65,15 @@
 {% block recordTableBtn %}ClassActive1{% endblock recordTableBtn %}
 
 
+
 {% block content %}
+
+    {% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+    {% endif %}
+
 <br><br>
 <div>
        <table>
@@ -119,17 +103,13 @@
          <form method="post" action=" {% url 'delete_driving_records' %}">
                     {% csrf_token %}
              <input type = "hidden" name="id" value="{{ record.id }}"/>
+{#             <input type = "hidden" name="vehicleno" value="{{ record.VehicleNo}}"/>#}
             <td><input type="submit" class = "btn" value="Delete"></td>
 
          </form>
 
 
-{#         <form method="post" action=" {% url 'view_driving_records' %}">#}
-{#                    {% csrf_token %}#}
-{#             <input type = "hidden" name="id" value="{{ record.id }}"/>#}
-{#            <td><input type="submit" class = "btn" value="View"></td>#}
-{##}
-{#         </form>#}
+
 
 
 

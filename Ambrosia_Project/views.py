@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.template.loader import get_template
+from django.views import View
+
 from Ambrosia_Project.forms import *
 from Ambrosia_Project.models import *
 from django.contrib import messages
@@ -9,6 +12,7 @@ from django.contrib.auth.models import User
 
 
 # Create your views here.
+from Ambrosia_Project.utils import render_to_pdf
 
 
 @login_required(login_url='login')
@@ -554,18 +558,59 @@ def delete_RepairRecords(request):
     id = request.POST.get('id')
 
     if request.method == 'POST' and id != None:
-     repair = Services.objects.get(id=id)
-     repair.delete()
+        repair = Services.objects.get(id=id)
+        repair.delete()
 
     return redirect('RepairTable')
 
 
+#reports
 
+@login_required(login_url='login')
+def Reports(request):
 
+    return render(request,'transportation_Reports.html')
 
+#generate vehicle reports
+class GenerateVehicle_RecordsPdf(View):
+    def get(self, request, *args, **kwargs):
 
+        vehicleNoInput = request.GET.get('vehicleno')
+        month = request.GET.get('month')
+        # date = request.GET.get('date')
+        year = request.GET.get('year')
+        vehicleNo = 0
 
+        if len(month)== 2 and len(year)== 4:
 
+            vehicle = Vehicle.objects.filter(VehicleNo=vehicleNoInput).first()
 
+            if vehicle is not None:
+                vehicleNo = vehicle.id
 
+            records = Driving_Records.objects.filter(Date__month=month, Date__year=year , VehicleNo=vehicleNo)
 
+            if len(records) > 0:
+
+                total = 0
+
+                for rec in records:
+                    total = total + rec.Meter_Difference
+
+                data = {
+                    'Vrecords': records,
+                    'year':year,
+                    'month':month,
+                    'total': total,
+                    }
+
+                pdf = render_to_pdf('Vehicle_Reports.html', data)
+                return HttpResponse(pdf, content_type='application/pdf')
+
+            else:
+                messages.error(request, 'No Data Found')
+                return redirect('Reports')
+
+        else:
+            messages.error(request, 'Invalid Inputs')
+            return redirect('Reports')
