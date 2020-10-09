@@ -22,43 +22,24 @@
     }
 
 .buttonEdit
-    {
-      background-color: #DC0175;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      width: 100%;
-      height: 30px;
-      border-radius: 15px;
-    }
+{
+    background-color: #DC0175;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 250px;
+    height: 50px;
+    border-radius: 15px;
+    margin-left: 30%;
+}
 
 .buttonEdit:hover {
     background: #e9e444;
     color: #000;
     }
-
-.buttonDelete
-    {
-      background-color: #E02516;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      width: 80%;
-      height: 30px;
-      border-radius: 15px;
-    }
-
-.buttonDelete:hover {
-    background: #E5ED34;
-    color: #000;
-    }
-
 
 .showTable{
     font-family: arial, sans-serif;
@@ -84,6 +65,21 @@
 .showTable tr:nth-child(even) {
     background-color: #f8f5f5;
     }
+
+.containerForm
+{
+    margin-top:20px;
+    background-color:#D9E4FF;
+    width: 60%;
+    min-width: 550px;
+}
+
+.containerForm h1
+{
+    text-align: center;
+    background-color:#020077 ;
+    color: white;
+}
 
 {% endblock moreStyles %}
 
@@ -125,9 +121,8 @@ Display Message
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
-    <!--------------Details Table------------------------------------>
-
-    <h1>Current Sub Stock Details</h1>
+<!--------------Details Table------------------------------------>
+<h1>Current Sub Stock Details</h1>
 
     <div style="overflow-x:auto;">
 
@@ -163,6 +158,7 @@ Display Message
 
     <br><br>
 
+<div class="containerForm">
     <h1>Update Sub Stock</h1>
 
 <!-- Form -->
@@ -213,16 +209,11 @@ Display Message
                <td>{{ form.date_prepared }}</td>
            </tr>
 
-           <tr>
-               <td></td>
-               <td>
-                   <button type="submit" class="buttonEdit">Update Sub Stock</button>
-               </td>
-           </tr>
-
        </table>
-
+        <br>
+          <button type="submit" class="buttonEdit">Update Sub Stock</button>
     </form>
+    <br>
 
     <!--------------Errors--------------------------------------->
     {% if form.errors %}
@@ -233,7 +224,7 @@ Display Message
 
    {% endif %}
 
-
+</div>
     <br><br>
 
 {% endblock content %}

@@ -28,72 +28,99 @@
 {% block moreStyles %}
 
 .buttonEdit
-    {
-      background-color: #2f960a;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      width: 90%;
-      border-radius: 15px;
-    }
+{
+  background-color: #2f960a;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 90%;
+  border-radius: 15px;
+}
 
 .buttonEdit:hover {
     background: #25ff79;
-    }
+    color: black;
+}
+
+.buttonDelete
+{
+    background-color: #C91402;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 90%;
+    border-radius: 15px;
+}
+
+.buttonDelete:hover {
+    background: #FF0000 ;
+    color: black;
+}
 
 .buttonAdd
-    {
-      background-color:#F41847;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      width: 60%;
-      padding:10px;
-      border-radius: 15px;
-    }
+{
+    background-color:#F41847;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    hewight: 50px;
+    padding:10px;
+    border-radius: 15px;
+    margin-left: 30%;
+}
 
 .buttonOpen
-    {
-      background-color:#001EA9;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      width: 40%;
-      padding:10px;
-    }
+{
+    background-color:#001EA9;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 40%;
+    padding:10px;
+}
 
 .buttonClose{
-      visibility:hidden;
-      background-color:#290202;
-      border: none;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      width: 40%;
-      padding:10px;
-    }
+    visibility:hidden;
+    background-color:#aaa;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 60px;
+    height: 80px;
+    margin-bottom:10px;
 
-.buttonAdd:hover , .buttonOpen:hover, .buttonClose:hover{
+}
+
+.buttonClose:hover{
+    background: #330101 ;
+}
+
+.buttonAdd:hover , .buttonOpen:hover{
     background: #EEF418;
     color:black;
-    }
+}
 
 .showTable{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    }
+}
 
 .showTable th {
     border: 1px solid #dddddd;
@@ -101,25 +128,26 @@
     font-size: 18px;
     padding: 10px;
     background: #fff9d2;
-    }
+}
 
 .showTable td {
     border: 1px solid #e7e5e5;
     text-align: left;
     font-size: 16px;
     padding: 10px;
-    }
+}
 
 .showTable tr:nth-child(even) {
     background-color: #f8f5f5;
-    }
+}
 
 #popupForm {
-  display: none;
-  width: 70%;
-  padding: 30px;
-  background-color: #FEFFE3;
-  margin-top: 20px;
+    display: none;
+    width: 70%;
+    padding: 20px;
+    background-color: #FCDCFF;
+    min-width: 550px;
+    margin-top: 20px;
 }
 
 {% endblock moreStyles %}
@@ -217,7 +245,7 @@ Display Message
                                 {% csrf_token %}
                                 <input type="hidden" name="stID" value="{{ stock.id }}"/>
                                 <input type="hidden" name="subID" value="{{ stock.SubID }}"/>
-                                <input type="submit" value="Delete" class="buttonEdit" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                                <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
                             </form>
                         </td>
 
@@ -245,8 +273,8 @@ Display Message
 
 <div id="popupForm">
 
-    <h1 style="text-align: center">Add Sub Stock</h1>
-
+    <h1 style="text-align: center; background-color: darkblue; color: white">Add Sub Stock</h1>
+    <br>
     <!-- Form -->
        <form method="post" action="{% url 'after_add_subStock' %}">
 
@@ -304,16 +332,8 @@ Display Message
         </form>
 
        <br>
-        <button class="buttonClose" id="closeBtn" onclick="closeformPopupFunction()">Close Form</button>
+        <button class="buttonClose" id="closeBtn" onclick="closeformPopupFunction()"><i class="fas fa-window-close fa-2x"></i> Close</button>
 
-        <!--------------Errors--------------------------------------->
-        {% if form.errors %}
-
-            <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
-                <h3 style="font-weight: bold">{{ form.errors }}</h3>
-            </div>
-
-       {% endif %}
 
 </div>
 

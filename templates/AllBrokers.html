@@ -68,10 +68,12 @@ tr:nth-child(even) {
 
 .buttonEdit:hover {
     background: #25ff79;
+    color: black;
     }
 
 .buttonDelete:hover{
     background: red;
+    color: black;
     }
 
 .addBtn a
@@ -99,7 +101,7 @@ tr:nth-child(even) {
 .headerAndButtonContainer
 {
   display: flex;
-  justify-content: center;
+  min-width: 420px;
   position: relative;
 }
 
@@ -125,7 +127,7 @@ tr:nth-child(even) {
 
 
 <!----------------------------------Header2--------------------------------------->
-{% block pageContentHeader2 %}Auction Stock | Brokers <i class="fas fa-people-arrows"></i>{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Auction Stock | Brokers <i class="fas fa-handshake"></i> <i class="fas fa-people-arrows"></i>{% endblock pageContentHeader2 %}
 
 
 <!---------------------------------Messages-------------------------------------->
@@ -181,13 +183,15 @@ Display Message
 
                 {% csrf_token %}
                 <input type="hidden" name="bID" value="{{ broker.id }}" >
-                <input type="submit" value="Edit" class="buttonEdit">
+                <button type="submit" class="buttonEdit">Edit <i class="fas fa-tools"></i></button>
             </form>
 
             <form method="post" action="{% url 'delete_broker' %}">
                 {% csrf_token %}
                 <input type="hidden" name="brokerid" value="{{ broker.id }}" >
-                <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                <button type="submit" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                Delete <i class="fas fa-trash-alt"></i></button>
+
             </form>
         </td>
         </tr>
