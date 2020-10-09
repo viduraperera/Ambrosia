@@ -141,6 +141,7 @@ li a:hover {
 <table>
   <tr>
     <th>Daily prod. ID</th>
+    <th>Sub id</th>
     <th>Date</th>
     <th>Total Weight</th>
     <th>Action</th>
@@ -148,6 +149,7 @@ li a:hover {
     {% for prod in prod %}
     <tr>
         <td>{{ prod.id }}</td>
+        <td>{{ prod.subID }}</td>
         <td>{{ prod.date }}</td>
         <td>{{ prod.totalWeight}}</td>
         <td>

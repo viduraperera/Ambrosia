@@ -345,16 +345,15 @@ def NavigateToProduction(request):
 @login_required(login_url='login')
 def addMainFinalProduction(request):
 
-#calculate total weight
-    total = 0
-    allProduct = Final_product_sub.objects.all()
-
-    for product in allProduct:
-        total = total + product.gradeWeight
-
-
     if request.method == 'POST':
         sid = request.POST.get('sID')
+
+        # calculate total weight
+        total = 0
+        allProduct = Final_product_sub.objects.filter(subID=sid)
+
+        for product in allProduct:
+            total = total + product.gradeWeight
 
         form = AddMainProductForm(request.POST)
 
@@ -387,7 +386,7 @@ def deleteSubProd(request):
 
                 #update main prod
                 mainProdID = subProd.subID
-                mainProd = Final_product_Main.objects.get(id=mainProdID)
+                mainProd = Final_product_Main.objects.get(subID=mainProdID)
 
                 mainProd.totalWeight = mainProd.totalWeight - subProd.gradeWeight
                 mainProd.save()
