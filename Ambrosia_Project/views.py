@@ -181,10 +181,5 @@ def NavigateToTeaGrades(request):
 
 
 @login_required(login_url='login')
-def NavigateToCurrentProduct(request):
-    return render(request, 'Current_product.html')
-
-
-@login_required(login_url='login')
 def NavigateToUpdateProduct(request):
     return render(request, 'Update_daily_product.html')
