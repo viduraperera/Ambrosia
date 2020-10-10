@@ -24,7 +24,7 @@ def registration(request):
             return redirect('view_all_users')
 
     context = {'form': form}
-    return render(request, 'AdminRegistration.html', context)
+    return render(request, 'common_2/AdminRegistration.html', context)
 
 
 def login_user(request):
@@ -44,15 +44,15 @@ def login_user(request):
                 return redirect('home')
             else:
                 messages.info(request, 'Username or Password is incorrect')
-                return render(request, 'login.html')
+                return render(request, 'common_2/login.html')
 
-    return render(request, 'login.html')
+    return render(request, 'common_2/login.html')
 
 
 @login_required(login_url='login')
 def home(request):
 
-    return render(request, 'home.html')
+    return render(request, 'common_2/home.html')
 
 
 def logout_user(request):
@@ -66,7 +66,7 @@ def view_AllUsers(request):
 
     array = User.objects.all();
     print(array);
-    return render(request, 'ViewAllUsers.html', {'Users': array})
+    return render(request, 'common_2/ViewAllUsers.html', {'Users': array})
 
 
 @login_required(login_url='login')
@@ -78,7 +78,7 @@ def factoryHomepage(request):
 @login_required(login_url='login')
 def teashopHomepage (request):
 
-    return render(request, 'teashophome.html')
+    return render(request, 'common_2/teashophome.html')
 
 
 @login_required(login_url='login')
@@ -91,10 +91,10 @@ def ShowUser(request):
     for user in users:
         if user.username == uname:
             arrUser = user
-            return render(request, 'updateUser.html', {'UserDetails': arrUser})
+            return render(request, 'common_2/updateUser.html', {'UserDetails': arrUser})
 
 
-    return render(request, 'ViewAllUsers.html')
+    return render(request, 'common_2/ViewAllUsers.html')
 
 
 @login_required(login_url='login')
@@ -147,7 +147,7 @@ def DeleteUser(request):
 
 @login_required(login_url='login')
 def inventoryhome (request):
-    return render(request, 'inventoryhome.html')
+    return render(request, 'TeaShopInventory_Templates/inventoryhome.html')
 
 
 @login_required(login_url='login')
@@ -173,7 +173,7 @@ def addCategoryProduct(request):
 
     cprod = CategoryProduct.objects.all()
 
-    return render(request, 'addCategoryProduct.html', {'form': form, 'c_products': cprod})
+    return render(request, 'TeaShopInventory_Templates/addCategoryProduct.html', {'form': form, 'c_products': cprod})
 
 
 @login_required(login_url='login')
@@ -185,7 +185,7 @@ def viewCategoryProduct(request):
         cat_product = CategoryProduct.objects.get(id=cpID)
         form = AddcategoryProductForm(instance=cat_product)
 
-        return render(request, 'viewCategoryProduct.html', {'cpForm': form, 'cpID': cpID})
+        return render(request, 'TeaShopInventory_Templates/viewCategoryProduct.html', {'cpForm': form, 'cpID': cpID})
 
     return redirect('addCategoryProduct')
 
@@ -250,7 +250,7 @@ def viewpackets(request):
     packets = AddPackets.objects.all()
     prodCat = CategoryProduct.objects.all()
 
-    return render(request, 'viewpackets.html', {'Packets': packets, 'prod': prodCat })
+    return render(request, 'TeaShopInventory_Templates/viewpackets.html', {'Packets': packets, 'prod': prodCat})
 
 
 @login_required(login_url='login')
@@ -307,7 +307,7 @@ def addteapackets (request):
         else:
             messages.error(request, 'Invalid Details')
 
-    return render(request, 'addteapackets.html', {'form': formA})
+    return render(request, 'TeaShopInventory_Templates/addteapackets.html', {'form': formA})
 
 
 @login_required(login_url='login')
@@ -331,7 +331,7 @@ def editpackets (request):
                     'packet': packet
                 }
 
-                return render(request, 'editpackets.html', det )
+                return render(request, 'TeaShopInventory_Templates/editpackets.html', det)
 
             except Exception as e:
                 print(e)
@@ -339,7 +339,7 @@ def editpackets (request):
         else:
             pass
 
-    return render(request, 'viewpackets.html')
+    return render(request, 'TeaShopInventory_Templates/viewpackets.html')
 
 
 @login_required(login_url='login')
@@ -434,25 +434,25 @@ def availableStock (request):
 
     stock = Stock.objects.all()
 
-    return render(request, 'availbleStock.html', {'stock': stock})
+    return render(request, 'TeaShopInventory_Templates/availbleStock.html', {'stock': stock})
 
 
 @login_required(login_url='login')
 def inventoryreports (request):
-    return render(request, 'inventoryreports.html')
+    return render(request, 'TeaShopInventory_Templates/inventoryreports.html')
 
 
 @login_required(login_url='login')
 def iweekly (request):
-    return render(request, 'iweekly.html')
+    return render(request, 'TeaShopInventory_Templates/iweekly.html')
 
 
 @login_required(login_url='login')
 def inventorymonthlyreport (request):
-    return render(request, 'inventorymonthlyreport.html')
+    return render(request, 'TeaShopInventory_Templates/inventorymonthlyreport.html')
 
 
 @login_required(login_url='login')
 def inventoryannualreport (request):
-    return render(request, 'inventoryannualreport.html')
+    return render(request, 'TeaShopInventory_Templates/inventoryannualreport.html')
 
