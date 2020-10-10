@@ -1,21 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-
-from Ambrosia_Project.forms import *
-
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from Ambrosia_Project.forms import *
 from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from Ambrosia_Project.models import *
 from Ambrosia_Project.salesutills import *
-
 
 # Create your views here.
 
@@ -97,7 +87,7 @@ def ShowUser(request):
 
     uname = request.POST.get("uname")
 
-    user = User.objects.get(username=uname);
+    user = User.objects.get(username=uname)
     form = UserCreationForm(instance=user)
 
     if user is not None:
@@ -166,8 +156,8 @@ def DeleteUser(request):
     # messages.error(request, "Error.Can't Delete User.")
     # return redirect('view_all_users')
 
-#--------------------------------------------------------------------------------------------
 
+#--Tea Shop-------------------------------------------------
 
 
 @login_required(login_url='login')
@@ -272,8 +262,6 @@ def viewpackets(request):
 
     return render(request, 'TeaShopInventory_Templates/viewpackets.html', {'Packets': packets, 'prod': prodCat})
 
-def inventoryhome(request):
-    return render(request, 'inventoryhome.html')
 
 @login_required(login_url='login')
 def addteapackets (request):
@@ -465,11 +453,6 @@ def inventoryreports (request):
 
 
 @login_required(login_url='login')
-def iweekly (request):
-    return render(request, 'TeaShopInventory_Templates/iweekly.html')
-
-
-@login_required(login_url='login')
 def inventorymonthlyreport (request):
     return render(request, 'TeaShopInventory_Templates/inventorymonthlyreport.html')
 
@@ -579,10 +562,6 @@ def SalesCreateInvoice(request):
                     else:
                         messages.success(request, 'Maximum Stock Exceeded')
 
-
-
-
-
             else:
                 print(form.errors)
                 messages.success(request, 'Invalid Details')
@@ -648,17 +627,6 @@ def SalesViewBill(request):
         return redirect('SalesTransaction')
 
 
-# delete
-# @login_required(login_url='login')
-# def Vdelete(request):
-#     invoice = request.POST.get('invoiceid')
-#     if request.method == 'POST' and invoice != None:
-#         invoiceid = BillItems.objects.get(id=invoice)
-#         invoiceid.delete()
-#
-#     return redirect('SalesViewBill')
-
-
 @login_required(login_url='login')
 def SalesTransaction(request):
     if request.method == 'POST':
@@ -695,8 +663,6 @@ def SalesPriceTable(request):
                 form.save()
                 messages.success(request, 'Sucessfully Added Price')
                 return redirect('SalesPriceTable')
-
-
 
             else:
                 print(form.errors)
@@ -828,14 +794,13 @@ class GeneratePDFInvoiceAnnually(View):
         data = {
             'trans': transaction,
             'total': total,
-                'year': year,
-
-
+            'year': year,
             }
 
         pdf = render_to_pdf('TeaShopSales_Templates/SalesHomeAnnuallyIncome.html', data)
 
         return HttpResponse(pdf, content_type='application/pdf')
+
 
 class GenerateBill(View):
     def get(self, request, *args, **kwargs):

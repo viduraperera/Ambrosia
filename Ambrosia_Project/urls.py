@@ -48,13 +48,9 @@ urlpatterns = [
     path('Shop/InventoryHome/availableStock', views.availableStock, name="availableStock"),
 
     path('Shop/InventoryHome/inventoryreports', views.inventoryreports, name="inventoryreports"),
-    path('Shop/InventoryHome/inventoryreports/weeklyreport', views.iweekly, name="iweekly"),
-    path('Shop/InventoryHome/inventoryreports/inventorymonthlyreport', views.inventorymonthlyreport,
-         name="monthlyreport"),
-    path('Shop/InventoryHome/inventoryreports/GenerateStockMothlyReport', GenerateStockMothlyReport.as_view(),
-         name="GenerateStockMothlyReport"),
-    path('Shop/InventoryHome/inventoryreports/GenerateStockAnnualReport', GenerateStockAnnualReport.as_view(),
-         name="GenerateStockAnnualReport"),
+    path('Shop/InventoryHome/inventoryreports/inventorymonthlyreport', views.inventorymonthlyreport,name="monthlyreport"),
+    path('Shop/InventoryHome/inventoryreports/GenerateStockMothlyReport', GenerateStockMothlyReport.as_view(),name="GenerateStockMothlyReport"),
+    path('Shop/InventoryHome/inventoryreports/GenerateStockAnnualReport', GenerateStockAnnualReport.as_view(),name="GenerateStockAnnualReport"),
     path('Shop/InventoryHome/inventoryreports/inventoryannualreport', views.inventoryannualreport, name="annualreport"),
 
     # salesManagement
@@ -70,16 +66,12 @@ urlpatterns = [
     # path('Shop/SalesHomeIncome/SalesTransaction/SalesViewBill/Vdelete', views.Vdelete, name="Vdelete"),
     path('Shop/SalesHomeIncome/SalesPriceTable', views.SalesPriceTable, name="SalesPriceTable"),
 
-    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableEdit', views.ShopPriceTableEdit,
-         name="ShopPriceTableEdit"),
-    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableUpdate', views.ShopPriceTableUpdate,
-         name="ShopPriceTableUpdate"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableEdit', views.ShopPriceTableEdit,name="ShopPriceTableEdit"),
+    path('Shop/SalesHomeIncome/SalesPriceTable/ShopPriceTableUpdate', views.ShopPriceTableUpdate,name="ShopPriceTableUpdate"),
 
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
-    path('Shop/SalesHomeIncome/IncomeMonthlyGeneratePDF', GeneratePDFInvoiceMonthly.as_view(),
-         name="generateIncomePdfMonthly"),
-    path('Shop/SalesHomeIncome/AnnualIncomeGeneratePDF', GeneratePDFInvoiceAnnually.as_view(),
-         name="SalesHomeAnnuallyIncome"),
+    path('Shop/SalesHomeIncome/IncomeMonthlyGeneratePDF', GeneratePDFInvoiceMonthly.as_view(),name="generateIncomePdfMonthly"),
+    path('Shop/SalesHomeIncome/AnnualIncomeGeneratePDF', GeneratePDFInvoiceAnnually.as_view(),name="SalesHomeAnnuallyIncome"),
 
 ]
 
