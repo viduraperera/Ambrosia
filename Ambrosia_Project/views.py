@@ -1,16 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.views.generic import View
-from django.template.loader import get_template
-from Ambrosia_Project.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
 from Ambrosia_Project.salesutills import *
-from Ambrosia_Project.SalesIncomeReports import render_to_pdf
+
 
 
 # Create your views here.
@@ -29,7 +24,7 @@ def registration(request):
             return redirect('view_all_users')
 
     context = {'form': form}
-    return render(request, 'registration.html', context)
+    return render(request, 'com_temp/registration.html', context)
 
 
 def login_user(request):
@@ -48,16 +43,16 @@ def login_user(request):
                 return redirect('home')
             else:
                 messages.info(request, 'Username or Password is incorrect')
-                return render(request, 'login.html')
+                return render(request, 'com_temp/login.html')
 
-    return render(request, 'login.html')
+    return render(request, 'com_temp/login.html')
 
 
 @login_required(login_url='login')
 def view_AllUsers(request):
     array = User.objects.all();
     print(array);
-    return render(request, 'ViewAllUsers.html', {'Users': array})
+    return render(request, 'com_temp/ViewAllUsers.html', {'Users': array})
 
 
 @login_required(login_url='login')
@@ -69,9 +64,9 @@ def ShowUser(request):
     for user in users:
         if user.username == uname:
             arrUser = user
-            return render(request, 'updateUser.html', {'UserDetails': arrUser})
+            return render(request, 'com_temp/updateUser.html', {'UserDetails': arrUser})
 
-    return render(request, 'ViewAllUsers.html')
+    return render(request, 'com_temp/ViewAllUsers.html')
 
 
 @login_required(login_url='login')
@@ -119,7 +114,7 @@ def DeleteUser(request):
 
 @login_required(login_url='login')
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'com_temp/home.html')
 
 
 def logout_user(request):
@@ -146,7 +141,7 @@ def inventoryhome(request):
 #-----------------------------------------------------------------------------------------------------------
 @login_required(login_url='login')
 def SalesHomeIncome(request):
-    return render(request, 'SalesHomeIncome.html')
+    return render(request, 'TeaShopSales_Templates/SalesHomeIncome.html')
 
 
 # add
@@ -199,7 +194,7 @@ def SalesCreateInvoice(request):
            'Invoicelist': invoicelist
            }
 
-    return render(request, 'SalesCreateInvoice.html', var)
+    return render(request, 'TeaShopSales_Templates/SalesCreateInvoice.html', var)
 
 
 # createinvoicepageDeletion
@@ -227,7 +222,7 @@ def SalesViewBill(request):
         bills = BillItems.objects.filter(invoice_id=invId)
         trancsaction = Transactions.objects.get(id=tID)
 
-        return render(request, 'SalesViewBill.html', {'billItems': bills , 'viewT': trancsaction})
+        return render(request, 'TeaShopSales_Templates/SalesViewBill.html', {'billItems': bills , 'viewT': trancsaction})
 
     else:
         return redirect('SalesTransaction')
@@ -265,7 +260,7 @@ def SalesTransaction(request):
 
     tl = Transactions.objects.all()
 
-    return render(request, 'SalesTransaction.html', {'tForm': tl})
+    return render(request, 'TeaShopSales_Templates/SalesTransaction.html', {'tForm': tl})
 
 
 @login_required(login_url='login')
@@ -295,7 +290,7 @@ def SalesPriceTable(request):
 
     priceTable = Price_Table.objects.all()
 
-    return render(request, 'SalesPriceTable.html', {'prices': priceTable, 'form': form})
+    return render(request, 'TeaShopSales_Templates/SalesPriceTable.html', {'prices': priceTable, 'form': form})
 
 
 @login_required(login_url='login')
@@ -333,13 +328,13 @@ def ShopPriceTableEdit(request):
                 messages.success(request, 'Invalid Details')
                 print(priceForm.errors)
 
-            return render(request, 'ShopPriceTableUpdate.html', {'PriceTableForm': priceForm, 'PID': pid})
+            return render(request, 'TeaShopSales_Templates/ShopPriceTableUpdate.html', {'PriceTableForm': priceForm, 'PID': pid})
 
     else:
 
         return redirect('SalesPriceTable')
 
-    return render(request, 'ShopPriceTableUpdate.html', {'prices', priceForm})
+    return render(request, 'TeaShopSales_Templates/ShopPriceTableUpdate.html', {'prices', priceForm})
 
 
 @login_required(login_url='login')
@@ -352,7 +347,7 @@ def ShopPriceTableUpdate(request):
                 priceTable = Price_Table.objects.get(pk=pid)
                 priceForm = priceTableForm(instance=priceTable)
                 # messages.success(request, 'Sucessfully Upadted.')
-                return render(request, 'ShopPriceTableUpdate.html', {'pForm': priceForm, 'pid': pid})
+                return render(request, 'TeaShopSales_Templates/ShopPriceTableUpdate.html', {'pForm': priceForm, 'pid': pid})
 
             except Exception as e:
                 print(e)

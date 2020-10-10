@@ -30,6 +30,8 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/templates/TeaShopSales_Templates" />
+        <option value="$MODULE_DIR$/templates/com_temp" />
       </list>
     </option>
   </component>
