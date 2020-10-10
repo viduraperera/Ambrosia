@@ -1,20 +1,13 @@
-{% extends 'transportationBase.html' %}
+{% extends 'Transport_templates/transportationBase.html' %}
 
 <!-------------------------Title------------------------->
 {% block title %}Transportation Management{% endblock title %}
 
 <!-------------------------Styles------------------------->
-
-{#   {% if messages %}#}
-{#       {% for message in messages %}#}
-{#          <script>alert("{{ message }}");</script>#}
-{#    {% endfor %}#}
-{#    {% endif %}#}
-
     {% block moreStyles %}
 
-<style>
-    table
+
+table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
@@ -32,7 +25,7 @@
 
     td
     {
-      border: 1px solid #c5f1b8;
+      border: 1px solid #e7e5e5;
       text-align: left;
       font-size: 20px;
       padding: 15px;
@@ -40,12 +33,38 @@
 
     tr:nth-child(even)
     {
-      background-color: #c5f1b8;
+      background-color: #eae9e7;
     }
+
+  .btn {
+    background-color: #34b006;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+   .btn:hover {
+  background-color: #000000;
+  color: #77fd01;
+}
+    .btn1 {
+    background-color: #fd4201;
+    border-radius: 12px;
+    padding: 8px 10px;
+    border: none;
+    transition-duration: 0.4s;
+
+}
+
+   .btn1:hover {
+  background-color: #000000;
+  color: #fd4201;
+}
 
 
 .regButton {
-    background-color: #4CAF50; /* Green */
+    background-color: #4caf50; /* Green */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -55,75 +74,73 @@
     margin: 4px 2px;
     cursor: pointer;
   }
-</style>
-    {% endblock moreStyles %}
 
+
+    {% endblock moreStyles %}
 
  {% block repairsBtn %}ClassActive{% endblock repairsBtn %}
 
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
-{% block pageContentHeader2 %}Vehicle Repairs{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Update Repairs{% endblock pageContentHeader2 %}
 
 
      {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
      {% block OilMenu %}{% endblock OilMenu %}
 
-{% block addRepairBtn %}ClassActive1{% endblock addRepairBtn %}
-
+{% block repairTableBtn %}ClassActive1{% endblock repairTableBtn %}
 
 {% block content %}
+    <br><br>
 
-<br><br>
-  <!--Add Vehicle Repair Details Form-->
+
+  <!--Update Vehicle Repairs Form-->
   <div style="padding-left: 20px;">
-        <table style=" padding: 10px 10px 10px 10px; background-color: #c5f1b8; width: 50%">
+    <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
 
-        <form action="{% url 'VehicleRepairs' %}" method="post">
+        <form action="{% url 'update_repair_records' %}" method="post">
+
             {% csrf_token %}
+
+              <input type = "hidden" name="repairID" value="{{ ReId }}"/>
+
 
       <tr>
       <td style="padding-bottom: 10px;"><label for="billno" style="font-size: 20px;">Bill No:</label></td>
-      <td>&emsp;{{ repairForm.Bill_No }}</td>
+      <td>&emsp;{{ REform.Bill_No }}</td>
       </tr>
 
       <tr>
       <td style="padding-bottom: 10px;"><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></td>
-      <td>&emsp;{{ repairForm.VehicleNo }}</td>
+      <td>&emsp;{{ REform.VehicleNo }}</td>
       </tr>
 
       <tr>
       <td style="padding-bottom: 10px;"><label for="description" style="font-size: 20px;">Description:</label></td>
-      <td>&emsp;{{ repairForm.Description }}</td>
+      <td>&emsp;{{ REform.Description }}</td>
       </tr>
 
       <tr>
       <td style="padding-bottom: 10px;"><label for="servicedate" style="font-size: 20px;">Service Date:</label></td>
-      <td>&emsp;{{ repairForm.Service_Date }}</td>
+      <td>&emsp;{{ REform.Service_Date }}</td>
       </tr>
 
       <tr>
       <td style="padding-bottom: 10px;"><label for="amount" style="font-size: 20px;">Amount:</label></td>
-      <td>&emsp;{{ repairForm.Amount }}</td>
+      <td>&emsp;{{ REform.Amount }}</td>
       </tr>
 
 
       <tr>
       <td></td>
       <td>
-          <input class="regButton" type="submit" value="ADD" >
+          <input class="regButton" type="submit" value="Update" >
       </tr>
 
         </form>
     </table>
 
-{#      {% if repairForm.errors %}#}
-{##}
-{#          <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">#}
-{#              <h3 style="font-weight: bold">{{ repairForm.errors }}</h3>#}
-{#          </div>#}
-{#      {% endif %}#}
-
 
   </div>
+
 
 {% endblock content %}

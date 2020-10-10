@@ -5,11 +5,34 @@
 {% block title %}Transportaion Management{% endblock title %}
 
 
+<!-------------------------Import Head------------------------->
+
+{% block headImport %}
+<!-------------------------Import Head1------------------------->
+
+    {% block headImport1 %}{% endblock headImport1 %}
+
+<script>
+
+function NavBarFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+</script>
+
+
+{% endblock headImport %}
+
+
 <!-------------------------Styles------------------------->
 {% block headStyles %}
 
-
-    {% block moreStyles %}{% endblock moreStyles %}
+{% block moreStyles %}{% endblock moreStyles %}
 
 <style>
 .ClassActive {
@@ -60,37 +83,17 @@
     right: 0;
     top: 0;
   }
-  .topnav.responsive a {
+}
+
+.topnav.responsive a {
     float: none;
     display: block;
     text-align: left;
   }
+
 </style>
+
 {% endblock headStyles %}
-
-<!-------------------------Import Head------------------------->
-
-    {% block headImport %}
-    <!-------------------------Import Head1------------------------->
-
-    {% block headImport1 %}{% endblock headImport1 %}
-
-<script>
-
-function NavBarFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-
-</script>
-
-{% endblock headImport %}
-
-
 
 
 <!-------------------------Body Menue------------------------->
@@ -118,8 +121,6 @@ function NavBarFunction() {
     <h1 class="w3-jumbo"><b>{% block pageContentHeader1 %}{% endblock pageContentHeader1 %}</b></h1>
     <h1 class="w3-xxxlarge w3-text-red"><b>{% block pageContentHeader2 %}{% endblock pageContentHeader2 %}</b></h1>
   </div>
-    
-
 
 
 <!-------------------------Menue 1------------------------->
