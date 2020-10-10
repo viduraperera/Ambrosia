@@ -20,73 +20,73 @@
 
 {%  block content %}
 
-    <div>
 
-
-    </div>
     <hr>
-    <div>
+
+<div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+
+    <table class="center">
+
+        <tr>
+            <td>Transaction ID:</td>
+            <td>{{ viewT.invoice_id }}</td>
+            <td>Date : </td>
+            <td>{{ viewT.dateTime }}</td>
+            <td>Total Price : </td>
+            <td>Rs.{{ viewT.total_Price }}</td>
+
+        </tr>
+
+    </table>
 
 
-        <table>
+
+    <table class="center">
+        <br>
+        <br>
+
+
+        <tr >
+            <th > Item Name </th>
+            <th > Weight </th>
+            <th > Quantity </th>
+            <th > Item Price </th>
+            <th > Price </th>
+            {#                <th>Delete</th>#}
+
+        </tr>
+        {% for item in billItems %}
 
             <tr>
-                <td>Transaction ID:</td>
-                <td>{{ viewT.invoice_id }}</td>
-                <td>Date : </td>
-                <td>{{ viewT.dateTime }}</td>
-                <td>Total Price : </td>
-                <td>Rs.{{ viewT.total_Price }}</td>
 
+
+                <td>{{ item.itemname }}</td>
+                <td>{{ item.weight }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>Rs.{{ item.itemPrice }}</td>
+                <td>Rs.{{ item.price }}</td>
+                {#                    <td>#}
+
+                {#                        <form method="POST" action="{% url 'Vdelete' %}">#}
+                {#                            {% csrf_token %}#}
+                {#                            <input type="hidden" name="invoiceid" value = "{{ invoice.id }}">#}
+                {#                            <input type="submit" value="Delete" class="btn">#}
+                {#                        </form>#}
+                {#                    </td>#}
             </tr>
 
-        </table>
-
-        <table>
-            <br>
-            <br>
-
-
-            <tr >
-                <th > Item Name </th>
-                <th > Weight </th>
-                <th > Quantity </th>
-                <th > Item Price </th>
-                <th > Price </th>
-{#                <th>Delete</th>#}
-
-            </tr>
-            {% for item in billItems %}
-
-                <tr>
-
-
-                    <td>{{ item.itemname }}</td>
-                    <td>{{ item.weight }}</td>
-                    <td>{{ item.Quantity }}</td>
-                    <td>Rs.{{ item.itemPrice }}</td>
-                    <td>Rs.{{ item.price }}</td>
-{#                    <td>#}
-
-{#                        <form method="POST" action="{% url 'Vdelete' %}">#}
-{#                            {% csrf_token %}#}
-{#                            <input type="hidden" name="invoiceid" value = "{{ invoice.id }}">#}
-{#                            <input type="submit" value="Delete" class="btn">#}
-{#                        </form>#}
-{#                    </td>#}
-                </tr>
-
-            {% endfor %}
-            <br>
-            <br>
+        {% endfor %}
 
 
 
 
-        </table>
+
+    </table>
+</div>
+    <br>
+    <br>
 
 
-    </div>
 
     <!-- End page content -->
 {% endblock content %}

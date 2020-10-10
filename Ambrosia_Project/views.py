@@ -478,24 +478,44 @@ def SalesCreateInvoice(request):
                 weight = form.cleaned_data['weight']
                 qty = form.cleaned_data['Quantity']
 
-                calDet = {
-                    'qty': qty,
-                    'weight': weight,
-                    'cat': cat,
-                }
+                stock = Stock.objects.get(weight=weight, category=cat)
 
-                result = calculateTotalprice(calDet)
+                if stock:
 
-                totalPrice = result['totalPrice']
-                itemPrice = result['itemPrice']
+                    availablePkts = stock.available_stock
 
-                invform = form.save(commit=False)
-                invform.invoice_id = bid
-                invform.itemPrice = itemPrice
-                invform.price = totalPrice
-                invform.save()
-                messages.success(request, 'Sucessfully Added Bill Item Details')
-                return redirect('SalesCreateInvoice')
+
+                    if availablePkts >= qty:
+
+                        stock.available_stock = availablePkts - qty
+                        stock.save()
+
+                        calDet = {
+                            'qty': qty,
+                            'weight': weight,
+                            'cat': cat,
+                        }
+
+                        result = calculateTotalprice(calDet)
+
+                        totalPrice = result['totalPrice']
+                        itemPrice = result['itemPrice']
+
+                        invform = form.save(commit=False)
+                        invform.invoice_id = bid
+                        invform.itemPrice = itemPrice
+                        invform.price = totalPrice
+                        invform.save()
+                        messages.success(request, 'Sucessfully Added Bill Item Details')
+                        return redirect('SalesCreateInvoice')
+
+
+                    else:
+                        messages.success(request, 'Maximum Stock Exceeded')
+
+
+
+
 
             else:
                 print(form.errors)
@@ -524,7 +544,21 @@ def BillRowDelete(request):
     item = request.POST.get('rowDelete')
 
     if request.method == 'POST' and item != None:
+
         rowDelete = BillItems.objects.get(pk=item)
+
+        cat = rowDelete.itemname
+        weight = rowDelete.weight
+        qty = rowDelete.Quantity
+
+        stock = Stock.objects.get(weight=weight, category=cat)
+
+        if stock:
+            availablePkts = stock.available_stock
+            stock.available_stock = availablePkts + qty
+            stock.save()
+
+        #delete from bill item
         rowDelete.delete()
 
     return redirect('SalesCreateInvoice')
@@ -549,14 +583,14 @@ def SalesViewBill(request):
 
 
 # delete
-@login_required(login_url='login')
-def Vdelete(request):
-    invoice = request.POST.get('invoiceid')
-    if request.method == 'POST' and invoice != None:
-        invoiceid = BillItems.objects.get(id=invoice)
-        invoiceid.delete()
-
-    return redirect('SalesViewBill')
+# @login_required(login_url='login')
+# def Vdelete(request):
+#     invoice = request.POST.get('invoiceid')
+#     if request.method == 'POST' and invoice != None:
+#         invoiceid = BillItems.objects.get(id=invoice)
+#         invoiceid.delete()
+#
+#     return redirect('SalesViewBill')
 
 
 @login_required(login_url='login')
@@ -733,7 +767,7 @@ class GeneratePDFInvoiceAnnually(View):
 
             }
 
-        pdf = render_to_pdf('SalesHomeAnnuallyIncome.html', data)
+        pdf = render_to_pdf('TeaShopSales_Templates/SalesHomeAnnuallyIncome.html', data)
 
         return HttpResponse(pdf, content_type='application/pdf')
 

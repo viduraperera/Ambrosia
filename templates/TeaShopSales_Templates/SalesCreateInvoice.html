@@ -38,7 +38,8 @@
         <h3> Add Items</h3>
         <form method ="POST" action="{% url 'SalesCreateInvoice' %}">
             {% csrf_token %}
-            <table>
+            <hr>
+            <table >
 
                 <tr>
                     <td><label>Category</label></td>
@@ -51,13 +52,15 @@
                 </tr>
                 <tr>
                     <td><label>Quantity</label></td>
-                    <td>{{ billForm.Quantity }}</td>
+                    <td >{{ billForm.Quantity }}</td>
                 </tr>
 
                 <tr>
                     <td><label for="Date">Date : </label></td>
                     <td>{{ billForm.date }}</td>
-                    <td><label>Invoice id</label></td>
+                </tr>
+                <tr>
+                    <td><label>Invoice Id</label></td>
                     <td>{{ bid }}</td>
                 </tr>
 
@@ -71,6 +74,7 @@
 
             </table>
         </form>
+    <hr>
         <br>
         <br>
         {% if billForm.errors %}
@@ -83,12 +87,12 @@
         <br>
         <br>
     </div>
-
+<hr>
     {% if Invoicelist %}
-
+<div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
     <table style="width: 100%">
-        <th>bid</th>
-        <th>id</th>
+        <th>Invoice Id</th>
+{#        <th>id</th>#}
         <th>Date</th>
         <th>Category</th>
         <th>Weight</th>
@@ -101,7 +105,7 @@
         {% for item in Invoicelist %}
             <tr>
                 <td>{{ bid }}</td>
-                <td>{{ item.id }}</td>
+{#                <td>{{ item.id }}</td>#}
                 <td>{{ item.date }}</td>
                 <td>{{ item.itemname }}</td>
                 <td>{{ item.weight }}</td>
@@ -129,6 +133,8 @@
     <input type="submit" value="Calulate Bill" class="btn" onclick="if (!confirm('Are you sure you want to Calculate? Please Ok to Confirm.')) {return false}">
     <br>
     </form>
+</div>
+<hr>
 
     {% endif %}
 

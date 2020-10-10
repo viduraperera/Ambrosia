@@ -33,32 +33,39 @@
 
 {%  block content %}
 
-     <table>
+    <div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+        <h4><b>Generate Income Report for a month</b></h4>
+    <hr>
+    <table >
 
+        <form method="get" action = "{% url 'generateIncomePdfMonthly' %}">
+            <td>
+                <input type="number"  name="month" placeholder="Input Month" required class="inp">
 
+                <input type="number"  name="year" placeholder="Input Year" required class="inp">
 
-        <form method="get" action = "{% url 'generateIncomePdfMonthly' %}"><th>
-            <input type="number"  name="month" placeholder="Input Month" required>
-
-            <input type="number"  name="year" placeholder="Input Year" required>
             <input type="submit" class="btn" value="Monthly Report">
-        </th>
+            </td>
+
         </form>
+    </table>
 
-
-
-
-    </table>  <br>
     <br>
-    <table>
-        <form method="get" action = "{% url 'SalesHomeAnnuallyIncome' %}"><th>
+        <h4><b>Generate Income Report for a Year</b></h4>
+    <hr>
 
-            <input type="number"  name="year" placeholder="Input Year" required>
-            <input type="submit" class="btn" value="Annualy Report">
-        </th>
+    <table>
+        <form method="get" action = "{% url 'SalesHomeAnnuallyIncome' %}">
+            <td>
+
+                <input type="number"  name="year" placeholder="Input Year" required class="inp">
+
+                <input type="submit" class="btn" value="Annualy Report">
+            </td>
         </form>
 
     </table>
+    </div>
     <br><br>
 
 

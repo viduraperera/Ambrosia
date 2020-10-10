@@ -30,9 +30,9 @@
     <form method="POST" action="{% url 'ShopPriceTableEdit' %}" >
         {% csrf_token %}
         <div>
-            <h5>Price</h5>
-
-            <table>
+            <h1 ><b>Price</b></h1>
+<div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+            <table class="center">
                 <tr>
                     <td><label>id</label></td>
                     <td>
@@ -72,6 +72,7 @@
 
 
             </table>
+</div>
         </div>
 
     </form>

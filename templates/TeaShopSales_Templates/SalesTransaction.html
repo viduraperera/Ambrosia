@@ -19,8 +19,8 @@
 {% block TransactionsBtn %}ClassActive{% endblock TransactionsBtn %}
 
 {%  block content %}
-    <div>
-        <table>
+     <div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+        <table class="center" >
 
 
 
@@ -34,7 +34,7 @@
             {% if tForm %}
                 {% for bill in tForm %}
 
-                    <tr style="height: 15px;">
+                    <tr style="height: 15px;" >
                         <td>{{ bill.invoice_id}}</td>
                         <td>Rs.{{ bill.total_Price }}</td>
                         <td>{{ bill.dateTime }}</td>
@@ -42,9 +42,9 @@
                         <td >
                             <form action="{% url 'SalesViewBill' %}" method="post">
                                 {% csrf_token %}
-                                <input type="hidden" name = "invID" class = "btn" value="{{ bill.invoice_id }}">
-                                <input type="hidden" name = "trID" class = "btn" value="{{ bill.id }}">
-                                <input type="submit" class = "btn" value="View">
+                                <input type="hidden" name = "invID" class = "btn" value="{{ bill.invoice_id }}" >
+                                <input type="hidden" name = "trID" class = "btn" value="{{ bill.id }}" >
+                                <input type="submit" class = "btn" value="   View   ">
                             </form>
 
 

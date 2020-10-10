@@ -22,7 +22,7 @@
     <h3> Add Items</h3>
     <form method ="POST" action="{% url 'SalesPriceTable' %}">
         {% csrf_token %}
-        <table>
+        <table >
 
             <tr>
                 <td><label>Category :</label></td>
@@ -58,9 +58,10 @@
         {% endif %}
     <br>
     <br><br>
+       <div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+<h3>Price Table</h3>
 
-    <div>
-        <table>
+        <table class="center">
 
             <th>Id</th>
             <th>Category</th>
