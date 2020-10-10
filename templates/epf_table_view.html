@@ -7,6 +7,17 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock headImport %}
 
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -28,7 +39,16 @@
   </ul>
 </nav>
 <br>
+    <h5>Generate Employee EPF Report By Date</h5>
+        <form action="{% url 'final_epf_report_search' %}" method="post">
+        {%  csrf_token %}
 
+        <input type="text" name="searchYear" placeholder="Search Year" required>
+        <input type="text" name="searchMonth" placeholder="Search Month" required>
+
+        <input type="submit" value="Search" required>
+    </form>
+    <br>
  <div>
      <table class="table table-striped table-bordered table-sm">
         <thead class="thead-dark">

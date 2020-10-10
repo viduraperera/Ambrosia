@@ -59,6 +59,22 @@ Display Message
     </style>
 <br>
 <br>
+
+    <form action="{% url 'searchEmployee' %}" method="post">
+        {%  csrf_token %}
+
+        <input type="text" name="searchTxt" placeholder="Search" required>
+
+        <select name="type" required>
+            <option value="">----</option>
+            <option value="nic">By NIC</option>
+            <option value="epf">By EPF Number</option>
+
+        </select>
+
+        <input type="submit" value="Search" required>
+    </form>
+<br>
      <div class="scrollmenu">
      <table class="table table-striped table-bordered table-sm">
         <thead class="thead-dark">

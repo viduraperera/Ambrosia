@@ -58,6 +58,15 @@ div.scrollmenu a:hover {
   background-color: #777;
 }
 </style>
+
+    <form action="{% url 'final_salary_view_search' %}" method="post">
+        {%  csrf_token %}
+
+        <input type="text" name="searchYear" placeholder="Search Year" required>
+        <input type="text" name="searchMonth" placeholder="Search Month" required>
+
+        <input type="submit" value="Search" required>
+    </form>
 <br>
  <div class="scrollmenu">
      <table class="table table-striped table-bordered table-sm">

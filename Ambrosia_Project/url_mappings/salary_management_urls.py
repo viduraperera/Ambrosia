@@ -1,5 +1,6 @@
 from django.urls import path
 from Ambrosia_Project.view_mappings import salary_management_views
+from Ambrosia_Project.view_mappings.salary_management_views import FinalSalaryReportPDF
 
 
 # employee_funds_VUP
@@ -33,5 +34,14 @@ urlpatterns = [
     path('final_salary_report_view', salary_management_views.final_salary_report_view, name='final_salary_report_view'),
 
 
+    path('searchEmployee', salary_management_views.searchEmployee, name='searchEmployee'),
+    path('final_salary_view_search', salary_management_views.final_salary_view_search, name='final_salary_view_search'),
+    path('final_salary_report_search', salary_management_views.final_salary_report_search, name='final_salary_report_search'),
+    path('final_epf_report_search', salary_management_views.final_epf_report_search, name='final_epf_report_search'),
+
+    path('final_salary_pdf', FinalSalaryReportPDF.as_view(), name='final_salary_pdf'),
+
 ]
+
+
 

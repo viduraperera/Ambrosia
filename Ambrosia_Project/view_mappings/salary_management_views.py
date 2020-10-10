@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.views.generic.base import View
+
 from Ambrosia_Project.forms import FundFrom, Allowance, AllowanceForm
 from Ambrosia_Project.models import *
 from Ambrosia_Project.salary_calculations import *
@@ -240,16 +242,6 @@ def emp_final_salary_view(request):
 
 
 @login_required(login_url='login')
-def emp_final_salary_render_to_pdf(request):
-    emp_salary = EmployeeSalary.objects.all()
-    emp_all = Employee.objects.all()
-    var = {
-        'emp_salary': emp_salary,
-        'emp_all': emp_all,
-    }
-    return render(request, 'final_salary_pdf.html', var)
-
-@login_required(login_url='login')
 def emp_final_salary_single_view(request):
 
     if request.method == 'POST':
@@ -349,12 +341,6 @@ def delete_total_salary(request):
 
 
 @login_required(login_url='login')
-def final_search_salary_view(request):
-
-    return None
-
-
-@login_required(login_url='login')
 def final_salary_report_view(request):
 
     emp_salary = EmployeeSalary.objects.all()
@@ -366,3 +352,177 @@ def final_salary_report_view(request):
     return render(request, 'final_salary_report.html', var)
 
 
+@login_required(login_url='login')
+def searchEmployee(request):
+
+    if request.method == 'POST':
+
+        searchTxt = request.POST.get('searchTxt')
+
+        type = request.POST.get('type')
+
+        try:
+
+            if type == 'nic':
+                employee = Employee.objects.filter(nic=searchTxt)
+                results = employee.count()
+
+                if results > 0:
+                    messages.success(request, "No of results found "+str(results))
+                    return render(request, 'employee_salary.html', {'employee': employee})
+
+                else:
+                    messages.success(request, "Employee Not Found")
+                    return redirect('emp_salary_main')
+
+            elif type == 'epf':
+
+                employee = Employee.objects.filter(epfNo=searchTxt)
+                results = employee.count()
+
+                if results > 0:
+                    messages.success(request, "No of results found "+str(results))
+                    return render(request, 'employee_salary.html', {'employee': employee})
+
+                else:
+                    messages.error(request, "Employee Not Found")
+                    return redirect('emp_salary_main')
+
+            else:
+                messages.error(request, "Invalid Input")
+                return redirect('emp_salary_main')
+
+        except Exception as e:
+            print(e)
+
+    return redirect('emp_salary_main')
+
+
+@login_required(login_url='login')
+def final_salary_view_search(request):
+
+    if request.method == 'POST':
+
+        searchYear = request.POST.get('searchYear')
+        searchMonth = request.POST.get('searchMonth')
+
+        try:
+            empSearch = EmployeeSalary.objects.filter(year=searchYear, month=searchMonth)
+            results = empSearch.count()
+
+            if results > 0:
+                messages.success(request, 'No of results Found ' + str(results))
+
+                emp_all = Employee.objects.all()
+
+                var = {
+                    'emp_salary': empSearch,
+                    'emp_all': emp_all,
+                }
+                return render(request, 'final_salary.html', var)
+
+
+            else:
+                messages.error(request, 'Employees Not Found')
+                return redirect('emp_final_salary_view')
+
+        except Exception as e:
+            print(e)
+
+    return redirect('emp_final_salary_view')
+
+
+@login_required(login_url='login')
+def final_salary_report_search(request):
+
+    if request.method == 'POST':
+
+        searchYear = request.POST.get('searchYear')
+        searchMonth = request.POST.get('searchMonth')
+
+        try:
+            empSearch = EmployeeSalary.objects.filter(year=searchYear, month=searchMonth)
+            results = empSearch.count()
+
+            if results > 0:
+                messages.success(request, 'No of results Found ' + str(results))
+
+                emp_all = Employee.objects.all()
+
+                var = {
+                    'emp_salary': empSearch,
+                    'emp_all': emp_all,
+                }
+                return render(request, 'final_salary_report.html', var)
+
+
+            else:
+                messages.error(request, 'Employees Not Found')
+                return redirect('final_salary_report_view')
+
+        except Exception as e:
+            print(e)
+
+    return redirect('final_salary_report_view')
+
+
+@login_required(login_url='login')
+def final_epf_report_search(request):
+    if request.method == 'POST':
+
+        searchYear = request.POST.get('searchYear')
+        searchMonth = request.POST.get('searchMonth')
+
+        try:
+            empSearch = EmployeeSalary.objects.filter(year=searchYear, month=searchMonth)
+            results = empSearch.count()
+
+            if results > 0:
+                messages.success(request, 'No of results Found ' + str(results))
+
+                emp_all = Employee.objects.all()
+
+                var = {
+                    'emp_salary': empSearch,
+                    'emp_all': emp_all,
+                }
+                return render(request, 'epf_table_view.html', var)
+
+
+            else:
+                messages.error(request, 'Employees Not Found')
+                return redirect('emp_epf_view')
+
+        except Exception as e:
+            print(e)
+
+    return redirect('emp_epf_view')
+
+
+class FinalSalaryReportPDF(View):
+    def get(self, request, *args, **kwargs):
+
+        searchYear = request.POST.get('searchYear')
+        searchMonth = request.POST.get('searchMonth')
+
+        salaryReport = EmployeeSalary.objects.filter(year=searchYear, month=searchMonth)
+        results = salaryReport.count()
+
+        if results > 0:
+            messages.success(request, 'No of results Found ' + str(results))
+
+            emp_all = Employee.objects.all()
+
+            var = {
+                'emp_salary': salaryReport,
+                'emp_all': emp_all,
+            }
+            pdf = render_to_pdf('final_salary_pdf_view.html', var)
+
+            if pdf:
+                response = HttpResponse(pdf, content_type='application/pdf')
+                return response
+
+            else:
+                messages.error(request, 'Error in PDF')
+                return redirect('final_salary_report_view')

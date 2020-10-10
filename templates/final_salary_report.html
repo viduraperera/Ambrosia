@@ -58,6 +58,27 @@ div.scrollmenu a:hover {
   background-color: #777;
 }
 </style>
+
+    <h5>Generate Employee Salary Report By Date</h5>
+        <form action="{% url 'final_salary_pdf' %}" method="post">
+        {%  csrf_token %}
+
+        <input type="text" name="searchYear" placeholder="Search Year" required>
+        <input type="text" name="searchMonth" placeholder="Search Month" required>
+
+        <input type="submit" value="Generate" required>
+        </form>
+
+    <h5>Search Employee Salary Report By Date</h5>
+        <form action="{% url 'final_salary_report_search' %}" method="post">
+        {%  csrf_token %}
+
+        <input type="text" name="searchYear" placeholder="Search Year" required>
+        <input type="text" name="searchMonth" placeholder="Search Month" required>
+
+        <input type="submit" value="Search" required>
+        </form>
+
     <br>
  <div class="scrollmenu">
      <table class="table table-striped table-bordered table-sm">
