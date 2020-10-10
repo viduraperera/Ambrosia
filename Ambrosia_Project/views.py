@@ -146,11 +146,6 @@ def DeleteUser(request):
 
 
 @login_required(login_url='login')
-def inventoryhome (request):
-    return render(request, 'TeaShopInventory_Templates/../templates/inventoryhome.html')
-
-
-@login_required(login_url='login')
 def addCategoryProduct(request):
 
     form = AddcategoryProductForm()
