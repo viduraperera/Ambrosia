@@ -5,11 +5,39 @@ from django.core.exceptions import ValidationError
 
 from Ambrosia_Project.models import *
 
+#----User---------------------------------------------------------------------
 
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2', 'is_superuser']
+
+
+#----leaf inventory & daily Production - Ravija------------------------------------------------------------------------
+
+class AddInventoryForm(forms.ModelForm):
+    class Meta:
+        model = LeafInventory
+        fields = '__all__'
+
+
+class AddSubProductForm(forms.ModelForm):
+    class Meta:
+        model = Final_product_sub
+        fields = '__all__'
+
+
+class AddMainProductForm(forms.ModelForm):
+    class Meta:
+        model = Final_product_Main
+        fields = '__all__'
+
+
+class AddTeaGradeform(forms.ModelForm):
+    class Meta:
+        model = TeaGrades
+        fields = '__all__'
+
 
 #final production management - Auction Stock - Sandun ---------------------------------------------------------------
 
@@ -65,32 +93,7 @@ class AuctionNotSoldStockLogForm(forms.ModelForm):
         fields = '__all__'
 
 
-#----leaf inventory & daily Production - Ravija------------------------------------------------------------------------
-
-class AddInventoryForm(forms.ModelForm):
-    class Meta:
-        model = LeafInventory
-        fields = '__all__'
-
-
-class AddSubProductForm(forms.ModelForm):
-    class Meta:
-        model = Final_product_sub
-        fields = '__all__'
-
-
-class AddMainProductForm(forms.ModelForm):
-    class Meta:
-        model = Final_product_Main
-        fields = '__all__'
-
-
-class AddTeaGradeform(forms.ModelForm):
-    class Meta:
-        model = TeaGrades
-        fields = '__all__'
-
-#tea shop----------------------------
+#Tea shop inventory Nethmi------------------------------------------------------------
 class AddTeaPacketsForm(forms.ModelForm):
     class Meta:
         model = AddPackets
@@ -103,6 +106,7 @@ class AddcategoryProductForm(forms.ModelForm):
         fields = '__all__'
 
 
+#Tea shop Sales Onella-------------------------------------------------------
 class TransactionForm(forms.ModelForm):
     class Mate:
         module = Transactions

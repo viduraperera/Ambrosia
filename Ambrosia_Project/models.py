@@ -200,6 +200,8 @@ class CategoryProduct(models.Model):
         return self.cp_name
 
 
+#----------------------Models Nethmi S-------------------------------------------------------------------------------------
+
 class AddPackets(models.Model):
 
     date = models.DateField()
@@ -214,6 +216,9 @@ class Stock(models.Model):
 
     class Meta:
         unique_together = (('category', 'weight'),)
+
+
+#----------------------Models Onella---------------------------------------------------------------------------------------
 
 class Transactions(models.Model):
     dateTime = models.DateTimeField(default=datetime.now)
