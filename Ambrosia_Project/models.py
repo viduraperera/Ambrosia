@@ -34,7 +34,7 @@ class Driving_Records(models.Model):
     Start_Reading = models.CharField(max_length=20, validators=[
         RegexValidator(
             regex='^[0-9]*$',
-            message='Start date must contain only numbers',
+            message='Start reading must contain only numbers',
             code='Start date is invalid'
         )
     ])
@@ -42,7 +42,7 @@ class Driving_Records(models.Model):
     End_Reading = models.CharField(max_length=20,validators=[
         RegexValidator(
             regex='^[0-9]*$',
-            message='End date must contain only numbers',
+            message='End reading must contain only numbers',
             code='End date is invalid'
         )
     ])

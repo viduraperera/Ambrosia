@@ -5,27 +5,20 @@
 
 <!-------------------------Styles------------------------->
     {% block moreStyles %}
-
+<style>
 
     table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
       width: 100%;
+        ;
     }
 
-    th
-    {
-      border: 1px solid #dddddd;
-      text-align: center;
-      font-size: 15px;
-      padding: 18px;
-      background: #fff9d2;
-    }
 
     td
     {
-      border: 1px solid #e7e5e5;
+      border: 1px solid #c5f1b8;
       text-align: left;
       font-size: 20px;
       padding: 15px;
@@ -33,34 +26,10 @@
 
     tr:nth-child(even)
     {
-      background-color: #eae9e7;
+      background-color: #c5f1b8;
     }
 
-  .btn {
-    background-color: #34b006;
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: none;
-    transition-duration: 0.4s;
-}
 
-   .btn:hover {
-  background-color: #000000;
-  color: #77fd01;
-}
-    .btn1 {
-    background-color: #fd4201;
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: none;
-    transition-duration: 0.4s;
-
-}
-
-   .btn1:hover {
-  background-color: #000000;
-  color: #fd4201;
-}
 
 .regButton {
     background-color: #4CAF50; /* Green */
@@ -73,7 +42,7 @@
     margin: 4px 2px;
     cursor: pointer;
   }
-
+</style>
     {% endblock moreStyles %}
 
 
@@ -102,7 +71,8 @@
 
   <!--Add Vehicle Records Form-->
   <div style="padding-left: 20px;">
-    <table  class="formTable">
+       <table style=" padding: 20px 20px 20px 20px; background-color: #c5f1b8 ; " >
+
         <form action="{% url 'vehicle_records' %}" method="post">
             {% csrf_token %}
 
@@ -127,10 +97,7 @@
       </tr>
 
 
-{#       <tr>#}
-{#      <td style="padding-bottom: 10px;"><label for="eread" style="font-size: 20px;">Meter difference:</label></td>#}
-{#      <td>&emsp;{{ RecordForm.Meter_Difference }}</td>#}
-{#      </tr>#}
+
       <tr>
 
       <td></td>
