@@ -6,12 +6,12 @@
 <!-------------------------Styles------------------------->
     {% block moreStyles %}
 
-
+<style>
 table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 100%;
+      width: 70%;
     }
 
     th
@@ -25,7 +25,7 @@ table
 
     td
     {
-      border: 1px solid #e7e5e5;
+      border: 1px solid #c5f1b8;
       text-align: left;
       font-size: 20px;
       padding: 15px;
@@ -33,48 +33,27 @@ table
 
     tr:nth-child(even)
     {
-      background-color: #eae9e7;
+      background-color: #c5f1b8;
     }
 
-  .btn {
-    background-color: #34b006;
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: none;
-    transition-duration: 0.4s;
-}
-
-   .btn:hover {
-  background-color: #000000;
-  color: #77fd01;
-}
-    .btn1 {
-    background-color: #fd4201;
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: none;
-    transition-duration: 0.4s;
-
-}
-
-   .btn1:hover {
-  background-color: #000000;
-  color: #fd4201;
-}
 
 
 .regButton {
-    background-color: #4caf50; /* Green */
+    background-color: green;
     border: none;
     color: white;
-    padding: 8px 22px;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
   }
-
+       .regButton:hover {
+  background-color: #000000;
+  color: green;
+}
+</style>
 
     {% endblock moreStyles %}
 
@@ -85,7 +64,7 @@ table
 
 
      {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
-     {% block OilMenu %}{% endblock OilMenu %}
+
 
 {% block repairTableBtn %}ClassActive1{% endblock repairTableBtn %}
 
@@ -95,7 +74,7 @@ table
 
   <!--Update Vehicle Repairs Form-->
   <div style="padding-left: 20px;">
-    <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+    <center> <table style=" padding: 20px 20px 20px 20px; background-color: #c5f1b8;" >
 
         <form action="{% url 'update_repair_records' %}" method="post">
 
@@ -133,12 +112,12 @@ table
       <tr>
       <td></td>
       <td>
-          <input class="regButton" type="submit" value="Update" >
+          <center><input class="regButton" type="submit" value="Update" ></center>
       </tr>
 
         </form>
     </table>
-
+</center>
 
   </div>
 

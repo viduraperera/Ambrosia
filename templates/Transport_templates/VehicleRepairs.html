@@ -5,20 +5,16 @@
 
 <!-------------------------Styles------------------------->
 
-{#   {% if messages %}#}
-{#       {% for message in messages %}#}
-{#          <script>alert("{{ message }}");</script>#}
-{#    {% endfor %}#}
-{#    {% endif %}#}
+
 
     {% block moreStyles %}
-
 <style>
+
     table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 100%;
+      width: 70%;
     }
 
     th
@@ -45,16 +41,21 @@
 
 
 .regButton {
-    background-color: #4CAF50; /* Green */
+    background-color: green; /* Green */
     border: none;
     color: white;
-    padding: 8px 22px;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
   }
+    .regButton:hover {
+  background-color: #000000;
+  color: green;
+}
+
 </style>
     {% endblock moreStyles %}
 
@@ -66,17 +67,25 @@
 
 
      {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
-     {% block OilMenu %}{% endblock OilMenu %}
+
 
 {% block addRepairBtn %}ClassActive1{% endblock addRepairBtn %}
 
 
 {% block content %}
 
+
+{% if messages %}
+    {% for message in messages %}
+      <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
 <br><br>
   <!--Add Vehicle Repair Details Form-->
   <div style="padding-left: 20px;">
-        <table style=" padding: 10px 10px 10px 10px; background-color: #c5f1b8; width: 50%">
+
+      <center> <table style=" padding: 10px 10px 10px 10px; background-color: #c5f1b8; ">
 
         <form action="{% url 'VehicleRepairs' %}" method="post">
             {% csrf_token %}
@@ -110,18 +119,26 @@
       <tr>
       <td></td>
       <td>
-          <input class="regButton" type="submit" value="ADD" >
+          <center><input class="regButton" type="submit" value="ADD"></center>
       </tr>
 
         </form>
+
+
+
     </table>
 
-{#      {% if repairForm.errors %}#}
-{##}
-{#          <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">#}
-{#              <h3 style="font-weight: bold">{{ repairForm.errors }}</h3>#}
-{#          </div>#}
-{#      {% endif %}#}
+
+</center>
+            {% if repairForm.errors %}
+
+          <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">
+              <h3 style="font-weight: bold">{{ repairForm.errors }}</h3>
+          </div>
+        {% endif %}
+
+
+
 
 
   </div>

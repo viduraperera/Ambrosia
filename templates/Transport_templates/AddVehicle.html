@@ -11,7 +11,7 @@
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 100%;
+      width: 90%;
     }
 
     th
@@ -20,7 +20,7 @@
       text-align: center;
       font-size: 15px;
       padding: 18px;
-      background: #fac56e;
+      background: #f5e57f;
     }
 
     td
@@ -28,7 +28,7 @@
       border: 1px solid #e7e5e5;
       text-align: left;
       font-size: 20px;
-      padding: 15px;
+      padding: 5px;
     }
 
     tr:nth-child(even)
@@ -36,22 +36,10 @@
       background-color: #c5f1b8;
     }
 
-  .btn {
-    background-color: #fd4201;
-    border-radius: 12px;
-    padding: 8px 10px;
-    border: none;
-    transition-duration: 0.4s;
-}
-
-   .btn:hover {
-  background-color: #000000;
-  color: #fd4201;
-}
 
 
 .regButton {
-    background-color: #4CAF50; /* Green */
+    background-color: green; /* Green */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -61,7 +49,18 @@
     margin: 4px 2px;
     cursor: pointer;
   }
+.regButton:hover{
+      background-color: #000000;
+  color: #77fd01;
+}
+.ClassActive {
+    background-color: #8db8e0;
+}
 
+.ClassActive1 {
+    background-color: #2292CF;
+    color: white;
+}
     {% endblock moreStyles %}
 
 
@@ -72,16 +71,23 @@
 
 
      {% block RepairMenu %}{% endblock RepairMenu %}
-     {% block OilMenu %}{% endblock OilMenu %}
+
 
 {% block addVehicleBtn %}ClassActive1{% endblock addVehicleBtn %}
 
 
 {% block content %}
+
+        {% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+    {% endif %}
+
     <br><br>
   <!--Add Vehicle Details Form-->
   <div style="padding-left: 20px;">
-     <table style=" padding: 10px 10px 10px 10px; background-color: #c5f1b8; width: 50%">
+
 
         <form action="{% url 'addVehicle' %}" method="post">
             {% csrf_token %}
@@ -90,11 +96,10 @@
       <td style="padding-bottom: 10px;"><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></td>
       <td>&emsp;{{ Vform.vehicleForm.VehicleNo }}</td>
       </tr>
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="status" style="font-size: 20px;">Status:</label></td>
-      <td>&emsp;{{ Vform.vehicleForm.status }}</td>
-      </tr>
 
+
+
+       <tr>
       <td style="padding-bottom: 10px;"><label for="status" style="font-size: 20px;">Driver ID:</label></td>
       <td>&emsp;{{ Vform.vehicleForm.Driverid }}</td>
       </tr>
@@ -110,16 +115,15 @@
     </table>
 
 
-    <br>
+    <br><br>
+  </div>
 
-
-{#      vehicle details table#}
+<!----vehicle details table---->
 <div>
        <table>
               <tr >
 
                 <th > Vehicle No </th>
-                <th> Status</th>
                 <th>Driver ID</th>
                 <th>Delete</th>
 
@@ -129,31 +133,39 @@
         <tr>
         <td>{{ vehicle.VehicleNo}} </td>
         <td>{{ vehicle.Driverid}}</td>
-        <td>{{ vehicle.status}}</td>
+
 
 
 
          <form method="post" action=" {% url 'delete_record' %}">
                     {% csrf_token %}
              <input type = "hidden" name="id" value="{{ vehicle.id }}"/>
-            <td><input type="submit" class = "btn" value="Delete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return }"
-></td>
+            <td><input type="submit" class = "regButton" value="Delete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }"/>
+            </td>
 
          </form>
 
         </tr>
         {% endfor %}
 
-        </tr>
+
 
 
     </table>
+<br>
+
+        {% if Vform.vehicleForm.errors %}
+
+          <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">
+              <h3 style="font-weight: bold">{{ Vform.vehicleForm.errors }}</h3>
+          </div>
+        {% endif %}
 
 </div>
 
 
 
-  </div>
+
 
 {% endblock content %}
 

@@ -33,7 +33,11 @@ urlpatterns = [
     #reports
     path('Analysis', transportationViews.Reports, name="Reports"),
     path('Analysis/VehicleRecordsPDF', GenerateVehicle_RecordsPdf.as_view(), name="VehicleReports"),
-    path('Analysis/VehicleRepairsPDF', GenerateVehicle_RepairPdf.as_view(), name="VehicleReports"),
+    path('Analysis/VehicleRepairsPDF', GenerateVehicle_RepairPdf.as_view(), name="ServiceReports"),
+
+    #search
+    path('Analysis/Search', transportationViews.SearchRecords, name="searchRecords"),
+
 
 
 ]

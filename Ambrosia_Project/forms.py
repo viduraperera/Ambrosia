@@ -10,13 +10,13 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
-class AddVehicle(forms.ModelForm):
+class AddVehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
         fields = '__all__'
 
 
-class AddDriver(forms.ModelForm):
+class AddDriverForm(forms.ModelForm):
     class Meta:
         model = Driver
         fields = '__all__'

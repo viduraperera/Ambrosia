@@ -17,7 +17,7 @@ urlpatterns = [
 
     # transport management
 # ---------------------------------------------------------------------------------------------------------------
-    path('Factory/Transport', include("Ambrosia_Project.url_mappings.transportationUrls"))
+    path('Factory/Transport/', include("Ambrosia_Project.url_mappings.transportationUrls"))
 
 
 ]

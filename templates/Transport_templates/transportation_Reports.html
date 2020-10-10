@@ -57,7 +57,7 @@
  {% block reportBtn %}ClassActive{% endblock reportBtn %}
 
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
-{% block pageContentHeader2 %}Analysis{% endblock pageContentHeader2 %}
+{% block pageContentHeader2 %}Analysis & Reports{% endblock pageContentHeader2 %}
 
 
      {% block RepairMenu %}{% endblock RepairMenu %}
@@ -108,7 +108,7 @@
         </form>
     </table><br><br>
         <table>
-              <form action="{% url 'VehicleReports' %}" method="get">
+              <form action="{% url 'ServiceReports' %}" method="get">
 
             {% csrf_token %}
      <h2>Vehicle Maintenance Report</h2>

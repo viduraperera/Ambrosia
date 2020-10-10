@@ -14,18 +14,23 @@ from django.views import View
 @login_required(login_url='login')
 def Vehicle_Records(request):
 
-    form = AddVehicle()
+    form = AddVehicleForm()
 
     if request.method == 'POST':
 
-        form = AddVehicle(request.POST)
+        form = AddVehicleForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request,"Successfully added vehicle details")
                 return redirect('addVehicle')
             except Exception as e:
                 print(e)
-                pass
+                messages.success(request,'Exception:'+ e)
+
+        else:
+            print(form.errors)
+            messages.success(request,'Invalid Details')
 
     #assign all vehicle objects
     array = Vehicle.objects.all()
@@ -48,7 +53,7 @@ def deleteVehicleRecord(request):
         vehicle = Vehicle.objects.get(id=id)
         vehicle.delete()
 
-    return redirect('addVehicle ')
+    return redirect('addVehicle')
 
 
 
@@ -57,16 +62,14 @@ def deleteVehicleRecord(request):
 @login_required(login_url='login')
 def driver_records(request):
 
-    form = AddDriver()
+    form = AddDriverForm()
 
     if request.method == 'POST':
 
-        form = AddDriver(request.POST)
+        form = AddDriverForm(request.POST)
 
         if form.is_valid():
             try:
-                # epfno = form.cleaned_data("epfNo")
-                # result = checkEpNo(epfno)
 
                 form.save()
                 messages.success(request, 'Successfully added driver details')
@@ -114,7 +117,7 @@ def DisplayDriverRecord(request):
         if id is not None:
             try:
                 driver = Driver.objects.get(pk=id)
-                driverForm = AddDriver(instance=driver)
+                driverForm = AddDriverForm(instance=driver)
                 return render(request, 'Transport_templates/UpdateDriver.html', {'Dform': driverForm, 'DId':id})
 
             except Exception as e:
@@ -139,7 +142,7 @@ def UpdateDriverRecord(request):
 
             try:
                 driver = Driver.objects.get(pk=dID)
-                form_update = AddDriver(request.POST, instance=driver)
+                form_update = AddDriverForm(request.POST, instance=driver)
 
                 if form_update.is_valid():
                     form_update.save()
@@ -183,7 +186,7 @@ def DrivingRecords(request):
                     form_mread.Meter_Difference = diff
 
                     form.save()
-                    messages.success(request, 'Successfully added driver details')
+                    messages.success(request, 'Successfully added driving records')
                     return redirect('RecordTable')
 
                 else:
@@ -237,12 +240,16 @@ def AddVehicleRepairs(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request, 'Successfully added driving records')
                 return redirect('RepairTable')
 
             except Exception as e:
                 print(e)
+                messages.success(request, 'Exception:'+e)
 
-                pass
+        else:
+             print(form.errors)
+             messages.success(request, 'Invalid Details')
 
 
     #assign form
@@ -270,7 +277,7 @@ def DisplayUpdateRepairs(request):
             try:
                 repair = Services.objects.get(pk=id)
                 rForm = RepairForm(instance=repair)
-                return render(request, 'Transport_templates/EditRepairTable.html', {'REform': rForm, 'ReId':id})
+                return render(request, 'Transport_templates/EditRepairs.html', {'REform': rForm, 'ReId':id})
 
             except Exception as e:
                 print(e)
@@ -347,7 +354,7 @@ class GenerateVehicle_RecordsPdf(View):
 
         if len(month)== 2 and len(year)== 4:
 
-            vehicle = Vehicle.objects.filter(VehicleNo=vehicleNoInput).first()
+            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
 
             if vehicle is not None:
                 vehicleNo = vehicle.id
@@ -392,7 +399,7 @@ class GenerateVehicle_RepairPdf(View):
 
         if len(month)== 2 and len(year)== 4:
 
-            vehicle = Vehicle.objects.filter(VehicleNo=vehicleNoInput).first()
+            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
 
             if vehicle is not None:
                 vehicleNo = vehicle.id
@@ -423,3 +430,41 @@ class GenerateVehicle_RepairPdf(View):
         else:
             messages.error(request, 'Invalid Inputs')
             return redirect('Reports')
+
+#search
+
+def SearchRecords(request):
+
+    if request.method == 'POST':
+
+        vehicleNoInput = request.POST.get('vehicleno')
+        month = request.POST.get('month')
+        year = request.POST.get('year')
+        vehicleNo = 0
+
+        if len(month) == 2 and len(year) == 4:
+
+            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
+
+            if vehicle is not None:
+
+                vehicleNo = vehicle.id
+
+
+                records = Driving_Records.objects.filter(Date__month=month, Date__year=year, VehicleNo=vehicleNo)
+
+
+                return render(request, 'Transport_templates/VehicleRecordsTable.html', {'records': records})
+
+
+            else:
+                messages.error(request, 'No Data Found')
+                return redirect('RecordTable')
+
+        else:
+            messages.error(request, 'Invalid Inputs')
+            return redirect('RecordTable')
+
+
+
+

@@ -11,7 +11,7 @@ table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 100%;
+      width: 80%;
     }
 
     td
@@ -30,7 +30,7 @@ table
 
 
 .regButton {
-    background-color: #4caf50; /* Green */
+    background-color: limegreen; /* Green */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -40,6 +40,10 @@ table
     margin: 4px 2px;
     cursor: pointer;
   }
+    .regButton:hover {
+  background-color: #000000;
+  color: #77fd01;
+}
 </style>
 
     {% endblock moreStyles %}
@@ -51,7 +55,7 @@ table
 
 
      {% block RepairMenu %}{% endblock RepairMenu %}
-     {% block OilMenu %}{% endblock OilMenu %}
+
 
 {% block addDriverBtn %}ClassActive1{% endblock addDriverBtn %}
 

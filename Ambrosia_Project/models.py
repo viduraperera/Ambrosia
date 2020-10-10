@@ -17,7 +17,6 @@ class Driver(models.Model):
 
 class Vehicle(models.Model):
     VehicleNo = models.CharField(max_length=20, unique=True)
-    status = models.CharField(max_length=20)
     Driverid = models.ForeignKey(Driver, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
