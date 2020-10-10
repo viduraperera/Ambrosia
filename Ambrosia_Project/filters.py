@@ -1,5 +1,5 @@
 import django_filters
-from django_filters import DateFilter, CharFilter, NumberFilter
+from django_filters import DateFilter, CharFilter
 
 from .models import *
 
@@ -29,6 +29,6 @@ class PaymentFilter(django_filters.FilterSet):
     # minPayment = NumberFilter(field_name="Payment", lookup_expr='lte')
 
     class Meta:
-        model = LeafStock
+        model = Payment
         fields = ['nic']
-        #'payment'
+        #payment

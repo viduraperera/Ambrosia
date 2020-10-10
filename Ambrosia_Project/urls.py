@@ -26,9 +26,11 @@ urlpatterns = [
 
     path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails', views.to_pay_details, name="S_PaymentDetails"),
 
-    path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_DeletePay', views.payment_delete, name="S_DeletePay"),
-
     path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_SupPayments', views.to_sup_payments, name="S_SupPayments"),
+
+    path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_SupPayments/calcPayments', views.calc_payment, name="S_CalcPayments"),
+
+    path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_DeletePay', views.payment_delete, name="S_DeletePay"),
 
     path('Factory/S_AllRegisteredSuppliers/S_SupRegistration', views.to_sup_registration, name="S_SupRegistration"),
 

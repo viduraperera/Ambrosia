@@ -364,21 +364,23 @@ def to_leaf_stock(request):
 # Navigate from Registered Suppliers List to Payments Details
 @login_required(login_url='login')
 def to_sup_payments(request):
-    form2 = PaymentForm()
+    form = PaymentForm()
 
     if request.method == "POST":
 
-        form2 = PaymentForm(request.POST)
+        form = PaymentForm(request.POST)
 
-        if form2.is_valid():
+        if form.is_valid():
             try:
-                form2.save()
+                form.save()
                 return redirect('S_PaymentDetails')
 
             except:
                 pass
+    else:
+        pass
 
-    var = {'form': form2}
+    var = {'form': form}
     return render(request, 'SupPayments.html', var)
 
 
@@ -386,26 +388,44 @@ def to_sup_payments(request):
 #Edited 2020-10-10 for add order by function for payments
 @login_required(login_url='login')
 def to_pay_details(request):
+
     form = Payment.objects.all()
 
-    order_count = form.count()
+    pay_count = form.count()
 
-    payFilter = StockFilter(request.POST, queryset=form)
+    payFilter = PaymentFilter(request.POST, queryset=form)
     form = payFilter.qs
 
     return render(request, 'PaymentDetails.html', {'form': form, 'payFilter': payFilter})
+    #return redirect('S_PaymentDetails')
 
 
-# Navigate from Payments to Payment Details Table
+# Calculating Payment
 @login_required(login_url='login')
 def calc_payment(request):
-    paytime = request.POST.get('paytime')
+    paynic = request.POST.get('paynic')
 
-    if request.method == 'POST' and paytime is not None:
-        form = Payment.objects.get(id=paytime)
-        form.save()
+    if request.method == 'POST' and paynic is not None:
+        form = Payment.objects.get(id=paynic)
 
-    return render(request, 'PaymentDetails.html')
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, "Calculated Successfully!")
+                return redirect('S_PaymentDetails')
+
+            except Exception as e:
+                print(e)
+                messages.success(request, "Exception : " +e)
+                return redirect('S_SupPayments')
+        else:
+            print(form.errors)
+            messages.success(request, "Added Failed! Check input values and try again!")
+            pass
+
+    return render(request, 'S_PaymentDetails.html')
+
+
 
 
 # delete Payment Table Details

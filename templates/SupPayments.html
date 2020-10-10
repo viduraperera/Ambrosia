@@ -54,8 +54,10 @@
 
   <div class="Container" style="padding: 20px;">
     <div class="row" style= "background-color: #95ED7D;">
-      <form method="post" action="#">
+
+    <form method="POST" action="#">
       {% csrf_token %}
+
       <div class="w3-half" style="background-color: #95ED7D;">
         <!--<form method="post" action="{#% url 'S_PDF' %#}">
         {#% csrf_token %#} -->
@@ -133,10 +135,11 @@
           </tr>
           <tr>
               <td>
-                  <form method="post" action="#">
+                  <form method="post" action="{% url 'S_CalcPayments' %}">
                       {% csrf_token %}
-{#                      <input type="hidden" name="paytime" value="{{ form.pay_Time }}">#}
+{#                      <input type="hidden" name="paynic" value="{{ form.nic }}">#}
                       <a href="{% url 'S_PaymentDetails' %}"><input class="regButton" type="submit" value="Calculate"></a>
+{#                      #}
                   </form>
               </td>
           </tr>
