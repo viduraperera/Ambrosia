@@ -5,12 +5,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 
 
-#transport
-#
-# class Oil_Stock(models.Model):
-#     Amount = models.FloatField()
-#     Date = models.DateField(default= datetime.now)
-
+#transport-------------------------------------------------------------------------
 
 class Driver(models.Model):
     licence_no = models.CharField(max_length=10)
@@ -49,21 +44,7 @@ class Driving_Records(models.Model):
     Meter_Difference = models.IntegerField(blank=True)
     VehicleNo = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True)
 
-#
-#
-# class Oil(models.Model):
-#     Container_No = models.IntegerField()
-#     OilType = (
-#         ('D','Diesel'),
-#         ('O','Oil'),
-#
-#     )
-#     Consumed_Amount = models.FloatField(null=True)
-#     Price = models.FloatField(null=True)
-#     type = models.CharField(max_length=10, choices=OilType)
-#     VehicleNo = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True)
-#
-#
+
 class Services(models.Model):
     Bill_No = models.CharField(max_length=10)
     Description = models.TextField()

@@ -28,19 +28,6 @@ class VehicleRecordsForm(forms.ModelForm):
         fields = '__all__'
 
 
-# class OilForm(forms.ModelForm):
-#     class Meta:
-#         model = Oil
-#         fields = '__all__'
-#
-#
-# class Oil_StockForm(forms.ModelForm):
-#     class Meta:
-#         model = Oil_Stock
-#         fields = '__all__'
-
-
-
 class RepairForm(forms.ModelForm):
     class Meta:
         model = Services

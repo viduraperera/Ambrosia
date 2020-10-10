@@ -151,10 +151,7 @@ def DeleteUser(request):
     # return redirect('view_all_users')
 
 
-
-
-
-#transport management
+#transport management------------------------------------------------------------------------------------------------------------
 #add vehicle
 @login_required(login_url='login')
 def Vehicle_Records(request):
@@ -368,96 +365,6 @@ def deleteRecords(request):
         record.delete()
 
     return redirect('RecordTable')
-
-
-
-#
-# #add oil
-# @login_required(login_url='login')
-# def AddFuelLog(request):
-#
-#     form = OilForm()
-#
-#     if request.method == 'POST':
-#
-#         form = OilForm(request.POST)
-#         if form.is_valid():
-#             try:
-#                 form.save()
-#                 return redirect('ViewOilTable')
-#
-#             except Exception as e:
-#                 print(e)
-#                 pass
-#
-#
-#     #assign form
-#     var = {'OilForm': form}
-#
-#     return render(request, 'FuelLog.html', var)
-#
-# #view oil table
-# @login_required(login_url='login')
-# def ShowOil(request):
-#
-#     oil = Oil.objects.all()
-#
-#     return render(request, 'ViewOilTable.html', {'oil': oil})
-#
-#
-#
-# #delete oil
-# @login_required(login_url='login')
-# def deleteOilRecords(request):
-#
-#     id = request.POST.get('id')
-#
-#     if request.method == 'POST' and id != None:
-#         oil = Oil.objects.get(id=id)
-#         oil.delete()
-#
-#     return redirect('ViewOilTable')
-#
-#
-# #add oil stock
-# @login_required(login_url='login')
-# def AddOil_Stock(request):
-#
-#     form = Oil_StockForm()
-#
-#     if request.method == 'POST':
-#
-#         form = Oil_StockForm(request.POST)
-#         if form.is_valid():
-#             try:
-#                 form.save()
-#                 return redirect('Oil_Stock')
-#             except Exception as e:
-#                 print(e)
-#                 pass
-#
-#     #assign all oil stock objects
-#     array = Oil_Stock.objects.all()
-#
-#     #assign form
-#     var = {'oil_stockForm': form}
-#
-#
-#     alldetails = {'OSform':var , 'AllStock':array }
-#
-#     return render(request, 'Oil_Stock.html', alldetails)
-#
-# #delete oil stock
-# @login_required(login_url='login')
-# def deleteOil_StockRecords(request):
-#
-#     id = request.POST.get('id')
-#
-#     if request.method == 'POST' and id != None:
-#         oil_stock = Oil_Stock.objects.get(id=id)
-#         oil_stock.delete()
-#
-#     return redirect('Oil_Stock')
 
 
 #add vehicle repairs
