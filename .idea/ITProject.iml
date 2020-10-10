@@ -23,6 +23,7 @@
       <list>
         <option value="$MODULE_DIR$" />
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/templates/TeaShopInventory_Templates" />
       </list>
     </option>
   </component>

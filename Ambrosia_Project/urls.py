@@ -14,8 +14,6 @@ urlpatterns = [
     path('Factory', views.factoryHomepage, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
-
     path('Shop/InventoryHome', views.inventoryhome, name="inventoryhome"),
 
     path('Shop/InventoryHome/addCategoryProduct', views.addCategoryProduct, name="addCategoryProduct"),

@@ -80,10 +80,6 @@ def teashopHomepage (request):
 
     return render(request, 'teashophome.html')
 
-@login_required(login_url='login')
-def EmployeeHome (request):
-
-    return render(request, 'EmployeeManagement.html')
 
 @login_required(login_url='login')
 def ShowUser(request):
