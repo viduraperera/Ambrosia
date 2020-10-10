@@ -7,9 +7,7 @@
 <!-------------------------Styles------------------------->
 {% block headStyles %}
 
-
-
-    {% block moreStyles %}
+{% block moreStyles %}
 
 <style>
 
@@ -77,17 +75,6 @@ color: white;
     {% endblock moreStyles %}
 
 
-<!-------------------------Body Display Message------------------------->
-{% block displayMessage %}
-    dislay messages
-    {% if messages %}
-        {% for message in messages %}
-            <script>alert("{{ message }}");</script>
-        {% endfor %}
-    {% endif %}
-
-{% endblock displayMessage %}
-
 .ClassActive {
     background-color: #8db8e0;
 }
@@ -95,6 +82,17 @@ color: white;
   </style>
 {% endblock headStyles %}
 
+
+<!-------------------------Body Display Message------------------------->
+{% block displayMessage %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+
+{% endblock displayMessage %}
 
 <!-------------------------Body Menue------------------------->
 {% block LinksMenuBar %}
