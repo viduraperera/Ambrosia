@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>W3.CSS Template</title>
-<link rel="shortcut icon" type="image/png" href="/static/images/logo1.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-        .ClassActive {
-    background-color: #8db8e0;
-}
-.ClassActive1 {
-    background-color: #87dbb9;
-}
+{% extends 'Base_Templates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Tea Grades{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
 
 table {
-font-family: arial, sans-serif;
-border-collapse: collapse;
-width: 100%;
- }
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
 td, th {
   border: 1px solid #dddddd;
@@ -27,158 +19,154 @@ td, th {
   padding: 8px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
-}
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+.addBtn
+{
+    background-color:#C00000 ;
+    color: white;
+    font-weight:bold;
+    padding: 5px;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
 }
 
-li {
-  float: left;
+.addBtn:hover
+{
+    background-color:#DFDE12;
+    color: black;
 }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  font-weight: normal;
-  padding: 14px 16px;
-  text-decoration: none;
+.doneBtn
+{
+    background-color:#007103 ;
+    color: white;
+    font-weight:bold;
+    padding: 5px;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
 }
 
-li a:hover {
-  background-color: #e9d394;
+.doneBtn:hover
+{
+    background-color:#C00000;
 }
 
-</style>
+.container1, .container2
+{
+    min-width: 500px;
+    width: 80%;
+}
 
-<body>
+.container1
+{
+    margin-top: 20px;
+    background-color: #F5FFED ;
+    padding: 10px;
+    text-align: center;
+}
 
-{#Display Message#}
+.container1 h1
+{
+    background-color:#220068 ;
+    color: white;
+}
+
+.container2 h1
+{
+    background-color:#220068 ;
+    color: white;
+    padding-left: 10px;
+}
+
+.container2
+{
+    background-color: #FFF7ED ;
+    padding: 10px;
+}
+
+.container2 th
+{
+    background-color: #CDFFD8;
+}
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block dailyProductionBtn %}ClassActive{% endblock dailyProductionBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block teaGradesBtn %}ClassActive1{% endblock teaGradesBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Tea Grades{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
 {% if messages %}
     {% for message in messages %}
         <script>alert("{{ message }}");</script>
     {% endfor %}
 {% endif %}
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-      <img src="/static/images/logo1.png" alt="logo" style="width: 250px; height: 200px; margin-left: auto; padding-right: 20px;">
-    <h3 class="w3-padding-64"><b>Ambrosia<br></b></h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="{% url 'final_production_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white ClassActive">Daily Production</a>
-    <a href="{% url 'auction_stock' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Auction Stock</a>
-    <a href="{% url 'stock_sales' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Stock Sales</a>
-    <a href="{% url 'production_analysis' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a>
-    <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Factory Home</a>
-
-  </div>
-</nav>
-
-<!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>Company Name</span>
-</header>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
-
-  <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Ambroisa</b></h1>
-    <h3 class="w3-xxxlarge w3-text-green"><b>Add Daily Production Details.</b></h3>
-
-  </div>
-
-    <ul>
-    <li><a href="{% url 'final_production_home' %}"  >Add daily Production</a></li>
-    <li><a href="{% url 'NavigateToCustomDailyProd' %}" >Custom daily production</a></li>
-{#    <li><a href="{% url 'NavigateToCurrentProd' %}" >Current production</a></li>#}
-    <li><a href="{% url 'NavigateToTeaGrades' %}" class="ClassActive1">Tea Grades</a></li>
-
-</ul>
+{% endblock displayMessage %}
 
 
+<!----------------------------------Hide Menues--------------------------------------->
 
-    <br>
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
 
-    <div>
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<div class="container1">
+    <h1>Add Tea Grades</h1>
     <form method="post" action="{% url 'NavigateToTeaGrades' %}">
         {% csrf_token %}
+
         <label>Add new tea category:</label>
         {{ form.teaGrade }}
-       <br> <input type="submit" value="Add">
+
+       <input type="submit" value="Add" class="doneBtn">
+
     </form>
 </div>
+
     <br><br>
 
-<div>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Tea Category</th>
-            <th>Action</th>
-        </tr>
-        {% for grade in grade %}
-        <tr>
-        <td>{{ grade.id }}</td>
-            <td>{{ grade.teaGrade }}</td>
-            <td><form method="post" action="{% url 'deleteGrade' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="grade" value="{{ grade.id }}"/>
-                    <input type="submit" value="Delete"><br>
-                </form></td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="container2">
+    <h1>Tea Grades</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Tea Category</th>
+                <th>Action</th>
+            </tr>
+            {% for grade in grade %}
+            <tr>
+            <td>{{ grade.id }}</td>
+                <td>{{ grade.teaGrade }}</td>
+                <td><form method="post" action="{% url 'deleteGrade' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="grade" value="{{ grade.id }}"/>
+                        <input type="submit" value="Delete" class="addBtn"><br>
+                    </form></td>
+            </tr>
+            {% endfor %}
+        </table>
 
-</div>
+    </div>
 
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
-
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-</script>
-
-</div>
-</body>
-</html>
+{% endblock content %}
