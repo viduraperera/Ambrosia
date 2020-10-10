@@ -5,11 +5,11 @@ from django.core.exceptions import ValidationError
 
 from Ambrosia_Project.models import *
 
+
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2', 'is_superuser']
-
 
 #final production management - Auction Stock - Sandun ---------------------------------------------------------------
 
@@ -89,3 +89,33 @@ class AddTeaGradeform(forms.ModelForm):
     class Meta:
         model = TeaGrades
         fields = '__all__'
+
+#tea shop----------------------------
+class AddTeaPacketsForm(forms.ModelForm):
+    class Meta:
+        model = AddPackets
+        fields = '__all__'
+
+
+class AddcategoryProductForm(forms.ModelForm):
+    class Meta:
+        model = CategoryProduct
+        fields = '__all__'
+
+
+class TransactionForm(forms.ModelForm):
+    class Mate:
+        module = Transactions
+        fields = '__all__'
+
+
+class billItemsForm(forms.ModelForm):
+    class Meta:
+        model = BillItems
+        fields = '__all__'
+
+
+class priceTableForm(forms.ModelForm):
+    class Meta:
+        model = Price_Table
+        fields ='__all__'

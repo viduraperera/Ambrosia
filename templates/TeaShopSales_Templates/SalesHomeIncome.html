@@ -1,0 +1,77 @@
+{% extends 'shopSalesBase.html' %}
+
+
+<!----title------>
+{% block title %}Tea Shop Sales Management{% endblock title %}
+<!----title------>
+
+<!-------------------------Head------------------------->
+{% block headImport %}
+
+{% endblock headImport %}
+
+<!------------Styles----->
+
+
+
+
+
+
+<!-- Sidebar/menu -->
+
+
+<!-- Top menu on small screens -->
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+
+<!-- !PAGE CONTENT! -->
+{% block pageContentHeader1 %}Ambrosia Tea Factory Outlet Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Report{% endblock pageContentHeader2 %}
+
+{% block SalesHomeIncomeBtn %}ClassActive{% endblock SalesHomeIncomeBtn %}
+
+{%  block content %}
+
+    <div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+        <h4><b>Generate Income Report for a month</b></h4>
+    <hr>
+    <table >
+
+        <form method="get" action = "{% url 'generateIncomePdfMonthly' %}">
+            <td>
+                <input type="number"  name="month" placeholder="Input Month" required class="inp">
+
+                <input type="number"  name="year" placeholder="Input Year" required class="inp">
+
+            <input type="submit" class="btn" value="Monthly Report">
+            </td>
+
+        </form>
+    </table>
+
+    <br>
+        <h4><b>Generate Income Report for a Year</b></h4>
+    <hr>
+
+    <table>
+        <form method="get" action = "{% url 'SalesHomeAnnuallyIncome' %}">
+            <td>
+
+                <input type="number"  name="year" placeholder="Input Year" required class="inp">
+
+                <input type="submit" class="btn" value="Annualy Report">
+            </td>
+        </form>
+
+    </table>
+    </div>
+    <br><br>
+
+
+{% endblock content %}
+<!-- End page content -->
+
+</body>
+</html>
+

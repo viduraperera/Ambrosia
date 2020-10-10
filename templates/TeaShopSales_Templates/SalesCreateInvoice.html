@@ -1,0 +1,144 @@
+{% extends 'shopSalesBase.html' %}
+
+
+<!----title------>
+{% block title %}Tea Shop Sales Management{% endblock title %}
+<!----title------>
+
+<!-------------------------Head------------------------->
+{% block headImport %}
+
+{% endblock headImport %}
+
+<!------------Styles----->
+
+
+
+
+
+
+<!-- Sidebar/menu -->
+
+
+<!-- Top menu on small screens -->
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+
+<!-- !PAGE CONTENT! -->
+{% block pageContentHeader1 %}Ambrosia Tea Factory Outlet Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Create Invoice{% endblock pageContentHeader2 %}
+
+{% block CreateInvoiceBtn %}ClassActive{% endblock CreateInvoiceBtn %}
+
+{%  block content %}
+
+    <div>
+        <hr>
+        <h3> Add Items</h3>
+        <form method ="POST" action="{% url 'SalesCreateInvoice' %}">
+            {% csrf_token %}
+            <hr>
+            <table >
+
+                <tr>
+                    <td><label>Category</label></td>
+                    <td>{{ billForm.itemname }}</td>
+                </tr>
+
+                <tr>
+                    <td><label>Weight </label></td>
+                    <td>{{ billForm.weight }}</td>
+                </tr>
+                <tr>
+                    <td><label>Quantity</label></td>
+                    <td >{{ billForm.Quantity }}</td>
+                </tr>
+
+                <tr>
+                    <td><label for="Date">Date : </label></td>
+                    <td>{{ billForm.date }}</td>
+                </tr>
+                <tr>
+                    <td><label>Invoice Id</label></td>
+                    <td>{{ bid }}</td>
+                </tr>
+
+
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Add Item" class="btn" >
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    <hr>
+        <br>
+        <br>
+        {% if billForm.errors %}
+
+            <div class="errorDisplay" style="background-color: #e0dfdf; color:#1d1dd7; padding:5px">
+                <h3 style="font-width: bold">{{ billForm.errors}}</h3>
+            </div>
+        {% endif %}
+
+        <br>
+        <br>
+    </div>
+<hr>
+    {% if Invoicelist %}
+<div style="border-radius: 5px;background-color: #f5fafa;padding: 20px;">
+    <table style="width: 100%">
+        <th>Invoice Id</th>
+{#        <th>id</th>#}
+        <th>Date</th>
+        <th>Category</th>
+        <th>Weight</th>
+        <th>Quantity</th>
+        <th>Item Price</th>
+        <th>Price</th>
+        <th>Delete</th>
+
+
+        {% for item in Invoicelist %}
+            <tr>
+                <td>{{ bid }}</td>
+{#                <td>{{ item.id }}</td>#}
+                <td>{{ item.date }}</td>
+                <td>{{ item.itemname }}</td>
+                <td>{{ item.weight }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>Rs.{{ item.itemPrice }}</td>
+                <td>Rs.{{ item.price }}</td>
+                <td>
+                    <form method="POST" action="{% url 'BillRowDelete' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="rowDelete" value = "{{ item.id }}">
+                        <input type="submit" value="Delete" class="btn" onclick="if (!confirm('Are you sure you want to Delete? Please Ok to Confirm.')) {return false}">
+
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <form method="POST" action="{% url 'SalesTransaction' %}">
+    {% csrf_token %}
+        <input type="hidden" name="bid" value="{{ bid }}">
+<br>
+
+    <input type="submit" value="Calulate Bill" class="btn" onclick="if (!confirm('Are you sure you want to Calculate? Please Ok to Confirm.')) {return false}">
+    <br>
+    </form>
+</div>
+<hr>
+
+    {% endif %}
+
+    <br><br>
+
+{% endblock content %}
+<!-- End page content -->

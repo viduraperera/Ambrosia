@@ -1,0 +1,53 @@
+{% extends 'shopInventoryBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
+
+<!-------------------------Head------------------------->
+    {% block headImport %}
+
+    {% endblock headImport %}
+
+{% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
+
+{% block pageContentHeader2 %}Edit Tea Pakctes{% endblock pageContentHeader2 %}
+
+{% block viewteabtn %}ClassActive{% endblock viewteabtn %}
+
+{% block content %}
+
+<!-- form -->
+  <br>
+    <form method="post" action="{% url 'updatepackets' %}">
+    {% csrf_token %}
+
+	<div class="form-group">
+		<label>Date:</label>
+        {{ packet.date }}
+	</div>
+	<br>
+	<div class="form-group">
+		<label>Tea Category:</label>
+		{{ category }}
+	</div>
+	<br>
+	<div class="form-group">
+		<label>Category Weight:</label>
+		{{ weight }}
+	</div>
+	<br><br>
+		<div class="form-group">
+		<label >Number of packets:</label>
+		<input type="number" name="noPkts" value="{{ packet.noOfPackets }}">
+	</div>
+	<br>
+	<div class="form-group">
+
+        <input type="hidden" name="packetID" value="{{ packet.id }}">
+
+        <input type="submit" class="btn1" value="Update">
+	</div>
+	<br>
+</form>
+<!-- End page content -->
+{% endblock content %}
