@@ -20,3 +20,21 @@ class AddcategoryProductForm(forms.ModelForm):
     class Meta:
         model = CategoryProduct
         fields = '__all__'
+
+
+class TransactionForm(forms.ModelForm):
+    class Mate:
+        module = Transactions
+        fields = '__all__'
+
+
+class billItemsForm(forms.ModelForm):
+    class Meta:
+        model = BillItems
+        fields = '__all__'
+
+
+class priceTableForm(forms.ModelForm):
+    class Meta:
+        model = Price_Table
+        fields ='__all__'

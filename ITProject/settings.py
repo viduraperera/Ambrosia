@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Ambrosia_Project.apps.AmbrosiaProjectConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'itp',
         'USER': 'root',
-        'PASSSWORD': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }

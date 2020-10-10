@@ -2,6 +2,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="shortcut icon" type="image/png" href="{% static 'images/logo.png' %}">
+
 <head>
 
 <meta charset="UTF-8">
@@ -127,23 +130,38 @@
     <script>
         function navigatepage1()
         {
-            window.location.href = "{% url 'EmployeeHome' %}"
+            window.location.href = "{% url 'attendance_management' %}"
         }
         {#function navigatepage2()#}
-
+        {##}
         {#    window.location.href = "{% url '' %}"#}
-
+        {##}
         {#function navigatepage3()#}
-
+        {##}
         {#    window.location.href = "{% url '' %}"#}
+        {##}
+        function navigatepage4(){
 
-        {#function navigatepage4()#}
+        function navigatepage3()
+        {
+               window.location.href = "{% url 'S_AllRegisteredSuppliers' %}"
+        }
 
-        {#    window.location.href = "{% url '' %}"#}
+            window.location.href = "{% url 'final_production_home' %}"
+        }
 
         {#function navigatepage5()#}
         {#{#}
         {#    window.location.href = "{% url '' %}"#}
+        function navigatepage4()
+        {
+            window.location.href = "{% url 'final_production_home' %}"
+        }
+
+        function navigatepage5()
+        {
+            window.location.href = "{% url 'AddInventory' %}"
+        }
 
         function navigatepage6()
         {
