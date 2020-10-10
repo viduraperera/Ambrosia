@@ -127,8 +127,8 @@
       <td><br>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;&ensp;&ensp;
           <form method="post" action="{% url 'S_AddSupplier' %}">
               {% csrf_token %}
-              <input type="hidden" name="supnic" value="{{ form.nicNo }}">
-              <input class="regButton" type="submit" value="Submit">
+{#              <input type="hidden" name="supnic" value="{{ form.nicNo }}">#}
+              <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="regButton" type="submit" value="Submit"></a>
           </form>
       </td>
       </tr>

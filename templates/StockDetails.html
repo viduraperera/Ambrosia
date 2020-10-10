@@ -16,7 +16,7 @@
 table {
   //font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 70%;
+  width: auto;
 }
 
 td, th {
@@ -70,13 +70,19 @@ tr:nth-child(even) {
 {% block content %}
     <a id="tablepad" href="{% url 'S_LeafStock' %}"><input class="regButton" type="submit" value="+  Add New Stock" onclick="w3_close()"></a>
 
-  <form method="post">
-  {% csrf_token %}
+  <div style="padding: 20px 30px 20px 20px;">
+      <form method="post">
+      {% csrf_token %}
 
-  <a style="padding: 20px">{{ myFilter.form }}</a>
-  <input class="regButton" type="submit" value="Search">
-  </form>
-
+      <table>
+        <tr>
+          <td><a style="padding: 20px">NIC No : &emsp;{{ myFilter.form.nic }}</a></td>
+          <td><a style="padding: 20px">Date : &emsp;{{ myFilter.form.date }}</a></td>
+          <td>&emsp;<input class="regButton" type="submit" value="Search">&emsp;</td>
+        </tr>
+      </table>
+      </form>
+  </div>
   <!--View DailyStock Details Table-->
   <div style="padding-left: 20px;"><br>
     <table>
@@ -91,17 +97,17 @@ tr:nth-child(even) {
       </tr>
         {% for form in form %}
       <tr>
-        <td>{{ form.nic }}</td>
+        <td>&emsp;{{ form.nic }}&emsp;</td>
 {#        <td>{{ form.name_id }}</td>#}
         <td>{{ form.id }}</td>
-        <td>{{ form.weight}}</td>
-        <td>{{ form.rec_Date }}</td>
-        <td>{{ form.rec_Time }}</td>
+        <td>&emsp;{{ form.weight}}&emsp;</td>
+        <td>&emsp;{{ form.rec_Date }}&emsp;</td>
+        <td>&emsp;{{ form.rec_Time }}&emsp;</td>
           <td>
               <form method="post" action="{% url 'S_LeafStockDelete' %}">
               {% csrf_token %}
-                      <input type="hidden" name="formid" value="{{ form.id }}">
-                      <a href="{% url 'S_StockDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>
+                      &emsp;<input type="hidden" name="formid" value="{{ form.id }}">
+                      <a href="{% url 'S_StockDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>&emsp;
                </form>
           </td>
       </tr>

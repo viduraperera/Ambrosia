@@ -66,6 +66,20 @@ tr:nth-child(even) {
 {% block content %}
     <a id="tablepad" href="{% url 'S_SupPayments' %}"><input class="regButton" type="submit" value="+  Make New Payment" onclick="w3_close()"></a>
 
+  <div style="padding: 20px 30px 20px 20px;">
+      <form method="post">
+      {% csrf_token %}
+
+      <table>
+        <tr>
+          <td><a style="padding: 20px">NIC No : &emsp;{{ payFilter.form.nic }}</a></td>
+          <td><a style="padding: 20px">Minimum Payment : &emsp;</a></td>
+          <td><a style="padding: 20px">Maximum Payment : &emsp;</a></td>
+          <td>&emsp;<input class="regButton" type="submit" value="Search">&emsp;</td>
+        </tr>
+      </table>
+      </form>
+  </div>
 
   <!--View DailyvStock Details Table-->
   <div style="padding-left: 20px;"><br>

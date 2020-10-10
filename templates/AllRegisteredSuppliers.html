@@ -14,20 +14,34 @@
 table {
   //font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 60%;
+  width: auto;
 }
 
-td, th {
+#td1, #th1 {
   border: 1px solid #d9d9d9;
   text-align: center;
   padding: 5px;
 }
 
-tr:nth-child(odd) {
+#tr1:nth-child(odd) {
   background-color: #99ffbb;
 }
-tr:nth-child(even) {
+#tr1:nth-child(even) {
   background-color: #ccffdd;
+}
+
+#For Search Table
+#td2, #th2 {
+  //border: 1px solid #d9d9d9;
+  text-align: left;
+  padding: 5px;
+}
+
+#tr2:nth-child(odd) {
+  background-color: #99ffbb;
+}
+#tr2:nth-child(even) {
+  background-color: #99ffbb;
 }
 
 .regButton {
@@ -70,43 +84,62 @@ tr:nth-child(even) {
 
   <a id="tablepad" href="{% url 'S_SupRegistration' %}"><input class="regButton" type="submit" value="+  Add New Supplier" onclick="w3_close()"></a>
   <br>
-  <form method="post">
-  {% csrf_token %}
 
-  <a style="padding: 20px">{{ supFilter.form }}</a>
-  <a style="padding: 20px"><input class="regButton" type="submit" value="Search"></a>
-  </form>
+  <div style="padding: 20px 30px 20px 20px;">
+    <form method="post">
+    {% csrf_token %}
+
+    <table>
+        <tr id="tr2">
+            <th id="th2"></th>
+            <th id="th2"></th>
+            <th id="th2"></th>
+        </tr>
+        <tr id="tr2">
+            <td id="td2" ><a style="padding: 20px">NIC No : &emsp;{{ supFilter.form.nicNo }}</a></td>
+            <td id="td2" ><a style="padding: 20px">Route : &ensp;{{ supFilter.form.route }}</a></td>
+            <td id="td2" ><a style="padding: 20px">Supplier Scale : {{ supFilter.form.sup_scale }}</a></td>
+        </tr>
+        <tr id="tr2">
+            <td id="td2" ><a style="padding: 20px">Pay Type : {{ supFilter.form.pay_Type }}</a></td>
+            <td id="td2" ><a style="padding: 20px">Bank : &ensp;&ensp;{{ supFilter.form.bank }}</a></td>
+            <td id="td2" ><a style="padding: 20px">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input class="regButton" type="submit" value="Search"></a></td>
+            <br>
+        </tr>
+    </table>
+    </form>
+  </div>
 
   <!--View DailyStock Details Table-->
-  <div id="tablepad" style="padding-left: 20px"><br>
+  <div id="tablepad"><br>
     <table>
-      <tr>
-        <th>Supplier ID</th>
-        <th>ProPic</th>
-        <th>NIC</th>
-        <th>Supplier Name</th>
-        <th>Contact No</th>
-        <th>Action</th>
+      <tr id="tr1">
+        <th id="th1" >Supplier ID</th>
+        <th id="th1" >ProPic</th>
+        <th id="th1" >NIC</th>
+        <th id="th1" >Supplier Name</th>
+        <th id="th1" >Contact No</th>
+        <th id="th1" >Action</th>
 
       </tr>
         {% for sup in Sup %}
-      <tr>
-        <td>{{ sup.id }}</td>
-        <td><img src="{{ sup.proPic.url }}" style="width: 100%; float: left; margin-right: 10px;"></td>
-        <td>{{ sup.nicNo }}</td>
-        <td>{{ sup.Sup_Name }}</td>
-        <td>{{ sup.phone }}</td>
+      <tr id="tr1">
+        <td id="td1" >{{ sup.id }}</td>
+        <td id="td1" >&emsp;<img src="{{ sup.proPic.url }}" style="width: 70px; height: 70px; position: center;">&emsp;</td>
+        <td id="td1" >&emsp;{{ sup.nicNo }}&emsp;</td>
+        <td id="td1" >&emsp;{{ sup.Sup_Name }}&emsp;</td>
+        <td id="td1" >&emsp;{{ sup.phone }}&emsp;</td>
         <td>
             <div style="display: flex;">
             <form method="post" action="{% url 'S_ViewSupProfile' %}">
             {% csrf_token %}
                     <input type="hidden" name="supid" value="{{ sup.id }}">
-                    <input class="regButton" type="submit" value="View">
+                    &emsp;<input class="regButton" type="submit" value="View">
             </form>
             <form method="post" action="{% url 'S_DeleteSupplier' %}">
             {% csrf_token %}
                     <input type="hidden" name="supid" value="{{ sup.id }}">
-                    <input class="remvButton" type="submit" value="Delete">
+                    <input class="remvButton" type="submit" value="Delete">&emsp;
             </form>
             </div>
         </td>
@@ -120,4 +153,3 @@ tr:nth-child(even) {
 
 {% endblock content %}
 <!-- End page content -->
-

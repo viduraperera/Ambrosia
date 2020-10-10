@@ -76,6 +76,7 @@ class Payment(models.Model):
     other_costs = models.FloatField()
     tot_weight = models.FloatField()
     per_kilo_price = models.FloatField()
+    # payment = models.FloatField()
     # supplier = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
     nic = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
 

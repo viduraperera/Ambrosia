@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .filters import OrderFilter, OrderFilterSup
+from .filters import StockFilter, SupplierFilter, PaymentFilter
 
 from django.core.files.storage import FileSystemStorage
 
@@ -152,7 +152,7 @@ def to_reg_suppliers(request):
 
     sup_count = suppliers.count()
 
-    supFilter = OrderFilterSup(request.POST, queryset=suppliers)
+    supFilter = SupplierFilter(request.POST, queryset=suppliers)
     suppliers = supFilter.qs
 
     return render(request, 'AllRegisteredSuppliers.html', {'Sup': suppliers, 'supFilter': supFilter})
@@ -171,7 +171,9 @@ def to_sup_registration(request):
             except:
                 pass
     else:
-        sup = RegistrationForm()
+        # sup = RegistrationForm()
+        pass
+
     var = {'sup': sup}
     return render(request, 'SupRegistration.html', var)
 
@@ -245,7 +247,7 @@ def to_stock_details(request):
 
     order_count = form.count()
 
-    myFilter = OrderFilter(request.POST, queryset=form)
+    myFilter = StockFilter(request.POST, queryset=form)
     form = myFilter.qs
 
     return render(request, 'StockDetails.html', {'form': form, 'myFilter': myFilter})
@@ -290,7 +292,7 @@ def to_edit_stock_details(request):
 def to_edit_supplier(request):
     if request.method == 'POST':
         sid = request.POST.get('SID')
-        # Registration.objects.all()
+        # supplier = Registration.objects.all()
 
         if sid is not None:
 
@@ -301,8 +303,8 @@ def to_edit_supplier(request):
                 if form.is_valid():
                     form.save()
                     img = form.instance
-                    return render(request, 'AllRegisteredSuppliers.html', {'sFrom': form, 'SupId': sid, 'img': img})
-                    # return redirect('S_AllRegisteredSuppliers')
+                    #return render(request, 'AllRegisteredSuppliers.html', {'sFrom': form, 'SupId': sid, 'img': img})
+                    return redirect('S_AllRegisteredSuppliers')
 
                 else:
                     # invalid
@@ -381,11 +383,17 @@ def to_sup_payments(request):
 
 
 # Navigate from Payments to Payment Details Table
+#Edited 2020-10-10 for add order by function for payments
 @login_required(login_url='login')
 def to_pay_details(request):
     form = Payment.objects.all()
 
-    return render(request, 'PaymentDetails.html', {'form': form})
+    order_count = form.count()
+
+    payFilter = StockFilter(request.POST, queryset=form)
+    form = payFilter.qs
+
+    return render(request, 'PaymentDetails.html', {'form': form, 'payFilter': payFilter})
 
 
 # Navigate from Payments to Payment Details Table

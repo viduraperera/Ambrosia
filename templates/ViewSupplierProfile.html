@@ -48,7 +48,7 @@
 
       <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
 
-        <form method="post" action="{% url 'S_EditSupplier' %}" enctype="multipart/form-data">
+      <form method="post" action="{% url 'S_EditSupplier' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
       <tr>
@@ -119,11 +119,22 @@
       <tr>
       <td></td>
       <td><br>
-          <input class="regButton" type="submit" value="Update">
-          <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="remvButton" type="submit" value="Cancel"></a>
+
+          <form method="post" action="{% url 'S_AllRegisteredSuppliers' %}">
+              {% csrf_token %}
+              <input type="hidden" name="formid" value="{{ sup.id }}">
+                <input class="regButton" type="submit" value="Update">
+          </form>
+{#          <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="remvButton" type="submit" value="Cancel"></a>#}
       </td>
       </tr>
     </form>
+      <tr>
+      <td></td>
+      <td>
+          <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="remvButton" type="submit" value="Cancel"></a>
+      </td>
+      </tr>
     </table>
 
 
