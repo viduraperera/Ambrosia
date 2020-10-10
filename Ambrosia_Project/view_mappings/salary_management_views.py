@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from Ambrosia_Project.forms import FundFrom, Allowance, AllowanceForm
 from Ambrosia_Project.models import *
-from Ambrosia_Project.salary_calculations import  *
+from Ambrosia_Project.salary_calculations import *
 
 
 # ---------------------------start of funds of employee-----------------------------------
@@ -139,12 +139,26 @@ def emp_salary_main(request):
 
 @login_required(login_url='login')
 def emp_etf_view(request):
-    return render(request, 'etf_table_view.html')
+
+    emp_salary = EmployeeSalary.objects.all()
+    emp_all = Employee.objects.all()
+    var = {
+        'emp_salary': emp_salary,
+        'emp_all': emp_all,
+    }
+    return render(request, 'etf_table_view.html', var)
 
 
 @login_required(login_url='login')
 def emp_epf_view(request):
-    return render(request, 'epf_table_view.html')
+
+    emp_salary = EmployeeSalary.objects.all()
+    emp_all = Employee.objects.all()
+    var = {
+        'emp_salary': emp_salary,
+        'emp_all': emp_all,
+    }
+    return render(request, 'epf_table_view.html', var)
 
 
 @login_required(login_url='login')
@@ -226,6 +240,16 @@ def emp_final_salary_view(request):
 
 
 @login_required(login_url='login')
+def emp_final_salary_render_to_pdf(request):
+    emp_salary = EmployeeSalary.objects.all()
+    emp_all = Employee.objects.all()
+    var = {
+        'emp_salary': emp_salary,
+        'emp_all': emp_all,
+    }
+    return render(request, 'final_salary_pdf.html', var)
+
+@login_required(login_url='login')
 def emp_final_salary_single_view(request):
 
     if request.method == 'POST':
@@ -281,31 +305,36 @@ def emp_final_total_salary_view(request):
         salary_record = EmployeeSalary.objects.get(id=salary_id)
 
         chk_all_b_price = salary_record.allowance_b_price
+        try:
+            if chk_all_b_price is None:
 
-        if chk_all_b_price is None:
+                final_salary = float(employee_salary) - salary_record.epf_employee_month
 
-            final_salary = float(employee_salary) - salary_record.epf_employee_month
+                salary_record.allowance_b_price = request.POST.get("all_b_price")
+                salary_record.incentive_1 = request.POST.get("incen_1")
+                salary_record.incentive_2 = request.POST.get("incen_2")
+                salary_record.ot_hours = request.POST.get("employee_ot_hours")
+                salary_record.ot_amount_for_month = request.POST.get("ot_amount")
+                salary_record.loan = request.POST.get("employee_loan")
+                salary_record.advance = request.POST.get("employee_advance")
+                salary_record.tea_advance = request.POST.get("employee_tea_advance")
+                salary_record.total_deduction = request.POST.get("total_deduction")
+                salary_record.total_salary = employee_salary
+                salary_record.remaining_salary = final_salary
 
-            salary_record.allowance_b_price = request.POST.get("all_b_price")
-            salary_record.incentive_1 = request.POST.get("incen_1")
-            salary_record.incentive_2 = request.POST.get("incen_2")
-            salary_record.ot_hours = request.POST.get("employee_ot_hours")
-            salary_record.ot_amount_for_month = request.POST.get("ot_amount")
-            salary_record.loan = request.POST.get("employee_loan")
-            salary_record.advance = request.POST.get("employee_advance")
-            salary_record.tea_advance = request.POST.get("employee_tea_advance")
-            salary_record.total_deduction = request.POST.get("total_deduction")
-            salary_record.total_salary = employee_salary
-            salary_record.remaining_salary = final_salary
+                salary_record.save()
+                return redirect('emp_final_salary_view')
 
-            salary_record.save()
-            return redirect('emp_final_salary_view')
+            else:
+                messages.error(request, "this employee salary already calculated")
+                return redirect('emp_final_salary_view')
 
-        else:
-            messages.error(request, "this employee salary already calculated")
-            return redirect('emp_final_salary_view')
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Exception')
 
     return None
+
 
 @login_required(login_url='login')
 def delete_total_salary(request):
@@ -317,3 +346,23 @@ def delete_total_salary(request):
         salary.delete()
 
         return redirect('emp_final_salary_view')
+
+
+@login_required(login_url='login')
+def final_search_salary_view(request):
+
+    return None
+
+
+@login_required(login_url='login')
+def final_salary_report_view(request):
+
+    emp_salary = EmployeeSalary.objects.all()
+    emp_all = Employee.objects.all()
+    var = {
+        'emp_salary': emp_salary,
+        'emp_all': emp_all,
+    }
+    return render(request, 'final_salary_report.html', var)
+
+

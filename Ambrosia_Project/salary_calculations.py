@@ -1,4 +1,18 @@
 from Ambrosia_Project.models import *
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
 
 
 def salary_cal(year, month, emp_id):
@@ -9,6 +23,7 @@ def salary_cal(year, month, emp_id):
     etf_month = 0
     epf_employee_month = 0
     epf_employer_month = 0
+    total_epf = 0
 
     # retrive emp id
 
@@ -41,6 +56,8 @@ def salary_cal(year, month, emp_id):
         epf_employee_month = basic_salary_for_month * (funds.epf_employee / 100)
         epf_employer_month = basic_salary_for_month * (funds.epf_employer / 100)
 
+        total_epf = epf_employer_month + epf_employee_month
+
     static_cals = {
 
         'total_attendance': total_attendance,
@@ -48,6 +65,7 @@ def salary_cal(year, month, emp_id):
         'etf_month': etf_month,
         'epf_employee_month': epf_employee_month,
         'epf_employer_month': epf_employer_month,
+        'total_epf': total_epf,
 
     }
     return static_cals
@@ -95,3 +113,6 @@ def calcuate_final(details):
         'employee_tea_advance': employee_tea_advance,
     }
     return final_cal
+
+
+

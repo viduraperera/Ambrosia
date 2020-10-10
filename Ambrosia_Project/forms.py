@@ -22,3 +22,9 @@ class AllowanceForm(forms.ModelForm):
         fields = '__all__'
 
 
+class EmployeeSalaryForm(forms.ModelForm):
+    class Meta:
+        model = EmployeeSalary
+        fields = '__all__'
+
+

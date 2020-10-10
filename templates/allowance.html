@@ -29,7 +29,12 @@
             <td>{{ allowance.incentive_2}}</td>
             <td>
                 <a href="/Home/Factory/EmployeeHome/emp_allowance_edit{{ allowance.id }}" class="btn btn-success">Edit</a>
-                <a href="/Home/Factory/EmployeeHome/emp_allowance_delete{{ allowance.id }}" class="btn btn-danger">Delete</a>
+                <a href="/Home/Factory/EmployeeHome/emp_allowance_delete{{ allowance.id }}" class="btn btn-danger" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">Delete</a>
+{#                <form method="post" action="{% url 'emp_allowance_delete' %} ">#}
+{#                    {% csrf_token %}#}
+{#                    <input type="hidden" name="salary_id" value="{{ allowance.id }}"/>#}
+{#                    <input type="submit" value="Delete" class="btn btn-danger" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">#}
+{#                </form>#}
             </td>
         </tr>
     {% endfor %}

@@ -37,27 +37,36 @@
     <form method="post" action="{%  url 'emp_salary_single_view' %}">
         {% csrf_token %}
         <input type="hidden" name="e_id" value="{{ emp_employee.id }}">
-        <input type="text" name="year" required>
-        <input type="text" name="month" required>
-        <input type="submit" value="view Date">
+         <label for="year">Year:</label><br>
+        <input type="text" name="year" required><br>
+         <label for="month">Month:</label><br>
+        <input type="text" name="month" required><br>
+        <label for="">  </label><br>
+        <input type="submit" value="view Date" class="btn btn-primary"><br>
     </form>
  </div>
-
+<hr>
     <h3>Salary Details</h3>
 
     <form method="post" action="{% url 'emp_add_salary_view' %}">
     {% csrf_token %}
-        <input type="hidden" name="employee_id" value="{{ emp_employee.id }}">
-        <input type="hidden" name="basic_salary" value="{{  emp_employee.basicSalary }}">
-        <input type="hidden" name="year" value="{{  year }}">
-        <input type="hidden" name="month" value="{{  month }}">
-        <input type="number" name="monthly_attendance" value="{{ all_cals.total_attendance }}">
-        <input type="number" name="monthly_basic_salary_for_month" value="{{ all_cals.basic_salary_for_month }}">
-        <input type="number" name="monthly_etf_month" value="{{ all_cals.etf_month }}">
-        <input type="number" name="monthly_epf_employee_month" value="{{ all_cals.epf_employee_month }}">
-        <input type="number" name="monthly_epf_employer_month" value="{{ all_cals.epf_employer_month }}">
-
-    <input type="submit" value="add_salary">
+        <input type="hidden" name="employee_id" value="{{ emp_employee.id }}" required>
+        <input type="hidden" name="basic_salary" value="{{  emp_employee.basicSalary }}" required>
+        <input type="hidden" name="year" value="{{  year }}" required>
+        <input type="hidden" name="month" value="{{  month }}" required>
+        <label for="monthly_attendance">Monthly Attendance:</label><br>
+        <input type="number" name="monthly_attendance" value="{{ all_cals.total_attendance }}" required><br>
+        <label for="monthly_basic_salary_for_month">Basic salary of the month:</label><br>
+        <input type="number" name="monthly_basic_salary_for_month" value="{{ all_cals.basic_salary_for_month }}" required><br>
+        <label for="monthly_etf_month">Monthly ETF:</label><br>
+        <input type="number" name="monthly_etf_month" value="{{ all_cals.etf_month }}" required><br>
+        <label for="monthly_epf_employee_month">EPF Employee:</label><br>
+        <input type="number" name="monthly_epf_employee_month" value="{{ all_cals.epf_employee_month }}" required><br>
+        <label for="monthly_epf_employer_month">EPF employer:</label><br>
+        <input type="number" name="monthly_epf_employer_month" value="{{ all_cals.epf_employer_month }}" required><br>
+ <br>
+    <input type="submit" value="Add salary" class="btn btn-primary btn-lg">
     </form>
+     <hr>  <br>
 
 {% endblock content %}
