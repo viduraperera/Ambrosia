@@ -54,49 +54,10 @@ def login_user(request):
 
 
 @login_required(login_url='login')
-def home(request):
-    return render(request, 'home.html')
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('login')
-
-
-@login_required(login_url='login')
 def view_AllUsers(request):
     array = User.objects.all();
     print(array);
     return render(request, 'ViewAllUsers.html', {'Users': array})
-
-
-@login_required(login_url='login')
-def factoryHomepage(request):
-    return render(request, 'factoryhome.html')
-
-
-@login_required(login_url='login')
-def teashopHomepage(request):
-    return render(request, 'teashophome.html')
-
-
-@login_required(login_url='login')
-def edit_employee(request):
-    return render(request, 'edit_employee.html')
-
-
-@login_required(login_url='login')
-def view_employee(request):
-    return render(request, 'view_employee.html')
-
-
-@login_required(login_url='login')
-def employee_registration(request):
-    return render(request, 'employee_registration.html')
-
-
-# @login_required(login_url='login')
-# def AddUser(request):
 
 
 @login_required(login_url='login')
@@ -157,16 +118,35 @@ def DeleteUser(request):
 
 
 @login_required(login_url='login')
-def inventoryhome(request):
-    return render(request, 'inventoryhome.html')
+def home(request):
+    return render(request, 'home.html')
 
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+
+@login_required(login_url='login')
+def factoryHomepage(request):
+    return render(request, 'factoryhome.html')
+
+
+@login_required(login_url='login')
+def teashopHomepage(request):
+    return render(request, 'teashophome.html')
 
 
 
 @login_required(login_url='login')
+def inventoryhome(request):
+    return render(request, 'inventoryhome.html')
+
+
+#-----------------------------------------------------------------------------------------------------------
+@login_required(login_url='login')
 def SalesHomeIncome(request):
     return render(request, 'SalesHomeIncome.html')
-
 
 
 # add
@@ -287,14 +267,6 @@ def SalesTransaction(request):
 
     return render(request, 'SalesTransaction.html', {'tForm': tl})
 
-
-#
-#
-#
-#
-# edit
-# update
-# readpriceTable
 
 @login_required(login_url='login')
 def SalesPriceTable(request):

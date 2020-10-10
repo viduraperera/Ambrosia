@@ -6,24 +6,16 @@ from .views import *
 urlpatterns = [
     path('', views.home, name="home"),
 
-
-
     path('ViewAllUsers', views.view_AllUsers, name="view_all_users"),
     path('ViewAllUsers/EditUser', views.ShowUser, name="update_user"),
     path('ViewAllUsers/UpdateUserdetails', views.UpdateUser, name="update_user_details"),
     path('ViewAllUsers/', views.DeleteUser, name="delete_user"),
-
-
     path('AddUser', views.registration, name='register'),
+
+
     path('Factory', views.factoryHomepage, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-
-    path('view_employee/EditProfile', views.edit_employee, name="edit_employee"),
-    path('edit_employee/Save', views.view_employee, name="view_employee"),
-
-    path('staff_management/AddEmployee', views.employee_registration, name="employee_registration"),
-    path('factoryworkers_management/AddEmployee', views.employee_registration, name="employee_registration"),
 
     path('Shop/InventoryHome', views.inventoryhome, name="inventoryhome"),
 
@@ -46,10 +38,6 @@ urlpatterns = [
     path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
     path('Shop/SalesHomeIncome/IncomeMonthlyGeneratePDF', GeneratePDFInvoiceMonthly.as_view(), name="generateIncomePdfMonthly"),
     path('Shop/SalesHomeIncome/AnnualIncomeGeneratePDF', GeneratePDFInvoiceAnnually.as_view(), name="SalesHomeAnnuallyIncome"),
-
-
-
-
 
 
 ]
