@@ -46,7 +46,7 @@
                     <td> <form method="post" action = "{% url 'editpackets' %}">
                         {% csrf_token %}
                         <input type="hidden" name="pid" class="btn1" value="{{ packet.id }}">
-                        <input type="submit" class="btn1" value="Edit">
+                        <input type="submit" class="btn1" value="   EDIT   ">
                     </form>
 
                         <form method="post" action = "{% url 'deletepackets' %}">

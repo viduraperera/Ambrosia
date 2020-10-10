@@ -19,10 +19,21 @@
 
  <!-- button -->
  <table>
- <form action = "{% url 'inventoryhome' %}"><th><input type="submit" class="button button3" value="Daily Report"> </th></form>
- <form action = "{% url 'iweekly' %}"><th><input type="submit" class="button button3" value="Weekly Report"> </th></form>
- <form action = "{% url 'monthlyreport' %}"><th><input type="submit" class="button button3" value="Monthly Report"></th></form>
- <form action = "{% url 'annualreport' %}"><th><input type="submit" class="button button3" value="Annual Report"></th></form>
+
+ <form action = "{% url 'GenerateStockMothlyReport' %}" method="get">
+     <th>
+         <input type="number"  name="month" placeholder="Input Month" required>
+         <input type="number"  name="year" placeholder="Input Year" required>
+         <input type="submit" class="button button3" value="Monthly Report">
+     </th>
+ </form>
+
+ <form action = "{% url 'GenerateStockAnnualReport' %}" method="get">
+     <th>
+          <input type="number"  name="year" placeholder="Input Year" required>
+          <input type="submit" class="button button3" value="Annual Report">
+     </th>
+ </form>
 
 </table>
 <!-- End page content -->

@@ -146,11 +146,6 @@ def DeleteUser(request):
 
 
 @login_required(login_url='login')
-def inventoryhome (request):
-    return render(request, 'TeaShopInventory_Templates/../templates/inventoryhome.html')
-
-
-@login_required(login_url='login')
 def addCategoryProduct(request):
 
     form = AddcategoryProductForm()
@@ -281,7 +276,7 @@ def addteapackets (request):
 
                 if len(stock) < 1 :
 
-                    # savae stock details
+                    # save stock details
                     stock = Stock()
                     stock.category = category
                     stock.weight = weight
@@ -457,6 +452,51 @@ def inventorymonthlyreport (request):
 @login_required(login_url='login')
 def inventoryannualreport (request):
     return render(request, 'TeaShopInventory_Templates/inventoryannualreport.html')
+
+
+class GenerateStockMothlyReport(View):
+    def get(self, request, *args, **kwargs):
+
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+
+        if len(month) == 2 and len(year) == 4:
+
+            packets = AddPackets.objects.filter(date__month=month, date__year=year)
+            prodCat = CategoryProduct.objects.all()
+            data = {
+                    'Packets': packets,
+                    'prod': prodCat
+            }
+            pdf = render_to_pdf('TeaShopInventory_Templates/inventorymonthlyreport.html', data)
+
+            return HttpResponse(pdf, content_type='application/pdf')
+
+        else:
+            return redirect('inventoryreports')
+
+
+class GenerateStockAnnualReport(View):
+    def get(self, request, *args, **kwargs):
+
+        year = request.GET.get('year')
+
+        if len(year) == 4:
+
+            packets = AddPackets.objects.filter(date__year=year)
+            prodCat = CategoryProduct.objects.all()
+            data = {
+                    'Packets': packets,
+                    'prod': prodCat
+            }
+            pdf = render_to_pdf('TeaShopInventory_Templates/inventoryannualreport.html', data)
+
+            return HttpResponse(pdf, content_type='application/pdf')
+
+        else:
+            return redirect('inventoryreports')
+
+
 
 #-----------------------------------------------------------------------------------------------------------
 @login_required(login_url='login')

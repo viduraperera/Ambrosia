@@ -35,6 +35,7 @@
 		<label for="weight">Category Weight: </label>
 		{{ form.weight }}
 	</div>
+        <br><br>
 
 	<div class="form-group">
 
@@ -65,13 +66,13 @@
           <form action = "{% url 'viewCategoryProduct' %}" method="post">
               {% csrf_token %}
           <input type="hidden" name="cpID" value="{{ prod.id }}">
-          <input type="submit" class="btn1" value="Edit">
+          <input type="submit" class="btn1" value="   EDIT   ">
           </form>
 
         <form action = "{% url 'deleteCategoryProduct' %}" method="post">
               {% csrf_token %}
           <input type="hidden"  name="cpID" value="{{ prod.id }}" >
-          <input type="submit" class="btn2" value="Delete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+          <input type="submit" class="btn2" value="DELETE" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
 
           </form>
 
