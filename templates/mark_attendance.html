@@ -184,6 +184,14 @@ tr:nth-child(even) {
 
         <h1>{{ date }}</h1>
 
+        <form method="post" action="{% url 'attendance_management' %}">
+            {% csrf_token %}
+
+            <input type="hidden" value="{{ date }}" name="date" >
+            <input type="submit" value="View All" class="addButton" >
+        </form>
+    <br>
+
             <table class = "table table-striped table-bordered table-sm">
                 <tr>
                     <th>EPF No</th>
@@ -197,8 +205,8 @@ tr:nth-child(even) {
                {% for workers in Employee %}
 
 {#                   {% for att in attend %}#}
-
-{#                     {% if att.date.isoformat != date and att.empID != workers.id %}#}
+{##}
+{#                     {% if att.empID == workers.id %}#}
 
                    <tr>
 

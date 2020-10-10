@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf import settings
 from . import views
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
 
 
     path('Factory/EmployeeHome/attendance_management', views.attendance_management, name="attendance_management"),
+    path('Factory/EmployeeHome/updatemark_attendance', views.updatemark_attendance, name="updatemark_attendance"),
     path('Factory/EmployeeHome/staff_management', views.staff_management, name="staff_management"),
     path('Factory/EmployeeHome/factoryworkers_management', views.factoryworkers_management, name="factoryworkers_management"),
     path('Factory/EmployeeHome/factoryworkers_management/delete', views.deleteEmployee, name="delete_employee"),

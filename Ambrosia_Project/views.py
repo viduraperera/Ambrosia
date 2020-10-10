@@ -83,7 +83,63 @@ def EmployeeHome(request):
 
 @login_required(login_url='login')
 def attendance_management(request):
-    return render(request, 'attendance_management.html')
+
+    if request.method == 'POST':
+
+        dateView = request.POST.get('date')
+
+        attend = attendance.objects.filter(date=dateView).select_related('empID')
+
+        return render(request, 'attendance_management.html', {'attendance': attend, 'date': dateView })
+
+    return redirect('attendance_date')
+
+
+@login_required(login_url='login')
+def updatemark_attendance(request):
+
+    if request.method == 'POST':
+
+       date = request.POST.get('date')
+       empId = request.POST.get('workersid')
+       type = request.POST.get('dayType')
+
+       attend = attendance.objects.get(empID=empId, date=date)
+
+       try:
+
+            if type is not None:
+
+                if type == 'halfDay':
+                    type = 'HalfDay'
+
+                else:
+                    type = 'FullDay'
+
+                print(type)
+
+                #present
+                attend.attendaceStatus = "Present"
+                attend.daytype = type
+                attend.save()
+
+            else:
+                 # absent
+                 attend.attendaceStatus = "Absent"
+                 attend.daytype = None
+                 attend.save()
+
+
+            attend = attendance.objects.filter(date=date).select_related('empID')
+
+            return render(request, 'attendance_management.html', {'attendance': attend, 'date': date})
+
+
+       except Exception as e:
+        print(e)
+
+    return redirect('attendance_date')
+
 
 
 @login_required(login_url='login')
@@ -123,10 +179,10 @@ def viewMarkAttendance(request):
 
         date = request.POST.get('currDate')
 
-        arr = Employee.objects.filter(empGroup='factory_Worker')
-        attend = attendance.objects.all()
+        attend = attendance.objects.filter(date=date).filter(attendaceStatus__in=['Present','Absent']).values('empID')
+        arr = Employee.objects.exclude(id__in=attend).filter(empGroup='factory_Worker')
 
-        return render(request, 'mark_attendance.html', {'Employee': arr, 'date': date, 'attend': attend})
+        return render(request, 'mark_attendance.html', {'Employee': arr, 'date': date })
 
     return redirect('attendance_date')
 
@@ -139,9 +195,7 @@ def markAttendance(request):
         empID = request.POST.get('workersid')
         dayType = request.POST.get('dayType')
         date = request.POST.get('date')
-
-        arrEmp = Employee.objects.filter(empGroup='factory_Worker')
-
+        emp = Employee.objects.get(pk=empID)
         try:
 
             if dayType is not None:
@@ -154,7 +208,7 @@ def markAttendance(request):
                 #present
                 attend = attendance()
                 attend.date = date
-                attend.empID = empID
+                attend.empID = emp
                 attend.attendaceStatus = "Present"
                 attend.daytype = dayt
                 attend.save()
@@ -163,10 +217,13 @@ def markAttendance(request):
                  # absent
                  attend = attendance()
                  attend.date = date
-                 attend.empID = empID
+                 attend.empID = emp
                  attend.attendaceStatus = "Absent"
                  attend.save()
 
+            atten = attendance.objects.filter(date=date).filter(attendaceStatus__in=['Present', 'Absent'])\
+                .values('empID')
+            arrEmp = Employee.objects.exclude(id__in=atten).filter(empGroup='factory_Worker')
             messages.success(request, 'Successfully Added Details')
             return render(request, 'mark_attendance.html', {'Employee': arrEmp, 'date': date})
 
