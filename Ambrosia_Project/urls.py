@@ -35,6 +35,8 @@ urlpatterns = [
     path('Shop/InventoryHome/inventoryreports', views.inventoryreports, name="inventoryreports"),
     path('Shop/InventoryHome/inventoryreports/weeklyreport', views.iweekly, name="iweekly"),
     path('Shop/InventoryHome/inventoryreports/inventorymonthlyreport', views.inventorymonthlyreport, name="monthlyreport"),
+    path('Shop/InventoryHome/inventoryreports/GenerateStockMothlyReport', GenerateStockMothlyReport.as_view(), name="GenerateStockMothlyReport"),
+    path('Shop/InventoryHome/inventoryreports/GenerateStockAnnualReport', GenerateStockAnnualReport.as_view(), name="GenerateStockAnnualReport"),
     path('Shop/InventoryHome/inventoryreports/inventoryannualreport', views.inventoryannualreport, name="annualreport"),
 
     # salesManagement

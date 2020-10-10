@@ -1,82 +1,95 @@
-{% extends 'shopInventoryBase.html' %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Title</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+            th {
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+<hr>
+     <h1 style="color: Green">Ambrosia Tea Factory Outlet</h1>
+    <hr>
 
-<!-------------------------Title------------------------->
-{% block title %}Tea Shop Inventory Management{% endblock title %}
+<!-- table -->
 
-<!-------------------------Head------------------------->
-    {% block headImport %}
-<script type="text/javascript">
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	theme: "light1", // "light2", "dark1", "dark2"
-	animationEnabled: false, // change to true
-	title:{
-		text: "Annual Column Chart"
-	},
-	data: [
-	{
-		// Change type to "bar", "area", "spline", "pie",etc.
-		type: "column",
-		dataPoints: [
-			{ label: "BOPF-1Kg",  y: 10  },
-			{ label: "BOPF-500g",  y: 12  },
-			{ label: "BOPF-400g",  y: 20  },
-			{ label: "BOPF-250g",  y: 15  },
-			{ label: "DUST 1- 1Kg", y: 35  },
-			{ label: "DUST 1- 500g", y: 15  },
-			{ label: "DUST 1- 400g", y: 30  },
-			{ label: "DUST 1- 200g", y: 40  },
-			{ label: "DUST 2 - 1Kg", y: 18  },
-			{ label: "DUST 2 - 250g", y: 25  },
-			{ label: "FGS - 1Kg",  y: 30  },
-			{ label: "FGS - 500g",  y: 28  }
-		]
-	}
-	]
-});
-chart.render();
-
-}
-</script>
-    {% endblock headImport %}
-
-{% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
-
-{% block pageContentHeader2 %}Monthly Report{% endblock pageContentHeader2 %}
-
-
-
-{% block reportbtn %}ClassActive{% endblock reportbtn %}
-
-
-{% block content %}
- <!-- table -->
 <table>
-	<tr>
-		<th>Category</th>
-		<th>Weight</th>
-		<th>Number of packets</th>
-	</tr>
-	<tr>
-		<td>BOPF</td>
-		<td>200g</td>
-		<td>30</td>
-	</tr>
-	
-</table>
-<br><br>
-<!-- print button -->
-<div class="form-group">
-		<center>
-			<button type="button" class="btn1">Print</button>
-		</center>
-	</div>
-	<br><br>
-	<!-- bar chart -->
-	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+  <tr>
 
-<!-- End page content -->
-</div>
-{% endblock content %}
+    <th>Date</th>
+    <th>Category</th>
+    <th>Weight</th>
+    <th>Number of Packets</th>
+
+  </tr>
+
+    {% for packet in Packets %}
+
+      {% for pro in prod %}
+
+          {% if packet.categoryProductID.id == pro.id %}
+
+               <tr>
+                    <td>{{ packet.date  }}</td>
+                    <td>{{ pro.category }}</td>
+                    <td>{{ pro.weight }}</td>
+                    <td>{{ packet.noOfPackets }}</td>
+                  </tr>
+
+          {% endif %}
+
+      {% endfor %}
+
+    {% endfor %}
+
+  <tr>
+    <td>	</td>
+    <td>    </td>
+    <td>	</td>
+	<td> 	</td>
+  </tr>
+</table>
+
+
+</body>
+</html>
