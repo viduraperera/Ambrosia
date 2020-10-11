@@ -151,7 +151,7 @@ def UpdateDriverRecord(request):
                 if form_update.is_valid():
                     form_update.save()
                     messages.success(request, 'Successfully update driver details')
-                    return redirect('AddDriver')
+                    return redirect('Transport')
 
                 # else:
                 #     #invalid
@@ -161,9 +161,9 @@ def UpdateDriverRecord(request):
                 print(e)
                 messages.success(request, 'Invalid Details')
 
-        else:
-            #id not found
-            pass
+        # else:
+        #     #id not found
+        #     pass
 
     return redirect('Transport')
 
@@ -191,7 +191,7 @@ def DrivingRecords(request):
                     form_mread = form.save(commit=False)
                     form_mread.Meter_Difference = diff
 
-                    form.save()
+                    form_mread.save()
                     messages.success(request, 'Successfully added driving records')
                     return redirect('RecordTable')
 
@@ -316,6 +316,7 @@ def UpdateVehicleRepairs(request):
 
                 if form_update.is_valid():
                     form_update.save()
+                    messages.success(request, 'Successfully update driver details')
 
                 else:
                     #invalid
@@ -323,6 +324,7 @@ def UpdateVehicleRepairs(request):
 
             except Exception as e:
                 print(e)
+                messages.success(request, 'Invalid Details')
 
         else:
             #id not found
@@ -364,32 +366,37 @@ class GenerateVehicle_RecordsPdf(View):
 
         if len(month)== 2 and len(year)== 4:
 
-            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
 
-            if vehicle is not None:
+            try:
+                vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
+
                 vehicleNo = vehicle.id
 
-            records = Driving_Records.objects.filter(Date__month=month, Date__year=year , VehicleNo=vehicleNo)
+                records = Driving_Records.objects.filter(Date__month=month, Date__year=year , VehicleNo=vehicleNo)
 
-            if len(records) > 0:
+                if len(records) > 0:
 
-                total = 0
+                    total = 0
 
-                for rec in records:
-                    total = total + rec.Meter_Difference
+                    for rec in records:
+                        total = total + rec.Meter_Difference
 
-                data = {
-                    'Vrecords': records,
-                    'year':year,
-                    'month':month,
-                    'total': total,
-                    }
+                    data = {
+                        'Vrecords': records,
+                        'year':year,
+                        'month':month,
+                        'total': total,
+                        }
 
-                pdf = render_to_pdf('Transport_templates/Vehicle_Reports.html', data)
-                return HttpResponse(pdf, content_type='application/pdf')
+                    pdf = render_to_pdf('Transport_templates/Vehicle_Reports.html', data)
+                    return HttpResponse(pdf, content_type='application/pdf')
+
+            except Vehicle.DoesNotExist:
+                messages.error(request, 'No Data Found')
+                return redirect('RecordTable')
 
             else:
-                messages.error(request, 'No Data Found')
+                messages.error(request, 'Invalid Details')
                 return redirect('Reports')
 
         else:
@@ -410,31 +417,31 @@ class GenerateVehicle_RepairPdf(View):
 
         if len(month)== 2 and len(year)== 4:
 
-            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
-
-            if vehicle is not None:
+            try:
+                vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
                 vehicleNo = vehicle.id
 
-            records = Services.objects.filter(Service_Date__month=month, Service_Date__year=year , VehicleNo=vehicleNo)
+                records = Services.objects.filter(Service_Date__month=month, Service_Date__year=year , VehicleNo=vehicleNo)
 
-            if len(records) > 0:
+                if len(records) > 0:
 
-                total = 0
+                    total = 0
 
-                for rec in records:
-                    total = total + rec.Amount
+                    for rec in records:
+                        total = total + rec.Amount
 
-                data = {
-                    'Vrepairs': records,
-                    'year':year,
-                    'month':month,
-                    'total': total,
-                    }
+                    data = {
+                        'Vrepairs': records,
+                        'year':year,
+                        'month':month,
+                        'total': total,
+                        }
 
-                pdf = render_to_pdf('Transport_templates/Maintenance_Report.html', data)
-                return HttpResponse(pdf, content_type='application/pdf')
+                    pdf = render_to_pdf('Transport_templates/Maintenance_Report.html', data)
+                    return HttpResponse(pdf, content_type='application/pdf')
 
-            else:
+
+            except Vehicle.DoesNotExist:
                 messages.error(request, 'No Data Found')
                 return redirect('Reports')
 
@@ -452,24 +459,18 @@ def SearchRecords(request):
         vehicleNoInput = request.POST.get('vehicleno')
         month = request.POST.get('month')
         year = request.POST.get('year')
-        vehicleNo = 0
+
 
         if len(month) == 2 and len(year) == 4:
 
-            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
-
-            if vehicle is not None:
-
+            try:
+                vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
                 vehicleNo = vehicle.id
-
-
                 records = Driving_Records.objects.filter(Date__month=month, Date__year=year, VehicleNo=vehicleNo)
-
-
                 return render(request, 'Transport_templates/VehicleRecordsTable.html', {'records': records})
 
 
-            else:
+            except Vehicle.DoesNotExist:
                 messages.error(request, 'No Data Found')
                 return redirect('RecordTable')
 

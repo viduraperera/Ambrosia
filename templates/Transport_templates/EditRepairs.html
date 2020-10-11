@@ -15,7 +15,6 @@ table
     }
 
 
-
     td
     {
       border: 1px solid #c5f1b8;
@@ -75,7 +74,14 @@ table
  h2 {
       color: #082c88;
     }
+.ClassActive {
+    background-color: #8db8e0;
+}
 
+.ClassActive1 {
+    background-color: #2292CF;
+    color: white;
+}
 
 
     {% endblock moreStyles %}
@@ -98,6 +104,13 @@ table
 <!----------------------------------Body Content--------------------------------------->
 {% block content %}
     <br><br>
+
+ <!---------------------------------Messages-------------------------------------->
+    {% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+    {% endif %}
 
 
   <!--Update Vehicle Repairs Form-->

@@ -18,7 +18,7 @@
       border: 1px solid #dddddd;
       text-align: center;
       font-size: 15px;
-      padding: 18px;
+      padding: 8px;
       background: #a9afe7;
     }
 
@@ -73,7 +73,12 @@
 
 {% block content %}
     <br>
-
+<!---------------------------------Messages-------------------------------------->
+    {% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+    {% endif %}
 
 
   <!--Vehicle Report-->

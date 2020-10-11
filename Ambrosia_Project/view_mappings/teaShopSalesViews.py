@@ -28,9 +28,7 @@ def SalesCreateInvoice(request):
                 stock = Stock.objects.get(weight=weight, category=cat)
 
                 if stock:
-
                     availablePkts = stock.available_stock
-
 
                     if availablePkts >= qty:
 
@@ -56,13 +54,12 @@ def SalesCreateInvoice(request):
                         messages.success(request, 'Sucessfully Added Bill Item Details')
                         return redirect('SalesCreateInvoice')
 
-
                     else:
                         messages.success(request, 'Maximum Stock Exceeded')
 
             else:
                 print(form.errors)
-                messages.success(request, 'Invalid Details')
+                messages.success(request, 'Invalid Quantity')
 
         except Exception as e:
             print(e)
@@ -198,14 +195,11 @@ def ShopPriceTableEdit(request):
 
                 else:
                     print(priceForm.errors)
-
                     messages.success(request, 'Invalid Details')
 
 
             except Exception as e:
-
                 print(e)
-
                 messages.success(request, 'Exception:')
 
             else:
@@ -254,23 +248,27 @@ class GeneratePDFInvoiceMonthly(View):
         if len(month) == 2 and len(year) == 4:
 
             transaction = Transactions.objects.filter(dateTime__month=month, dateTime__year=year)
+            if transaction:
+                total = 0
 
-            total = 0
+                for tr in transaction:
+                    total = total + tr.total_Price
 
-            for tr in transaction:
-                total = total + tr.total_Price
+                data = {
+                    'trans': transaction,
+                    'total': total,
+                    'year': year,
+                    'month': month
 
-            data = {
-                'trans': transaction,
-                'total': total,
-                'year': year,
-                'month': month
+                }
 
-            }
+                pdf = render_to_pdf('TeaShopSales_Templates/SalesWeeklyReport.html', data)
 
-            pdf = render_to_pdf('TeaShopSales_Templates/SalesWeeklyReport.html', data)
+                return HttpResponse(pdf, content_type='application/pdf')
+            else:
 
-            return HttpResponse(pdf, content_type='application/pdf')
+                messages.error(request, 'Transactions are not Founded')
+                return redirect('SalesHomeIncome')
 
         else:
             return redirect('SalesHomeIncome')
@@ -279,26 +277,29 @@ class GeneratePDFInvoiceAnnually(View):
     def get(self, request, *args, **kwargs):
 
         year = request.GET.get('year')
-
-
-
         transaction = Transactions.objects.filter(dateTime__year=year)
 
         total = 0
+        if transaction:
+            for tr in transaction:
+                total = total + tr.total_Price
 
-        for tr in transaction:
-            total = total + tr.total_Price
+            data = {
+                'trans': transaction,
+                'total': total,
+                'year': year,
+                }
 
-        data = {
-            'trans': transaction,
-            'total': total,
-            'year': year,
-            }
+            pdf = render_to_pdf('TeaShopSales_Templates/SalesHomeAnnuallyIncome.html', data)
 
-        pdf = render_to_pdf('TeaShopSales_Templates/SalesHomeAnnuallyIncome.html', data)
-
-        return HttpResponse(pdf, content_type='application/pdf')
-
+            if pdf:
+                response = HttpResponse(pdf, content_type='application/pdf')
+                return response
+            else:
+                messages.error(request, 'Error Pdf')
+        else:
+            messages.error(request, 'Transactions are not Founded')
+            return redirect('SalesHomeIncome')
 
 class GenerateBill(View):
     def get(self, request, *args, **kwargs):
