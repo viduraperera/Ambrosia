@@ -9,7 +9,7 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
-
+#-----Employee Management Malka--------------------------------------------------------------------------
 class RegisterEmployee(forms.ModelForm):
     class Meta:
         model = Employee
