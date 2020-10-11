@@ -6,31 +6,39 @@
 <!-------------------------Styles------------------------->
     {% block moreStyles %}
 
-<style>
 table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 80%;
+      width: 100%;
+
+    }
+
+    th
+    {
+      border: 1px solid #dddddd;
+      text-align: center;
+      font-size: 15px;
+      padding: 8px;
+      background: #f5e57f;
     }
 
     td
     {
-      border: 1px solid #c5f1b8;
+      border: 1px solid #dddddd;
       text-align: left;
       font-size: 20px;
-      padding: 15px;
+      padding: 8px;
     }
-
-    tr:nth-child(even)
+      tr:nth-child(even)
     {
-      background-color: #c5f1b8 ;
+      background-color: #c5f1b8;
     }
 
 
 
 .regButton {
-    background-color: limegreen; /* Green */
+    background-color: green; /* Green */
     border: none;
     color: white;
     padding: 8px 22px;
@@ -44,60 +52,92 @@ table
   background-color: #000000;
   color: #77fd01;
 }
-</style>
+
+
+.container1
+{
+    min-width: 500px;
+    width: 90%;
+}
+
+.container1
+{
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #c5f1b8  ;
+    margin-left: 50px;
+    text-align: center;
+}
+ h2 {
+      color: green;
+     margin-left: 10px;
+    }
+
+
 
     {% endblock moreStyles %}
 
- {% block recordsBtn %}ClassActive{% endblock recordsBtn %}
+<!-------------------------Body Menue------------------------->
+{% block recordsBtn %}ClassActive{% endblock recordsBtn %}
 
+<!-----------------------------------Header1-------------------------------------->
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
-{% block pageContentHeader2 %}Update Driver{% endblock pageContentHeader2 %}
 
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Update Driver Details{% endblock pageContentHeader2 %}
 
-     {% block RepairMenu %}{% endblock RepairMenu %}
+<!----------------------------------Hide Menues--------------------------------------->
+{% block RepairMenu %}{% endblock RepairMenu %}
 
-
+<!-------------------------Body Sub Menue------------------------->
 {% block addDriverBtn %}ClassActive1{% endblock addDriverBtn %}
 
+<!----------------------------------Body Content--------------------------------------->
+
 {% block content %}
-    <br><br>
+    <br><br><br><br>
 
 
   <!--Update Driver Details Form-->
-  <div style="padding-left: 20px;">
-    <table style=" padding: 20px 20px 20px 20px; background-color: #c5f1b8;" >
 
-        <form action="{% url 'update_Driver_record' %}" method="post">
+    <div style="padding-left: 20px;">
 
-            {% csrf_token %}
+        <div class="container1">
 
-         <input type = "hidden" name="DID" value="{{ DId }}"/>
+            <h2><b>Update Driver</b></h2>
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">Licence No:</label></td>
-           <td> {{ Dform.licence_no }}</td>
+            <form action="{% url 'update_Driver_record' %}" method="post">
 
-      </tr>
+                {% csrf_token %}
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">EPF No:</label></td>
-            <td>{{ Dform.epfNo }}</td>
+                <input type = "hidden" name="DID" value="{{ DId }}"/>
 
-      </tr>
+                <tr>
+                    <td style="padding-bottom: 10px;"><b><label for="" style="font-size: 20px;">Licence No:</label></b></td>
+                    <td> {{ Dform.licence_no }}</td>
 
-      <tr>
-      <td></td>
-      <td>
+                </tr>
 
-          <input class="regButton" type="submit" value="Update" >
+                <tr>
+                    <td style="padding-bottom: 10px;"><b><label for="" style="font-size: 20px;">EPF No:</label></b></td>
+                    <td>{{ Dform.epfNo }}</td>
 
-      </tr>
+                </tr>
 
-        </form>
+                <tr>
+                    <td></td>
+                    <td>
 
-    </table>
+                        <input class="regButton" type="submit" value="Update" >
+
+                </tr>
+
+            </form>
 
 
-  </div>
+
+
+        </div>
+    </div>
 
 {% endblock content %}
