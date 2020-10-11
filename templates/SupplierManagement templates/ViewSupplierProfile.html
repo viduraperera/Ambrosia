@@ -1,0 +1,150 @@
+{% extends 'supplierBase.html' %}
+
+
+<!-------page title------->
+{% block title %}View Supplier Profile{% endblock title %}
+
+<!-------start of styles------->
+{% block moreStyles %}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .remvButton {
+    background-color: #ff3333; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Supplier Profile{% endblock pageContentHeader2 %}
+
+
+<!-------start of main content block------->
+{% block content %}
+
+  <!--View Supplier Profile-->
+  <div style="padding-left: 20px;">
+      <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="regButton" type="submit" value="View All Suppliers"></a>
+
+      <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+
+      <form method="post" action="{% url 'S_EditSupplier' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="supid" style="font-size: 20px;">Supplier ID</label></td>
+      <td><input type="hidden" name="SID" value="{{ SupId }}">
+      <input type="text" value="{{ SupId }}" disabled> </td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Profile Photo</label></td>
+      <td><img src="{{ img.proPic.url }}" width="200" height="200"></td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Name</label></td>
+      <td>{{ sFrom.Sup_Name }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="nicNo" style="font-size: 20px;">NIC No</label></td>
+      <td>{{ sFrom.nicNo }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Address</label></td>
+      <td>{{ sFrom.address }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="contact" style="font-size: 20px;">Contact No</label></td>
+      <td>{{ sFrom.phone }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="email" style="font-size: 20px;">Email Address</label></td>
+      <td>{{ sFrom.email }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="dob" style="font-size: 20px;">Date of Birth</label></td>
+      <td>{{ sFrom.DOB }}<td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="date" style="font-size: 20px;">Date Commenced</label></td>
+      <td>{{ sFrom.Reg_Date }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="estate" style="font-size: 20px;">Estate Name</label></td>
+      <td>{{ sFrom.est_name }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="route" style="font-size: 20px;">Route</label></td>
+      <td>{{ sFrom.route }}</td>
+      </tr>
+        <tr>
+      <td style="padding-bottom: 5px;"><label for="bank" style="font-size: 20px;">Supplier Scale</label></td>
+      <td>{{ sFrom.sup_scale }}</td>
+      </tr>
+        <tr>
+      <td style="padding-bottom: 5px;"><label for="route" style="font-size: 20px;">PayType</label></td>
+      <td>{{ sFrom.pay_Type }}</td>
+      </tr>
+        <tr>
+        <td style="padding-bottom: 5px;"><label for="bank" style="font-size: 20px;">Bank</label></td>
+      <td>{{ sFrom.bank }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="accno" style="font-size: 20px;">Account No</label></td>
+      <td>{{ sFrom.acc_No }}</td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><br>
+
+          <form method="post" action="{% url 'S_AllRegisteredSuppliers' %}">
+              {% csrf_token %}
+              <input type="hidden" name="formid" value="{{ sup.id }}">
+                <input class="regButton" type="submit" value="Update">
+          </form>
+{#          <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="remvButton" type="submit" value="Cancel"></a>#}
+      </td>
+      </tr>
+    </form>
+      <tr>
+      <td></td>
+      <td>
+          <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="remvButton" type="submit" value="Cancel"></a>
+      </td>
+      </tr>
+    </table>
+
+
+
+
+    <br><br><br><br>
+  </div>
+
+<!-- End page content -->
+</div>
+
+{% endblock content %}
+<!-- End page content -->

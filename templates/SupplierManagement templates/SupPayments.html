@@ -1,0 +1,153 @@
+{% extends 'supplierBase.html' %}
+
+<!-------page title------->
+{% block title %}Supplier Payments{% endblock title %}
+
+<!-------start of styles------->
+{% block moreStyles %}
+
+.th1
+{
+  text-align: center;
+  padding: 5px;
+}
+
+.td1
+{
+  text-align: center;
+  padding: 5px;
+}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .remvButton {
+    background-color: #FF0000; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Supplier Payment Details{% endblock pageContentHeader2 %}
+
+<!-------start of main content block------->
+{% block content %}
+
+  <div class="Container" style="padding: 20px;">
+    <div class="row" style= "background-color: #95ED7D;">
+
+  <form method="post" action="{% url 'S_CalcPayments' %}">
+          {% csrf_token %}
+
+      <div class="w3-half" style="background-color: #95ED7D;">
+
+        <!--<form method="post" action="{#% url 'S_PDF' %#}">
+        {#% csrf_token %#} -->
+        <table style="width: 100%; padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Supplier ID</label></td>
+            <td>&emsp;{{ form.nic }}</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Total Kilograms</label></td>
+            <td>&emsp;{{ form.tot_weight }}</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Price per Kilogram</label></td>
+            <td>&emsp;{{ form.per_kilo_price }}</td>
+          </tr>
+          <tr>
+            <td style="background-color: #95ED7D;">&nbsp;</td>
+            <td style="background-color: #95ED7D;">&nbsp;</td>
+          </tr>
+            <tr>
+            <td style="background-color: #95ED7D;">&nbsp;</td>
+            <td style="background-color: #95ED7D;">&nbsp;</td>
+          </tr>
+            <tr>
+            <td style="background-color: #95ED7D;">&nbsp;</td>
+            <td style="background-color: #95ED7D;">&nbsp;</td>
+          </tr>
+            <!---last 3 <tr> tags to get the shape of this table--->
+        </table>
+      </div>
+
+      <div class="w3-half" style="background-color:lawngreen">
+
+        <table style="width: 100%; padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Date</label></td>
+            <td>&emsp;{{ form.pay_Date }}</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Time</label></td>
+            <td>&emsp;{{ form.pay_Time }}</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 10px;"><label for="add" style="font-size: 20px;">Additions (+)</label></td>
+            <td>&emsp;{{ form.additions }}</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Expenses (-)</label></td>
+            <td>&emsp;{{ form.transport_costs }}&emsp;Transport</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 10px;"></td>
+            <td>&emsp;{{ form.advances }}&emsp;Advances</td>
+          </tr>
+          <tr>
+            <td style="padding-bottom: 10px;"></td>
+            <td>&emsp;{{ form.other_costs }}&emsp;Other Costs</td>
+          </tr>
+        </table>
+      </div>
+      <center>
+      <table>
+          <tr>
+              <th></th>
+          </tr>
+          <tr>
+              <td>
+
+{#                      <input type="hidden" name="paynic" value="{{ form.nic }}">#}
+{#                      <a href="{% url 'S_PaymentDetails' %}">#}
+      <input class="regButton" type="submit" value="Calculate">
+
+
+              </td>
+          </tr>
+      </table>
+      </center>
+  </form>
+    </div>
+  </div>
+
+{% endblock content %}
+<!-- End page content -->

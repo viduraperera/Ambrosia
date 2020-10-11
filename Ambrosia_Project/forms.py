@@ -1,10 +1,8 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django import forms
 from Ambrosia_Project.models import *
 from django.core.exceptions import ValidationError
-
-from Ambrosia_Project.models import *
 
 
 #----User---------------------------------------------------------------------
@@ -151,4 +149,26 @@ class RepairForm(forms.ModelForm):
     class Meta:
         model = Services
         fields = '__all__'
+
+
+# Supplier Management------------------------------------------------------------------------------------------------
+
+# Supplier Management Registration
+class RegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Registration
+        fields = "__all__"
+
+
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = "__all__"
+
+
+class LeafStockForm(forms.ModelForm):
+    class Meta:
+        model = LeafStock
+        fields = "__all__"
+
 

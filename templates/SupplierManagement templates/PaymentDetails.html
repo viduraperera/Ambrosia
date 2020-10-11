@@ -1,0 +1,129 @@
+{% extends 'supplierBase.html' %}
+
+
+<!-------page title------->
+{% block title %}View Payment Details{% endblock title %}
+
+
+<!-------start of styles------->
+{% block moreStyles %}
+
+#tablepad
+{
+    padding-left: 18px;
+}
+
+table {
+  //font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: auto;
+}
+
+td, th {
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 5px;
+}
+
+tr:nth-child(odd) {
+  background-color: #99ffbb;
+}
+tr:nth-child(even) {
+  background-color: #ccffdd;
+}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .remvButton {
+    background-color: #ff3333; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Payments Details{% endblock pageContentHeader2 %}
+
+<!-------start of main content block------->
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+    <a id="tablepad" href="{% url 'S_SupPayments' %}"><input class="regButton" type="submit" value="+  Make New Payment" onclick="w3_close()"></a>
+
+  <div style="padding: 20px 30px 20px 20px;">
+      <form method="post">
+      {% csrf_token %}
+
+      <table>
+        <tr>
+          <td><a style="padding: 20px">NIC No : &emsp;{{ payFilter.form.nic }}</a></td>
+          <td><a style="padding: 20px">Minimum Payment : &emsp;</a></td>
+          <td><a style="padding: 20px">Maximum Payment : &emsp;</a></td>
+          <td>&emsp;<input class="regButton" type="submit" value="Search">&emsp;</td>
+        </tr>
+      </table>
+      </form>
+  </div>
+
+  <!--View DailyvStock Details Table-->
+  <div style="padding-left: 20px;"><br>
+    <table>
+      <tr>
+        <th>Supplier NIC</th>
+        <th>Payment ID</th>
+        <th>Weight</th>
+        <th>Payment</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+        {% for form in form %}
+      <tr>
+        <td>&emsp;{{ form.nic }}&emsp;</td>
+        <td>{{ form.id }}</td>
+        <td>&emsp;{{ form.tot_weight }}&emsp;</td>
+        <td>&emsp;{{ form.payment }}&emsp;</td>
+        <td>&emsp;{{ form.pay_Date }}&emsp;</td>
+        <td>&emsp;{{ form.pay_Time }}&emsp;</td>
+        <td style="display: flex">
+            <form method="post" action="{% url 'S_DeletePay' %}">
+              {% csrf_token %}
+                      &emsp;<input type="hidden" name="formid" value="{{ form.id }}">
+                      <a href="{% url 'S_PaymentDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>
+            </form>
+{#            &emsp;<a href="{% url 'S_PaySlipPDF' %}"><input type="submit" value="Print Pay Slip" class="regButton"></a>&emsp;#}
+        </td>
+      </tr>
+        {% endfor %}
+    </table>
+    <br><br><br><br>
+  </div>
+
+<!-- End page content  -->
+</div>
+
+{% endblock content %}
+<!-- End page content -->

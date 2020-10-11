@@ -1,0 +1,169 @@
+{% extends 'supplierBase.html' %}
+
+<!-------page title------->
+{% block title %}View Supplier Details{% endblock title %}
+
+<!-------start of styles------->
+{% block moreStyles %}
+
+#tablepad
+{
+    padding-left: 18px;
+}
+
+table {
+  //font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: auto;
+}
+
+#td1, #th1 {
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 5px;
+}
+
+#tr1:nth-child(odd) {
+  background-color: #99ffbb;
+}
+#tr1:nth-child(even) {
+  background-color: #ccffdd;
+}
+
+#For Search Table
+#td2, #th2 {
+  //border: 1px solid #d9d9d9;
+  text-align: left;
+  padding: 5px;
+}
+
+#tr2:nth-child(odd) {
+  background-color: #99ffbb;
+}
+#tr2:nth-child(even) {
+  background-color: #99ffbb;
+}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .remvButton {
+    background-color: #ff3333; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Registered Suppliers{% endblock pageContentHeader2 %}
+
+
+<!----Error Display---->
+
+
+<!-------start of main content block------->
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+  <a id="tablepad" href="{% url 'S_SupRegistration' %}"><input class="regButton" type="submit" value="+  Add New Supplier" onclick="w3_close()"></a>
+  <br>
+
+  <div style="padding: 20px 30px 20px 20px;">
+    <form method="post">
+    {% csrf_token %}
+
+    <table>
+        <tr id="tr2">
+            <th id="th2"></th>
+            <th id="th2"></th>
+            <th id="th2"></th>
+        </tr>
+        <tr id="tr2">
+            <td id="td2" ><a style="padding: 20px">NIC No : &emsp;{{ supFilter.form.nicNo }}</a></td>
+            <td id="td2" ><a style="padding: 20px">Route : &ensp;{{ supFilter.form.route }}</a></td>
+            <td id="td2" ><a style="padding: 20px">Supplier Scale : {{ supFilter.form.sup_scale }}</a></td>
+        </tr>
+        <tr id="tr2">
+            <td id="td2" ><a style="padding: 20px">Pay Type : {{ supFilter.form.pay_Type }}</a></td>
+            <td id="td2" ><a style="padding: 20px">Bank : &ensp;&ensp;{{ supFilter.form.bank }}</a></td>
+            <td id="td2" ><a style="padding: 20px">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input class="regButton" type="submit" value="Search"></a></td>
+            <br>
+        </tr>
+    </table>
+    </form>
+  </div>
+
+  <!--View DailyStock Details Table-->
+  <div id="tablepad"><br>
+    <table>
+      <tr id="tr1">
+        <th id="th1" >Supplier ID</th>
+        <th id="th1" >ProPic</th>
+        <th id="th1" >NIC</th>
+        <th id="th1" >Supplier Name</th>
+        <th id="th1" >Contact No</th>
+        <th id="th1" >Action</th>
+
+      </tr>
+        {% for sup in Sup %}
+      <tr id="tr1">
+        <td id="td1" >{{ sup.id }}</td>
+        <td id="td1" >&emsp;<img src="{{ sup.proPic.url }}" style="width: 70px; height: 70px; position: center;">&emsp;</td>
+        <td id="td1" >&emsp;{{ sup.nicNo }}&emsp;</td>
+        <td id="td1" >&emsp;{{ sup.Sup_Name }}&emsp;</td>
+        <td id="td1" >&emsp;{{ sup.phone }}&emsp;</td>
+        <td>
+            <div style="display: flex;">
+            <form method="post" action="{% url 'S_ViewSupProfile' %}">
+            {% csrf_token %}
+                    <input type="hidden" name="supid" value="{{ sup.id }}">
+                    &emsp;<input class="regButton" type="submit" value="View">
+            </form>
+            <form method="post" action="{% url 'S_DeleteSupplier' %}">
+            {% csrf_token %}
+                    <input type="hidden" name="supid" value="{{ sup.id }}">
+                    <input class="remvButton" type="submit" value="Delete">&emsp;
+            </form>
+            </div>
+        </td>
+      </tr>
+        {% endfor %}
+    </table>
+    <br><br><br><br>
+  </div>
+
+  </div>
+
+    {% if form.errors %}
+        {% for err in form.errors %}
+
+          <h3>{{ err }}</h3>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock content %}
+<!-- End page content -->

@@ -1,0 +1,91 @@
+{% extends 'supplierBase.html' %}
+
+
+<!-------page title------->
+{% block title %}Add New Leaf Stock{% endblock title %}
+
+<!-------start of styles------->
+{% block moreStyles %}
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .remvButton {
+    background-color: #ff3333; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Add Leaf Stock{% endblock pageContentHeader2 %}
+
+<!-------start of main content block------->
+{% block content %}
+
+<!--Add Stock Details Form-->
+  <div style="padding-left: 20px;">
+    <form method="POST" action="#">
+        {% csrf_token %}
+    <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="supid" style="font-size: 20px;">Supplier NIC</label></td>
+      <td>{{ form.nic }}</td>
+      </tr>
+{#      <tr>#}
+{#      <td style="padding-bottom: 10px;"><label for="supname" style="font-size: 20px;">Supplier Name</label></td>#}
+{#      <td>{{ form.name }}</td>#}
+{#      </tr>#}
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="weight" style="font-size: 20px;">Total Weight</label></td>
+      <td>{{ form.weight }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="recdate" style="font-size: 20px;">Received Date</label></td>
+      <td>{{ form.rec_Date }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="rectime" style="font-size: 20px;">Received Time</label></td>
+      <td>{{ form.rec_Time }}</td>
+      </tr>
+      <tr>
+      <td></td>
+      <td>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;
+          <form method="POST" action="{% url 'S_LeafStockAdd' %}">
+              {% csrf_token %}
+{#              <input type="hidden" name="formtime" value="{{ form.rec_Time }}">#}
+              <a href="{% url 'S_StockDetails' %}"><input class="regButton" type="submit" value="Submit"></a>
+          </form>
+              <input class="remvButton" type="submit" value="Cancel">
+
+      </td>
+      </tr>
+    </table>
+    </form>
+    <br><br><br><br>
+  </div>
+
+{% endblock content %}
+<!-- End page content -->
+
+

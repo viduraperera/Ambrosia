@@ -1,0 +1,123 @@
+{% extends 'supplierBase.html' %}
+
+
+<!-------page title------->
+{% block title %}View Daily Stock Details{% endblock title %}
+
+
+<!-------start of styles------->
+{% block moreStyles %}
+
+#tablepad
+{
+    padding-left: 18px;
+}
+
+table {
+  //font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: auto;
+}
+
+td, th {
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 5px;
+}
+
+tr:nth-child(odd) {
+  background-color: #99ffbb;
+}
+tr:nth-child(even) {
+  background-color: #ccffdd;
+}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+.regButton: hover {
+    background-color: #99ffbb;
+  }
+
+  .remvButton {
+    background-color: #ff3333; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Leaf Stock Details{% endblock pageContentHeader2 %}
+
+<!-------start of main content block------->
+{% block content %}
+    <a id="tablepad" href="{% url 'S_LeafStock' %}"><input class="regButton" type="submit" value="+  Add New Stock" onclick="w3_close()"></a>
+
+  <div style="padding: 20px 30px 20px 20px;">
+      <form method="post">
+      {% csrf_token %}
+
+      <table>
+        <tr>
+          <td><a style="padding: 20px">NIC No : &emsp;{{ myFilter.form.nic }}</a></td>
+          <td><a style="padding: 20px">Date : &emsp;{{ myFilter.form.date }}</a></td>
+          <td>&emsp;<input class="regButton" type="submit" value="Search">&emsp;</td>
+        </tr>
+      </table>
+      </form>
+  </div>
+  <!--View DailyStock Details Table-->
+  <div style="padding-left: 20px;"><br>
+    <table>
+      <tr>
+        <th>Supplier NIC</th>
+{#        <th>Supplier Name</th>#}
+        <th>Stock ID</th>
+        <th>Weight</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+        {% for form in form %}
+      <tr>
+        <td>&emsp;{{ form.nic }}&emsp;</td>
+{#        <td>{{ form.name_id }}</td>#}
+        <td>{{ form.id }}</td>
+        <td>&emsp;{{ form.weight}}&emsp;</td>
+        <td>&emsp;{{ form.rec_Date }}&emsp;</td>
+        <td>&emsp;{{ form.rec_Time }}&emsp;</td>
+          <td>
+              <form method="post" action="{% url 'S_LeafStockDelete' %}">
+              {% csrf_token %}
+                      &emsp;<input type="hidden" name="formid" value="{{ form.id }}">
+                      <a href="{% url 'S_StockDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>&emsp;
+               </form>
+          </td>
+      </tr>
+        {% endfor %}
+    </table>
+    <br><br><br><br>
+  </div>
+
+<!-- End page content  -->
+</div>
+
+{% endblock content %}
+<!-- End page content -->

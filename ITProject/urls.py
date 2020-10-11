@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-
-
-
 from Ambrosia_Project import views
+from django.conf import settings
+from django.conf.urls.static import static
+from Ambrosia_Project.view_mappings import  supplierManagementViews
 
 
 urlpatterns = [
@@ -31,5 +31,7 @@ urlpatterns = [
 
     path('Home/', include('Ambrosia_Project.urls')),
 
+    path('leaf_stock_delete/', supplierManagementViews.leaf_stock_delete)
 
-]
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
