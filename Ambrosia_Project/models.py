@@ -454,7 +454,6 @@ class Employee(models.Model):
             code='EPF No is invalid'
         )
     ])
-    empImage = models.ImageField(null=True, blank=True, upload_to="images/")
     name = models.CharField(max_length=50)
     address = models.TextField(null=True)
     gender = models.CharField(max_length=50, choices=GENDER)

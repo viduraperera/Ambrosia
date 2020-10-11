@@ -6,11 +6,10 @@ urlpatterns = [
 
     path('selectAttendence', employeeManagementViews.selectAttendence, name="attendance_date"),
     path('viewMarkAttendance', employeeManagementViews.viewMarkAttendance, name="viewMarkAttendance"),
-
     path('markAttendance', employeeManagementViews.markAttendance, name="mark_attendance"),
-
     path('attendance_management', employeeManagementViews.attendance_management, name="attendance_management"),
     path('updatemark_attendance', employeeManagementViews.updatemark_attendance, name="updatemark_attendance"),
+
     path('staff_management', employeeManagementViews.staff_management, name="staff_management"),
     path('factoryworkers_management', employeeManagementViews.factoryworkers_management, name="factoryworkers_management"),
     path('factoryworkers_management/delete', employeeManagementViews.deleteEmployee, name="delete_employee"),
