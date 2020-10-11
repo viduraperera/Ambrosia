@@ -60,12 +60,19 @@
 
                 <input type="number"  name="year" placeholder="Input Year" required class="inp">
 
-                <input type="submit" class="btn" value="Annualy Report">
+                <input type="submit" class="btn" value="Annual Report">
             </td>
         </form>
 
     </table>
     </div>
+    <br>
+      {% if form.errors %}
+
+            <div class="errorDisplay" style="background-color: #e0dfdf; color:#1d1dd7; padding:5px">
+                <h3 style="font-width: bold">{{ form.errors}}</h3>
+            </div>
+        {% endif %}
     <br><br>
 
 
