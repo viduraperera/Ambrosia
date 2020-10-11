@@ -8,27 +8,19 @@
 
 
     {% block moreStyles %}
-<style>
+
 
     table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 70%;
+      width: 80%;
     }
 
-    th
-    {
-      border: 1px solid #dddddd;
-      text-align: center;
-      font-size: 15px;
-      padding: 18px;
-      background: #fff9d2;
-    }
 
     td
     {
-      border: 1px solid #c5f1b8;
+      border: 1px solid #d8ebef;
       text-align: left;
       font-size: 20px;
       padding: 15px;
@@ -36,12 +28,12 @@
 
     tr:nth-child(even)
     {
-      background-color: #c5f1b8;
+      background-color: #d8ebef;
     }
 
 
 .regButton {
-    background-color: green; /* Green */
+    background-color: darkblue;
     border: none;
     color: white;
     padding: 10px 25px;
@@ -53,29 +45,61 @@
   }
     .regButton:hover {
   background-color: #000000;
-  color: green;
+  color: blue;
+}
+ .container1
+{
+    min-width: 500px;
+    width: 80%;
 }
 
-</style>
+.container1
+{
+    margin-top: 20px;
+    margin-left: 100px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.container2
+{
+    margin-left:50px;
+    padding: 50px;
+}
+
+.container2 th
+{
+    background-color:#f5e57f ;
+}
+
+ h2 {
+      color: #082c88;
+    }
+
+
     {% endblock moreStyles %}
 
+<!-------------------------Body Menue------------------------->
+{% block repairsBtn %}ClassActive{% endblock repairsBtn %}
 
- {% block repairsBtn %}ClassActive{% endblock repairsBtn %}
-
+<!-----------------------------------Header1-------------------------------------->
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+
+<!----------------------------------Header2--------------------------------------->
 {% block pageContentHeader2 %}Vehicle Repairs{% endblock pageContentHeader2 %}
 
+<!----------------------------------Hide Menues--------------------------------------->
+   {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
 
-     {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
-
-
+<!-------------------------Body Sub Menue------------------------->
 {% block addRepairBtn %}ClassActive1{% endblock addRepairBtn %}
 
-
+<!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
-
-{% if messages %}
+<!---------------------------------Messages-------------------------------------->
+    {% if messages %}
     {% for message in messages %}
       <script>alert("{{ message }}");</script>
     {% endfor %}
@@ -83,53 +107,61 @@
 
 <br><br>
   <!--Add Vehicle Repair Details Form-->
-  <div style="padding-left: 20px;">
+    <div style="padding-left: 20px;">
 
-      <center> <table style=" padding: 10px 10px 10px 10px; background-color: #c5f1b8; ">
+        <h2><b>Add Repair Details</b></h2>
 
-        <form action="{% url 'VehicleRepairs' %}" method="post">
-            {% csrf_token %}
+        <div class="container1">
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="billno" style="font-size: 20px;">Bill No:</label></td>
-      <td>&emsp;{{ repairForm.Bill_No }}</td>
-      </tr>
+            <table style=" padding: 20px 20px 20px 20px; background-color: #d8ebef; ">
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></td>
-      <td>&emsp;{{ repairForm.VehicleNo }}</td>
-      </tr>
+                <form action="{% url 'VehicleRepairs' %}" method="post">
+                    {% csrf_token %}
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="description" style="font-size: 20px;">Description:</label></td>
-      <td>&emsp;{{ repairForm.Description }}</td>
-      </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;"><b><label for="billno" style="font-size: 20px;">Bill No:</label></b></td>
+                        <td>&emsp;{{ repairForm.Bill_No }}</td>
+                    </tr>
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="servicedate" style="font-size: 20px;">Service Date:</label></td>
-      <td>&emsp;{{ repairForm.Service_Date }}</td>
-      </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;"><b><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></b></td>
+                        <td>&emsp;{{ repairForm.VehicleNo }}</td>
+                    </tr>
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="amount" style="font-size: 20px;">Amount:</label></td>
-      <td>&emsp;{{ repairForm.Amount }}</td>
-      </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;"><b><label for="description" style="font-size: 20px;">Description:</label></b></td>
+                        <td>&emsp;{{ repairForm.Description }}</td>
+                    </tr>
 
+                    <tr>
+                        <td style="padding-bottom: 10px;"><b><label for="servicedate" style="font-size: 20px;">Service Date:</label></b></td>
+                        <td>&emsp;{{ repairForm.Service_Date }}</td>
+                    </tr>
 
-      <tr>
-      <td></td>
-      <td>
-          <center><input class="regButton" type="submit" value="ADD"></center>
-      </tr>
-
-        </form>
+                    <tr>
+                        <td style="padding-bottom: 10px;"><b><label for="amount" style="font-size: 20px;">Amount:</label></b></td>
+                        <td>&emsp;{{ repairForm.Amount }}</td>
+                    </tr>
 
 
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="container2">
+                                <input class="regButton" type="submit" value="ADD"></div>
+                    </tr>
 
-    </table>
+                </form>
 
 
-</center>
+
+            </table>
+
+        </div>
+    </div>
+
+
+    <!----Errors--->
             {% if repairForm.errors %}
 
           <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">
@@ -138,9 +170,5 @@
         {% endif %}
 
 
-
-
-
-  </div>
 
 {% endblock content %}

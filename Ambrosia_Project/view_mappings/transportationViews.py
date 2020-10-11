@@ -10,7 +10,7 @@ from django.views import View
 
 #transport management------------------------------------------------------------------------------------------------------------
 
-#add vehicle
+# add vehicle
 @login_required(login_url='login')
 def Vehicle_Records(request):
 
@@ -26,11 +26,11 @@ def Vehicle_Records(request):
                 return redirect('addVehicle')
             except Exception as e:
                 print(e)
-                messages.success(request,'Exception:'+ e)
+                messages.success(request, 'Exception:'+ e)
 
         else:
             print(form.errors)
-            messages.success(request,'Invalid Details')
+            messages.success(request, 'Invalid Details')
 
     #assign all vehicle objects
     array = Vehicle.objects.all()
@@ -43,7 +43,8 @@ def Vehicle_Records(request):
 
     return render(request, 'Transport_templates/AddVehicle.html', alldetails)
 
-#delete vehicle
+
+# delete vehicle
 @login_required(login_url='login')
 def deleteVehicleRecord(request):
 
@@ -57,7 +58,7 @@ def deleteVehicleRecord(request):
 
 
 
-#add driver
+# add driver
 
 @login_required(login_url='login')
 def driver_records(request):
@@ -95,7 +96,8 @@ def driver_records(request):
 
     return render(request, 'Transport_templates/AddDriver.html', allDdetails)
 
-#delete driver
+
+# delete driver
 @login_required(login_url='login')
 def deleteDriverRecord(request):
 
@@ -107,7 +109,8 @@ def deleteDriverRecord(request):
 
     return redirect('Transport')
 
-#display driver
+
+# display driver
 @login_required(login_url='login')
 def DisplayDriverRecord(request):
 
@@ -131,7 +134,8 @@ def DisplayDriverRecord(request):
 
     return redirect('Transport')
 
-#update driver records
+
+# update driver records
 @login_required(login_url='login')
 def UpdateDriverRecord(request):
 
@@ -146,14 +150,16 @@ def UpdateDriverRecord(request):
 
                 if form_update.is_valid():
                     form_update.save()
+                    messages.success(request, 'Successfully update driver details')
                     return redirect('AddDriver')
 
-                else:
-                    #invalid
-                    pass
+                # else:
+                #     #invalid
+                #     pass
 
             except Exception as e:
                 print(e)
+                messages.success(request, 'Invalid Details')
 
         else:
             #id not found
@@ -163,7 +169,7 @@ def UpdateDriverRecord(request):
 
 
 
-#add vehicle driving records
+# add vehicle driving records
 @login_required(login_url='login')
 def DrivingRecords(request):
 
@@ -205,6 +211,7 @@ def DrivingRecords(request):
 
     return render(request, 'Transport_templates/VehicleRecords.html', var)
 
+
 #show driving records
 @login_required(login_url='login')
 def ShowDrivingRecords(request):
@@ -215,7 +222,7 @@ def ShowDrivingRecords(request):
 
 
 
-#delete vehicle driving records
+# delete vehicle driving records
 @login_required(login_url='login')
 def deleteRecords(request):
 
@@ -228,7 +235,7 @@ def deleteRecords(request):
     return redirect('RecordTable')
 
 
-#add vehicle repairs
+# add vehicle repairs
 @login_required(login_url='login')
 def AddVehicleRepairs(request):
 
@@ -265,7 +272,8 @@ def ShowVehicleRepairs(request):
 
     return render(request, 'Transport_templates/RepairTable.html', {'repairs': repairs})
 
-#display repairs
+
+# display repairs
 @login_required(login_url='login')
 def DisplayUpdateRepairs(request):
 
@@ -292,7 +300,7 @@ def DisplayUpdateRepairs(request):
 
 
 
-#update vehicle repairs
+# update vehicle repairs
 @login_required(login_url='login')
 def UpdateVehicleRepairs(request):
 
@@ -323,7 +331,7 @@ def UpdateVehicleRepairs(request):
     return redirect('RepairTable')
 
 
-#delete repair details
+# delete repair details
 @login_required(login_url='login')
 def delete_RepairRecords(request):
 
@@ -336,14 +344,16 @@ def delete_RepairRecords(request):
     return redirect('RepairTable')
 
 
-#reports
+# reports
 
 @login_required(login_url='login')
 def Reports(request):
 
     return render(request, 'Transport_templates/transportation_Reports.html')
 
-#generate vehicle reports
+
+# generate vehicle details reports
+
 class GenerateVehicle_RecordsPdf(View):
     def get(self, request, *args, **kwargs):
 
@@ -387,7 +397,8 @@ class GenerateVehicle_RecordsPdf(View):
             return redirect('Reports')
 
 
-#generate vehicle maintenance reports
+
+# generate vehicle maintenance reports
 
 class GenerateVehicle_RepairPdf(View):
     def get(self, request, *args, **kwargs):
@@ -431,7 +442,8 @@ class GenerateVehicle_RepairPdf(View):
             messages.error(request, 'Invalid Inputs')
             return redirect('Reports')
 
-#search
+
+# search
 
 def SearchRecords(request):
 

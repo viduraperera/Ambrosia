@@ -108,7 +108,7 @@ def viewMarkAttendance(request):
 
         date = request.POST.get('currDate')
 
-        attend = attendance.objects.filter(date=date).filter(attendaceStatus__in=['Present','Absent']).values('empID')
+        attend = attendance.objects.filter(date=date).filter(attendaceStatus__in=['Present', 'Absent']).values('empID')
         arr = Employee.objects.exclude(id__in=attend).filter(empGroup='factory_Worker')
 
         return render(request, 'EmployeeManagement_templates/mark_attendance.html', {'Employee': arr, 'date': date})
@@ -240,10 +240,10 @@ def employee_registration(request):
             try:
                 form.save()
                 if (form.cleaned_data.get('empGroup') == 'factory_Worker'):
-                    messages.success(request,'Factory worker added successfully')
+                    messages.success(request, 'Factory worker added successfully')
                     return redirect('factoryworkers_management')
                 else:
-                    messages.success(request,'Staff added successfully')
+                    messages.success(request, 'Staff added successfully')
                     return redirect('staff_management')
 
             except Exception as e:

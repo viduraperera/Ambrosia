@@ -345,9 +345,12 @@ class Registration(models.Model):
     Reg_Date = models.DateField(default=datetime.now)
     est_name = models.CharField(max_length=50)
     ROUTE = (
-        ('WE', "WE"),
-        ('BR', "BR"),
-        ('BNR', "BNR"),
+        ('AT', "AT"),
+        ('HG', "HG"),
+        ('NW', "NW"),
+        ('PP', "PP"),
+        ('UG', "UG"),
+        ('UP', "UP"),
     )
     route = models.CharField(max_length=3, choices=ROUTE)
     SUP_SCALE = (
@@ -454,7 +457,6 @@ class Employee(models.Model):
             code='EPF No is invalid'
         )
     ])
-    empImage = models.ImageField(null=True, blank=True, upload_to="images/")
     name = models.CharField(max_length=50)
     address = models.TextField(null=True)
     gender = models.CharField(max_length=50, choices=GENDER)

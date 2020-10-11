@@ -5,20 +5,8 @@
 
 <!-------------styles--------------->
 {% block moreStyles %}
-.addButton{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    width: 100%;
-    padding: 8px 22px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
 .deleteButton{
-    background-color: red; /* Green */
+    background-color: red;
     border: none;
     color: white;
     width: 100%;
@@ -91,11 +79,11 @@
       </tr>
       <tr>
       <td><label for="dob">Date of Birth</label></td>
-      <td>{{ form.dob }}</td>
+      <td>{{ form.dob }} YYYY-MM-DD</td>
       </tr>
       <tr>
       <td><label for="doa">Date of Approval</label></td>
-      <td>{{ form.doa }}</td>
+      <td>{{ form.doa }} YYYY-MM-DD</td>
       </tr>
       <tr>
       <td><label for="empgroup">Employee Group</label></td>
@@ -115,11 +103,7 @@
       </tr>
         <tr>
             <td></td>
-            <td><input class="addButton" type="submit" value="Save Changes"></td>
-      </tr>
-      <tr>
-          <td></td>
-          <td><a href="{% url 'factoryworkers_management' %}"><input class="deleteButton" type="submit" value="Cancel" onclick="w3_close()"></a></td>
+            <td><input class="deleteButton" type="submit" value="Save Changes"></td>
       </tr>
     </table>
         </center>

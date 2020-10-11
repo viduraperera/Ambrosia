@@ -7,11 +7,12 @@
     {% block moreStyles %}
 
 
-    table
+table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
       width: 100%;
+
     }
 
     th
@@ -19,16 +20,16 @@
       border: 1px solid #dddddd;
       text-align: center;
       font-size: 15px;
-      padding: 18px;
+      padding: 8px;
       background: #f5e57f;
     }
 
     td
     {
-      border: 1px solid #e7e5e5;
+      border: 1px solid #dddddd;
       text-align: left;
       font-size: 20px;
-      padding: 7px;
+      padding: 8px;
     }
 
     tr:nth-child(even)
@@ -75,27 +76,52 @@
     background-color: #2292CF;
     color: white;
 }
+ .container2
+{
+    min-width: 500px;
+    width: 90%;
+}
+
+.container2
+{
+    margin-left:20px;
+    padding: 10px;
+}
+
+.container2 th
+{
+    background-color:#a9afe7 ;
+}
+
+ h2 {
+      color: #082c88;
+    }
+
 
 
     {% endblock moreStyles %}
 
+<!-------------------------Body Menue------------------------->
+{% block repairsBtn %}ClassActive{% endblock repairsBtn %}
 
- {% block repairsBtn %}ClassActive{% endblock repairsBtn %}
-
+<!-----------------------------------Header1-------------------------------------->
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+
+<!----------------------------------Header2--------------------------------------->
 {% block pageContentHeader2 %}Repair Table{% endblock pageContentHeader2 %}
 
+<!----------------------------------Hide Menues--------------------------------------->
+{% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
 
-     {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
-
-
+<!-------------------------Body Sub Menue------------------------->
 {% block repairTableBtn %}ClassActive1{% endblock repairTableBtn %}
 
 
-
+<!----------------------------------Body Content--------------------------------------->
 {% block content %}
 
-{% if messages %}
+<!---------------------------------Messages-------------------------------------->
+    {% if messages %}
     {% for message in messages %}
       <script>alert("{{ message }}");</script>
     {% endfor %}
@@ -104,7 +130,9 @@
 
 <br><br>
 
-   <div>
+<!---Repair Table--->
+   <div class="container2">
+   <h2><b>Vehicle Repair Details</b></h2><br>
        <table>
               <tr >
                 <th>ID</th>
@@ -152,8 +180,6 @@
     </table>
 
    <br><br>
-
-
 
 
 
