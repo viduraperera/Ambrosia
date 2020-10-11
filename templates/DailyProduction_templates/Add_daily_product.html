@@ -1,0 +1,195 @@
+{% extends 'Base_Templates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Add Daily Production Details{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.addBtn
+{
+    background-color:#C00000 ;
+    color: white;
+    font-weight:bold;
+    padding: 5px;
+    width: 150px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+}
+
+.addBtn:hover
+{
+    background-color:#DFDE12;
+    color: black;
+}
+
+.doneBtn
+{
+    background-color:#007103 ;
+    color: white;
+    font-weight:bold;
+    padding: 5px;
+    width: 80px;
+    height: 50px;
+    border: none;
+}
+
+.doneBtn:hover
+{
+    background-color:#C00000;
+}
+
+.container1, .container2
+{
+    min-width: 500px;
+    width: 80%;
+}
+
+.container1
+{
+    margin-top: 20px;
+    background-color: #F5FFED ;
+    padding: 10px;
+    text-align: center;
+}
+
+.container2
+{
+    background-color: #FFF7ED ;
+    padding: 10px;
+}
+
+.container2 th
+{
+    background-color: #CDFFD8;
+}
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block dailyProductionBtn %}ClassActive{% endblock dailyProductionBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block addDailyProductionBtn %}ClassActive1{% endblock addDailyProductionBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Add Daily Production Details{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<div class="container1">
+
+    <h2>Add Sub-Product</h2>
+        <form method="post" action="{% url 'final_production_home' %}">
+
+                {% csrf_token %}
+
+            <table>
+                <tr>
+                    <th>Sub Product ID</th>
+                    <th>{{ subID }}</th>
+                </tr>
+                <tr>
+                    <th>Tea Grade</th>
+                    <th>{{ form.teaGrade}}</th>
+                </tr>
+                <tr>
+                    <th>Weight</th>
+                    <th>{{ form.gradeWeight }}</th>
+                </tr>
+            </table>
+            <br>
+
+            <input type="submit" value="Add Production" class="addBtn">
+
+        </form>
+</div>
+    <br><br>
+
+<div class="container2">
+    <h2>Daily Production Details</h2>
+    <table>
+        <tr>
+            <th>Main ID</th>
+            <th>Sub ID</th>
+            <th>Tea Grade</th>
+            <th>Weight</th>
+            <th>actions</th>
+        </tr>
+
+        {% for spr in finalSubProduct %}
+            <tr>
+            <td>{{ spr.id }}</td>
+            <td>{{ spr.subID }}</td>
+            <td>{{ spr.teaGrade }}</td>
+            <td>{{ spr.gradeWeight }}</td>
+
+            <td>
+                <form method="post" action="{% url 'delete_sub' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="spr" value="{{ spr.id }}"/>
+                    <input type="submit" value="Delete" class="addBtn"><br>
+                </form>
+            </td>
+
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <form method="post" action="{% url 'addMainFinalProduct' %}">
+    {% csrf_token %}
+        <label>Date :  </label>{{ mainForm.date }}<br><br>
+        <input type="hidden" name="sID" value="{{ subID }}">
+        <input type="submit" value="Done" class="doneBtn">
+        <br>
+    </form>
+
+</div>
+
+    <br>
+
+{% endblock content %}
+

@@ -14,8 +14,6 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
     <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="inheritedJdk" />
@@ -30,6 +28,15 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/templates/AuctionStock_Teamplates" />
+        <option value="$MODULE_DIR$/templates/Base_Templates" />
+        <option value="$MODULE_DIR$/templates/common_templates" />
+        <option value="$MODULE_DIR$/templates/DailyProduction_templates" />
+        <option value="$MODULE_DIR$/templates/LeafInventory_templates" />
+        <option value="$MODULE_DIR$/templates/TeaShopInventory_Templates" />
+        <option value="$MODULE_DIR$/templates/TeaShopSales_Templates" />
+        <option value="$MODULE_DIR$/templates/Transport_templates" />
+        <option value="$MODULE_DIR$/templates/SupplierManagement templates" />
       </list>
     </option>
   </component>

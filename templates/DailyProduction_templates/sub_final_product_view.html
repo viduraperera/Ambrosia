@@ -1,0 +1,138 @@
+{% extends 'Base_Templates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Custom Daily Production Details{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.doneBtn
+{
+    background-color:#007103 ;
+    color: white;
+    font-weight:bold;
+    padding: 5px;
+    width: 80px;
+    height: 50px;
+    border: none;
+}
+
+.doneBtn:hover
+{
+    background-color:#C00000;
+}
+
+.container1, .container2
+{
+    min-width: 500px;
+    width: 80%;
+}
+
+.container1
+{
+    margin-top: 20px;
+    background-color: #F5FFED ;
+    padding: 10px;
+    text-align: center;
+}
+
+.container2
+{
+    background-color: #FFF7ED ;
+    padding: 10px;
+}
+
+.container2 th
+{
+    background-color: #CDFFD8;
+}
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block dailyProductionBtn %}ClassActive{% endblock dailyProductionBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block customDailyProductionBtn %}ClassActive1{% endblock customDailyProductionBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Custom Daily Production Details{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<div class="container2">
+  <h1>Sub production details</h1><br>
+        <table>
+          <tr>
+            <th>Daily prod. ID</th>
+            <th>Sub id</th>
+            <th>Date</th>
+            <th>Tea grade</th>
+            <th>Weight</th>
+            <th>Action</th>
+          </tr>
+
+            {% for pr in products %}
+                <tr>
+                    <td>{{ pr.id }}</td>
+                    <td>{{ pr.subID }}</td>
+                    <td>{{ date }}</td>
+                    <td>{{ pr.teaGrade }}</td>
+                    <td>{{ pr.gradeWeight }}</td>
+                    <td>
+
+                        <form method="post"  action="{% url 'deleteSubProdAll' %}" >
+                            {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ pr.id }}">
+                        <input type="submit" value="Delete" class="doneBtn">
+
+                    </form>
+                </td>
+
+                </tr>
+            {% endfor %}
+
+
+        </table>
+  </div>
+
+{% endblock content %}

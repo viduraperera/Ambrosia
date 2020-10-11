@@ -1,0 +1,149 @@
+{% extends 'Base_Templates/shopInventoryBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
+
+<!-------------------------Head------------------------->
+    {% block headImport %}
+
+    {% endblock headImport %}
+
+{% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
+
+{% block pageContentHeader2 %}Category product{% endblock pageContentHeader2 %}
+
+{% block levelbtn %}ClassActive{% endblock levelbtn %}
+
+{% block content %}
+  <!-- form -->
+  <br>
+    <form method="post" action={% url 'addCategoryProduct' %}>
+
+        {%  csrf_token %}
+
+    <div class="form-group">
+		<label for="category">Category Product Name: </label>
+		{{ form.cp_name }}
+    </div>
+	<br>
+	<div class="form-group">
+		<label for="category">Tea Category: </label>
+		{{ form.category }}
+    </div>
+	<br>
+	<div class="form-group">
+		<label for="weight">Category Weight: </label>
+		{{ form.weight }}
+	</div>
+        <br><br>
+
+	<div class="form-group">
+
+        <button type="submit" class="btn1">ADD</button>
+
+	</div>
+	<br>
+    </form>
+
+<!-- table -->
+<div>
+<table>
+  <tr>
+    <th>Category Product Name</th>
+    <th>Category</th>
+    <th>Weight</th>
+     <th>Edit/Delete</th>
+  </tr>
+    {% for prod in c_products %}
+  <tr>
+
+    <td>{{ prod.cp_name }}</td>
+    <td>{{ prod.category }}</td>
+	<td>{{ prod.weight }}</td>
+
+      <td>
+
+          <form action = "{% url 'viewCategoryProduct' %}" method="post">
+              {% csrf_token %}
+          <input type="hidden" name="cpID" value="{{ prod.id }}">
+          <input type="submit" class="btn1" value="   EDIT   ">
+          </form>
+
+        <form action = "{% url 'deleteCategoryProduct' %}" method="post">
+              {% csrf_token %}
+          <input type="hidden"  name="cpID" value="{{ prod.id }}" >
+          <input type="submit" class="btn2" value="DELETE" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+
+          </form>
+
+      </td>
+
+  </tr>
+    {% endfor %}
+
+
+    {% for plevel in DUST1 %}
+  <tr>
+
+    <td>{{ plevel.category }}</td>
+    <td>{{ plevel.weight }}</td>
+	<td>{{ plevel.preorder_level }}</td>
+
+      <td>
+
+          <form action = "{% url 'editlevel' %}">
+              {% csrf_token %}
+          <input type="submit" class="btn1" value="Edit">
+          </form>
+
+      </td>
+
+  </tr>
+    {% endfor %}
+
+    {% for plevel in DUST2 %}
+  <tr>
+
+    <td>{{ plevel.category }}</td>
+    <td>{{ plevel.weight }}</td>
+	<td>{{ plevel.preorder_level }}</td>
+
+      <td>
+
+          <form action = "{% url 'editlevel' %}">
+              {% csrf_token %}
+          <input type="submit" class="btn1" value="Edit">
+          </form>
+
+      </td>
+
+  </tr>
+    {% endfor %}
+
+    {% for plevel in FGS %}
+  <tr>
+
+    <td>{{ plevel.category }}</td>
+    <td>{{ plevel.weight }}</td>
+	<td>{{ plevel.preorder_level }}</td>
+
+      <td>
+
+          <form action = "{% url 'editlevel' %}">
+              {% csrf_token %}
+          <input type="submit" class="btn1" value="Edit">
+          </form>
+
+
+      </td>
+
+  </tr>
+    {% endfor %}
+
+</table>
+</div>
+
+<!-- End page content -->
+
+
+{% endblock content %}

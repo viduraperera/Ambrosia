@@ -1,0 +1,58 @@
+{% extends 'Base_Templates/shopInventoryBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Tea Shop Inventory Management{% endblock title %}
+
+<!-------------------------Head------------------------->
+{% block headImport %}
+
+{% endblock headImport %}
+
+{% block pageContentHeader1 %}Sales Inventory Management{% endblock pageContentHeader1 %}
+
+{% block pageContentHeader2 %}Edit Category Product{% endblock pageContentHeader2 %}
+
+{% block levelbtn %}ClassActive{% endblock levelbtn %}
+
+{% block content %}
+    <!-- form -->
+    <br>
+    <form method="post" action="{% url 'updateategoryProduct' %}">
+
+        {%  csrf_token %}
+
+        <br>
+
+        <input type="hidden" name="cpID" value="{{ cpID }}">
+
+        <div class="form-group">
+            <label >Category Product Name: </label>
+            {{ cpForm.cp_name }}
+            <br><br>
+        </div>
+
+        <div class="form-group">
+            <label >Tea Category: </label>
+            {{ cpForm.category }}
+            <br><br>
+        </div>
+
+        <div class="form-group">
+            <label >Category Weight: </label>
+            {{ cpForm.weight }}
+            <br><br>
+        </div>
+
+        <br><br>
+        <div class="form-group">
+
+            <button type="submit" class="btn1">SAVE</button>
+
+        </div>
+        <br>
+    </form>
+    <!-- End page content -->
+    </div>
+
+
+{% endblock content %}

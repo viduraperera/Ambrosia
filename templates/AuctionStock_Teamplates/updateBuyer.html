@@ -1,0 +1,146 @@
+{% extends 'Base_Templates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Update Buyer{% endblock title %}
+
+
+<!------------------------------------Scripts-------------------------------------->
+ {% block headImport1 %}
+
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire Swash">
+ <script src="https://kit.fontawesome.com/f78ce457b0.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+.buttonEdit
+{
+  margin-top:15px;
+  background-color: #DF1804;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 30%;
+  height: 50px;
+  border-radius: 15px;
+}
+
+
+.buttonEdit:hover {
+    background: #e9e444;
+    color: #000;
+}
+
+.formContainer table
+{
+    margin-left:10%;
+}
+
+.formContainer
+{
+    text-align: center;
+    margin-top: 20px;
+    background-color: #FFD3FB;
+    width: 60%;
+    min-width: 450px;
+}
+
+.formContainer h1
+{
+    background-color: #65058C;
+    color: white;
+    font-family: 'Berkshire Swash';
+}
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block auctionStockBtn %}ClassActive{% endblock auctionStockBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block allBuyersBtn %}ClassActive1{% endblock allBuyersBtn %}
+
+
+<!-----------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+{#Display Message#}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Auction Stock | Update Buyer <i class="fas fa-wrench"></i>{% endblock pageContentHeader2 %}
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block dailyProductionMenu %}{% endblock dailyProductionMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+<div class="formContainer">
+
+    <h1>Update Buyer <i class="fas fa-users-cog"></i></h1>
+
+    <br>
+
+    <!-- Form -->
+       <form method="post" action="{% url 'update_buyer' %}">
+
+        {% csrf_token %}
+
+          <input type="hidden" value="{{ BId }}" name="bID" class="w3-input w3-border">
+
+           <div class="sectionform">
+
+           <table>
+               <tr>
+                   <td><label><b>Buyer Company Name</b></label></td>
+                   <td>{{ BuyerForm.name }}</td>
+
+               </tr>
+
+               <tr>
+                   <td><label><b>Vat Reg.No</b></label></td>
+                   <td>{{ BuyerForm.vat_regno }}</td>
+               </tr>
+
+           </table>
+
+            <br>
+            <button type="submit" class="buttonEdit">Update <i class="fas fa-users-cog fa-x"></i></button>
+
+         </div>
+        </form>
+        <br>
+</div>
+
+    {% if BuyerForm.errors %}
+
+        <div class="errorDisplay" style="background-color: #faff8a; color:#de2020; padding:5px">
+            <h3 style="font-weight: bold">{{ BuyerForm.errors }}</h3>
+        </div>
+
+    {% endif %}
+
+{% endblock content %}

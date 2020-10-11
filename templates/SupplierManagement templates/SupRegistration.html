@@ -1,0 +1,149 @@
+{% extends 'Base_Templates/supplierBase.html' %}
+
+
+<!-------page title------->
+{% block title %}Supplier Registration{% endblock title %}
+
+
+<!-------start of styles------->
+{% block moreStyles %}
+
+.regButton {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  .remvButton {
+    background-color: #FF0000; /* Reg */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+{% endblock moreStyles %}
+<!-------end of styles------->
+
+
+<!-------Header 1 and 2 captions------->
+{% block pageContentHeader1 %}Supplier Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Supplier Registration{% endblock pageContentHeader2 %}
+
+
+<!----Error Display---->
+{% block displayMessage %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+<!-------start of main content block------->
+{% block content %}
+
+{# Display Message #}
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+  <!--Supplier Registration Form-->
+  <div style="padding-left: 20px;">
+     <form method="POST" action="#" enctype="multipart/form-data">
+         {% csrf_token %}
+     <table style=" padding: 20px 20px 20px 20px; background-color: #95ED7D;">
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Insert a Photo</label></td>
+      <td>{{ sup.proPic }}</td>
+{#      <td><input type="file" id="propic" name="propic" accept="images/"></td>#}
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Name</label></td>
+      <td>{{ sup.Sup_Name }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="nicNo" style="font-size: 20px;">NIC No</label></td>
+      <td>{{ sup.nicNo }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Address</label></td>
+      <td>{{ sup.address }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="contact" style="font-size: 20px;">Contact No</label></td>
+      <td>{{ sup.phone }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="email" style="font-size: 20px;">Email Address</label></td>
+      <td>{{ sup.email }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="dob" style="font-size: 20px;">Date of Birth</label></td>
+      <td>{{ sup.DOB }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="date" style="font-size: 20px;">Date Commenced</label></td>
+      <td>{{ sup.Reg_Date }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="estate" style="font-size: 20px;">Estate Name</label></td>
+      <td>{{ sup.est_name }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="route" style="font-size: 20px;">Route</label></td>
+      <td>{{ sup.route }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="ss" style="font-size: 20px;">Supply Scale</label></td>
+      <td>{{ sup.sup_scale }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="paytyme" style="font-size: 20px;">Payment Type</label></td>
+      <td>{{ sup.pay_Type }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="bank" style="font-size: 20px;">Bank</label></td>
+      <td>{{ sup.bank }}</td>
+      </tr>
+      <tr>
+      <td style="padding-bottom: 5px;"><label for="accno" style="font-size: 20px;">Account No</label></td>
+      <td>{{ sup.acc_No }}</td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><br>&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&emsp;&ensp;&ensp;
+          <form method="post" action="{% url 'S_AddSupplier' %}">
+              {% csrf_token %}
+{#              <input type="hidden" name="supnic" value="{{ form.nicNo }}">#}
+              <a href="{% url 'S_AllRegisteredSuppliers' %}"><input class="regButton" type="submit" value="Submit"></a>
+          </form>
+      </td>
+      </tr>
+    </table>
+    </form>
+    <br><br><br><br>
+  </div>
+
+<!-- End page content -->
+</div>
+
+{% endblock content %}
+<!-- End page content -->

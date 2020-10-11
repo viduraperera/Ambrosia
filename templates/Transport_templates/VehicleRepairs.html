@@ -1,0 +1,146 @@
+{% extends 'Base_Templates/transportationBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Transportation Management{% endblock title %}
+
+<!-------------------------Styles------------------------->
+
+
+
+    {% block moreStyles %}
+<style>
+
+    table
+    {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 70%;
+    }
+
+    th
+    {
+      border: 1px solid #dddddd;
+      text-align: center;
+      font-size: 15px;
+      padding: 18px;
+      background: #fff9d2;
+    }
+
+    td
+    {
+      border: 1px solid #c5f1b8;
+      text-align: left;
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    tr:nth-child(even)
+    {
+      background-color: #c5f1b8;
+    }
+
+
+.regButton {
+    background-color: green; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    .regButton:hover {
+  background-color: #000000;
+  color: green;
+}
+
+</style>
+    {% endblock moreStyles %}
+
+
+ {% block repairsBtn %}ClassActive{% endblock repairsBtn %}
+
+{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Vehicle Repairs{% endblock pageContentHeader2 %}
+
+
+     {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
+
+
+{% block addRepairBtn %}ClassActive1{% endblock addRepairBtn %}
+
+
+{% block content %}
+
+
+{% if messages %}
+    {% for message in messages %}
+      <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+<br><br>
+  <!--Add Vehicle Repair Details Form-->
+  <div style="padding-left: 20px;">
+
+      <center> <table style=" padding: 10px 10px 10px 10px; background-color: #c5f1b8; ">
+
+        <form action="{% url 'VehicleRepairs' %}" method="post">
+            {% csrf_token %}
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="billno" style="font-size: 20px;">Bill No:</label></td>
+      <td>&emsp;{{ repairForm.Bill_No }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="vehicleno" style="font-size: 20px;">Vehicle No:</label></td>
+      <td>&emsp;{{ repairForm.VehicleNo }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="description" style="font-size: 20px;">Description:</label></td>
+      <td>&emsp;{{ repairForm.Description }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="servicedate" style="font-size: 20px;">Service Date:</label></td>
+      <td>&emsp;{{ repairForm.Service_Date }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="amount" style="font-size: 20px;">Amount:</label></td>
+      <td>&emsp;{{ repairForm.Amount }}</td>
+      </tr>
+
+
+      <tr>
+      <td></td>
+      <td>
+          <center><input class="regButton" type="submit" value="ADD"></center>
+      </tr>
+
+        </form>
+
+
+
+    </table>
+
+
+</center>
+            {% if repairForm.errors %}
+
+          <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">
+              <h3 style="font-weight: bold">{{ repairForm.errors }}</h3>
+          </div>
+        {% endif %}
+
+
+
+
+
+  </div>
+
+{% endblock content %}

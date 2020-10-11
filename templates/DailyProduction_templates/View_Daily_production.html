@@ -1,0 +1,133 @@
+{% extends 'Base_Templates/FinalPrductionBase.html' %}
+
+<!------------------------------------Title-------------------------------------->
+{% block title %}Custom Daily Production Details{% endblock title %}
+
+<!------------------------------------Styles-------------------------------------->
+
+{% block moreStyles %}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.addBtn
+{
+    background-color:#1D6800 ;
+    color: white;
+    font-weight:bold;
+    padding: 5px;
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 15px;
+}
+
+.addBtn:hover
+{
+    background-color:#DFDE12;
+    color: black;
+}
+
+.container2
+{
+    margin-top: 20px;
+    background-color: #E5FDFF ;
+    padding: 10px;
+    text-align: center;
+    min-width: 500px;
+    width: 80%;
+}
+
+.container2 th
+{
+    background-color: #CDFFD8;
+}
+
+.container2 h1
+{
+    background-color:#220068 ;
+    color: white;
+    padding-left: 10px;
+}
+
+{% endblock moreStyles %}
+
+<!-------------------------Body Menue------------------------->
+{% block dailyProductionBtn %}ClassActive{% endblock dailyProductionBtn %}
+
+
+<!-------------------------Body Sub Menue------------------------->
+{% block customDailyProductionBtn %}ClassActive1{% endblock customDailyProductionBtn %}
+
+
+<!-----------------------------------Header1-------------------------------------->
+{% block pageContentHeader1 %}Final Production Management{% endblock pageContentHeader1 %}
+
+
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Custom Daily Production Details{% endblock pageContentHeader2 %}
+
+
+<!---------------------------------Messages-------------------------------------->
+{% block displayMessage %}
+
+Display Message
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+{% endblock displayMessage %}
+
+
+<!----------------------------------Hide Menues--------------------------------------->
+
+{% block auctionStockMenu %}{% endblock auctionStockMenu %}
+{% block stockSalesMenu %}{% endblock stockSalesMenu %}
+
+
+<!----------------------------------Body Content--------------------------------------->
+{% block content %}
+
+      <div class="container2">
+
+      <h1>Main production details</h1><br>
+
+        <table>
+          <tr>
+            <th>Daily prod. ID</th>
+            <th>Sub id</th>
+            <th>Date</th>
+            <th>Total Weight</th>
+            <th>Action</th>
+          </tr>
+            {% for prod in prod %}
+            <tr>
+                <td>{{ prod.id }}</td>
+                <td>{{ prod.subID }}</td>
+                <td>{{ prod.date }}</td>
+                <td>{{ prod.totalWeight}}</td>
+                <td>
+                    <form method="post"  action="{% url 'NavigateToViewProd' %}" >
+                        {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ prod.subID }}">
+                    <input type="submit" value="View" class="addBtn">
+
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+  </div>
+
+{% endblock content %}
