@@ -66,6 +66,7 @@ class attendance(models.Model):
     empID = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
 
 
+#-------Salary Management-------------------------------------------------------
 class Funds(models.Model):
     emp_etf = models.FloatField()
     epf_employee = models.FloatField()

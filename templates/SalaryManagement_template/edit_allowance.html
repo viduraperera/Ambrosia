@@ -1,4 +1,4 @@
-{% extends 'employeeBase.html' %}
+{% extends 'SalaryManagement_template/employeeBase.html' %}
 <!-------------------------Title------------------------->
 {% block title %}Edit Employee Funds{% endblock title %}
 
@@ -14,7 +14,7 @@
 
 {% block content %}
     <div>
-    <form method="POST" class="post-form" action="emp_funds_update{{ Fid }}">
+    <form method="POST" class="post-form" action="emp_allowance_update{{ Fid }}">
 
         {% csrf_token %}
 
@@ -30,49 +30,37 @@
                 <tr>
                     <td>
                         <div class="form-group row">
-                        <label class="col-sm-l col-form-label">Date:</label>
+                        <label class="col-sm-l col-form-label">Allowance By Price:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                            {{ fundForm.date }}
+                            {{ allowanceForm.allowance_by_price }}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="form-group row">
-                            <label class="col-sm-l col-form-label">ETF:</label>
+                            <label class="col-sm-l col-form-label">Incentive 1:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                            {{ fundForm.emp_etf }}
+                            {{ allowanceForm.incentive_1 }}
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="form-group row">
-                        <label class="col-sm-l col-form-label">EPF Employee:</label>
+                        <label class="col-sm-l col-form-label">Incentive 2:</label>
                         </div>
                     </td>
                     <td>
                         <div class="col-sm-4">
-                        {{ fundForm.epf_employee }}
+                        {{ allowanceForm.incentive_2 }}
                 </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group row">
-                        <label class="col-sm-l col-form-label">EPF Employer:</label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-sm-4">
-                        {{ fundForm.epf_employer }}
-                        </div>
                     </td>
                 </tr>
             </table>

@@ -10,6 +10,7 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
+#-------Salary Management-------------------------------------------------------
 class FundFrom(forms.ModelForm):
     class Meta:
         model = Funds

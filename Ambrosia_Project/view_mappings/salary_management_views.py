@@ -25,7 +25,7 @@ def emp_fund_view(request):
         fund_obj.save()
 
     funds = Funds.objects.all()
-    return render(request, "funds_table.html", {'funds': funds})
+    return render(request, "SalaryManagement_template/funds_table.html", {'funds': funds})
 
 
 @login_required(login_url='login')
@@ -41,7 +41,7 @@ def emp_funds_add(request):
             except:
                 pass
     var = {'forms': form}
-    return render(request, 'add_funds.html', var)
+    return render(request, 'SalaryManagement_template/add_funds.html', var)
 
 
 @login_required(login_url='login')
@@ -58,7 +58,7 @@ def emp_funds_edit(request, id):
     form = FundFrom(instance=fund_edit)
 
     var = {'fundForm': form, 'Fid': id}
-    return render(request, 'edit_funds.html', var)
+    return render(request, 'SalaryManagement_template/edit_funds.html', var)
 
 
 @login_required(login_url='login')
@@ -83,7 +83,7 @@ def emp_funds_update(request, id):
 @login_required(login_url='login')
 def emp_allowance(request):
     allowance = Allowance.objects.all()
-    return render(request, "allowance.html", {'allowance': allowance})
+    return render(request, "SalaryManagement_template/allowance.html", {'allowance': allowance})
 
 
 @login_required(login_url='login')
@@ -98,7 +98,7 @@ def emp_allowance_add(request):
             except:
                 pass
     var = {'allowance': allowance}
-    return render(request, 'add_allowance.html', var)
+    return render(request, 'SalaryManagement_template/add_allowance.html', var)
 
 
 @login_required(login_url='login')
@@ -108,7 +108,7 @@ def emp_allowance_edit(request, id):
     form = AllowanceForm(instance=allowance_edit)
 
     var = {'allowanceForm': form, 'Fid': id}
-    return render(request, 'edit_allowance.html', var)
+    return render(request, 'SalaryManagement_template/edit_allowance.html', var)
 
 
 @login_required(login_url='login')
@@ -136,7 +136,7 @@ def emp_allowance_delete(request, id):
 @login_required(login_url='login')
 def emp_salary_main(request):
     employee = Employee.objects.all()
-    return render(request, 'employee_salary.html', {'employee': employee})
+    return render(request, 'SalaryManagement_template/employee_salary.html', {'employee': employee})
 
 
 @login_required(login_url='login')
@@ -148,7 +148,7 @@ def emp_etf_view(request):
         'emp_salary': emp_salary,
         'emp_all': emp_all,
     }
-    return render(request, 'etf_table_view.html', var)
+    return render(request, 'SalaryManagement_template/etf_table_view.html', var)
 
 
 @login_required(login_url='login')
@@ -160,7 +160,7 @@ def emp_epf_view(request):
         'emp_salary': emp_salary,
         'emp_all': emp_all,
     }
-    return render(request, 'epf_table_view.html', var)
+    return render(request, 'SalaryManagement_template/epf_table_view.html', var)
 
 
 @login_required(login_url='login')
@@ -174,7 +174,7 @@ def emp_salary_single_view(request):
 
         if year is None and month is None:
             emp_employee = Employee.objects.get(id=emp_id)
-            return render(request, 'emp_salary_single_view.html', {'emp_employee': emp_employee})
+            return render(request, 'SalaryManagement_template/emp_salary_single_view.html', {'emp_employee': emp_employee})
 
         else:
             emp_employee = Employee.objects.get(id=emp_id)
@@ -186,7 +186,7 @@ def emp_salary_single_view(request):
                 'month': month,
             }
 
-            return render(request, 'emp_salary_single_view.html', var)
+            return render(request, 'SalaryManagement_template/emp_salary_single_view.html', var)
 
 
 @login_required(login_url='login')
@@ -238,7 +238,7 @@ def emp_final_salary_view(request):
         'emp_salary': emp_salary,
         'emp_all': emp_all,
     }
-    return render(request, 'final_salary.html', var)
+    return render(request, 'SalaryManagement_template/final_salary.html', var)
 
 
 @login_required(login_url='login')
@@ -275,7 +275,7 @@ def emp_final_salary_single_view(request):
                 'final_calculation': final_calculation,
             }
 
-            return render(request, 'final_salary_single_view.html', var)
+            return render(request, 'SalaryManagement_template/final_salary_single_view.html', var)
 
         emp_salary = EmployeeSalary.objects.get(id=emp_salary_id)
         allowance = Allowance.objects.all()
@@ -285,7 +285,7 @@ def emp_final_salary_single_view(request):
             'allowance': allowance,
         }
 
-    return render(request, 'final_salary_single_view.html', var)
+    return render(request, 'SalaryManagement_template/final_salary_single_view.html', var)
 
 
 @login_required(login_url='login')
@@ -349,7 +349,7 @@ def final_salary_report_view(request):
         'emp_salary': emp_salary,
         'emp_all': emp_all,
     }
-    return render(request, 'final_salary_report.html', var)
+    return render(request, 'SalaryManagement_template/final_salary_report.html', var)
 
 
 @login_required(login_url='login')
@@ -369,7 +369,7 @@ def searchEmployee(request):
 
                 if results > 0:
                     messages.success(request, "No of results found "+str(results))
-                    return render(request, 'employee_salary.html', {'employee': employee})
+                    return render(request, 'SalaryManagement_template/employee_salary.html', {'employee': employee})
 
                 else:
                     messages.success(request, "Employee Not Found")
@@ -382,7 +382,7 @@ def searchEmployee(request):
 
                 if results > 0:
                     messages.success(request, "No of results found "+str(results))
-                    return render(request, 'employee_salary.html', {'employee': employee})
+                    return render(request, 'SalaryManagement_template/employee_salary.html', {'employee': employee})
 
                 else:
                     messages.error(request, "Employee Not Found")
@@ -419,7 +419,7 @@ def final_salary_view_search(request):
                     'emp_salary': empSearch,
                     'emp_all': emp_all,
                 }
-                return render(request, 'final_salary.html', var)
+                return render(request, 'SalaryManagement_template/final_salary.html', var)
 
 
             else:
@@ -452,7 +452,7 @@ def final_salary_report_search(request):
                     'emp_salary': empSearch,
                     'emp_all': emp_all,
                 }
-                return render(request, 'final_salary_report.html', var)
+                return render(request, 'SalaryManagement_template/final_salary_report.html', var)
 
 
             else:
@@ -485,7 +485,7 @@ def final_epf_report_search(request):
                     'emp_salary': empSearch,
                     'emp_all': emp_all,
                 }
-                return render(request, 'epf_table_view.html', var)
+                return render(request, 'SalaryManagement_template/epf_table_view.html', var)
 
 
             else:
@@ -516,7 +516,7 @@ class FinalSalaryReportPDF(View):
                 'emp_salary': salaryReport,
                 'emp_all': emp_all,
             }
-            pdf = render_to_pdf('final_salary_pdf_view.html', var)
+            pdf = render_to_pdf('SalaryManagement_template/final_salary_pdf_view.html', var)
 
             if pdf:
                 response = HttpResponse(pdf, content_type='application/pdf')

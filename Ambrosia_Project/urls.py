@@ -19,33 +19,9 @@ urlpatterns = [
     path('Factory/EmployeeHome/staff_management', views.staff_management, name="staff_management"),
     path('Factory/EmployeeHome/factoryworkers_management', views.factoryworkers_management, name="factoryworkers_management"),
 
-    path('view_employee/EditProfile', views.edit_employee, name="edit_employee"),
-    path('edit_employee/Save', views.view_employee, name="view_employee"),
-
-    path('staff_management/AddEmployee', views.employee_registration, name="employee_registration"),
-    path('factoryworkers_management/AddEmployee', views.employee_registration, name="employee_registration"),
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
-
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
-    path('Factory/LeafInventory/AddInventory', views.NavigateToInventory, name="AddInventory"),
-
-
-    path('Shop/SalesHomeIncome', views.SalesHomeIncome, name="SalesHomeIncome"),
-    path('Factory/EmployeeHome', views.EmployeeHome, name="EmployeeHome"),
-
-    path('Factory/S_AllRegisteredSuppliers', views.to_reg_suppliers, name="S_AllRegisteredSuppliers"),
-
-    path('Shop/InventoryHome', views.inventoryhome, name="inventoryhome"),
-
-    path('Shop/SalesHomeIncome/SalesCreateInvoice', views.SalesCreateInvoice, name="SalesCreateInvoice"),
-    path('Shop/SalesHomeIncome/SalesCreateInvoice/SalesViewBill', views.SalesViewBill, name="SalesViewBill"),
-
-    path('Factory/FinalProduction/', views.NavigateToProduction, name="final_production_home"),
-
-
 
     # employee_funds_VUP---------------------------------------------------------------------------------------------------------------
-    path('Factory/EmployeeHome/', include('Ambrosia_Project.url_mappings.salary_management_urls')),
+    path('Factory/EmployeeHome/', include('Ambrosia_Project.url_mappings.salary_management_urls') ),
 
 ]
 
