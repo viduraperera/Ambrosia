@@ -175,6 +175,14 @@ tr:nth-child(even) {
 
          <h1>{{ date }}</h1>
 
+           <form action="{% url 'printDailyReport' %}">
+
+               <input type="hidden" name="date" value="{{ date }}">
+
+               <input type="submit" value="Generate Report" class="deleteButton" >
+           </form>
+
+
             <table class = "table table-striped table-bordered table-sm">
                 <tr>
                     <th>EPF No</th>

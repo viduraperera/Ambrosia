@@ -1,5 +1,6 @@
 from django.urls import path
 from Ambrosia_Project.view_mappings import employeeManagementViews
+from Ambrosia_Project.view_mappings.employeeManagementViews import *
 
 urlpatterns = [
 
@@ -18,6 +19,7 @@ urlpatterns = [
     path('view_employee', employeeManagementViews.view_employee, name="view_employee"),
     path('staff_management/AddEmployee', employeeManagementViews.employee_registration, name="employee_registration1"),
     path('factoryworkers_management/AddEmployee', employeeManagementViews.employee_registration,name="employee_registration2"),
+    path('factoryworkers_management/printDailyReport', GeneratePDFMonthlyAttendance.as_view(), name="printDailyReport"),
 
 ]
 

@@ -2,9 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.forms import *
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.views.generic.base import View
+from xhtml2pdf import pisa
 
 
 # Create your views here.
+from Ambrosia_Project.utills import render_to_pdf
 
 
 @login_required(login_url='login')
@@ -277,3 +283,23 @@ def deleteEmployee(request):
             return redirect('factoryworkers_management')
 
 
+class GeneratePDFMonthlyAttendance(View):
+    def get(self, request, *args, **kwargs):
+
+        dateView = request.GET.get('date')
+
+        attend = attendance.objects.filter(date=dateView).select_related('empID')
+
+        context = {
+            'attendance': attend,
+            'date': dateView
+        }
+
+        pdf = render_to_pdf('EmployeeManagement_templates/monthlyAttendancePDF.html', context)
+
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            return response
+
+        else:
+            return redirect('attendance_date')

@@ -2,12 +2,14 @@ from django.core.validators import RegexValidator
 from django.db import models
 from datetime import datetime
 from datetime import *
-from datetime import datetime
 
 # Create your models here.
 from Ambrosia_Project.validators import nic_validator
 
+
 #-----Employee Management Malka--------------------------------------------------------------------------
+
+
 class Employee(models.Model):
     GENDER=(
         ('Male','Male'),
