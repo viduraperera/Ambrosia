@@ -14,7 +14,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -37,6 +37,8 @@
         <option value="$MODULE_DIR$/templates/TeaShopSales_Templates" />
         <option value="$MODULE_DIR$/templates/Transport_templates" />
         <option value="$MODULE_DIR$/templates/SupplierManagement templates" />
+        <option value="$MODULE_DIR$/templates/EmployeeManagement_templates" />
+        <option value="$MODULE_DIR$/templates/SalaryManagement_template" />
       </list>
     </option>
   </component>

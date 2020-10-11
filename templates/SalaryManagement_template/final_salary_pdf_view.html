@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Salary Report</title>
+
+    <h1>Final Salary</h1>
+</head>
+<body>
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+<div style="overflow-x:auto;">
+
+    <table border="1 px solid black">
+         <tr>
+             <th>EPF No</th>
+             <th>Name</th>
+             <th>Work Days</th>
+             <th>Per<br> Day Salary</th>
+             <th>Basic<br> Salary</th>
+             <th>Over<br> Time</th>
+             <th>Total <br> Salary</th>
+             <th>EPF</th>
+             <th>Loans</th>
+             <th>Advance</th>
+             <th>Tea<br> Advance</th>
+             <th>Total<br> Deduction</th>
+             <th>Salary</th>
+         </tr>
+        {% for emp_sal in emp_salary%}
+            {% for emp in  emp_all%}
+                 {% if emp.id == emp_sal.emp_id %}
+                    <tr>
+                        <td>{{emp.epfNo }}</td>
+                        <td>{{ emp.name }}</td>
+                        <td>{{ emp_sal.attendance_on_month }}</td>
+                        <td>{{ emp_sal.basic_salary_of_day }}</td>
+                        <td>{{ emp_sal.basic_salary_of_month }}</td>
+                        <td>{{ emp_sal.ot_amount_for_month }}</td>
+                        <td>{{ emp_sal.total_salary }}</td>
+                        <td>{{ emp_sal.epf_employee_month }}</td>
+                        <td>{{ emp_sal.loan }}</td>
+                        <td>{{ emp_sal.advance }}</td>
+                        <td>{{ emp_sal.tea_advance }}</td>
+                        <td>{{ emp_sal.total_deduction }}</td>
+                        <td>{{ emp_sal.remaining_salary }}</td>
+                    </tr>
+                {% endif %}
+            {%  endfor %}
+    {% endfor %}
+    </table>
+
+</div>
+</body>
+</html>

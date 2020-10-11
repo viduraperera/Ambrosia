@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from Ambrosia_Project.forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from Ambrosia_Project.utils import render_to_pdf
+from Ambrosia_Project.common_utills.utils import render_to_pdf
 from django.views import View
 
 # Create your views here.
