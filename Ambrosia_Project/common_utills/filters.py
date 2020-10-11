@@ -1,7 +1,7 @@
 import django_filters
 from django_filters import DateFilter, CharFilter, NumberFilter
 
-from .models import *
+from Ambrosia_Project.models import *
 
 
 class StockFilter(django_filters.FilterSet):

@@ -5,7 +5,7 @@ from Ambrosia_Project.forms import PaymentForm
 from Ambrosia_Project.models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from Ambrosia_Project.filters import StockFilter, SupplierFilter, PaymentFilter
+from Ambrosia_Project.common_utills.filters import StockFilter, SupplierFilter
 
 
 # Create your views here.
