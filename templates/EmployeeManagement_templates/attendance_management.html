@@ -162,10 +162,6 @@ tr:nth-child(even) {
 
 {% block content %}
 
-    <div class="w3-container" style="margin-top:0px" id="showcase">
-      <a href="{% url 'mark_attendance' %}"><input class="addButton" type="submit" value="Mark Attendance" onclick="w3_close()"></a>
-<br><br>
-
     <div>
         <div class="event__search__floater">
         <div class="search__anchor">
@@ -176,75 +172,66 @@ tr:nth-child(even) {
           </form>
           </div>
         </div>
-        <table>
-          <tr>
-            <th style="text-align: center;">date</th>
-          </tr>
-        </table>
-        < <h1>{{ date }}</h1>
+
+         <h1>{{ date }}</h1>
 
             <table class = "table table-striped table-bordered table-sm">
                 <tr>
                     <th>EPF No</th>
                     <th>NIC</th>
                     <th>Name</th>
+                    <th>Marked Day Type</th>
+                    <th>Marked Attendance</th>
                     <th>Day Type</th>
-                    <th>Attendance</th>
+                    <th>Edit</th>
 
                 </tr>
 
-               {% for workers in Employee %}
-
-{#                   {% for att in attend %}#}
-
-
+               {% for att in attendance %}
                    <tr>
 
-                        <td>{{ workers.epfNo }}</td>
-                        <td>{{ workers.nic }}</td>
-                        <td>{{ workers.name }}</td>
+                       <td>{{ att.empID.epfNo }}</td>
+                       <td>{{ att.empID.nic }}</td>
+                       <td>{{ att.empID.name }}</td>
+                       <td>{{ att.daytype }}</td>
+                       <td>{{ att.attendaceStatus }}</td>
 
 
-                            <form method="post" action="{% url 'mark_attendance' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="workersid" value="{{ workers.id }}">
-                                <input type="hidden" name="date" value="{{ date }}">
+                       <form method="post" action="{% url 'updatemark_attendance' %}">
+                           {% csrf_token %}
+                           <input type="hidden" name="workersid" value="{{ att.empID.id }}">
+                           <input type="hidden" name="date" value="{{ date }}">
 
-                                <td>
-                                     <select name="dayType" required>
-                                        <option value="fullDay">Full Day</option>
-                                        <option value="halfDay">Half Day</option>
-                                    </select>
-                                </td>
+                           <td>
+                               <select name="dayType" required>
+                                   <option value="fullDay">Full Day</option>
+                                   <option value="halfDay">Half Day</option>
+                               </select>
+                           </td>
 
-                                <td>
-                                    <input type="submit" value="Present" class="addButton">
-                                </td>
-
-
-                            </form>
+                           <td>
+                               <input type="submit" value="Present" class="addButton">
+                           </td>
 
 
-                               <td>
-                                    <form method="post" action="{% url 'mark_attendance' %}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="workersid" value="{{ workers.id }}">
-                                        <input type="hidden" name="date" value="{{ date }}">
-
-                                        <input type="submit" value="Absent" class="deleteButton" >
-                                    </form>
-
-                                </td>
+                       </form>
 
 
+                       <td>
+                           <form method="post" action="{% url 'updatemark_attendance' %}">
+                               {% csrf_token %}
+                               <input type="hidden" name="workersid" value="{{ att.empID.id }}">
+                               <input type="hidden" name="date" value="{{ date }}">
 
-                        </tr>
+                               <input type="submit" value="Absent" class="deleteButton" >
+                           </form>
 
+                       </td>
 
-{#                       {% endfor %}#}
-
+                   </tr>
                 {% endfor %}
 
             </table>
+    </div>
 
 {% endblock content %}

@@ -43,6 +43,7 @@ class Employee(models.Model):
             code='EPF No is invalid'
         )
     ])
+    empImage = models.ImageField(null=True, blank=True, upload_to="images/")
     name = models.CharField(max_length=50)
     address = models.TextField(null=True)
     gender = models.CharField(max_length=50, choices=GENDER)
@@ -80,7 +81,9 @@ class attendance(models.Model):
     date = models.DateField(blank=True)
     daytype = models.CharField(max_length=20, choices=DAYTYPE, blank=True)
     attendaceStatus = models.CharField(max_length=50, choices=STATUS, blank=True)
-    empID = models.IntegerField(blank=True)
+    empID = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, related_name="attendance", null=True
+    )
 
     class Meta:
         unique_together = (('date', 'empID'),)

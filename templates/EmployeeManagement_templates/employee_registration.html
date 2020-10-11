@@ -50,7 +50,7 @@
 
 {% block content %}
 
-<form method="POST" action="{% url 'employee_registration1' %}">
+<form method="POST" action="{% url 'employee_registration1' %}" enctype="multipart/form-data">
 
     {% csrf_token %}
     <center>
@@ -59,6 +59,10 @@
           {{ form.designation.errors }}
         <td><label for="name" >Name</label></td><br>
       <td>{{form.name  }}</td><br>
+      </tr>
+      <tr>
+          <td><label for="image">Image</label></td>
+          <td>{{ form.empImage }}</td>
       </tr>
       <tr>
       <td><label for="epfNo" >EPF No</label></td><br>
