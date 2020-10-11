@@ -508,23 +508,25 @@ class FinalSalaryReportPDF(View):
         results = salaryReport.count()
 
         if results > 0:
-            messages.success(request, 'No of results Found ' + str(results))
+            try:
+                emp_all = Employee.objects.all()
 
-            emp_all = Employee.objects.all()
+                var = {
+                    'year': searchYear,
+                    'month': searchMonth,
+                    'emp_salary': salaryReport,
+                    'emp_all': emp_all,
+                }
+                pdf = render_to_pdf('SalaryManagement_template/final_salary_pdf_view.html', var)
 
-            var = {
-                'emp_salary': salaryReport,
-                'emp_all': emp_all,
-            }
-            pdf = render_to_pdf('SalaryManagement_template/final_salary_pdf_view.html', var)
-
-            if pdf:
-                response = HttpResponse(pdf, content_type='application/pdf')
-                return response
-
-            else:
-                messages.error(request, 'Error in PDF')
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf')
+                    return response
+            except Exception as e:
+                print(e)
                 return redirect('final_salary_report_view')
+        else:
+            return redirect('final_salary_report_view')
 
 
 class FinalEpfReportPDF(View):
@@ -537,20 +539,22 @@ class FinalEpfReportPDF(View):
         results = epfReport.count()
 
         if results > 0:
-            messages.success(request, 'No of results Found ' + str(results))
+            try:
+                emp_all = Employee.objects.all()
 
-            emp_all = Employee.objects.all()
+                var = {
+                    'year': searchYear,
+                    'month': searchMonth,
+                    'emp_salary': epfReport,
+                    'emp_all': emp_all,
+                }
+                pdf = render_to_pdf('SalaryManagement_template/final_epf_pdf_view.html', var)
 
-            var = {
-                'emp_salary': epfReport,
-                'emp_all': emp_all,
-            }
-            pdf = render_to_pdf('SalaryManagement_template/final_epf_pdf_view.html', var)
-
-            if pdf:
-                response = HttpResponse(pdf, content_type='application/pdf')
-                return response
-
-            else:
-                messages.error(request, 'Error in PDF')
+                if pdf:
+                    response = HttpResponse(pdf, content_type='application/pdf')
+                    return response
+            except Exception as e:
+                print(e)
                 return redirect('emp_epf_view')
+        else:
+            return redirect('emp_epf_view')

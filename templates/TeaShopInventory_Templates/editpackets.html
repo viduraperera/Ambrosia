@@ -17,37 +17,37 @@
 {% block content %}
 
 <!-- form -->
-  <br>
+    <br>
     <form method="post" action="{% url 'updatepackets' %}">
-    {% csrf_token %}
+        {% csrf_token %}
 
-	<div class="form-group">
-		<label>Date:</label>
-        {{ packet.date }}
-	</div>
-	<br>
-	<div class="form-group">
-		<label>Tea Category:</label>
-		{{ category }}
-	</div>
-	<br>
-	<div class="form-group">
-		<label>Category Weight:</label>
-		{{ weight }}
-	</div>
-	<br><br>
-		<div class="form-group">
-		<label >Number of packets:</label>
-		<input type="number" name="noPkts" value="{{ packet.noOfPackets }}">
-	</div>
-	<br>
-	<div class="form-group">
+        <div class="form-group">
+            <label>Date:</label>
+            {{ packet.date }}
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Tea Category:</label>
+            {{ category }}
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Category Weight:</label>
+            {{ weight }}
+        </div>
+        <br><br>
+        <div class="form-group">
+            <label >Number of packets:</label>
+            <input type="number" name="noPkts" value="{{ packet.noOfPackets }}">
+        </div>
+        <br>
+        <div class="form-group">
 
-        <input type="hidden" name="packetID" value="{{ packet.id }}">
+            <input type="hidden" name="packetID" value="{{ packet.id }}">
 
-        <input type="submit" class="btn1" value="Update">
-	</div>
-	<br>
-</form>
-<!-- End page content -->
+            <input type="submit" class="btn1" value="Update">
+        </div>
+        <br>
+    </form>
+    <!-- End page content -->
 {% endblock content %}

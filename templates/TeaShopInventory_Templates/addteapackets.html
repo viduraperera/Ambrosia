@@ -19,37 +19,37 @@
 
 {% block content %}
   <!-- form -->
-  <br>
+    <br>
     <form method="post" action={% url 'addteapackets' %}>
 
         {%  csrf_token %}
 
-	<div class="form-group">
-		<label for="date">Date: </label>
-        {{ form.date }}
+        <div class="form-group">
+            <label for="date">Date: </label>
+            {{ form.date }}
 
-	</div>
-	<br>
+        </div>
+        <br>
 
-	<div class="form-group">
-		<label for="name">Category Product Name: </label>
-		{{ form.categoryProductID }}
-	</div>
-	<br><br>
-		<div class="form-group">
-		<label for="noofpackets">Number of packets: </label>
+        <div class="form-group">
+            <label for="name">Category Product Name: </label>
+            {{ form.categoryProductID }}
+        </div>
+        <br><br>
+        <div class="form-group">
+            <label for="noofpackets">Number of packets: </label>
 
             {{ form.noOfPackets }}
-	<br>
-            </div>
+            <br>
+        </div>
 
 
-	<div class="form-group">
+        <div class="form-group">
 
-        <button type="submit" class="btn1">ADD</button>
+            <button type="submit" class="btn1">ADD</button>
 
-	</div>
-	<br>
+        </div>
+        <br>
     </form>
 
     {% if form.errors %}

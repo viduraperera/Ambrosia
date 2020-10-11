@@ -319,8 +319,8 @@ class GenerateStockMothlyReport(View):
             packets = AddPackets.objects.filter(date__month=month, date__year=year)
             prodCat = CategoryProduct.objects.all()
             data = {
-                    'Packets': packets,
-                    'prod': prodCat
+                'Packets': packets,
+                'prod': prodCat
             }
             pdf = render_to_pdf('TeaShopInventory_Templates/inventorymonthlyreport.html', data)
 
@@ -340,8 +340,8 @@ class GenerateStockAnnualReport(View):
             packets = AddPackets.objects.filter(date__year=year)
             prodCat = CategoryProduct.objects.all()
             data = {
-                    'Packets': packets,
-                    'prod': prodCat
+                'Packets': packets,
+                'prod': prodCat
             }
             pdf = render_to_pdf('TeaShopInventory_Templates/inventoryannualreport.html', data)
 
