@@ -1,0 +1,85 @@
+{% extends 'SalaryManagement_template/employeeBase.html' %}
+<!-------------------------Title------------------------->
+{% block title %}Add Employee Funds{% endblock title %}
+
+{% block headImport %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock headImport %}
+
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Add Funds{% endblock pageContentHeader2 %}
+
+<!-- !PAGE CONTENT! -->
+{% block content %}
+    <div>
+    <form method="POST" class="post-form" action="{% url 'emp_funds_add' %}">
+            {% csrf_token %}
+        <div class="container">
+<br>
+            <div class="form-group row">
+                <label class="col-sm-l col-form-label"></label>
+                <div class="col-sm-4">
+                    <h3>ENTER Details</h3>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <div class="form-group row">
+                        <label class="col-sm-l col-form-label">Date:</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-sm-4">
+                        {{ forms.date }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group row">
+                            <label class="col-sm-l col-form-label">ETF:</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-sm-4">
+                        {{ forms.emp_etf }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group row">
+                        <label class="col-sm-l col-form-label">EPF Employee:</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-sm-4">
+                        {{ forms.epf_employee }}
+                </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group row">
+                        <label class="col-sm-l col-form-label">EPF Employer:</label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-sm-4">
+                         {{ forms.epf_employer }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="form-group row">
+                <label class="col-sm-l col-form-label"></label>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+{% endblock content %}

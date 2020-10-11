@@ -20,10 +20,8 @@ urlpatterns = [
     path('Factory', views.factoryhome, name='factory_home'),
     path('Shop', views.teashopHomepage, name='teashop_home'),
 
-
 #---------final Production Auction- Sandun -----------------------------------------------------
     path('Factory/FinalProduction/AuctionStock/', include('Ambrosia_Project.url_mappings.finalProductionAuctionUrls')),
-
 
 #---------Leaf Inventory & Daily Production Ravija---------------------------------------------------
     path('Factory/LeafInventory/', include('Ambrosia_Project.url_mappings.leafInventoryUrls')),
@@ -35,12 +33,17 @@ urlpatterns = [
 #---------Tea Shop Ssales Onella-------------------------------------------------------------------------------------------------------------------
     path('Shop/SalesHomeIncome', include('Ambrosia_Project.url_mappings.teaShopSalesUrls')),
 
-
 #-------------- Transport management-------------------------------------------------------------------------------------------------------
     path('Factory/Transport/', include("Ambrosia_Project.url_mappings.transportationUrls")),
 
 # Supplier Management - Tharuka --------------------------------------------------------------------------------------------------
     path('Factory/S_AllRegisteredSuppliers/', include('Ambrosia_Project.url_mappings.supplierManagementUrls')),
+
+# Employee Management-------------------------------------------------------------------
+    path('Factory/EmployeeHome/', include('Ambrosia_Project.url_mappings.employeeManagementUrls')),
+
+# employee_funds_VUP---------------------------------------------------------------------------------------------------------------
+    path('Factory/EmployeeHome/', include('Ambrosia_Project.url_mappings.salary_management_urls')),
 
 ]
 
