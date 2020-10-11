@@ -11,7 +11,7 @@ table
     {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 90%;
+      width: 100%;
 
     }
 
@@ -20,16 +20,16 @@ table
       border: 1px solid #dddddd;
       text-align: center;
       font-size: 15px;
-      padding: 18px;
-      background: #f5e57f;
+      padding: 8px;
+      background: #a9afe7;
     }
 
     td
     {
-      border: 1px solid #d0f3d0;
+      border: 1px solid #dddddd;
       text-align: left;
       font-size: 20px;
-      padding: 7px;
+      padding: 8px;
     }
 
     tr:nth-child(even)
@@ -68,6 +68,22 @@ table
   background-color: #000000;
   color: #fd4201;
 }
+
+  .regButton3 {
+    background-color: darkblue;
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    .regButton3:hover {
+  background-color: #000000;
+  color: blue;
+}
 .ClassActive {
     background-color: #8db8e0;
 }
@@ -77,61 +93,108 @@ table
     color: white;
 }
 
+.container1, .container2
+{
+    min-width: 500px;
+    width: 90%;
+}
+
+.container1
+{
+    margin-top: 20px;
+    background-color: #F5FFED ;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.container2
+{
+    margin-left:20px;
+    padding: 10px;
+}
+
+.container2 th
+{
+    background-color:#a9afe7 ;
+}
+
+ h2 {
+      color: #082c88;
+    }
+
+
     {% endblock moreStyles %}
 
+<!-------------------------Body Menue------------------------->
  {% block recordsBtn %}ClassActive{% endblock recordsBtn %}
 
+<!-----------------------------------Header1-------------------------------------->
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
-{% block pageContentHeader2 %}Add Driver{% endblock pageContentHeader2 %}
 
+<!----------------------------------Header2--------------------------------------->
+{% block pageContentHeader2 %}Add Driver Details{% endblock pageContentHeader2 %}
 
+<!----------------------------------Hide Menues--------------------------------------->
      {% block RepairMenu %}{% endblock RepairMenu %}
 
-
+<!-------------------------Body Sub Menue------------------------->
 {% block addDriverBtn %}ClassActive1{% endblock addDriverBtn %}
 
+
+<!----------------------------------Body Content--------------------------------------->
 {% block content %}
     <br><br>
 
+
+<!---------------------------------Messages-------------------------------------->
     {% if messages %}
        {% for message in messages %}
           <script>alert("{{ message }}");</script>
     {% endfor %}
     {% endif %}
 
+
   <!--Add Driver Details Form-->
   <div style="padding-left: 20px;">
 
-        <form action="{% url 'Transport' %}" method="post">
-            {% csrf_token %}
+      <div class="container1">
 
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">Licence No:</label></td>
-      <td>&emsp;{{ VDform.driverForm.licence_no}}</td>
-      </tr>
-      <tr>
-      <td style="padding-bottom: 10px;"><label for="status" style="font-size: 20px;">EPF No:</label></td>
-      <td>&emsp;{{ VDform.driverForm.epfNo}}</td>
-      </tr>
+          <form action="{% url 'Transport' %}" method="post">
+              {% csrf_token %}
 
-      <tr>
-      <td></td>
-      <td>
-          <input class="regButton" type="submit" value="ADD">
+              <h2><b>Add Driver</b></h2>
 
-      </td>
-      </tr>
+              <tr>
+                  <td style="padding-bottom: 10px;"><b><label for="" style="font-size: 20px;">Licence No:</label></b></td>
+                  <td>&emsp;{{ VDform.driverForm.licence_no}}</td>
+              </tr>
+              <tr>
+                  <td style="padding-bottom: 10px;"><b><label for="status" style="font-size: 20px;">EPF No:</label></b></td>
+                  <td>&emsp;{{ VDform.driverForm.epfNo}}</td>
+              </tr>
 
-        </form>
-    </table>
+              <tr>
+                  <td></td>
+                  <td>
+                      <input class="regButton3" type="submit" value="ADD">
 
-    <br><br>
+                  </td>
+              </tr>
+
+          </form>
+
+
+          <br><br>
+
   </div>
+  </div>
+    <br>
 
   <!-- Driver Details Table-->
-
- <div>
+<div class="container2">
     <table>
+        <h2><b>Driver Details</b></h2><br>
 
         <th>ID</th>
         <th> Licence No </th>
@@ -167,6 +230,8 @@ table
         {% endfor %}
 
     </table>
+
+<!--------------Errors--------------------------------------->
 
       {% if VDform.driverForm.errors %}
 

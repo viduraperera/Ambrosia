@@ -17,32 +17,28 @@
 {% block content %}
 
 <!-- table -->
-<div>
-<table>
-  <tr>
-    <th>Category</th>
-    <th>Weight</th>
-	<th>Available Stock</th>
-  </tr>
+    <div>
+        <table class="center">
+            <tr>
+                <th>Category</th>
+                <th>Weight</th>
+                <th>Available Stock</th>
+            </tr>
 
-    {% for st in stock %}
-  <tr>
+            {% for st in stock %}
+                <tr>
 
-    <td>{{ st.category }}</td>
-    <td>{{ st.weight }}</td>
-	<td>{{ st.available_stock }}</td>
+                    <td>{{ st.category }}</td>
+                    <td>{{ st.weight }}</td>
+                    <td>{{ st.available_stock }}</td>
 
-  </tr>
-    {% endfor %}
-<tr>
-    <td>	</td>
-    <td>    </td>
-    <td>	</td>
-  </tr>
-</table>
-</div>
+                </tr>
+            {% endfor %}
 
-<!-- End page content -->
+        </table>
+    </div>
+
+    <!-- End page content -->
 
 
 {% endblock content %}

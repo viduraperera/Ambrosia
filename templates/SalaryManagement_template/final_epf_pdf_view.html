@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EPF Report</title>
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>Ambrosia</h1>
+<h2>Final EPF report</h2>
+<h3>Year : {{ year }}</h3>
+<h4>Month : {{ month }}</h4>
+            <table>
+                <thead class="thead-dark">
+                    <tr>
+                         <th>Name</th>
+                         <th>NIC</th>
+                         <th>EPF No</th>
+                         <th>Total</th>
+                         <th>Employer</th>
+                         <th>Employee</th>
+                         <th>Total Earnings</th>
+                    </tr>
+                        </thead>
+                    {% for emp_sal in emp_salary%}
+                        {% for emp in  emp_all%}
+                         {% if emp.id == emp_sal.emp_id %}
+                            <tr>
+                                <td>{{ emp.name }}</td>
+                                <td>{{ emp.nic }}</td>
+                                <td>{{emp.epfNo }}</td>
+                                <td>{{ emp_sal.total_salary }}</td>
+                                <td>{{emp_sal.epf_employer_month }}</td>
+                                <td>{{emp_sal.epf_employee_month }}</td>
+                                <td>{{emp_sal.total_salary }}</td>
+                            </tr>
+                        {% endif %}
+        {%  endfor %}
+    {% endfor %}
+    </table>
+
+</body>
+</html>

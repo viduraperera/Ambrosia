@@ -6,8 +6,8 @@ from Ambrosia_Project.models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.common_utills.filters import StockFilter, SupplierFilter
-
-
+from django.views.generic import View
+from Ambrosia_Project.common_utills.utils import *
 # Create your views here.
 
 # Supplier Management --------------------------------------------------------------------------------------------------
@@ -87,7 +87,10 @@ def to_sup_profile(request):
 
                 form = RegistrationForm(instance=supplier)
 
-                img = form.instance
+                if supplier.proPic:
+                    img = form.instance
+                else:
+                    img = None
 
                 return render(request, 'SupplierManagement templates/ViewSupplierProfile.html', {'sFrom': form, 'SupId': supid, 'img': img})
 
@@ -332,3 +335,25 @@ def delete_supplier(request):
             pass
 
     return render(request, 'SupplierManagement templates/AllRegisteredSuppliers.html')
+
+
+class S_PaySlipPDF(View):
+    def get(self, request, *args, **kwargs):
+
+        if request.method == 'GET':
+
+            payID = request.GET.get('formid')
+
+            print(payID)
+
+            payment = Payment.objects.get(id=payID)
+
+            data = {'payment': payment}
+
+            pdf = render_to_pdf('SupplierManagement templates/pdf.html', data)
+
+            if pdf:
+                return HttpResponse(pdf, content_type='application/pdf')
+            return HttpResponse("Not found ")
+
+        return redirect('S_PaymentDetails')

@@ -130,7 +130,13 @@ table {
         {% for sup in Sup %}
       <tr id="tr1">
         <td id="td1" >{{ sup.id }}</td>
-        <td id="td1" >&emsp;<img src="{{ sup.proPic.url }}" style="width: 70px; height: 70px; position: center;">&emsp;</td>
+
+          <td id="td1" >&emsp;
+          {% if  sup.proPic %}
+              <img src="{{ sup.proPic.url }}" style="width: 70px; height: 70px; position: center;">&emsp;
+          {% endif %}
+          </td>
+
         <td id="td1" >&emsp;{{ sup.nicNo }}&emsp;</td>
         <td id="td1" >&emsp;{{ sup.Sup_Name }}&emsp;</td>
         <td id="td1" >&emsp;{{ sup.phone }}&emsp;</td>
@@ -138,13 +144,13 @@ table {
             <div style="display: flex;">
             <form method="post" action="{% url 'S_ViewSupProfile' %}">
             {% csrf_token %}
-                    <input type="hidden" name="supid" value="{{ sup.id }}">
-                    &emsp;<input class="regButton" type="submit" value="View">
+                <input type="hidden" name="supid" value="{{ sup.id }}">
+            &emsp;  <input class="regButton" type="submit" value="View">
             </form>
             <form method="post" action="{% url 'S_DeleteSupplier' %}">
             {% csrf_token %}
-                    <input type="hidden" name="supid" value="{{ sup.id }}">
-                    <input class="remvButton" type="submit" value="Delete">&emsp;
+                <input type="hidden" name="supid" value="{{ sup.id }}">
+                <input class="remvButton" type="submit" value="Delete">&emsp;
             </form>
             </div>
         </td>

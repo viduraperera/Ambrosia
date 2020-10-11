@@ -1,0 +1,72 @@
+{% extends 'SalaryManagement_template/employeeBase.html' %}
+<!-------------------------Title------------------------->
+{% block title %}Employee Salary Single View{% endblock title %}
+
+{% block headImport %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock headImport %}
+
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Calculate Salary{% endblock pageContentHeader2 %}
+
+{% block content %}
+        <h1>Year {{ year }}</h1>
+        <h2>Month {{ month }}</h2>
+        <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+         <tr>
+             <th>ID</th>
+             <th>NIC</th>
+             <th>EPF number</th>
+             <th>Name</th>
+             <th>Date of Attend</th>
+             <th>Basic Salary</th>
+         </tr>
+        </thead>
+        <tr>
+            <td>{{ emp_employee.id}}</td>
+            <td>{{ emp_employee.nic }}</td>
+            <td>{{ emp_employee.epfNo }}</td>
+            <td>{{ emp_employee.name}}</td>
+            <td>{{ emp_employee.doa}}</td>
+            <td>{{ emp_employee.basicSalary}}</td>
+        </tr>
+        </table>
+ <div>
+    <form method="post" action="{%  url 'emp_salary_single_view' %}">
+        {% csrf_token %}
+        <input type="hidden" name="e_id" value="{{ emp_employee.id }}">
+         <label for="year">Year:</label><br>
+        <input type="text" name="year" required><br>
+         <label for="month">Month:</label><br>
+        <input type="text" name="month" required><br>
+        <label for="">  </label><br>
+        <input type="submit" value="view Date" class="btn btn-primary"><br>
+    </form>
+ </div>
+<hr>
+    <h3>Salary Details</h3>
+
+    <form method="post" action="{% url 'emp_add_salary_view' %}">
+    {% csrf_token %}
+        <input type="hidden" name="employee_id" value="{{ emp_employee.id }}" required>
+        <input type="hidden" name="basic_salary" value="{{  emp_employee.basicSalary }}" required>
+        <input type="hidden" name="year" value="{{  year }}" required>
+        <input type="hidden" name="month" value="{{  month }}" required>
+        <label for="monthly_attendance">Monthly Attendance:</label><br>
+        <input type="number" name="monthly_attendance" value="{{ all_cals.total_attendance }}" required><br>
+        <label for="monthly_basic_salary_for_month">Basic salary of the month:</label><br>
+        <input type="number" name="monthly_basic_salary_for_month" value="{{ all_cals.basic_salary_for_month }}" required><br>
+        <label for="monthly_etf_month">Monthly ETF:</label><br>
+        <input type="number" name="monthly_etf_month" value="{{ all_cals.etf_month }}" required><br>
+        <label for="monthly_epf_employee_month">EPF Employee:</label><br>
+        <input type="number" name="monthly_epf_employee_month" value="{{ all_cals.epf_employee_month }}" required><br>
+        <label for="monthly_epf_employer_month">EPF employer:</label><br>
+        <input type="number" name="monthly_epf_employer_month" value="{{ all_cals.epf_employer_month }}" required><br>
+ <br>
+    <input type="submit" value="Add salary" class="btn btn-primary btn-lg">
+    </form>
+     <hr>  <br>
+
+{% endblock content %}

@@ -19,7 +19,7 @@
       text-align: center;
       font-size: 15px;
       padding: 18px;
-      background: #d9a9e7;
+      background: #a9afe7;
     }
 
     td
@@ -39,7 +39,7 @@
       color: #082c88;
     }
   .btn {
-    background-color: #7607f5;
+    background-color: #51ac3d;
     border-radius: 12px;
     padding: 8px 10px;
     border: none;
@@ -48,43 +48,50 @@
 
    .btn:hover {
   background-color: #000000;
-  color: #7607f5;
+  color: #51ac3d;
 }
       </style>
 
     {% endblock moreStyles %}
 
- {% block reportBtn %}ClassActive{% endblock reportBtn %}
+<!-------------------------Body Menue------------------------->
+{% block reportBtn %}ClassActive{% endblock reportBtn %}
 
+<!-----------------------------------Header1-------------------------------------->
 {% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+
+<!----------------------------------Header2--------------------------------------->
 {% block pageContentHeader2 %}Analysis & Reports{% endblock pageContentHeader2 %}
 
 
+<!----------------------------------Hide Menues--------------------------------------->
      {% block RepairMenu %}{% endblock RepairMenu %}
      {% block vehicleRecordsMenu %}{% endblock vehicleRecordsMenu %}
 
 
+<!----------------------------------Body Content--------------------------------------->
 
 {% block content %}
-    <br><br>
-
+    <br>
+<!---------------------------------Messages-------------------------------------->
     {% if messages %}
        {% for message in messages %}
           <script>alert("{{ message }}");</script>
     {% endfor %}
     {% endif %}
 
-  <!--Reports-->
+
+  <!--Vehicle Report-->
 
 
     <div style="padding-left: 20px;">
-    <table >
+    <table>
 
         <form action="{% url 'VehicleReports' %}" method="get">
 
             {% csrf_token %}
 
-            <h2>Meter Readings Report</h2>
+            <h2><b>Meter Readings Report</b></h2>
          <tr>
             <th>Vehicle No</th>
             <th>Month</th>
@@ -103,15 +110,17 @@
           <td><input class="btn" type="submit" value="Generate" ></td><br>
 
 
-
-
         </form>
     </table><br><br>
+
+        <!----Service Report--->
         <table>
               <form action="{% url 'ServiceReports' %}" method="get">
 
             {% csrf_token %}
-     <h2>Vehicle Maintenance Report</h2>
+
+
+                  <h2><b>Vehicle Maintenance Report</b></h2><br>
          <tr>
             <th>Vehicle No</th>
             <th>Month</th>
@@ -132,4 +141,5 @@
         </table>
     </div>
     <br><br>
+
  {% endblock content %}

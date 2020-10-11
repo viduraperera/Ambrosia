@@ -3,14 +3,14 @@ from django.shortcuts import render, redirect
 from Ambrosia_Project.forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from Ambrosia_Project.utils import render_to_pdf
+from Ambrosia_Project.common_utills.utils import render_to_pdf
 from django.views import View
 
 # Create your views here.
 
 #transport management------------------------------------------------------------------------------------------------------------
 
-#add vehicle
+# add vehicle
 @login_required(login_url='login')
 def Vehicle_Records(request):
 
@@ -26,11 +26,11 @@ def Vehicle_Records(request):
                 return redirect('addVehicle')
             except Exception as e:
                 print(e)
-                messages.success(request,'Exception:'+ e)
+                messages.success(request, 'Exception:'+ e)
 
         else:
             print(form.errors)
-            messages.success(request,'Invalid Details')
+            messages.success(request, 'Invalid Details')
 
     #assign all vehicle objects
     array = Vehicle.objects.all()
@@ -43,7 +43,8 @@ def Vehicle_Records(request):
 
     return render(request, 'Transport_templates/AddVehicle.html', alldetails)
 
-#delete vehicle
+
+# delete vehicle
 @login_required(login_url='login')
 def deleteVehicleRecord(request):
 
@@ -57,7 +58,7 @@ def deleteVehicleRecord(request):
 
 
 
-#add driver
+# add driver
 
 @login_required(login_url='login')
 def driver_records(request):
@@ -95,7 +96,8 @@ def driver_records(request):
 
     return render(request, 'Transport_templates/AddDriver.html', allDdetails)
 
-#delete driver
+
+# delete driver
 @login_required(login_url='login')
 def deleteDriverRecord(request):
 
@@ -107,7 +109,8 @@ def deleteDriverRecord(request):
 
     return redirect('Transport')
 
-#display driver
+
+# display driver
 @login_required(login_url='login')
 def DisplayDriverRecord(request):
 
@@ -131,7 +134,8 @@ def DisplayDriverRecord(request):
 
     return redirect('Transport')
 
-#update driver records
+
+# update driver records
 @login_required(login_url='login')
 def UpdateDriverRecord(request):
 
@@ -146,24 +150,26 @@ def UpdateDriverRecord(request):
 
                 if form_update.is_valid():
                     form_update.save()
-                    return redirect('AddDriver')
+                    messages.success(request, 'Successfully update driver details')
+                    return redirect('Transport')
 
-                else:
-                    #invalid
-                    pass
+                # else:
+                #     #invalid
+                #     pass
 
             except Exception as e:
                 print(e)
+                messages.success(request, 'Invalid Details')
 
-        else:
-            #id not found
-            pass
+        # else:
+        #     #id not found
+        #     pass
 
     return redirect('Transport')
 
 
 
-#add vehicle driving records
+# add vehicle driving records
 @login_required(login_url='login')
 def DrivingRecords(request):
 
@@ -185,7 +191,7 @@ def DrivingRecords(request):
                     form_mread = form.save(commit=False)
                     form_mread.Meter_Difference = diff
 
-                    form.save()
+                    form_mread.save()
                     messages.success(request, 'Successfully added driving records')
                     return redirect('RecordTable')
 
@@ -205,6 +211,7 @@ def DrivingRecords(request):
 
     return render(request, 'Transport_templates/VehicleRecords.html', var)
 
+
 #show driving records
 @login_required(login_url='login')
 def ShowDrivingRecords(request):
@@ -215,7 +222,7 @@ def ShowDrivingRecords(request):
 
 
 
-#delete vehicle driving records
+# delete vehicle driving records
 @login_required(login_url='login')
 def deleteRecords(request):
 
@@ -228,7 +235,7 @@ def deleteRecords(request):
     return redirect('RecordTable')
 
 
-#add vehicle repairs
+# add vehicle repairs
 @login_required(login_url='login')
 def AddVehicleRepairs(request):
 
@@ -265,7 +272,8 @@ def ShowVehicleRepairs(request):
 
     return render(request, 'Transport_templates/RepairTable.html', {'repairs': repairs})
 
-#display repairs
+
+# display repairs
 @login_required(login_url='login')
 def DisplayUpdateRepairs(request):
 
@@ -292,7 +300,7 @@ def DisplayUpdateRepairs(request):
 
 
 
-#update vehicle repairs
+# update vehicle repairs
 @login_required(login_url='login')
 def UpdateVehicleRepairs(request):
 
@@ -308,6 +316,7 @@ def UpdateVehicleRepairs(request):
 
                 if form_update.is_valid():
                     form_update.save()
+                    messages.success(request, 'Successfully update driver details')
 
                 else:
                     #invalid
@@ -315,6 +324,7 @@ def UpdateVehicleRepairs(request):
 
             except Exception as e:
                 print(e)
+                messages.success(request, 'Invalid Details')
 
         else:
             #id not found
@@ -323,7 +333,7 @@ def UpdateVehicleRepairs(request):
     return redirect('RepairTable')
 
 
-#delete repair details
+# delete repair details
 @login_required(login_url='login')
 def delete_RepairRecords(request):
 
@@ -336,14 +346,16 @@ def delete_RepairRecords(request):
     return redirect('RepairTable')
 
 
-#reports
+# reports
 
 @login_required(login_url='login')
 def Reports(request):
 
     return render(request, 'Transport_templates/transportation_Reports.html')
 
-#generate vehicle reports
+
+# generate vehicle details reports
+
 class GenerateVehicle_RecordsPdf(View):
     def get(self, request, *args, **kwargs):
 
@@ -354,32 +366,37 @@ class GenerateVehicle_RecordsPdf(View):
 
         if len(month)== 2 and len(year)== 4:
 
-            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
 
-            if vehicle is not None:
+            try:
+                vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
+
                 vehicleNo = vehicle.id
 
-            records = Driving_Records.objects.filter(Date__month=month, Date__year=year , VehicleNo=vehicleNo)
+                records = Driving_Records.objects.filter(Date__month=month, Date__year=year , VehicleNo=vehicleNo)
 
-            if len(records) > 0:
+                if len(records) > 0:
 
-                total = 0
+                    total = 0
 
-                for rec in records:
-                    total = total + rec.Meter_Difference
+                    for rec in records:
+                        total = total + rec.Meter_Difference
 
-                data = {
-                    'Vrecords': records,
-                    'year':year,
-                    'month':month,
-                    'total': total,
-                    }
+                    data = {
+                        'Vrecords': records,
+                        'year':year,
+                        'month':month,
+                        'total': total,
+                        }
 
-                pdf = render_to_pdf('Transport_templates/Vehicle_Reports.html', data)
-                return HttpResponse(pdf, content_type='application/pdf')
+                    pdf = render_to_pdf('Transport_templates/Vehicle_Reports.html', data)
+                    return HttpResponse(pdf, content_type='application/pdf')
+
+            except Vehicle.DoesNotExist:
+                messages.error(request, 'No Data Found')
+                return redirect('RecordTable')
 
             else:
-                messages.error(request, 'No Data Found')
+                messages.error(request, 'Invalid Details')
                 return redirect('Reports')
 
         else:
@@ -387,7 +404,8 @@ class GenerateVehicle_RecordsPdf(View):
             return redirect('Reports')
 
 
-#generate vehicle maintenance reports
+
+# generate vehicle maintenance reports
 
 class GenerateVehicle_RepairPdf(View):
     def get(self, request, *args, **kwargs):
@@ -399,31 +417,31 @@ class GenerateVehicle_RepairPdf(View):
 
         if len(month)== 2 and len(year)== 4:
 
-            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
-
-            if vehicle is not None:
+            try:
+                vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
                 vehicleNo = vehicle.id
 
-            records = Services.objects.filter(Service_Date__month=month, Service_Date__year=year , VehicleNo=vehicleNo)
+                records = Services.objects.filter(Service_Date__month=month, Service_Date__year=year , VehicleNo=vehicleNo)
 
-            if len(records) > 0:
+                if len(records) > 0:
 
-                total = 0
+                    total = 0
 
-                for rec in records:
-                    total = total + rec.Amount
+                    for rec in records:
+                        total = total + rec.Amount
 
-                data = {
-                    'Vrepairs': records,
-                    'year':year,
-                    'month':month,
-                    'total': total,
-                    }
+                    data = {
+                        'Vrepairs': records,
+                        'year':year,
+                        'month':month,
+                        'total': total,
+                        }
 
-                pdf = render_to_pdf('Transport_templates/Maintenance_Report.html', data)
-                return HttpResponse(pdf, content_type='application/pdf')
+                    pdf = render_to_pdf('Transport_templates/Maintenance_Report.html', data)
+                    return HttpResponse(pdf, content_type='application/pdf')
 
-            else:
+
+            except Vehicle.DoesNotExist:
                 messages.error(request, 'No Data Found')
                 return redirect('Reports')
 
@@ -431,7 +449,8 @@ class GenerateVehicle_RepairPdf(View):
             messages.error(request, 'Invalid Inputs')
             return redirect('Reports')
 
-#search
+
+# search
 
 def SearchRecords(request):
 
@@ -440,24 +459,18 @@ def SearchRecords(request):
         vehicleNoInput = request.POST.get('vehicleno')
         month = request.POST.get('month')
         year = request.POST.get('year')
-        vehicleNo = 0
+
 
         if len(month) == 2 and len(year) == 4:
 
-            vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
-
-            if vehicle is not None:
-
+            try:
+                vehicle = Vehicle.objects.get(VehicleNo=vehicleNoInput)
                 vehicleNo = vehicle.id
-
-
                 records = Driving_Records.objects.filter(Date__month=month, Date__year=year, VehicleNo=vehicleNo)
-
-
                 return render(request, 'Transport_templates/VehicleRecordsTable.html', {'records': records})
 
 
-            else:
+            except Vehicle.DoesNotExist:
                 messages.error(request, 'No Data Found')
                 return redirect('RecordTable')
 

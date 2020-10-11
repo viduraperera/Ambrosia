@@ -1,0 +1,46 @@
+{% extends 'SalaryManagement_template/employeeBase.html' %}
+<!-------------------------Title------------------------->
+{% block title %}Employee Allowance{% endblock title %}
+
+{% block headImport %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock headImport %}
+
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Allowance{% endblock pageContentHeader2 %}
+
+{% block content %}
+ <div>
+     <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+         <tr>
+             <th>Allowance_ID</th>
+             <th>Allowance By Price</th>
+             <th>Incentive 1</th>
+             <th>Incentive 2</th>
+         </tr>
+        </thead>
+        {% for allowance in allowance%}
+        <tr>
+            <td>{{ allowance.id }}</td>
+            <td>{{ allowance.allowance_by_price }}</td>
+            <td>{{ allowance.incentive_1 }}</td>
+            <td>{{ allowance.incentive_2}}</td>
+            <td>
+                <a href="/Home/Factory/EmployeeHome/emp_allowance_edit{{ allowance.id }}" class="btn btn-success">Edit</a>
+                <a href="/Home/Factory/EmployeeHome/emp_allowance_delete{{ allowance.id }}" class="btn btn-danger" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">Delete</a>
+{#                <form method="post" action="{% url 'emp_allowance_delete' %} ">#}
+{#                    {% csrf_token %}#}
+{#                    <input type="hidden" name="salary_id" value="{{ allowance.id }}"/>#}
+{#                    <input type="submit" value="Delete" class="btn btn-danger" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">#}
+{#                </form>#}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+ </div>
+    <div>
+         <a href="{% url 'emp_allowance_add' %}" class="btn btn-primary btn-lg">Add New Allowance</a>
+    </div>
+{% endblock content %}
