@@ -76,9 +76,11 @@ class Payment(models.Model):
     other_costs = models.FloatField()
     tot_weight = models.FloatField()
     per_kilo_price = models.FloatField()
-    # payment = models.FloatField()
+    payment = models.FloatField(null=True, blank=True)
     # supplier = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
-    nic = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    nic = models.ForeignKey(
+        Registration, on_delete=models.CASCADE, null=True, related_name="payments", to_field="nicNo"
+    )
 
     class Meta:
         db_table = "ambrosia_project_payment"

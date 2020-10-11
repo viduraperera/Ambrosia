@@ -10,6 +10,7 @@
 
     <div class="Container" style="padding: 20px;">
         <div class="row" style="background-color: azure;">
+            <form method="post">
             <center>
                 <table>
                     <tr>
@@ -28,15 +29,15 @@
               </tr>
               <tr>
                 <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Supplier ID</label></td>
-                <td>&emsp;</td>
+                <td>&emsp;{{ nic }}</td>
               </tr>
               <tr>
                 <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Total Kilograms</label></td>
-                <td>&emsp;</td>
+                <td>&emsp;{{ tot_weight }}</td>
               </tr>
               <tr>
                 <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Price per Kilogram</label></td>
-                <td>&emsp;</td>
+                <td>&emsp;{{ per_kilo_price }}</td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
@@ -47,8 +48,8 @@
                 <td>&nbsp;</td>
               </tr>
                 <tr>
-                    <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp; Salary : </label>></td>
-                <td>&nbsp;</td>
+                    <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp; Total Payment : </label></td>
+                    <td>&nbsp;payment</td>
               </tr>
                 <!---last 3 <tr> tags to get the shape of this table--->
             </table>
@@ -61,19 +62,11 @@
               </tr>
               <tr>
                 <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Date</label></td>
-                <td>&emsp;</td>
+                <td>&emsp;{{ pay_Date }}</td>
               </tr>
               <tr>
                 <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Time</label></td>
-                <td>&emsp;</td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 10px;"><label for="nicno" style="font-size: 20px;">Additions (+)</label></td>
-                <td>&emsp;</td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Expenses (-)</label></td>
-                <td>&emsp;</td>
+                <td>&emsp;{{ pay_Time }}</td>
               </tr>
               <tr>
                 <td style="padding-bottom: 10px;"></td>
@@ -85,7 +78,8 @@
               </tr>
             </table>
           </div>
-          <h4>Signature : ..........................</h4><br>
+          <h4>&emsp;Signature : ..........................</h4><br>
+          </form>
         </div>
     </div>
 
