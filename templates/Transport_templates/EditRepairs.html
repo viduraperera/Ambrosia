@@ -99,6 +99,13 @@ table
 {% block content %}
     <br><br>
 
+ <!---------------------------------Messages-------------------------------------->
+    {% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+    {% endif %}
+
 
   <!--Update Vehicle Repairs Form-->
   <div style="padding-left: 20px;">

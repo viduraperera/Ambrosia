@@ -97,6 +97,14 @@ table
 {% block content %}
     <br><br><br><br>
 
+<!---------------------------------Messages-------------------------------------->
+    {% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+    {% endif %}
+
+
 
   <!--Update Driver Details Form-->
 
