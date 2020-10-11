@@ -19,6 +19,9 @@ Display Message
 
 {% endblock displayMessage %}
 
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Employee Information{% endblock pageContentHeader2 %}
+
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -72,7 +75,7 @@ Display Message
 
         </select>
 
-        <input type="submit" value="Search" class="btn btn-success" required>
+        <input type="submit" value="Search" class="btn btn-primary" required>
     </form>
 <br>
      <div class="scrollmenu">

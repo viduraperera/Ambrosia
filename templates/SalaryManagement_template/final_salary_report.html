@@ -18,7 +18,8 @@ Display Message
 {% endif %}
 
 {% endblock displayMessage %}
-
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Final Salary Report{% endblock pageContentHeader2 %}
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -65,7 +66,7 @@ div.scrollmenu a:hover {
         <input type="text" name="searchYear" placeholder="Search Year" required>
         <input type="text" name="searchMonth" placeholder="Search Month" required>
 
-        <input type="submit" value="Generate" required>
+        <input type="submit" value="Generate" class="btn btn-info" required>
         </form>
 
     <h5>Search Employee Salary Report By Date</h5>
@@ -75,7 +76,7 @@ div.scrollmenu a:hover {
         <input type="text" name="searchYear" placeholder="Search Year" required>
         <input type="text" name="searchMonth" placeholder="Search Month" required>
 
-        <input type="submit" value="Search" required>
+        <input type="submit" value="Search" class="btn btn-primary" required>
         </form>
 
     <br>

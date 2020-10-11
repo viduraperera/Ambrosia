@@ -17,7 +17,8 @@ Display Message
 {% endif %}
 
 {% endblock displayMessage %}
-
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Final EPF Report{% endblock pageContentHeader2 %}
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -45,7 +46,7 @@ Display Message
         <input type="text" name="searchYear" placeholder="Search Year" required>
         <input type="text" name="searchMonth" placeholder="Search Month" required>
 
-        <input type="submit" value="Generate" required>
+        <input type="submit" value="Generate" class="btn btn-info" required>
         </form>
     <h5>Generate Employee EPF Report By Date</h5>
         <form action="{% url 'final_epf_report_search' %}" method="post">
@@ -54,7 +55,7 @@ Display Message
         <input type="text" name="searchYear" placeholder="Search Year" required>
         <input type="text" name="searchMonth" placeholder="Search Month" required>
 
-        <input type="submit" value="Search" required>
+        <input type="submit" value="Search" class="btn btn-primary" required>
     </form>
     <br>
  <div>
