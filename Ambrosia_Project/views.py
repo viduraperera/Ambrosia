@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+
 from Ambrosia_Project.forms import CreateUserForm
 from Ambrosia_Project.forms import RegistrationForm
-# from Ambrosia_Project.forms import SupplierForm
 from Ambrosia_Project.forms import LeafStockForm
-# from Ambrosia_Project.forms import EstateForm
 from Ambrosia_Project.forms import PaymentForm
 from Ambrosia_Project.models import *
 from django.contrib import messages
@@ -12,9 +10,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .filters import StockFilter, SupplierFilter, PaymentFilter
-
-from django.core.files.storage import FileSystemStorage
-
 
 # Create your views here.
 
@@ -146,6 +141,7 @@ def DeleteUser(request):
 
 
 # Navigate from Admin home to Registered Suppliers List
+#also contains views file to filter search
 @login_required(login_url='login')
 def to_reg_suppliers(request):
     suppliers = Registration.objects.all()
@@ -159,6 +155,7 @@ def to_reg_suppliers(request):
 
 
 # Navigate from All Registered Suppliers List to Registration Form
+#take inputs
 @login_required(login_url='login')
 def to_sup_registration(request):
     sup = RegistrationForm()
@@ -233,14 +230,8 @@ def to_sup_profile(request):
     return render(request, 'AllRegisteredSuppliers.html')
 
 
-# Navigate from Supplier Profile to Edit Supplier
-# @login_required(login_url='login')
-# def to_edit_profile(request):
-#   return render(request, 'EditSupplier.html')
-
-
 # Navigate from Registered Suppliers List to Stock Details
-#Edited 2020-10-9 for add order by function
+# Edited 2020-10-9 for add order by function
 @login_required(login_url='login')
 def to_stock_details(request):
     form = LeafStock.objects.all()
@@ -277,16 +268,6 @@ def leaf_stock_add(request):
     return render(request, 'StockDetails.html')
 
 
-# editLeafStock(Temporary)
-@login_required(login_url='login')
-def to_edit_stock_details(request):
-    formid = request.POST.get('formid')
-
-    form = LeafStock.objects.get(id=formid)
-
-    return render(request, 'EditStockDetails.html', {'form': form})
-
-
 # edit Supplier
 @login_required(login_url='login')
 def to_edit_supplier(request):
@@ -303,7 +284,7 @@ def to_edit_supplier(request):
                 if form.is_valid():
                     form.save()
                     img = form.instance
-                    #return render(request, 'AllRegisteredSuppliers.html', {'sFrom': form, 'SupId': sid, 'img': img})
+                    # return render(request, 'AllRegisteredSuppliers.html', {'sFrom': form, 'SupId': sid, 'img': img})
                     return redirect('S_AllRegisteredSuppliers')
 
                 else:
@@ -316,30 +297,6 @@ def to_edit_supplier(request):
 
         else:
             pass
-
-    return render(request, 'AllRegisteredSuppliers.html')
-
-
-# editLeafStockSubmit(Temporary)
-@login_required(login_url='login')
-def updated_leaf_stock(request):
-    formid = request.POST.get('formid')
-
-    if request.method == 'POST' and formid is not None:
-        form = LeafStock.objects.get(id=formid)
-        form.save()
-
-    return render(request, 'StockDetails.html', {'form': form})
-
-
-# edit Supplier Details
-@login_required(login_url='login')
-def update_sup_details(request):
-    supid = request.POST.get('supid')
-
-    if request.method == 'POST' and supid is not None:
-        sup = LeafStock.objects.get(id=supid)
-        sup.save()
 
     return render(request, 'AllRegisteredSuppliers.html')
 
@@ -385,10 +342,9 @@ def to_sup_payments(request):
 
 
 # Navigate from Payments to Payment Details Table
-#Edited 2020-10-10 for add order by function for payments
+# Edited 2020-10-10 for add order by function for payments
 @login_required(login_url='login')
 def to_pay_details(request):
-
     form = Payment.objects.all()
 
     pay_count = form.count()
@@ -397,35 +353,46 @@ def to_pay_details(request):
     form = payFilter.qs
 
     return render(request, 'PaymentDetails.html', {'form': form, 'payFilter': payFilter})
-    #return redirect('S_PaymentDetails')
+    # return redirect('S_PaymentDetails')
 
 
 # Calculating Payment
 @login_required(login_url='login')
 def calc_payment(request):
-    paynic = request.POST.get('paynic')
+    if request.method == 'POST':
 
-    if request.method == 'POST' and paynic is not None:
-        form = Payment.objects.get(id=paynic)
+        form = PaymentForm(request.POST)
 
         if form.is_valid():
             try:
-                form.save()
+                # calculation
+                totalW = form.cleaned_data['tot_weight']
+                kiloPrice = form.cleaned_data['per_kilo_price']
+                addition = form.cleaned_data['additions']
+                advances = form.cleaned_data['advances']
+                transport_costs = form.cleaned_data['transport_costs']
+                other_costs = form.cleaned_data['other_costs']
+
+                finalPayment = (totalW * kiloPrice) + addition - advances - transport_costs - other_costs
+
+                payObj = form.save(commit=False)
+                payObj.payment = finalPayment
+                payObj.save()
+
                 messages.success(request, "Calculated Successfully!")
+
                 return redirect('S_PaymentDetails')
 
             except Exception as e:
                 print(e)
-                messages.success(request, "Exception : " +e)
+                messages.success(request, "Exception : " + e)
                 return redirect('S_SupPayments')
         else:
             print(form.errors)
             messages.success(request, "Added Failed! Check input values and try again!")
             pass
 
-    return render(request, 'S_PaymentDetails.html')
-
-
+    return render(request, 'PaymentDetails.html')
 
 
 # delete Payment Table Details
@@ -440,6 +407,7 @@ def payment_delete(request):
     return redirect('S_PaymentDetails')
 
 
+@login_required(login_url='login')
 def delete_supplier(request):
     if request.method == 'POST':
         supID = request.POST.get('supid')

@@ -28,6 +28,7 @@ urlpatterns = [
 
     path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_SupPayments', views.to_sup_payments, name="S_SupPayments"),
 
+#-----
     path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_SupPayments/calcPayments', views.calc_payment, name="S_CalcPayments"),
 
     path('Factory/S_AllRegisteredSuppliers/S_PaymentDetails/S_DeletePay', views.payment_delete, name="S_DeletePay"),
@@ -39,10 +40,6 @@ urlpatterns = [
     path('Factory/S_AllRegisteredSuppliers/S_StockDetails', views.to_stock_details, name="S_StockDetails"),
 
     path('Factory/S_AllRegisteredSuppliers/S_StockDetails/S_LeafStock', views.to_leaf_stock, name="S_LeafStock"),
-
-    path('Factory/S_AllRegisteredSuppliers/S_StockDetails/to_edit_stock_details', views.to_edit_stock_details, name="S_EditStockDetails"),
-
-    path('Factory/S_AllRegisteredSuppliers/S_StockDetails/to_edit_stock_details/updated_leaf_stock', views.updated_leaf_stock, name="S_UpdatedStockDetails"),
 
     path('Factory/S_AllRegisteredSuppliers/S_StockDetails/leaf_stock_delete', views.leaf_stock_delete, name="S_LeafStockDelete"),
 

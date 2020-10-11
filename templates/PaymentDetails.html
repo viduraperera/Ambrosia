@@ -88,6 +88,7 @@ tr:nth-child(even) {
         <th>Supplier NIC</th>
         <th>Payment ID</th>
         <th>Weight</th>
+        <th>Payment</th>
         <th>Date</th>
         <th>Time</th>
         <th>Action</th>
@@ -97,6 +98,7 @@ tr:nth-child(even) {
         <td>&emsp;{{ form.nic }}&emsp;</td>
         <td>{{ form.id }}</td>
         <td>&emsp;{{ form.tot_weight }}&emsp;</td>
+        <td>&emsp;{{ form.payment }}&emsp;</td>
         <td>&emsp;{{ form.pay_Date }}&emsp;</td>
         <td>&emsp;{{ form.pay_Time }}&emsp;</td>
         <td style="display: flex">
@@ -105,7 +107,7 @@ tr:nth-child(even) {
                       &emsp;<input type="hidden" name="formid" value="{{ form.id }}">
                       <a href="{% url 'S_PaymentDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>
             </form>
-            &emsp;<a href="#"><input type="submit" value="Print Pay Slip" class="regButton"></a>&emsp;
+{#            &emsp;<a href="{% url 'S_PaySlipPDF' %}"><input type="submit" value="Print Pay Slip" class="regButton"></a>&emsp;#}
         </td>
       </tr>
         {% endfor %}

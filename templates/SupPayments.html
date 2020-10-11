@@ -55,10 +55,11 @@
   <div class="Container" style="padding: 20px;">
     <div class="row" style= "background-color: #95ED7D;">
 
-    <form method="POST" action="#">
-      {% csrf_token %}
+  <form method="post" action="{% url 'S_CalcPayments' %}">
+          {% csrf_token %}
 
       <div class="w3-half" style="background-color: #95ED7D;">
+
         <!--<form method="post" action="{#% url 'S_PDF' %#}">
         {#% csrf_token %#} -->
         <table style="width: 100%; padding: 20px 20px 20px 20px; background-color: #95ED7D;">
@@ -95,8 +96,7 @@
       </div>
 
       <div class="w3-half" style="background-color:lawngreen">
-        <!--<form method="post" action="{#% url '' %#}">
-        {#% csrf_token %#}-->
+
         <table style="width: 100%; padding: 20px 20px 20px 20px; background-color: #95ED7D;">
           <tr>
             <th></th>
@@ -135,17 +135,17 @@
           </tr>
           <tr>
               <td>
-                  <form method="post" action="{% url 'S_CalcPayments' %}">
-                      {% csrf_token %}
+
 {#                      <input type="hidden" name="paynic" value="{{ form.nic }}">#}
-                      <a href="{% url 'S_PaymentDetails' %}"><input class="regButton" type="submit" value="Calculate"></a>
-{#                      #}
-                  </form>
+{#                      <a href="{% url 'S_PaymentDetails' %}">#}
+      <input class="regButton" type="submit" value="Calculate">
+
+
               </td>
           </tr>
       </table>
       </center>
-    </form><br>
+  </form>
     </div>
   </div>
 
