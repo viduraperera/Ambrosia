@@ -153,17 +153,11 @@ def UpdateDriverRecord(request):
                     messages.success(request, 'Successfully update driver details')
                     return redirect('Transport')
 
-                # else:
-                #     #invalid
-                #     pass
 
             except Exception as e:
                 print(e)
                 messages.success(request, 'Invalid Details')
 
-        # else:
-        #     #id not found
-        #     pass
 
     return redirect('Transport')
 
