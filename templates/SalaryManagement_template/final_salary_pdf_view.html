@@ -7,6 +7,11 @@
     <h1>Final Salary</h1>
 </head>
 <body>
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 <div style="overflow-x:auto;">
 
     <table border="1 px solid black">

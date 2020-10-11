@@ -31,7 +31,5 @@ urlpatterns = [
 
     path('Home/', include('Ambrosia_Project.urls')),
 
-    path('leaf_stock_delete/', supplierManagementViews.leaf_stock_delete)
-
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

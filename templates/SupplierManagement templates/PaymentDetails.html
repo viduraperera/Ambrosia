@@ -114,7 +114,12 @@ tr:nth-child(even) {
                       &emsp;<input type="hidden" name="formid" value="{{ form.id }}">
                       <a href="{% url 'S_PaymentDetails' %}"><input type="submit" value="Delete" class="remvButton"></a>
             </form>
-{#            &emsp;<a href="{% url 'S_PaySlipPDF' %}"><input type="submit" value="Print Pay Slip" class="regButton"></a>&emsp;#}
+             <form method="get" action="{% url 'S_PaySlipPDF' %}">
+              {% csrf_token %}
+                      &emsp;<input type="hidden" name="formid" value="{{ form.id }}">
+                <input type="submit" value="Print Pay Slip" class="regButton">
+            </form>
+
         </td>
       </tr>
         {% endfor %}

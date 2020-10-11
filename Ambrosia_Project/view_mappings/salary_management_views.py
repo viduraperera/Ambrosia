@@ -525,3 +525,32 @@ class FinalSalaryReportPDF(View):
             else:
                 messages.error(request, 'Error in PDF')
                 return redirect('final_salary_report_view')
+
+
+class FinalEpfReportPDF(View):
+    def get(self, request, *args, **kwargs):
+
+        searchYear = request.GET.get('searchYear')
+        searchMonth = request.GET.get('searchMonth')
+
+        epfReport = EmployeeSalary.objects.filter(year=searchYear, month=searchMonth)
+        results = epfReport.count()
+
+        if results > 0:
+            messages.success(request, 'No of results Found ' + str(results))
+
+            emp_all = Employee.objects.all()
+
+            var = {
+                'emp_salary': epfReport,
+                'emp_all': emp_all,
+            }
+            pdf = render_to_pdf('SalaryManagement_template/final_epf_pdf_view.html', var)
+
+            if pdf:
+                response = HttpResponse(pdf, content_type='application/pdf')
+                return response
+
+            else:
+                messages.error(request, 'Error in PDF')
+                return redirect('emp_epf_view')
