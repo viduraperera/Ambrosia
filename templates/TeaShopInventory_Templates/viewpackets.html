@@ -19,61 +19,56 @@
 {% block content %}
 
 <!-- table -->
-<div>
-<table>
-  <tr>
+    <div>
+        <table class="center">
+            <tr>
 
-    <th>Date</th>
-    <th>Category</th>
-    <th>Weight</th>
-    <th>Number of Packets</th>
-	<th>Edit/Delete</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Weight</th>
+                <th>Number of Packets</th>
+                <th>Edit</th>
+                <th>Delete</th>
 
-  </tr>
+            </tr>
 
-    {% for packet in Packets %}
+            {% for packet in Packets %}
 
-      {% for pro in prod %}
+                {% for pro in prod %}
 
-          {% if packet.categoryProductID.id == pro.id %}
+                    {% if packet.categoryProductID.id == pro.id %}
 
-               <tr>
-                    <td>{{ packet.date  }}</td>
-                    <td>{{ pro.category }}</td>
-                    <td>{{ pro.weight }}</td>
-                    <td>{{ packet.noOfPackets }}</td>
+                        <tr>
+                            <td>{{ packet.date  }}</td>
+                            <td>{{ pro.category }}</td>
+                            <td>{{ pro.weight }}</td>
+                            <td>{{ packet.noOfPackets }}</td>
 
-                    <td> <form method="post" action = "{% url 'editpackets' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="pid" class="btn1" value="{{ packet.id }}">
-                        <input type="submit" class="btn1" value="   EDIT   ">
-                    </form>
+                            <td> <form method="post" action = "{% url 'editpackets' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="pid" class="btn1" value="{{ packet.id }}">
+                                <input type="submit" class="btn1" value="   EDIT   ">
+                            </form>
+                            </td>
+                            <td>
+                                <form method="post" action = "{% url 'deletepackets' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="deleteid" class="btn2" value="{{ packet.id }}">
+                                    <input type="submit" value="DELETE"  class="btn2" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
+                                </form>
+                            </td>
+                        </tr>
 
-                        <form method="post" action = "{% url 'deletepackets' %}">
-                            {% csrf_token %}
-                                <input type="hidden" name="deleteid" class="btn2" value="{{ packet.id }}">
-                                <input type="submit" value="DELETE"  class="btn2" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
-                        </form>
-                    </td>
-                  </tr>
+                    {% endif %}
 
-          {% endif %}
+                {% endfor %}
 
-      {% endfor %}
+            {% endfor %}
 
-    {% endfor %}
+        </table>
+    </div>
 
-  <tr>
-    <td>	</td>
-    <td>    </td>
-    <td>	</td>
-	<td> 	</td>
-	<td> 	</td>
-  </tr>
-</table>
-</div>
-
-<!-- End page content -->
+    <!-- End page content -->
 
 
 {% endblock content %}
