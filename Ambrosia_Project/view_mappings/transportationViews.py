@@ -26,11 +26,11 @@ def Vehicle_Records(request):
                 return redirect('addVehicle')
             except Exception as e:
                 print(e)
-                messages.success(request,'Exception:'+ e)
+                messages.success(request, 'Exception:'+ e)
 
         else:
             print(form.errors)
-            messages.success(request,'Invalid Details')
+            messages.success(request, 'Invalid Details')
 
     #assign all vehicle objects
     array = Vehicle.objects.all()
@@ -150,14 +150,16 @@ def UpdateDriverRecord(request):
 
                 if form_update.is_valid():
                     form_update.save()
+                    messages.success(request, 'Successfully update driver details')
                     return redirect('AddDriver')
 
-                else:
-                    #invalid
-                    pass
+                # else:
+                #     #invalid
+                #     pass
 
             except Exception as e:
                 print(e)
+                messages.success(request, 'Invalid Details')
 
         else:
             #id not found
