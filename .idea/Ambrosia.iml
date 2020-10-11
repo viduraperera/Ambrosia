@@ -30,8 +30,8 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
-        <option value="$MODULE_DIR$/templates/SalaryManagement template" />
-         <option value="$MODULE_DIR$/templates/EmployeeManagement_templates" />
+        <option value="$MODULE_DIR$/templates/EmployeeManagement_templates" />
+        <option value="$MODULE_DIR$/templates/SalaryManagement_template" />
       </list>
     </option>
   </component>
