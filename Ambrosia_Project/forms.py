@@ -29,3 +29,18 @@ class EmployeeSalaryForm(forms.ModelForm):
         fields = '__all__'
 
 
+#-----Employee Management Malka--------------------------------------------------------------------------
+class RegisterEmployee(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
+class MarkAttendance(forms.ModelForm):
+    class Meta:
+        model = attendance
+        fields = '__all__'
+
+
+
+

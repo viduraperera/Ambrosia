@@ -1,11 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from Ambrosia_Project.forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from Ambrosia_Project.models import *
 from Ambrosia_Project.forms import *
 
 
@@ -76,90 +72,4 @@ def teashopHomepage(request):
     return render(request, 'teashophome.html')
 
 
-@login_required(login_url='login')
-def EmployeeHome(request):
-    return render(request, 'attendance_management.html')
-
-
-@login_required(login_url='login')
-def staff_management(request):
-    return render(request, 'staff_management.html')
-
-
-@login_required(login_url='login')
-def factoryworkers_management(request):
-    return render(request, 'factoryworkers_management.html')
-
-
-@login_required(login_url='login')
-def markAttendance(request):
-    return render(request, 'mark_attendance.html')
-
-
-
-
-@login_required(login_url='login')
-def ShowUser(request):
-    uname = request.POST.get("uname")
-
-    users = User.objects.all();
-
-    for user in users:
-        if user.username == uname:
-            arrUser = user
-            return render(request, 'updateUser.html', {'UserDetails': arrUser})
-
-    return render(request, 'ViewAllUsers.html')
-
-
-@login_required(login_url='login')
-def UpdateUser(request):
-    if request.method == 'POST':
-        uname = request.POST.get('un')
-        pword = request.POST.get('pwd')
-
-        if uname != None and pword != None:
-            user = User.objects.get(username=uname)
-            user.password = pword
-            user.save();
-            messages.success(request, "User Details Updated Successfully")
-            return redirect('view_all_users')
-
-        else:
-            messages.error(request, "Can't Update Details.")
-            return redirect('view_all_users')
-
-    else:
-        messages.error(request, "Can't Update Details.")
-        return redirect('view_all_users')
-
-    # messages.error(request, "Error.Can't Update Details.")
-    # return redirect('view_all_users')
-
-
-@login_required(login_url='login')
-def DeleteUser(request):
-    uname = request.POST.get('uname')
-
-    if request.method == 'POST' and uname != None:
-        user = User.objects.get(username=uname)
-        user.delete()
-        messages.success(request, "User Deleted Successfully")
-        return redirect('view_all_users')
-
-    else:
-        messages.error(request, "Can't Delete User.")
-        return redirect('view_all_users')
-
-    # messages.error(request, "Error.Can't Delete User.")
-    # return redirect('view_all_users')
-
-
-
-
-
-
-
-
-
-
+            messages.success(request, 'User Account ' + user + ' Created Successfully.')

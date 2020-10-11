@@ -1,54 +1,73 @@
 from django.db import models
 from datetime import *
 from datetime import datetime
+from django.core.validators import RegexValidator
 
 # Create your models here.
-# Create your models here.
+
+
+#-----Employee Management Malka--------------------------------------------------------------------------
 
 
 class Employee(models.Model):
-    GENDER = (
-        ('M', 'Male'),
-        ('F', 'Female'),
+    GENDER=(
+        ('Male','Male'),
+        ('Female','Female'),
     )
-    MARITALSTATUS = (
-        ('Marr', 'Married'),
-        ('UnMarr', 'Unmarried'),
+    MARITALSTATUS=(
+        ('Married','Married'),
+        ('UnMarried','Unmarried'),
     )
-    EMPLOYEETYPE = (
-        ('Pay', 'Permanent'),
-        ('Temp', 'Temparory'),
+    EMPLOYEETYPE=(
+        ('Permanent','Permanent'),
+        ('Temparory','Temparory'),
     )
-
-    nic = models.CharField(max_length=15, unique=True)
-    epfNo = models.IntegerField(unique=True, null=True)
-    name = models.CharField(max_length=50)
-    address = models.TextField()
-    gender = models.CharField(max_length=50, choices=GENDER)
-    dob = models.DateField()
-    maritalStatus = models.CharField(max_length=50, choices=MARITALSTATUS)
-    contactNo = models.CharField(max_length=10, null=True)
-    doa = models.DateField(null=True)
-    basicSalary = models.FloatField(null=True)
-    empType = models.CharField(max_length=50, choices=EMPLOYEETYPE)
-
-
-class NormalEmployee(models.Model):
     EMPGROUP = (
-        ('staf', 'Staff'),
-        ('facwork', 'FactoryWorker'),
+        ('staff', 'Staff'),
+        ('factory_Worker', 'FactoryWorker'),
     )
     DESIGNATION = (
-        ('FO', 'Factory_Officer'),
-        ('AFO', 'AssistantFactory_Officer'),
-        ('CLR', 'Clerk'),
-        ('TRA', 'Trainee'),
-
+        ('Factory_Officer', 'Factory_Officer'),
+        ('AssistantFactory_Officer', 'AssistantFactory_Officer'),
+        ('Clerk', 'Clerk'),
+        ('Trainee', 'Trainee'),
+        ('Supervisor', 'Supervisor'),
+        ('Cashier', 'Cashier'),
+        ('Driver','Driver'),
     )
-    epfNo = models.IntegerField(null=True)
-    empGroup = models.CharField(max_length=50, choices=EMPGROUP)
-    designation = models.CharField(max_length=50, choices=DESIGNATION)
-    nic = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
+
+    nic = models.CharField(max_length=12, unique=True, validators=[nic_validator])
+    epfNo = models.IntegerField(unique=True, null=True, validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='EPF No can only contain numbers',
+            code='EPF No is invalid'
+        )
+    ])
+    empImage = models.ImageField(null=True, blank=True, upload_to="images/")
+    name = models.CharField(max_length=50)
+    address = models.TextField(null=True)
+    gender = models.CharField(max_length=50, choices=GENDER)
+    dob = models.DateField(null=True)
+    maritalStatus = models.CharField(max_length=50, choices=MARITALSTATUS)
+    contactNo = models.CharField(max_length=10, null=True, validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='Contact No can only contain numbers',
+            code='Invalid Contact No '
+        ),
+        RegexValidator(
+            regex='^.{10}$',
+            message='Contact No length is invalid',
+            code='Invalid Contact No ',
+        )
+    ])
+    doa = models.DateField(null=True)
+    basicSalary = models.FloatField(null=True)
+    empType = models.CharField(max_length=50, choices=EMPLOYEETYPE,null=True)
+    empGroup = models.CharField(max_length=50, choices=EMPGROUP, null=True)
+    designation = models.CharField(max_length=50, choices=DESIGNATION,null=True, blank=True)
+
 
 
 class attendance(models.Model):
@@ -60,10 +79,15 @@ class attendance(models.Model):
         ('Pres', 'Present'),
         ('Abs', 'Absent'),
     )
-    date = models.DateField(null=True, blank=True)
-    daytype = models.CharField(max_length=20, choices=DAYTYPE)
-    attendaceStatus = models.CharField(max_length=50, choices=STATUS)
-    empID = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
+    date = models.DateField(blank=True)
+    daytype = models.CharField(max_length=20, choices=DAYTYPE, blank=True)
+    attendaceStatus = models.CharField(max_length=50, choices=STATUS, blank=True)
+    empID = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, related_name="attendance", null=True
+    )
+
+    class Meta:
+        unique_together = (('date', 'empID'),)
 
 
 #-------Salary Management-------------------------------------------------------
