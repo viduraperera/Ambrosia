@@ -20,7 +20,7 @@ from Ambrosia_Project import views
 
 from django.conf import settings
 from django.conf.urls.static import static
-
+from Ambrosia_Project.view_mappings import  supplierManagementViews
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="adminPannel"),
@@ -31,7 +31,7 @@ urlpatterns = [
 
     path('Home/', include('Ambrosia_Project.urls')),
 
-    path('leaf_stock_delete/', views.leaf_stock_delete)
+    path('leaf_stock_delete/', supplierManagementViews.leaf_stock_delete)
 
 
 

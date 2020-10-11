@@ -71,7 +71,7 @@ def add_supplier(request):
             messages.success(request, "Added Failed! Check inputs and try again!")
             pass
 
-    return render(request, 'S_AllRegisteredSuppliers.html')
+    return render(request, 'AllRegisteredSuppliers.html')
 
 
 # Navigate from Registered Suppliers List to View Supplier Profile
@@ -196,7 +196,7 @@ def updated_leaf_stock(request):
         form = LeafStock.objects.get(id=formid)
         form.save()
 
-    return render(request, 'SupplierManagement templates/StockDetails.html', {'form': form})
+        return render(request, 'SupplierManagement templates/StockDetails.html', {'form': form})
 
 
 # edit Supplier Details
@@ -264,15 +264,43 @@ def to_pay_details(request):
 
 
 # Navigate from Payments to Payment Details Table
+# Calculating Payment
 @login_required(login_url='login')
 def calc_payment(request):
-    paytime = request.POST.get('paytime')
+    if request.method == 'POST':
 
-    if request.method == 'POST' and paytime is not None:
-        form = Payment.objects.get(id=paytime)
-        form.save()
+        form = PaymentForm(request.POST)
 
-    return render(request, 'SupplierManagement templates/PaymentDetails.html')
+        if form.is_valid():
+            try:
+                # calculation
+                totalW = form.cleaned_data['tot_weight']
+                kiloPrice = form.cleaned_data['per_kilo_price']
+                addition = form.cleaned_data['additions']
+                advances = form.cleaned_data['advances']
+                transport_costs = form.cleaned_data['transport_costs']
+                other_costs = form.cleaned_data['other_costs']
+
+                finalPayment = (totalW * kiloPrice) + addition - advances - transport_costs - other_costs
+
+                payObj = form.save(commit=False)
+                payObj.payment = finalPayment
+                payObj.save()
+
+                messages.success(request, "Calculated Successfully!")
+
+                return redirect('S_PaymentDetails')
+
+            except Exception as e:
+                print(e)
+                messages.success(request, "Exception : " + e)
+                return redirect('S_SupPayments')
+        else:
+            print(form.errors)
+            messages.success(request, "Added Failed! Check input values and try again!")
+            pass
+
+    return render(request, 'PaymentDetails.html')
 
 
 # delete Payment Table Details

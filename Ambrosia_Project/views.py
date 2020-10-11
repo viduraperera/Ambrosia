@@ -80,7 +80,7 @@ def EmployeeHome(request):
 def ShowUser(request):
     uname = request.POST.get("uname")
 
-    users = User.objects.all();
+    users = User.objects.all()
 
     for user in users:
         if user.username == uname:
@@ -99,7 +99,7 @@ def UpdateUser(request):
         if uname != None and pword != None:
             user = User.objects.get(username=uname)
             user.password = pword
-            user.save();
+            user.save()
             messages.success(request, "User Details Updated Successfully")
             return redirect('view_all_users')
 
@@ -121,7 +121,7 @@ def DeleteUser(request):
 
     if request.method == 'POST' and uname != None:
         user = User.objects.get(username=uname)
-        user.delete();
+        user.delete()
         messages.success(request, "User Deleted Successfully")
         return redirect('view_all_users')
 

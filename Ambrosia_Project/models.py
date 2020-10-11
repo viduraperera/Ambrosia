@@ -13,7 +13,18 @@ class Registration(models.Model):
     proPic = models.ImageField(null=True, blank=True, upload_to="images/")
     nicNo = models.CharField(max_length=10, unique=True)
     address = models.CharField(max_length=200)
-    phone = models.CharField(max_length=10, null=True)
+    phone = models.CharField(max_length=10, null=True, validators=[
+        RegexValidator(
+            regex='^[0-9]*$',
+            message='ERROR!! Phone Number Should Contain Only Numbers',
+            code='Phone Number is Not Valid!'
+        ),
+        RegexValidator(
+            regex='^.{10}$',
+            message='ERROR!! Phone Number is Invalid!',
+            code='Phone Number is Not Valid!'
+        )
+    ])
     email = models.CharField(max_length=100, null=True)
     DOB = models.DateField()
     Reg_Date = models.DateField(default=datetime.now)

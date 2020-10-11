@@ -64,6 +64,13 @@ tr:nth-child(even) {
 
 <!-------start of main content block------->
 {% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
     <a id="tablepad" href="{% url 'S_SupPayments' %}"><input class="regButton" type="submit" value="+  Make New Payment" onclick="w3_close()"></a>
 
   <div style="padding: 20px 30px 20px 20px;">
