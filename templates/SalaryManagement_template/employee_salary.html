@@ -23,7 +23,7 @@ Display Message
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="#">Calculating salary</a>
+      <a class="nav-link" href="{% url 'emp_salary_main' %}">Calculating salary</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'emp_final_salary_view' %}">Final Salary View</a>
@@ -63,7 +63,7 @@ Display Message
     <form action="{% url 'searchEmployee' %}" method="post">
         {%  csrf_token %}
 
-        <input type="text" name="searchTxt" placeholder="Search" required>
+        <input type="text" name="searchTxt" placeholder="Search"  required>
 
         <select name="type" required>
             <option value="">----</option>
@@ -72,7 +72,7 @@ Display Message
 
         </select>
 
-        <input type="submit" value="Search" required>
+        <input type="submit" value="Search" class="btn btn-success" required>
     </form>
 <br>
      <div class="scrollmenu">

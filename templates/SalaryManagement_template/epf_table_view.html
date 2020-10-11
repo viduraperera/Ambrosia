@@ -31,7 +31,7 @@ Display Message
       <a class="nav-link" href="{% url 'final_salary_report_view' %}">Employee Salary Report</a>
     </li>
     <li class="nav-item active">
-      <a class="nav-link" href="#">EPF view</a>
+      <a class="nav-link" href="{% url 'emp_epf_view' %}">EPF view</a>
     </li>
     <li class="nav-item ">
       <a class="nav-link" href="{% url 'emp_etf_view' %}">ETF view</a>
@@ -39,6 +39,14 @@ Display Message
   </ul>
 </nav>
 <br>
+    <h5>Generate Employee EPF Report By Date</h5>
+        <form action="{% url 'final_epf_pdf' %}">
+
+        <input type="text" name="searchYear" placeholder="Search Year" required>
+        <input type="text" name="searchMonth" placeholder="Search Month" required>
+
+        <input type="submit" value="Generate" required>
+        </form>
     <h5>Generate Employee EPF Report By Date</h5>
         <form action="{% url 'final_epf_report_search' %}" method="post">
         {%  csrf_token %}
