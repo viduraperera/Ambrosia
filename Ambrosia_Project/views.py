@@ -71,5 +71,3 @@ def factoryHomepage(request):
 def teashopHomepage(request):
     return render(request, 'teashophome.html')
 
-
-            messages.success(request, 'User Account ' + user + ' Created Successfully.')

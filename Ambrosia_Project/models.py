@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator
 
 
 #-----Employee Management Malka--------------------------------------------------------------------------
+from Ambrosia_Project.validators import nic_validator
 
 
 class Employee(models.Model):

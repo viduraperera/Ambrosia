@@ -26,10 +26,9 @@
     <a href="{% url 'factoryworkers_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block facBtn %}{% endblock facBtn %}">Factory Worker Details</a>
     <a href="{% url 'staff_management' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block staffBtn %}{% endblock staffBtn %}">Staff Details</a>
     <a href="{% url 'attendance_date' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block attendanceBtn %}{% endblock attendanceBtn %}">Attendance</a>
-    <a href="EmployeeManagement_templates/funds_table.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
-    <a href="#services" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Deduction</a>
-    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
-    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
+    <a href="{% url 'emp_fund_view' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Funds</a>
+    <a href="{% url 'emp_allowance' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Allowance</a>
+    <a href="{% url 'emp_salary_main' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Salary</a>
 
   </div>
 
