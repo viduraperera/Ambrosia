@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from datetime import *
 from datetime import datetime
-from django.forms import ModelForm, Textarea
+
 
 # Create your models here.
 
@@ -416,7 +416,7 @@ class Payment(models.Model):
 
 
 #-----Employee Management Malka--------------------------------------------------------------------------
-from Ambrosia_Project.validators import nic_validator
+from Ambrosia_Project.common_utills.validators import nic_validator
 
 
 class Employee(models.Model):

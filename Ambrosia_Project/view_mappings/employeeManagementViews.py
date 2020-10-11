@@ -2,15 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.forms import *
-from io import BytesIO
 from django.http import HttpResponse
-from django.template.loader import get_template
 from django.views.generic.base import View
-from xhtml2pdf import pisa
-
+from Ambrosia_Project.common_utills.utils import render_to_pdf
 
 # Create your views here.
-from Ambrosia_Project.utills import render_to_pdf
+
 
 
 @login_required(login_url='login')

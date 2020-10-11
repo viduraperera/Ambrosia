@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.forms import *
 from Ambrosia_Project.common_utills.auctionStockUtills import *
 from django.http import HttpResponse
-from Ambrosia_Project.utils import render_to_pdf
+from Ambrosia_Project.common_utills.utils import render_to_pdf
 
 
 @login_required(login_url='login')
