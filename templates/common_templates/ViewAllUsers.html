@@ -32,7 +32,7 @@ body {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 50%;
     }
 
 th {
@@ -150,7 +150,7 @@ tr:nth-child(even) {
     <table border="1 px solid black">
 
     <th>Username</th>
-    <th>Password</th>
+    <th>Email</th>
     <th>Update</th>
 
     {% for user in Users %}
@@ -158,14 +158,12 @@ tr:nth-child(even) {
         <td>
             {{ user.username }}
         </td>
-
         <td>
-            {{ user.password }}
+            {{ user.email }}
         </td>
 
-
-
         <td>
+        {% if  user.username != 'admin' %}
             <form method="post" action="{% url 'update_user' %}">
             {% csrf_token %}
                 <input type="hidden" name="uname" value="{{ user.username }}"/>
@@ -177,6 +175,7 @@ tr:nth-child(even) {
                 <input type="hidden" name="uname" value="{{ user.username }}"/>
                 <input type="submit" value="Delete" class="buttonDelete" onclick="if (!confirm('Are you sure You Want to Delete?.Press Ok To Confirm.')) { return false }">
             </form>
+        {% endif %}
         </td>
     </tr>
 

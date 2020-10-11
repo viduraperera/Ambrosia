@@ -10,7 +10,7 @@ from django.core.exceptions import ValidationError
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2', 'is_superuser']
+        fields = ['username','email', 'password1', 'password2', 'is_superuser']
 
 
 #----leaf inventory & daily Production - Ravija------------------------------------------------------------------------

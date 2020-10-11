@@ -87,7 +87,7 @@ def ShowUser(request):
     uname = request.POST.get("uname")
 
     user = User.objects.get(username=uname)
-    form = UserCreationForm(instance=user)
+    form = CreateUserForm(instance=user)
 
     if user is not None:
         return render(request, 'common_templates/updateUser.html', {'UserDetails': user, 'form': form})
@@ -105,31 +105,24 @@ def UpdateUser(request):
     if request.method == 'POST':
         uname = request.POST.get('un')
 
-        if uname is not None:
+        try:
             user = User.objects.get(username=uname)
             userFrom = CreateUserForm(request.POST, instance=user)
 
             if userFrom.is_valid():
-                objUser = userFrom.save(commit=False)
-                objUser.username = uname
-                objUser.save()
+                userFrom.save()
                 messages.success(request, "User Details Updated Successfully")
                 return redirect('view_all_users')
 
             else:
-                messages.error(request, "Invalid Details.")
-                return redirect('update_user')
+                print(userFrom.errors)
+                messages.error(request, "Invalid Details")
 
-        else:
+        except Exception as e:
+            print(e)
             messages.error(request, "Can't Update Details.")
-            return redirect('view_all_users')
 
-    else:
-        messages.error(request, "Can't Update Details.")
-        return redirect('view_all_users')
-
-    # messages.error(request, "Error.Can't Update Details.")
-    # return redirect('view_all_users')
+    return redirect('view_all_users')
 
 
 @login_required(login_url='login')
