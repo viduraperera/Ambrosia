@@ -22,16 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="Commit After Create Calculation file and cleaning unnessary files">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_8_2020_4_32_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_9_8_2020_4_32_AM__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="ed3436e9-4227-4159-a22d-3318ef4bd062" name="Default Changelist" comment="Commit After fix errors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/url_mappings/supplierManagementUrls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/url_mappings/supplierManagementUrls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ambrosia_Project/view_mappings/supplierManagementViews.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/view_mappings/supplierManagementViews.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ambrosia_Project/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ambrosia_Project/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ITProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ITProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/SupplierManagement templates/SupRegistration.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/SupplierManagement templates/SupRegistration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/SupplierManagement templates/AllRegisteredSuppliers.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/SupplierManagement templates/AllRegisteredSuppliers.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +139,7 @@
       <workItem from="1602226191942" duration="22486000" />
       <workItem from="1602304583862" duration="37504000" />
       <workItem from="1602382157113" duration="2198000" />
-      <workItem from="1602385558667" duration="4290000" />
+      <workItem from="1602385558667" duration="5082000" />
     </task>
     <task id="LOCAL-00001" summary="Commit my Supplier Function">
       <created>1602001177968</created>
@@ -196,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602384228153</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Commit After fix errors">
+      <created>1602390842186</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1602390842186</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,7 +223,8 @@
     <MESSAGE value="Commit After fix errors of create and update operations. and added some css." />
     <MESSAGE value="Commit After fix fixing payment input issue. (commit before the calculation made)" />
     <MESSAGE value="Commit After Create Calculation file and cleaning unnessary files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit After Create Calculation file and cleaning unnessary files" />
+    <MESSAGE value="Commit After fix errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit After fix errors" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="91" key="#Inspections" timestamp="1599568955619">

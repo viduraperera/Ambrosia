@@ -69,7 +69,7 @@ def add_supplier(request):
             # method invalid
             print(sup.errors)
             messages.success(request, "Added Failed! Check inputs and try again!")
-            pass
+
 
     return render(request, 'AllRegisteredSuppliers.html')
 

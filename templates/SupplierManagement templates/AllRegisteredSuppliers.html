@@ -81,6 +81,11 @@ table {
 <!-------start of main content block------->
 {% block content %}
 
+{% if messages %}
+    {% for message in messages %}
+        <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
 
   <a id="tablepad" href="{% url 'S_SupRegistration' %}"><input class="regButton" type="submit" value="+  Add New Supplier" onclick="w3_close()"></a>
   <br>
@@ -150,6 +155,15 @@ table {
   </div>
 
   </div>
+
+    {% if form.errors %}
+        {% for err in form.errors %}
+
+          <h3>{{ err }}</h3>
+
+        {% endfor %}
+
+    {% endif %}
 
 {% endblock content %}
 <!-- End page content -->
