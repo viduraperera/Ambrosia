@@ -37,6 +37,9 @@
         <option value="$MODULE_DIR$/templates/TeaShopSales_Templates" />
         <option value="$MODULE_DIR$/templates/Transport_templates" />
         <option value="$MODULE_DIR$/templates/SupplierManagement templates" />
+        <option value="$MODULE_DIR$/templates/EmployeeManagement_templates" />
+        <option value="$MODULE_DIR$/templates/SalaryManagement_template" />
+
       </list>
     </option>
   </component>
