@@ -18,7 +18,8 @@ Display Message
 {% endif %}
 
 {% endblock displayMessage %}
-
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Final Salary{% endblock pageContentHeader2 %}
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -26,7 +27,7 @@ Display Message
       <a class="nav-link" href="{% url 'emp_salary_main' %}">Calculating salary</a>
     </li>
     <li class="nav-item active">
-      <a class="nav-link" href="#">Final Salary View</a>
+      <a class="nav-link" href="{% url 'emp_final_salary_view' %}">Final Salary View</a>
     </li>
       <li class="nav-item ">
       <a class="nav-link" href="{% url 'final_salary_report_view' %}">Employee Salary Report</a>
@@ -65,7 +66,7 @@ div.scrollmenu a:hover {
         <input type="text" name="searchYear" placeholder="Search Year" required>
         <input type="text" name="searchMonth" placeholder="Search Month" required>
 
-        <input type="submit" value="Search" required>
+        <input type="submit" value="Search" class="btn btn-primary" required>
     </form>
 <br>
  <div class="scrollmenu">

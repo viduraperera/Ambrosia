@@ -7,7 +7,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock headImport %}
-
+    {% block pageContentHeader1 %}Ambrosia{% endblock pageContentHeader1 %}
+    {% block pageContentHeader2 %}Final Salary{% endblock pageContentHeader2 %}
 {% block content %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
@@ -15,7 +16,10 @@
       <a class="nav-link" href="{% url 'emp_salary_main' %}">Calculating salary</a>
     </li>
     <li class="nav-item active">
-      <a class="nav-link" href="#">Final Salary View</a>
+      <a class="nav-link" href="{% url 'emp_final_salary_view' %}">Final Salary View</a>
+    </li>
+      <li class="nav-item active" >
+      <a class="nav-link" href="{% url 'final_salary_report_view' %}">Employee Salary Report</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'emp_epf_view' %}">EPF view</a>
