@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from Ambrosia_Project.forms import *
-from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from Ambrosia_Project.salesutills import *
+
 
 # Create your views here.
 

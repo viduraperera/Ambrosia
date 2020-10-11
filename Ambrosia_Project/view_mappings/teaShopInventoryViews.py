@@ -3,7 +3,7 @@ from Ambrosia_Project.forms import *
 from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from Ambrosia_Project.salesutills import *
+from Ambrosia_Project.common_utills.salesutills import *
 
 
 @login_required(login_url='login')
