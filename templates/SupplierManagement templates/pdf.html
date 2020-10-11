@@ -1,86 +1,74 @@
-{% extends 'Base.html' %}
+{% load static %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
 
-<!-------------------------Title------------------------->
-{% block title %}Supplier Payslip{% endblock title %}
+<html>
+<head>
+    <title>Supplier Pay Slip</title>
+    <style type="text/css">
+        body {
+            font-weight: 200;
+            font-size: 14px;
+        }
+        table, th, td {
+            {#border: 1px solid black;#}
+            border-collapse: collapse;
+            display: flex;
+        }
+        th, td {
+            padding: 5px;
+        }
+        th {
+            text-align: center;
+        }
+    </style>
+</head>
 
-
-{% block content %}
-
+<body>
 <br><br><br><br><br>
-
-    <div class="Container" style="padding: 20px;">
-        <div class="row" style="background-color: azure;">
-            <form method="post">
-            <center>
-                <table>
-                    <tr>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td>Leaf Stock Supplier Pay Slip (Year/Month)</td>
-                    </tr>
-                </table>
-            </center>
-          <div class="w3-half">
+    <center>
+        <link rel="shortcut icon" type="image/png" href="{% static 'cd..static/images/logo.png' %}">
+        <h1>Leaf Stock Supplier Pay Slip (Year/Month)</h1>
+    </center>
+    <br><br>
+            {% for form in form %}
             <table style="width: 100%; padding: 20px 20px 20px 20px;">
               <tr>
                 <th></th>
                 <th></th>
               </tr>
               <tr>
-                <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">Supplier ID</label></td>
-                <td>&emsp;{{ nic }}</td>
+                <td style="padding-bottom: 5px;"><label for="name" style="font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp; Supplier NIC</label></td>
+                <td style="font-size: 18px;">&emsp;{{ form.nic }}</td>
+              </tr>
+              <tr><td><br></td><td><br></td></tr>
+              <tr>
+                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp; Total Kilograms</label></td>
+                <td style="font-size: 18px;">&emsp;{{ form.tot_weight }}</td>
               </tr>
               <tr>
-                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Total Kilograms</label></td>
-                <td>&emsp;{{ tot_weight }}</td>
+                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp; Price per Kilogram</label></td>
+                <td style="font-size: 18px;">&emsp;{{ form.per_kilo_price }}</td>
               </tr>
-              <tr>
-                <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">Price per Kilogram</label></td>
-                <td>&emsp;{{ per_kilo_price }}</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
+              <tr><td><br></td><td><br></td></tr>
                 <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-                <tr>
-                    <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp; Total Payment : </label></td>
-                    <td>&nbsp;payment</td>
+                    <td style="padding-bottom: 5px;"><label for="address" style="font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp; Total Payment : </label></td>
+                    <td style="font-size: 18px;">&nbsp;{{ form.payment }}</td>
               </tr>
                 <!---last 3 <tr> tags to get the shape of this table--->
             </table>
-          </div>
-          <div class="w3-half" >
-            <table style="width: 100%; padding: 20px 20px 20px 20px; ">
-              <tr>
-                <th></th>
-                <th></th>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Date</label></td>
-                <td>&emsp;{{ pay_Date }}</td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Time</label></td>
-                <td>&emsp;{{ pay_Time }}</td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 10px;"></td>
-                <td>&emsp;</td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 10px;"></td>
-                <td>&emsp;</td>
-              </tr>
+            <br><br>
+            <table>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                  <td style="text-align: left; font-size: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signature : .........................</td>
+                  <td style="text-align: right;"> <label for="date" style="font-size: 16px; font-style: italic">&nbsp; Date | Time </label>&emsp;&nbsp;{{ form.pay_Date }}&emsp;|&emsp;{{ form.pay_Time }}</td>
+                </tr>
             </table>
-          </div>
-          <h4>&emsp;Signature : ..........................</h4><br>
-          </form>
-        </div>
-    </div>
-
-{% endblock content %}
+            {% endfor %}
+            <br><br><br><br>
+</body>
+</html>

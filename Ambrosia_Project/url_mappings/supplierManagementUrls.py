@@ -1,5 +1,6 @@
 from django.urls import path
 from Ambrosia_Project.view_mappings import supplierManagementViews
+from Ambrosia_Project.view_mappings.supplierManagementViews import *
 
 urlpatterns = [
 
@@ -13,6 +14,7 @@ urlpatterns = [
     path('S_DeleteSupplier', supplierManagementViews.delete_supplier, name="S_DeleteSupplier"),
 
     path('S_PaymentDetails', supplierManagementViews.to_pay_details, name="S_PaymentDetails"),
+    path('S_PaymentDetails/S_PaySlipPDF', S_PaySlipPDF.as_view(), name="S_PaySlipPDF"),
 
     path('S_PaymentDetails/S_SupPayments', supplierManagementViews.to_sup_payments,name="S_SupPayments"),
 
