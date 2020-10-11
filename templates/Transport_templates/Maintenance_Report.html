@@ -42,6 +42,12 @@
       background-color: #eae9e7;
     }
     h1 {
+        color: #070707;
+        text-align:center;
+
+    }
+
+      h2 {
         color: #082c88;
 
     }
@@ -53,7 +59,8 @@
         </style>
     </head>
     <body>
-    <h1>Vehicle Maintenance Reports {{ year }} - {{ month }}</h1>
+     <h1><b>Niyadagala Ambrosia Tea Co Uva(Pvt)Ltd </b></h1><br>
+    <h2>Vehicle Maintenance Report {{ year }} - {{ month }}</h2>
         <table style="border: 1px solid black; padding-top: 5px; text-align: center;">
             <tr >
                 <th>ID</th>
@@ -75,7 +82,7 @@
         <td>{{ repair.Amount}}</td>
 {% endfor %}
 
-        </table>
+        </table><br>
 
     <h3>Total Amount: {{ total }}</h3>
 

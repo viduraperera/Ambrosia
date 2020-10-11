@@ -1,33 +1,40 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Salary Report</title>
-
-    <h1>Final Salary</h1>
+        <style type="text/css">
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-{% if messages %}
-    {% for message in messages %}
-        <script>alert("{{ message }}");</script>
-    {% endfor %}
-{% endif %}
-<div style="overflow-x:auto;">
-
-    <table border="1 px solid black">
+<h1>Ambrosia</h1>
+<h2>Final Salary Report</h2>
+<h3>Year : {{ year }}</h3>
+<h4>Month : {{ month }}</h4>
+    <table>
          <tr>
              <th>EPF No</th>
              <th>Name</th>
              <th>Work Days</th>
-             <th>Per<br> Day Salary</th>
-             <th>Basic<br> Salary</th>
-             <th>Over<br> Time</th>
-             <th>Total <br> Salary</th>
+             <th>Per Day Salary</th>
+             <th>Basic Salary</th>
+             <th>Over Time</th>
+             <th>Total Salary</th>
              <th>EPF</th>
              <th>Loans</th>
              <th>Advance</th>
-             <th>Tea<br> Advance</th>
-             <th>Total<br> Deduction</th>
+             <th>Tea Advance</th>
+             <th>Total Deduction</th>
              <th>Salary</th>
          </tr>
         {% for emp_sal in emp_salary%}
@@ -53,6 +60,6 @@
     {% endfor %}
     </table>
 
-</div>
+
 </body>
 </html>

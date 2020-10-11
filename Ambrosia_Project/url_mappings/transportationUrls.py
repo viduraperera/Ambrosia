@@ -16,13 +16,13 @@ urlpatterns = [
     path('AddVehicle', transportationViews.Vehicle_Records, name="addVehicle"),
     path('DeleteVehicleRecords', transportationViews.deleteVehicleRecord, name="delete_record"),
 
-    #Driving records
+    # Driving records
     path('DrivingRecords', transportationViews.DrivingRecords, name="vehicle_records"),
     path('ShowRecords', transportationViews.ShowDrivingRecords, name="RecordTable"),
     path('DeleteRecords', transportationViews.deleteRecords, name="delete_driving_records"),
 
 
-    #vehicle repairs
+    # vehicle repairs
     path('VehicleRepairs', transportationViews.AddVehicleRepairs, name="VehicleRepairs"),
     path('ShowVehicleRepairs', transportationViews.ShowVehicleRepairs, name="RepairTable"),
     path('EditVehicleRepairs', transportationViews.DisplayUpdateRepairs, name="show_repair_records"),
@@ -30,12 +30,12 @@ urlpatterns = [
     path('UpdateVehicleRepairs', transportationViews.UpdateVehicleRepairs, name="update_repair_records"),
     path('deleteVehicleRepairs', transportationViews.delete_RepairRecords, name="delete_repair_records"),
 
-    #reports
+    # reports
     path('Analysis', transportationViews.Reports, name="Reports"),
     path('Analysis/VehicleRecordsPDF', GenerateVehicle_RecordsPdf.as_view(), name="VehicleReports"),
     path('Analysis/VehicleRepairsPDF', GenerateVehicle_RepairPdf.as_view(), name="ServiceReports"),
 
-    #search
+    # search
     path('Analysis/Search', transportationViews.SearchRecords, name="searchRecords"),
 
 ]
