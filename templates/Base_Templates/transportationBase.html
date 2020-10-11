@@ -100,7 +100,7 @@ function NavBarFunction() {
 {% block LinksMenuBar %}
 
   <div class="w3-bar-block">
-  <a href="{% url 'home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block homeBtn %}{% endblock homeBtn %}">Home</a>
+  <a href="{% url 'factory_home' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block homeBtn %}{% endblock homeBtn %}">Home</a>
    <a href="{% url 'Transport' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block recordsBtn %}{% endblock recordsBtn %}">Vehicle Driving Records</a>
   <a href="{% url 'VehicleRepairs' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block repairsBtn %}{% endblock repairsBtn %}">Maintenance</a>
   <a href="{% url 'Reports' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white {% block reportBtn %}{% endblock reportBtn %}">Analysis</a>
