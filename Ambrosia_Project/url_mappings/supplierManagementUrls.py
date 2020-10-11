@@ -35,5 +35,6 @@ urlpatterns = [
 
     path('S_StockDetails/S_LeafStock/leaf_stock_add', supplierManagementViews.leaf_stock_add,name="S_LeafStockAdd"),
 
+
 ]
 

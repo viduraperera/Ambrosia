@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from Ambrosia_Project.common_utills.filters import StockFilter, SupplierFilter
 from django.views.generic import View
-from Ambrosia_Project.common_utills.supUtils import *
+from Ambrosia_Project.common_utills.utils import *
 # Create your views here.
 
 # Supplier Management --------------------------------------------------------------------------------------------------
@@ -87,7 +87,10 @@ def to_sup_profile(request):
 
                 form = RegistrationForm(instance=supplier)
 
-                img = form.instance
+                if supplier.proPic:
+                    img = form.instance
+                else:
+                    img = None
 
                 return render(request, 'SupplierManagement templates/ViewSupplierProfile.html', {'sFrom': form, 'SupId': supid, 'img': img})
 
@@ -339,9 +342,13 @@ class S_PaySlipPDF(View):
 
         if request.method == 'GET':
 
-            form = Payment.objects.all()
+            payID = request.GET.get('formid')
 
-            data = {'form': form}
+            print(payID)
+
+            payment = Payment.objects.get(id=payID)
+
+            data = {'payment': payment}
 
             pdf = render_to_pdf('SupplierManagement templates/pdf.html', data)
 
