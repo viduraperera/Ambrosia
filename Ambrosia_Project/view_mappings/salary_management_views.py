@@ -6,7 +6,7 @@ from django.views.generic.base import View
 
 from Ambrosia_Project.forms import FundFrom, Allowance, AllowanceForm
 from Ambrosia_Project.models import *
-from Ambrosia_Project.salary_calculations import *
+from Ambrosia_Project.common_utills.salary_calculations import *
 
 
 # ---------------------------start of funds of employee-----------------------------------
