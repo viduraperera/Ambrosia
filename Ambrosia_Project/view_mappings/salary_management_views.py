@@ -446,7 +446,6 @@ def final_salary_report_search(request):
 
             if results > 0:
                 messages.success(request, 'No of results Found ' + str(results))
-
                 emp_all = Employee.objects.all()
 
                 var = {
@@ -502,8 +501,8 @@ def final_epf_report_search(request):
 class FinalSalaryReportPDF(View):
     def get(self, request, *args, **kwargs):
 
-        searchYear = request.POST.get('searchYear')
-        searchMonth = request.POST.get('searchMonth')
+        searchYear = request.GET.get('searchYear')
+        searchMonth = request.GET.get('searchMonth')
 
         salaryReport = EmployeeSalary.objects.filter(year=searchYear, month=searchMonth)
         results = salaryReport.count()

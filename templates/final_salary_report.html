@@ -60,8 +60,7 @@ div.scrollmenu a:hover {
 </style>
 
     <h5>Generate Employee Salary Report By Date</h5>
-        <form action="{% url 'final_salary_pdf' %}" method="post">
-        {%  csrf_token %}
+        <form action="{% url 'final_salary_pdf' %}">
 
         <input type="text" name="searchYear" placeholder="Search Year" required>
         <input type="text" name="searchMonth" placeholder="Search Month" required>
