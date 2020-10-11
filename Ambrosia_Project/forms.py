@@ -11,6 +11,9 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2', 'is_superuser']
 
 
+# Supplier Management------------------------------------------------------------------------------------------------
+
+# Supplier Management Registration
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = Registration

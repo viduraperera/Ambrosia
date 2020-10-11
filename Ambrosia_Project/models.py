@@ -7,7 +7,7 @@ from django.forms import ModelForm, Textarea
 
 # Create your models here.
 
-#This class is for registration form
+#This class is for registration form - Supplier Management Registration
 class Registration(models.Model):
     Sup_Name = models.CharField(max_length=50)
     proPic = models.ImageField(null=True, blank=True, upload_to="images/")
