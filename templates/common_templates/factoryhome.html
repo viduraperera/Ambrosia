@@ -123,9 +123,10 @@
 <!-- Card Group end-->
 
     <script>
-        {#function navigatepage1()#}
-        {#{#}
-        {#    window.location.href = "{% url 'attendance_management' %}"#}
+        function navigatepage1()
+        {
+            window.location.href = "{% url 'attendance_date' %}"
+        }
 
         function navigatepage2()
         {

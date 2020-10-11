@@ -171,4 +171,33 @@ class LeafStockForm(forms.ModelForm):
         model = LeafStock
         fields = "__all__"
 
+#-------Salary Management-------------------------------------------------------
+class FundFrom(forms.ModelForm):
+    class Meta:
+        model = Funds
+        fields = '__all__'
 
+
+class AllowanceForm(forms.ModelForm):
+    class Meta:
+        model = Allowance
+        fields = '__all__'
+
+
+class EmployeeSalaryForm(forms.ModelForm):
+    class Meta:
+        model = EmployeeSalary
+        fields = '__all__'
+
+
+#-----Employee Management Malka--------------------------------------------------------------------------
+class RegisterEmployee(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+
+class MarkAttendance(forms.ModelForm):
+    class Meta:
+        model = attendance
+        fields = '__all__'
