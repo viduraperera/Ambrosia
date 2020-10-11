@@ -35,6 +35,26 @@
         opacity:1;
     }
 
+.updateBtn
+{
+    margin-top: 15px;
+    background-color: #ff6d00;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 200px;
+    height: 40px;
+    border-radius: 15px;
+}
+
+.updateBtn:hover
+{
+    background-color: #D9CE29 ;
+}
+
 </style>
 <body>
 
@@ -87,21 +107,21 @@
   </div>
 
   <!-- Contact -->
-    <p>Sub admin can control only factory related operations(Employee management, Supplier Management,
-        Transportation & Service Management, Final Production Management). Shop admin can do only Tea shop Management.</p>
-
-
-      <div class="w3-section">
-        <label><b>Username</b></label>
-      <input type="text" value="{{ UserDetails.username }}"  class="w3-input w3-border" style="background-color: #fffbd5; cursor: not-allowed;" disabled>
-      </div>
-
 
     <form method="post" action="{% url 'update_user_details' %}">
-
     {% csrf_token %}
 
-    <input type="hidden" value="{{ UserDetails.username }}" name="un">
+        <input type="hidden" name="un" value="{{ UserDetails.username }}">
+
+      <div class="w3-section">
+        <label><b>Username</b></label>&ensp;{{ form.username }}
+   </div>
+
+      <div class="w3-section">
+        <label><b>Email</b></label>&ensp;{{ form.email }}
+       </div>
+
+
 
      <div class="w3-section">
          <label><b>Password</b></label>
@@ -137,13 +157,9 @@
         </script>
      </div>
 
-{#    <div class="w3-section">#}
-{#    <label><b>User Type</b></label>#}
-{#        <input type="text" value="" name="type" class="w3-input w3-border" style="background-color: #fffbd5;  cursor: not-allowed;" disabled >#}
-{#    </div>#}
 
     <div class="w3-section">
-        <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Update User Details</button>
+        <button type="submit" class="updateBtn">Update User Details</button>
     </div>
 
 
@@ -156,7 +172,7 @@
   </div>
 
 <!-- End page content -->
-</div>
+
 
 <script>
 // Script to open and close sidebar

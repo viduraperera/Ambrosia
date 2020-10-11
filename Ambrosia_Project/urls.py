@@ -13,7 +13,7 @@ urlpatterns = [
     path('ViewAllUsers', views.view_AllUsers, name="view_all_users"),
     path('ViewAllUsers/EditUser', views.ShowUser, name="update_user"),
     path('ViewAllUsers/UpdateUserdetails', views.UpdateUser, name="update_user_details"),
-    path('ViewAllUsers/', views.DeleteUser, name="delete_user"),
+    path('ViewAllUsers/DeleteUser', views.DeleteUser, name="delete_user"),
 
 
 #---------Main menues-----------------------------------------------------
