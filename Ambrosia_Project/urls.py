@@ -37,7 +37,7 @@ urlpatterns = [
 
 
 #-------------- Transport management-------------------------------------------------------------------------------------------------------
-    path('Factory/Transport/', include("Ambrosia_Project.url_mappings.transportationUrls"))
+    path('Factory/Transport/', include("Ambrosia_Project.url_mappings.transportationUrls")),
 
 # Supplier Management - Tharuka --------------------------------------------------------------------------------------------------
     path('Factory/S_AllRegisteredSuppliers/', include('Ambrosia_Project.url_mappings.supplierManagementUrls')),
