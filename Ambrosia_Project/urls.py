@@ -36,5 +36,9 @@ urlpatterns = [
     path('Shop/SalesHomeIncome', include('Ambrosia_Project.url_mappings.teaShopSalesUrls')),
 
 
+#-------------- Transport management-------------------------------------------------------------------------------------------------------
+    path('Factory/Transport/', include("Ambrosia_Project.url_mappings.transportationUrls"))
+
+
 ]
 

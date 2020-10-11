@@ -1,0 +1,103 @@
+{% extends 'Transport_templates/transportationBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Transportation Management{% endblock title %}
+
+<!-------------------------Styles------------------------->
+    {% block moreStyles %}
+
+<style>
+table
+    {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 80%;
+    }
+
+    td
+    {
+      border: 1px solid #c5f1b8;
+      text-align: left;
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    tr:nth-child(even)
+    {
+      background-color: #c5f1b8 ;
+    }
+
+
+
+.regButton {
+    background-color: limegreen; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    .regButton:hover {
+  background-color: #000000;
+  color: #77fd01;
+}
+</style>
+
+    {% endblock moreStyles %}
+
+ {% block recordsBtn %}ClassActive{% endblock recordsBtn %}
+
+{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Update Driver{% endblock pageContentHeader2 %}
+
+
+     {% block RepairMenu %}{% endblock RepairMenu %}
+
+
+{% block addDriverBtn %}ClassActive1{% endblock addDriverBtn %}
+
+{% block content %}
+    <br><br>
+
+
+  <!--Update Driver Details Form-->
+  <div style="padding-left: 20px;">
+    <table style=" padding: 20px 20px 20px 20px; background-color: #c5f1b8;" >
+
+        <form action="{% url 'update_Driver_record' %}" method="post">
+
+            {% csrf_token %}
+
+         <input type = "hidden" name="DID" value="{{ DId }}"/>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">Licence No:</label></td>
+           <td> {{ Dform.licence_no }}</td>
+
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="" style="font-size: 20px;">EPF No:</label></td>
+            <td>{{ Dform.epfNo }}</td>
+
+      </tr>
+
+      <tr>
+      <td></td>
+      <td>
+
+          <input class="regButton" type="submit" value="Update" >
+
+      </tr>
+
+        </form>
+
+    </table>
+
+
+  </div>
+
+{% endblock content %}

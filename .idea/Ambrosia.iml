@@ -27,6 +27,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
+        <option value="$MODULE_DIR$" />
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/templates/LeafInventory_templates" />
         <option value="$MODULE_DIR$/templates/DailyProduction_templates" />
@@ -34,6 +35,7 @@
         <option value="$MODULE_DIR$/templates/common_templates" />
         <option value="$MODULE_DIR$/templates/TeaShopInventory_Templates" />
         <option value="$MODULE_DIR$/templates/TeaShopSales_Templates" />
+        <option value="$MODULE_DIR$/templates/Transport_templates" />
       </list>
     </option>
   </component>

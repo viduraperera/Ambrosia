@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from Ambrosia_Project.models import *
 from django.core.exceptions import ValidationError
 
 from Ambrosia_Project.models import *
+
 
 #----User---------------------------------------------------------------------
 
@@ -123,3 +125,30 @@ class priceTableForm(forms.ModelForm):
     class Meta:
         model = Price_Table
         fields ='__all__'
+
+
+#Transportation Nethmi W--------------------
+
+class AddVehicleForm(forms.ModelForm):
+    class Meta:
+        model = Vehicle
+        fields = '__all__'
+
+
+class AddDriverForm(forms.ModelForm):
+    class Meta:
+        model = Driver
+        fields = '__all__'
+
+
+class VehicleRecordsForm(forms.ModelForm):
+    class Meta:
+        model = Driving_Records
+        fields = '__all__'
+
+
+class RepairForm(forms.ModelForm):
+    class Meta:
+        model = Services
+        fields = '__all__'
+

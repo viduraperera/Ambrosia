@@ -1,0 +1,136 @@
+{% extends 'Transport_templates/transportationBase.html' %}
+
+<!-------------------------Title------------------------->
+{% block title %}Transportation Management{% endblock title %}
+
+<!-------------------------Styles------------------------->
+    {% block moreStyles %}
+
+
+    table
+    {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 80%;
+        ;
+    }
+
+
+    td
+    {
+      border: 1px solid #c5f1b8;
+      text-align: left;
+      font-size: 20px;
+      padding: 15px;
+    }
+
+    tr:nth-child(even)
+    {
+      background-color: #c5f1b8;
+    }
+
+
+
+.regButton {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 8px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    .regButton:hover {
+  background-color: #000000;
+  color: green;
+}
+.ClassActive {
+    background-color: #8db8e0;
+}
+
+.ClassActive1 {
+    background-color: #2292CF;
+    color: white;
+}
+    {% endblock moreStyles %}
+
+
+ {% block recordsBtn %}ClassActive{% endblock recordsBtn %}
+
+{% block pageContentHeader1 %}Transportation Management{% endblock pageContentHeader1 %}
+{% block pageContentHeader2 %}Vehicle Records{% endblock pageContentHeader2 %}
+
+
+     {% block RepairMenu %}{% endblock RepairMenu %}
+
+
+{% block vehicleRecordBtn %}ClassActive1{% endblock vehicleRecordBtn %}
+
+
+
+{% block content %}
+
+{% if messages %}
+       {% for message in messages %}
+          <script>alert("{{ message }}");</script>
+    {% endfor %}
+{% endif %}
+
+    <br><br>
+
+  <!--Add Vehicle Records Form-->
+  <div style="padding-left: 20px;">
+    <center>  <table style=" padding: 20px 20px 20px 20px; background-color: #c5f1b8 ; " >
+
+        <form action="{% url 'vehicle_records' %}" method="post">
+            {% csrf_token %}
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="date" style="font-size: 20px;">Date:</label></td>
+      <td>&emsp;{{ RecordForm.Date }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="sread" style="font-size: 20px;">Start Reading:</label></td>
+      <td>&emsp;{{ RecordForm.Start_Reading }}</td>
+      </tr>
+
+      <tr>
+      <td style="padding-bottom: 10px;"><label for="eread" style="font-size: 20px;">End Reading:</label></td>
+      <td>&emsp;{{ RecordForm.End_Reading }}</td>
+      </tr>
+
+       <tr>
+      <td style="padding-bottom: 10px;"><label for="eread" style="font-size: 20px;">Vehicle No:</label></td>
+      <td>&emsp;{{ RecordForm.VehicleNo }}</td>
+      </tr>
+
+
+
+      <tr>
+
+      <td></td>
+        <td>
+          <input class="regButton" type="submit" value="ADD" >
+        </td>
+      </tr>
+
+        </form>
+    </table>
+    </center>
+  </div>
+    <br>
+      {% if RecordForm.errors %}
+
+          <div class="errorDisplay" style="background-color: #faff8a; color:#de2028; padding: 5px; ">
+              <h3 style="font-weight: bold">{{ RecordForm.errors }}</h3>
+          </div>
+      {% endif %}
+
+    <br>
+
+
+
+{% endblock content %}
