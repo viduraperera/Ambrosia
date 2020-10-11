@@ -38,6 +38,4 @@ urlpatterns = [
     #search
     path('Analysis/Search', transportationViews.SearchRecords, name="searchRecords"),
 
-
-
 ]
